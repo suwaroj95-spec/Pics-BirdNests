@@ -1,0 +1,32 @@
+{
+  "pair_count": 15,
+  "processed_images": 15,
+  "skipped_images": 0,
+  "total_dirty_spots": 372,
+  "pass_images": 11,
+  "fail_images": 4,
+  "review_images": 0,
+  "images_with_manual_alignment_note": 2,
+  "minimum_component_area": 20,
+  "radius_rule": "clamp(enclosing_circle_radius, 16, 50)",
+  "automatic_merge_enabled": false,
+  "created_at": "2026-06-24T12:53:57",
+  "review_queue_images": [
+    "1",
+    "2",
+    "3",
+    "5",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15"
+  ],
+  "missing_originals": [],
+  "missing_marked": [],
+  "unsupported_extensions": []
+}

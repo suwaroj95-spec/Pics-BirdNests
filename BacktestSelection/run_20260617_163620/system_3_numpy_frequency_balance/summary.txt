@@ -1,0 +1,45 @@
+System 3 - NumPy frequency/variance balance
+
+Elapsed seconds: 0.727
+Selected clean images: 300 / 300
+Selected dirty pairs: 200 / 200 (400 files including masks)
+
+Clean selected averages:
+  count: 300.000000
+  mean_score: 0.735902
+  mean_foreground_ratio: 0.996686
+  mean_material_ratio: 0.950470
+  mean_material_center_ratio: 0.978072
+  mean_largest_flat_background_ratio: 0.020607
+  mean_estimated_background_ratio: 0.049530
+  mean_border_foreground_ratio: 0.992033
+  mean_center_foreground_ratio: 0.999542
+  mean_laplacian_variance: 439.115720
+  mean_edge_density: 0.150065
+  mean_entropy: 0.721573
+  mean_high_frequency_energy: 0.233355
+  mean_flat_ratio: 0.084918
+  mean_exposure_score: 0.989049
+
+Dirty selected averages:
+  count: 200.000000
+  mean_score: 0.891109
+  mean_foreground_ratio: 0.999332
+  mean_material_ratio: 0.973994
+  mean_material_center_ratio: 0.981683
+  mean_largest_flat_background_ratio: 0.005255
+  mean_estimated_background_ratio: 0.026006
+  mean_border_foreground_ratio: 0.998384
+  mean_center_foreground_ratio: 0.999825
+  mean_laplacian_variance: 525.224989
+  mean_edge_density: 0.163981
+  mean_entropy: 0.716458
+  mean_high_frequency_energy: 0.268921
+  mean_flat_ratio: 0.057206
+  mean_exposure_score: 0.989691
+
+Clean source distribution:
+{"1": 27, "2": 10, "3": 27, "4": 16, "5": 6, "6": 26, "7": 24, "8": 26, "9": 26, "10": 27, "11": 26, "12": 7, "14": 26, "15": 26}
+
+Dirty source distribution:
+{"1": 14, "2": 14, "3": 14, "4": 9, "5": 14, "6": 14, "7": 14, "8": 9, "9": 14, "10": 14, "11": 14, "12": 14, "13": 14, "14": 14, "15": 14}

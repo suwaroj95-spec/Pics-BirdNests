@@ -1,0 +1,16 @@
+{
+  "train_crop_count": 2767,
+  "validation_crop_count": 305,
+  "test_crop_count": 397,
+  "train_dirty_positive_count": 1232,
+  "train_clean_negative_count": 1535,
+  "validation_dirty_positive_count": 52,
+  "validation_clean_negative_count": 253,
+  "test_dirty_positive_count": 204,
+  "test_clean_negative_count": 193,
+  "marker_leakage_decision": "SAFE_TO_TRAIN",
+  "marker_like_count": 0,
+  "low_blue_signal_count": 8,
+  "selected_threshold": 0.35,
+  "threshold_selection_result": "precision>=0.80; selected highest recall, tie closest to 0.50"
+}

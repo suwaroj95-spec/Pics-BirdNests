@@ -1,0 +1,395 @@
+{
+  "created_at": "2026-06-17T23:15:21",
+  "backtest_run": "BacktestSelection\\run_20260617_231439",
+  "output_dir": "AnomalyDetection\\run_20260617_231517",
+  "elapsed_seconds": 3.9017587999996977,
+  "methods": [
+    "isolation_forest",
+    "lof",
+    "pca"
+  ],
+  "config": {
+    "contamination": 0.08,
+    "consensus_threshold": 0.85,
+    "min_votes": 2,
+    "isolation_trees": 96,
+    "isolation_subsample": 256,
+    "neighbor_k": 20,
+    "pca_components": 6,
+    "random_seed": 42,
+    "top_n": 24,
+    "make_previews": true,
+    "copy_anomalies": false
+  },
+  "outputs": {
+    "all_scores_csv": "AnomalyDetection\\run_20260617_231517\\all_anomaly_scores.csv",
+    "anomaly_review_csv": "AnomalyDetection\\run_20260617_231517\\anomaly_review.csv",
+    "kept_manifest_csv": "AnomalyDetection\\run_20260617_231517\\kept_manifest.csv",
+    "summary_json": "AnomalyDetection\\run_20260617_231517\\summary.json",
+    "summary_text": "AnomalyDetection\\run_20260617_231517\\summary.txt"
+  },
+  "total_rows": 1500,
+  "total_anomalies": 131,
+  "groups": [
+    {
+      "count": 300,
+      "feature_count": 30,
+      "feature_columns": [
+        "score",
+        "blue_marker_ratio",
+        "border_foreground_ratio",
+        "center_foreground_ratio",
+        "contrast",
+        "dirty_mark_center_score",
+        "dirty_mark_found",
+        "dirty_mark_margin_score",
+        "dirty_mark_ratio",
+        "edge_density",
+        "entropy",
+        "estimated_background_ratio",
+        "exposure_score",
+        "flat_ratio",
+        "foreground_ratio",
+        "high_frequency_energy",
+        "laplacian_variance",
+        "largest_component_area",
+        "largest_component_ratio",
+        "largest_flat_background_ratio",
+        "local_std_mean",
+        "material_border_ratio",
+        "material_center_ratio",
+        "material_largest_component_area",
+        "material_largest_component_ratio",
+        "material_ratio",
+        "mean_brightness",
+        "quality_gate_pass",
+        "read_ok",
+        "tenengrad"
+      ],
+      "anomaly_count": 24,
+      "contamination_target": 0.08,
+      "consensus_threshold": 0.85,
+      "min_votes": 2,
+      "methods": {
+        "isolation_forest": {
+          "mean_score": 0.4511954560280463,
+          "max_score": 0.6361026374040835,
+          "flagged": 24
+        },
+        "lof": {
+          "mean_score": 1.1602893363553863,
+          "max_score": 1.834010237016931,
+          "flagged": 24
+        },
+        "pca": {
+          "mean_score": 2.4745787997298886e-05,
+          "max_score": 0.00030704461449972505,
+          "flagged": 24
+        }
+      },
+      "system_key": "system_1_opencv_content_contour",
+      "label": "clean_negative",
+      "preview": "AnomalyDetection\\run_20260617_231517\\previews\\system_1_opencv_content_contour_clean_negative_top_anomalies.jpg"
+    },
+    {
+      "count": 200,
+      "feature_count": 30,
+      "feature_columns": [
+        "score",
+        "blue_marker_ratio",
+        "border_foreground_ratio",
+        "center_foreground_ratio",
+        "contrast",
+        "dirty_mark_center_score",
+        "dirty_mark_found",
+        "dirty_mark_margin_score",
+        "dirty_mark_ratio",
+        "edge_density",
+        "entropy",
+        "estimated_background_ratio",
+        "exposure_score",
+        "flat_ratio",
+        "foreground_ratio",
+        "high_frequency_energy",
+        "laplacian_variance",
+        "largest_component_area",
+        "largest_component_ratio",
+        "largest_flat_background_ratio",
+        "local_std_mean",
+        "material_border_ratio",
+        "material_center_ratio",
+        "material_largest_component_area",
+        "material_largest_component_ratio",
+        "material_ratio",
+        "mean_brightness",
+        "quality_gate_pass",
+        "read_ok",
+        "tenengrad"
+      ],
+      "anomaly_count": 18,
+      "contamination_target": 0.08,
+      "consensus_threshold": 0.85,
+      "min_votes": 2,
+      "methods": {
+        "isolation_forest": {
+          "mean_score": 0.441404720579939,
+          "max_score": 0.5867672179729311,
+          "flagged": 16
+        },
+        "lof": {
+          "mean_score": 1.1231464875717416,
+          "max_score": 3.0545007589639397,
+          "flagged": 16
+        },
+        "pca": {
+          "mean_score": 9.798901357234092e-05,
+          "max_score": 0.0012842392943973153,
+          "flagged": 16
+        }
+      },
+      "system_key": "system_1_opencv_content_contour",
+      "label": "dirty_positive",
+      "preview": "AnomalyDetection\\run_20260617_231517\\previews\\system_1_opencv_content_contour_dirty_positive_top_anomalies.jpg"
+    },
+    {
+      "count": 300,
+      "feature_count": 30,
+      "feature_columns": [
+        "score",
+        "blue_marker_ratio",
+        "border_foreground_ratio",
+        "center_foreground_ratio",
+        "contrast",
+        "dirty_mark_center_score",
+        "dirty_mark_found",
+        "dirty_mark_margin_score",
+        "dirty_mark_ratio",
+        "edge_density",
+        "entropy",
+        "estimated_background_ratio",
+        "exposure_score",
+        "flat_ratio",
+        "foreground_ratio",
+        "high_frequency_energy",
+        "laplacian_variance",
+        "largest_component_area",
+        "largest_component_ratio",
+        "largest_flat_background_ratio",
+        "local_std_mean",
+        "material_border_ratio",
+        "material_center_ratio",
+        "material_largest_component_area",
+        "material_largest_component_ratio",
+        "material_ratio",
+        "mean_brightness",
+        "quality_gate_pass",
+        "read_ok",
+        "tenengrad"
+      ],
+      "anomaly_count": 26,
+      "contamination_target": 0.08,
+      "consensus_threshold": 0.85,
+      "min_votes": 2,
+      "methods": {
+        "isolation_forest": {
+          "mean_score": 0.44642193621617254,
+          "max_score": 0.6436678368033941,
+          "flagged": 24
+        },
+        "lof": {
+          "mean_score": 1.1466308100610547,
+          "max_score": 1.717851510027942,
+          "flagged": 24
+        },
+        "pca": {
+          "mean_score": 2.694129463807608e-05,
+          "max_score": 0.00039357502726617213,
+          "flagged": 24
+        }
+      },
+      "system_key": "system_2_edge_texture_sharpness",
+      "label": "clean_negative",
+      "preview": "AnomalyDetection\\run_20260617_231517\\previews\\system_2_edge_texture_sharpness_clean_negative_top_anomalies.jpg"
+    },
+    {
+      "count": 200,
+      "feature_count": 30,
+      "feature_columns": [
+        "score",
+        "blue_marker_ratio",
+        "border_foreground_ratio",
+        "center_foreground_ratio",
+        "contrast",
+        "dirty_mark_center_score",
+        "dirty_mark_found",
+        "dirty_mark_margin_score",
+        "dirty_mark_ratio",
+        "edge_density",
+        "entropy",
+        "estimated_background_ratio",
+        "exposure_score",
+        "flat_ratio",
+        "foreground_ratio",
+        "high_frequency_energy",
+        "laplacian_variance",
+        "largest_component_area",
+        "largest_component_ratio",
+        "largest_flat_background_ratio",
+        "local_std_mean",
+        "material_border_ratio",
+        "material_center_ratio",
+        "material_largest_component_area",
+        "material_largest_component_ratio",
+        "material_ratio",
+        "mean_brightness",
+        "quality_gate_pass",
+        "read_ok",
+        "tenengrad"
+      ],
+      "anomaly_count": 20,
+      "contamination_target": 0.08,
+      "consensus_threshold": 0.85,
+      "min_votes": 2,
+      "methods": {
+        "isolation_forest": {
+          "mean_score": 0.4419018090080627,
+          "max_score": 0.659875605824718,
+          "flagged": 16
+        },
+        "lof": {
+          "mean_score": 1.1706630733229424,
+          "max_score": 2.618981233205788,
+          "flagged": 16
+        },
+        "pca": {
+          "mean_score": 0.00011276401755860543,
+          "max_score": 0.0011240176198527014,
+          "flagged": 16
+        }
+      },
+      "system_key": "system_2_edge_texture_sharpness",
+      "label": "dirty_positive",
+      "preview": "AnomalyDetection\\run_20260617_231517\\previews\\system_2_edge_texture_sharpness_dirty_positive_top_anomalies.jpg"
+    },
+    {
+      "count": 300,
+      "feature_count": 30,
+      "feature_columns": [
+        "score",
+        "blue_marker_ratio",
+        "border_foreground_ratio",
+        "center_foreground_ratio",
+        "contrast",
+        "dirty_mark_center_score",
+        "dirty_mark_found",
+        "dirty_mark_margin_score",
+        "dirty_mark_ratio",
+        "edge_density",
+        "entropy",
+        "estimated_background_ratio",
+        "exposure_score",
+        "flat_ratio",
+        "foreground_ratio",
+        "high_frequency_energy",
+        "laplacian_variance",
+        "largest_component_area",
+        "largest_component_ratio",
+        "largest_flat_background_ratio",
+        "local_std_mean",
+        "material_border_ratio",
+        "material_center_ratio",
+        "material_largest_component_area",
+        "material_largest_component_ratio",
+        "material_ratio",
+        "mean_brightness",
+        "quality_gate_pass",
+        "read_ok",
+        "tenengrad"
+      ],
+      "anomaly_count": 27,
+      "contamination_target": 0.08,
+      "consensus_threshold": 0.85,
+      "min_votes": 2,
+      "methods": {
+        "isolation_forest": {
+          "mean_score": 0.44668999768138157,
+          "max_score": 0.6895079026904387,
+          "flagged": 24
+        },
+        "lof": {
+          "mean_score": 1.1478644157079243,
+          "max_score": 1.775313661689064,
+          "flagged": 24
+        },
+        "pca": {
+          "mean_score": 2.7017812358054288e-05,
+          "max_score": 0.0006647587181417055,
+          "flagged": 24
+        }
+      },
+      "system_key": "system_3_numpy_frequency_balance",
+      "label": "clean_negative",
+      "preview": "AnomalyDetection\\run_20260617_231517\\previews\\system_3_numpy_frequency_balance_clean_negative_top_anomalies.jpg"
+    },
+    {
+      "count": 200,
+      "feature_count": 30,
+      "feature_columns": [
+        "score",
+        "blue_marker_ratio",
+        "border_foreground_ratio",
+        "center_foreground_ratio",
+        "contrast",
+        "dirty_mark_center_score",
+        "dirty_mark_found",
+        "dirty_mark_margin_score",
+        "dirty_mark_ratio",
+        "edge_density",
+        "entropy",
+        "estimated_background_ratio",
+        "exposure_score",
+        "flat_ratio",
+        "foreground_ratio",
+        "high_frequency_energy",
+        "laplacian_variance",
+        "largest_component_area",
+        "largest_component_ratio",
+        "largest_flat_background_ratio",
+        "local_std_mean",
+        "material_border_ratio",
+        "material_center_ratio",
+        "material_largest_component_area",
+        "material_largest_component_ratio",
+        "material_ratio",
+        "mean_brightness",
+        "quality_gate_pass",
+        "read_ok",
+        "tenengrad"
+      ],
+      "anomaly_count": 16,
+      "contamination_target": 0.08,
+      "consensus_threshold": 0.85,
+      "min_votes": 2,
+      "methods": {
+        "isolation_forest": {
+          "mean_score": 0.44923421339937525,
+          "max_score": 0.6674144933571374,
+          "flagged": 16
+        },
+        "lof": {
+          "mean_score": 1.1033145725718752,
+          "max_score": 1.98076662166267,
+          "flagged": 16
+        },
+        "pca": {
+          "mean_score": 9.975758845551033e-05,
+          "max_score": 0.0007370847870975589,
+          "flagged": 16
+        }
+      },
+      "system_key": "system_3_numpy_frequency_balance",
+      "label": "dirty_positive",
+      "preview": "AnomalyDetection\\run_20260617_231517\\previews\\system_3_numpy_frequency_balance_dirty_positive_top_anomalies.jpg"
+    }
+  ]
+}

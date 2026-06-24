@@ -1,0 +1,16 @@
+image_id,source_image,marked_image,dirty_spot_count,cleanliness_score,pass_fail_status,alignment_status,alignment_confidence,estimated_x_offset,estimated_y_offset,min_marker_area,median_marker_area,max_marker_area,min_equivalent_radius,median_equivalent_radius,max_equivalent_radius,min_nearest_neighbor_distance,median_nearest_neighbor_distance,notes
+1,1.jpg,1m.jpg,26,80,PASS,FAIL,0.016675,-13.315,90.3592,327.0,704.5,1432.0,10.2023,14.9749,21.3499,58.1363,86.7681,blue_marker_preliminary_label
+2,2.jpg,2m.jpg,41,70,FAIL,FAIL,0.099844,14.0465,-12.9815,320.0,559.0,1635.0,10.0925,13.3392,22.8131,43.6213,76.9081,blue_marker_preliminary_label
+3,3.jpg,3m.jpg,33,70,FAIL,PASS,0.487527,0.5001,0.0108,384.0,637.0,1407.0,11.0558,14.2395,21.1628,40.2526,75.5915,blue_marker_preliminary_label
+4,4.jpg,4m.jpg,21,80,PASS,PASS,0.570272,0.4933,-0.0014,433.0,715.0,926.0,11.74,15.0861,17.1684,40.268,106.2477,blue_marker_preliminary_label
+5,5.jpg,5m.jpg,25,80,PASS,PASS,0.467026,0.4916,0.0097,370.0,591.0,2087.0,10.8524,13.7157,25.7743,41.1973,74.076,blue_marker_preliminary_label
+6,6.jpg,6m.jpg,17,90,PASS,PASS,0.53944,0.4843,0.0007,572.0,730.0,1040.0,13.4935,15.2436,18.1946,54.445,90.8116,blue_marker_preliminary_label
+7,7.jpg,7m.jpg,27,80,PASS,PASS,0.417022,0.5126,0.0148,749.0,1111.0,3052.0,15.4407,18.8054,31.1686,68.9102,115.7038,blue_marker_preliminary_label
+8,8.jpg,8m.jpg,20,90,PASS,PASS,0.489411,0.5,-0.008,817.0,1356.0,4028.0,16.1264,20.774,35.8072,81.744,126.6666,blue_marker_preliminary_label
+9,9.jpg,9m.jpg,13,90,PASS,PASS,0.503161,0.5015,-0.0125,548.0,995.0,2257.0,13.2073,17.7966,26.8035,81.63,151.8734,blue_marker_preliminary_label
+10,10.jpg,10m.jpg,20,90,PASS,PASS,0.52433,0.4927,0.0029,750.0,1254.0,2658.0,15.451,19.9789,29.0872,81.1103,120.2101,blue_marker_preliminary_label
+11,11.jpg,11m.jpg,31,70,FAIL,PASS,0.3469,0.4945,-0.0263,588.0,1047.0,1865.0,13.6809,18.2557,24.3649,58.7228,99.6502,blue_marker_preliminary_label
+12,12.jpg,12m.jpg,39,70,FAIL,PASS,0.289733,0.5298,0.0163,531.0,1004.0,3694.0,13.0009,17.8769,34.2905,50.7291,98.124,blue_marker_preliminary_label
+13,13.jpg,13m.jpg,20,90,PASS,PASS,0.430685,0.4837,0.004,558.0,1182.0,1569.0,13.3273,19.397,22.3479,57.5517,120.1124,blue_marker_preliminary_label
+14,14.jpg,14m.jpg,15,90,PASS,PASS,0.426001,0.4813,0.0091,649.0,975.0,2331.0,14.373,17.6168,27.2393,117.0815,122.2779,blue_marker_preliminary_label
+15,15.jpg,15m.jpg,24,80,PASS,PASS,0.413844,0.4906,0.0042,719.0,1155.5,2575.0,15.1283,19.1778,28.6295,81.0395,126.3111,blue_marker_preliminary_label

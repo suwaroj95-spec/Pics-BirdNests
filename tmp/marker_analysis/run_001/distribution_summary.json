@@ -1,0 +1,106 @@
+{
+  "pair_count": 15,
+  "missing_originals": [],
+  "missing_marked": [],
+  "duplicates": [],
+  "unsupported_extensions": [],
+  "marker_detection_constants": {
+    "source": "crop_clean_patches.py",
+    "hsv_lower": [
+      90,
+      50,
+      50
+    ],
+    "hsv_upper": [
+      140,
+      255,
+      255
+    ],
+    "morphology": "MORPH_CLOSE with 5x5 elliptical kernel via detect_blue_mask",
+    "min_blue_component_area": 20
+  },
+  "alignment_status_counts": {
+    "PASS": 13,
+    "WARNING": 0,
+    "FAIL": 2
+  },
+  "alignment_confidence_mean": 0.401458,
+  "marker_area": {
+    "count": 372,
+    "min": 320.0,
+    "p05": 474.55,
+    "p25": 649.0,
+    "median": 848.0,
+    "p75": 1199.75,
+    "p95": 1804.8,
+    "max": 4028.0
+  },
+  "equivalent_radius": {
+    "count": 372,
+    "min": 10.0925,
+    "p05": 12.2904,
+    "p25": 14.373,
+    "median": 16.4294,
+    "p75": 19.5421,
+    "p95": 23.968,
+    "max": 35.8072
+  },
+  "enclosing_radius": {
+    "count": 372,
+    "min": 14.5389,
+    "p05": 20.3312,
+    "p25": 27.4114,
+    "median": 35.7824,
+    "p75": 49.0563,
+    "p95": 70.6373,
+    "max": 156.6047
+  },
+  "nearest_neighbor_distance": {
+    "count": 372,
+    "min": 40.2526,
+    "p05": 50.7291,
+    "p25": 78.4527,
+    "median": 102.6981,
+    "p75": 139.3146,
+    "p95": 249.0313,
+    "max": 479.6921
+  },
+  "spot_count_per_image": {
+    "count": 15,
+    "min": 13.0,
+    "p05": 14.4,
+    "p25": 20.0,
+    "median": 24.0,
+    "p75": 29.0,
+    "p95": 39.6,
+    "max": 41.0
+  },
+  "pass_fail_counts": {
+    "PASS": 11,
+    "FAIL": 4,
+    "REVIEW": 0
+  },
+  "outlier_images": {
+    "high_spot_count_images": [
+      "2"
+    ],
+    "large_marker_images": [
+      "10",
+      "11",
+      "12",
+      "14",
+      "15",
+      "5",
+      "7",
+      "8",
+      "9"
+    ],
+    "close_marker_images": [
+      "12",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  }
+}

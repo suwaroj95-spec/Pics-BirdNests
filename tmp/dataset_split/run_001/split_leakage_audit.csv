@@ -1,0 +1,16 @@
+image_id,label_rows,assigned_split,distinct_split_count,leakage_detected,validation_result,notes
+1,26,train,1,false,pass,all labels for image_id assigned to one split
+2,41,train,1,false,pass,all labels for image_id assigned to one split
+3,33,train,1,false,pass,all labels for image_id assigned to one split
+4,21,train,1,false,pass,all labels for image_id assigned to one split
+5,25,train,1,false,pass,all labels for image_id assigned to one split
+6,17,train,1,false,pass,all labels for image_id assigned to one split
+7,27,train,1,false,pass,all labels for image_id assigned to one split
+8,20,train,1,false,pass,all labels for image_id assigned to one split
+9,13,validation,1,false,pass,all labels for image_id assigned to one split
+10,20,train,1,false,pass,all labels for image_id assigned to one split
+11,31,test,1,false,pass,all labels for image_id assigned to one split
+12,39,train,1,false,pass,all labels for image_id assigned to one split
+13,20,test,1,false,pass,all labels for image_id assigned to one split
+14,15,train,1,false,pass,all labels for image_id assigned to one split
+15,24,train,1,false,pass,all labels for image_id assigned to one split

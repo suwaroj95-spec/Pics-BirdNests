@@ -1,0 +1,11 @@
+dataset_split,crop_category,pass_fail_status,source_image_count,crop_count
+test,clean_negative,FAIL,1,66
+test,clean_negative,PASS,1,127
+test,dirty_positive,FAIL,1,124
+test,dirty_positive,PASS,1,80
+train,clean_negative,FAIL,3,228
+train,clean_negative,PASS,9,1307
+train,dirty_positive,FAIL,3,452
+train,dirty_positive,PASS,9,780
+validation,clean_negative,PASS,1,253
+validation,dirty_positive,PASS,1,52

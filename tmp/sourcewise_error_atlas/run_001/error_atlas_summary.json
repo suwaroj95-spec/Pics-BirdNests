@@ -1,0 +1,52 @@
+{
+  "source_image_count": 15,
+  "prediction_count": 3469,
+  "false_positive_count": 611,
+  "false_negative_count": 256,
+  "true_positive_count": 1232,
+  "true_negative_count": 1370,
+  "top_business_risk_sources": [
+    "9",
+    "6",
+    "1",
+    "4",
+    "8"
+  ],
+  "top_under_detection_sources": [
+    "9",
+    "14",
+    "5",
+    "7",
+    "8"
+  ],
+  "top_over_flagging_sources": [
+    "4",
+    "15",
+    "1",
+    "6",
+    "11"
+  ],
+  "contact_sheet_source_count": 10,
+  "contact_sheet_error_example_count": 215,
+  "marker_leakage_decision": "SAFE_TO_TRAIN",
+  "marker_like_count": 0,
+  "final_diagnosis": "MIXED_OR_INCONCLUSIVE",
+  "input_file_hashes": {
+    "fold_assignments": "481950e3778b988a7c951737d41e9ab9a6e1ffb4c7dc36b7958e4c0988372935",
+    "fold_threshold_selection": "fbac906407689fd15e70db0d3ecc6c8c83ed872c9845e09ad5a5886808115e33",
+    "sourcewise_metrics": "7616c60ab27c8cf5385df53c30eee9a0d995111fe6865f21f5aeaf2f581ff68f",
+    "sourcewise_predictions": "d2b4e24eca2c7c1ddf06df55cbda798b56bc5b2a620f12989f3cc86935fed273",
+    "sourcewise_summary": "95a0856b81547bf401db771a970f7a842c1c9b2bb1b856094326b7c1bca69985",
+    "crop_lineage_manifest": "297fab8759a47dff64ec475c1a2234b4023717003549ec7af766dffe83829d22",
+    "marker_leakage_summary": "83a67fe0d5d5401b87647e9c3b46300b7c3010207820edf1d6ac449bf3d6f8db"
+  },
+  "output_hash_scope": "primary_csv_artifacts_only",
+  "output_file_hashes": {
+    "source_error_profile.csv": "8aa0156a7f4468b39e2334ff6bad3b4d915b28de5d98ebd3353212891492633b",
+    "source_priority_ranking.csv": "e44bfbccce5ba7b972bca7779f50d1d0211545eee5ccc7d743fbed7f73c960b1",
+    "error_atlas_manifest.csv": "cfaf8338275d261ae5db23615d74acb415861c57a54b4bdf09756c8fee9e91fb",
+    "error_group_statistics.csv": "9554db65040e5afcae1db2833a744fea37ece6adfc83ffeb9cf5f2663c77feb9",
+    "selected_error_examples.csv": "3888188f5b9f95258ba9c8a802783e49838c81b457e0925aca59611cc7dcd7c6"
+  },
+  "created_at": "2026-06-24T21:16:28"
+}

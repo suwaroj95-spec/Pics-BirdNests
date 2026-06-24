@@ -1,0 +1,16 @@
+image_id,business_risk_score,overall_business_risk_rank,under_detection_rank,over_flagging_rank,false_negative_rate,false_positive_rate,f1_dirty_positive,priority_reason
+9,0.42169415,1,1,12,0.61538462,0.00395257,0.54794521,top overall business risk; top under-detection
+6,0.35183526,2,9,4,0.13235294,0.59130435,0.44866920,top overall business risk; top over-flagging
+1,0.34787099,3,6,3,0.22115385,0.59459459,0.64541833,top overall business risk; top over-flagging
+4,0.33645597,4,11,1,0.05952381,0.70995671,0.48318043,top overall business risk; top over-flagging
+8,0.30857219,5,5,7,0.25000000,0.37600000,0.64171123,top overall business risk; top under-detection
+14,0.30103059,6,2,11,0.45000000,0.00625000,0.70212766,top under-detection
+5,0.29051282,7,3,13,0.44000000,0.00000000,0.71794872,top under-detection
+15,0.23858762,8,14,2,0.02083333,0.64705882,0.73437500,top over-flagging
+7,0.19785975,9,4,14,0.30555556,0.00000000,0.81967213,top under-detection
+11,0.19781281,10,13,5,0.04032258,0.56060606,0.85000000,top over-flagging
+10,0.16930590,11,10,9,0.12500000,0.21374046,0.78651685,lower priority
+3,0.12987013,12,12,8,0.04545455,0.28571429,0.85714286,lower priority
+12,0.12965977,13,15,6,0.00641026,0.43396226,0.92814371,lower priority
+2,0.10869919,14,7,15,0.17073171,0.00000000,0.90666667,lower priority
+13,0.10798038,15,8,10,0.13750000,0.04724409,0.89032258,lower priority

@@ -1,0 +1,89 @@
+{
+  "seed": 20260624,
+  "source_image_count": 15,
+  "fold_count": 15,
+  "feature_schema_match_status": "imported from tools/run_crop_baseline_experiment.py; feature_count=53",
+  "marker_leakage_decision": "SAFE_TO_TRAIN",
+  "marker_like_count": 0,
+  "threshold_selection_policy": "inner validation source only; precision>=0.80 then max recall, tie closest to 0.50; fallback max F1",
+  "sourcewise_metric_distribution": {
+    "accuracy": {
+      "median": 0.81990521,
+      "mean": 0.7598490266666668,
+      "minimum": 0.46349206,
+      "maximum": 0.9178744,
+      "p25": 0.664868195,
+      "p75": 0.870635935
+    },
+    "precision_dirty_positive": {
+      "median": 0.77777778,
+      "mean": 0.7530383173333334,
+      "minimum": 0.3025641,
+      "maximum": 1.0,
+      "p25": 0.57412383,
+      "p75": 0.9614845949999999
+    },
+    "recall_dirty_positive": {
+      "median": 0.8625,
+      "mean": 0.7986517860000001,
+      "minimum": 0.38461538,
+      "maximum": 0.99358974,
+      "p25": 0.72222222,
+      "p75": 0.94751082
+    },
+    "f1_dirty_positive": {
+      "median": 0.734375,
+      "mean": 0.7306560386666666,
+      "minimum": 0.4486692,
+      "maximum": 0.92814371,
+      "p25": 0.64356478,
+      "p75": 0.8535714299999999
+    },
+    "false_negative_dirty_count": {
+      "median": 11.0,
+      "mean": 17.066666666666666,
+      "minimum": 1.0,
+      "maximum": 44.0,
+      "p25": 5.5,
+      "p75": 27.5
+    },
+    "false_positive_dirty_count": {
+      "median": 28.0,
+      "mean": 40.733333333333334,
+      "minimum": 0.0,
+      "maximum": 164.0,
+      "p25": 1.0,
+      "p75": 56.5
+    }
+  },
+  "folds_with_precision_rule_fallback": [
+    "3",
+    "7",
+    "15"
+  ],
+  "mean_selected_threshold": 0.45666666666666667,
+  "median_selected_threshold": 0.45,
+  "min_selected_threshold": 0.15,
+  "max_selected_threshold": 0.85,
+  "final_decision": "BASELINE_UNSTABLE",
+  "dependency_versions": {
+    "python": "3.13.2",
+    "numpy": "2.5.0",
+    "opencv": "4.13.0",
+    "scikit_learn": "1.9.0"
+  },
+  "input_file_hashes": {
+    "crop_lineage_manifest": "297fab8759a47dff64ec475c1a2234b4023717003549ec7af766dffe83829d22",
+    "marker_leakage_summary": "83a67fe0d5d5401b87647e9c3b46300b7c3010207820edf1d6ac449bf3d6f8db",
+    "crop_marker_leakage_manifest": "4b26f6c0f9f839409e54204171835d79b55b98148a673a3bfc884131a640fb0b",
+    "baseline_feature_source": "6e1642958e2bb86ed793d58c717e758eb5fb289ad343c6b9f80d09e4cab51f78"
+  },
+  "output_hash_scope": "primary_csv_artifacts_only",
+  "output_file_hashes": {
+    "fold_assignments.csv": "481950e3778b988a7c951737d41e9ab9a6e1ffb4c7dc36b7958e4c0988372935",
+    "fold_threshold_selection.csv": "fbac906407689fd15e70db0d3ecc6c8c83ed872c9845e09ad5a5886808115e33",
+    "sourcewise_metrics.csv": "7616c60ab27c8cf5385df53c30eee9a0d995111fe6865f21f5aeaf2f581ff68f",
+    "sourcewise_predictions.csv": "d2b4e24eca2c7c1ddf06df55cbda798b56bc5b2a620f12989f3cc86935fed273"
+  },
+  "created_at": "2026-06-24T21:02:48"
+}

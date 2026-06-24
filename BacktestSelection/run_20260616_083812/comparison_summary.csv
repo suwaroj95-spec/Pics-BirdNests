@@ -1,0 +1,4 @@
+system_key,elapsed_seconds,selected_clean,selected_dirty_pairs,selected_dirty_files,clean_mean_score,dirty_mean_score,clean_mean_foreground_ratio,dirty_mean_foreground_ratio,clean_mean_laplacian_variance,dirty_mean_laplacian_variance,clean_mean_flat_ratio,dirty_mean_flat_ratio
+system_1_opencv_content_contour,0.775272,300,200,400,0.87489437,1.08575552,0.99681198,0.99970146,413.94435224,468.22986564,0.08278320,0.05447304
+system_2_edge_texture_sharpness,1.005923,300,200,400,0.71692338,0.90697381,0.99741160,0.99943802,449.28629336,545.56101894,0.08443283,0.05679550
+system_3_numpy_frequency_balance,0.801040,300,200,400,0.73590349,0.89110812,0.99668620,0.99933235,439.11571986,525.23527929,0.08491770,0.05691803

@@ -1,0 +1,45 @@
+System 1 - OpenCV HSV/Contour content filter
+
+Elapsed seconds: 0.648
+Selected clean images: 300 / 300
+Selected dirty pairs: 200 / 200 (400 files including masks)
+
+Clean selected averages:
+  count: 300.000000
+  mean_score: 0.874891
+  mean_foreground_ratio: 0.996812
+  mean_material_ratio: 0.953456
+  mean_material_center_ratio: 0.978783
+  mean_largest_flat_background_ratio: 0.018240
+  mean_estimated_background_ratio: 0.046544
+  mean_border_foreground_ratio: 0.991945
+  mean_center_foreground_ratio: 0.999682
+  mean_laplacian_variance: 413.944352
+  mean_edge_density: 0.146914
+  mean_entropy: 0.726406
+  mean_high_frequency_energy: 0.218315
+  mean_flat_ratio: 0.082783
+  mean_exposure_score: 0.990101
+
+Dirty selected averages:
+  count: 200.000000
+  mean_score: 1.085757
+  mean_foreground_ratio: 0.999701
+  mean_material_ratio: 0.978950
+  mean_material_center_ratio: 0.985026
+  mean_largest_flat_background_ratio: 0.003000
+  mean_estimated_background_ratio: 0.021050
+  mean_border_foreground_ratio: 0.999199
+  mean_center_foreground_ratio: 0.999897
+  mean_laplacian_variance: 468.229866
+  mean_edge_density: 0.154581
+  mean_entropy: 0.718541
+  mean_high_frequency_energy: 0.243502
+  mean_flat_ratio: 0.054473
+  mean_exposure_score: 0.990854
+
+Clean source distribution:
+{"1": 27, "2": 10, "3": 27, "4": 16, "5": 6, "6": 26, "7": 24, "8": 26, "9": 26, "10": 26, "11": 26, "12": 7, "14": 27, "15": 26}
+
+Dirty source distribution:
+{"1": 14, "2": 14, "3": 14, "4": 14, "5": 14, "6": 13, "7": 14, "8": 5, "9": 14, "10": 14, "11": 14, "12": 14, "13": 14, "14": 14, "15": 14}

@@ -1,0 +1,45 @@
+System 2 - Edge/texture sharpness filter
+
+Elapsed seconds: 0.758
+Selected clean images: 300 / 300
+Selected dirty pairs: 200 / 200 (400 files including masks)
+
+Clean selected averages:
+  count: 300.000000
+  mean_score: 0.716922
+  mean_foreground_ratio: 0.997412
+  mean_material_ratio: 0.948886
+  mean_material_center_ratio: 0.979776
+  mean_largest_flat_background_ratio: 0.022767
+  mean_estimated_background_ratio: 0.051114
+  mean_border_foreground_ratio: 0.993331
+  mean_center_foreground_ratio: 0.999624
+  mean_laplacian_variance: 449.286293
+  mean_edge_density: 0.153838
+  mean_entropy: 0.727889
+  mean_high_frequency_energy: 0.225452
+  mean_flat_ratio: 0.084433
+  mean_exposure_score: 0.988059
+
+Dirty selected averages:
+  count: 200.000000
+  mean_score: 0.906974
+  mean_foreground_ratio: 0.999438
+  mean_material_ratio: 0.969842
+  mean_material_center_ratio: 0.980740
+  mean_largest_flat_background_ratio: 0.009002
+  mean_estimated_background_ratio: 0.030158
+  mean_border_foreground_ratio: 0.998611
+  mean_center_foreground_ratio: 0.999835
+  mean_laplacian_variance: 545.561019
+  mean_edge_density: 0.173391
+  mean_entropy: 0.736157
+  mean_high_frequency_energy: 0.242763
+  mean_flat_ratio: 0.056796
+  mean_exposure_score: 0.986903
+
+Clean source distribution:
+{"1": 26, "2": 10, "3": 27, "4": 16, "5": 6, "6": 27, "7": 24, "8": 26, "9": 26, "10": 27, "11": 26, "12": 7, "14": 26, "15": 26}
+
+Dirty source distribution:
+{"1": 14, "2": 14, "3": 14, "4": 10, "5": 14, "6": 14, "7": 14, "8": 8, "9": 14, "10": 14, "11": 14, "12": 14, "13": 14, "14": 14, "15": 14}

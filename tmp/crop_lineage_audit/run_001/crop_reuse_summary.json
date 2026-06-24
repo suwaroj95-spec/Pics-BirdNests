@@ -1,0 +1,32 @@
+{
+  "crop_metadata_rows": 3469,
+  "resolved_crop_rows": 3469,
+  "unresolved_crop_rows": 0,
+  "train_crop_count": 2767,
+  "validation_crop_count": 305,
+  "test_crop_count": 397,
+  "dirty_positive_count": 1488,
+  "clean_negative_count": 1981,
+  "exact_dirty_positive_traceability_count": 1488,
+  "source_level_dirty_positive_traceability_count": 0,
+  "untraceable_dirty_positive_count": 0,
+  "leakage_detected": false,
+  "reuse_decision": "REUSE_AS_IS",
+  "duplicate_crop_path_count": 0,
+  "input_file_hashes": {
+    "crop_metadata": "f91dd2f097271cd8e1da6ecaf1b4cf8cdb52f8efdf8175b6a4b734fa5884871d",
+    "source_split": "94b8a3a643eb69370e01be38c1d44556535570949eeb5b32b9395561f46cea14",
+    "final_with_split": "f0404a94f9446056328e07d47ebcf5164af59495b2a2190b261b8df44e76a19e",
+    "split_summary": "5eaa0af00dc5cb9ef4afdf32419341e741d39e2c1184c42f0231027247f5f391",
+    "final_manifest": "7c27812305b5d9e3776515495e69ba351529076b1d1c49a9d470b0765361eb00",
+    "final_image_summary": "61eb8e33b9ec1257f2d4dbb96a69869bdb7159b6bf1827c649ca643e44cd95e2"
+  },
+  "output_file_hashes": {
+    "crop_lineage_manifest.csv": "297fab8759a47dff64ec475c1a2234b4023717003549ec7af766dffe83829d22",
+    "crop_split_summary.csv": "0f390d55d346565c2cdb05c18aa9ca6829303a2189e4ca60aac670d9a12364f9",
+    "crop_leakage_audit.csv": "a1ace935123f54d62ceb871876a7de1d91d4d1110d9ebbef097e0d4fc00d8020",
+    "dirty_positive_traceability_audit.csv": "bf4b7ae0b49acfbb8cb6a18df6fa1a97e16d5846b66b77063d3a1e1a797d8f7d",
+    "crop_reuse_summary.json": "fc77ffd8bae7beb2e5fca42b1ea583f5d038f21fa9e023bfd3c63b79f3f2ef37"
+  },
+  "created_at": "2026-06-24T14:31:36"
+}

@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-06-16T08:39:04",
+  "crops_dir": "Crops",
+  "run_dir": "BacktestSelection\\run_20260616_083812",
+  "targets": {
+    "clean_negative": 300,
+    "dirty_pairs": 200,
+    "dirty_files_including_masks": 400
+  },
+  "candidate_counts": {
+    "clean_negative": 1981,
+    "dirty_positive": 1488
+  },
+  "timing_seconds": {
+    "load_metadata": 0.18726430000003802,
+    "analyze_candidates": 49.94356300000004,
+    "total": 52.8415296
+  },
+  "warnings": [],
+  "warning_count": 0,
+  "systems": [
+    "system_1_opencv_content_contour",
+    "system_2_edge_texture_sharpness",
+    "system_3_numpy_frequency_balance"
+  ]
+}

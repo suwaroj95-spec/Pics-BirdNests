@@ -1,0 +1,16 @@
+image_id,source_image,marked_image,dirty_spot_count,quality_score,pass_fail_status,manually_verified_alignment,alignment_note,preview_path,review_status,notes
+1,1.jpg,1m.jpg,26,80,PASS,true,non-identical frame; visually verified marker-to-defect correspondence,previews/1_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+2,2.jpg,2m.jpg,41,70,FAIL,true,non-identical frame; visually verified marker-to-defect correspondence,previews/2_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+3,3.jpg,3m.jpg,33,70,FAIL,true,visually verified marker-to-defect correspondence,previews/3_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+4,4.jpg,4m.jpg,21,80,PASS,true,visually verified marker-to-defect correspondence,previews/4_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+5,5.jpg,5m.jpg,25,80,PASS,true,visually verified marker-to-defect correspondence,previews/5_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+6,6.jpg,6m.jpg,17,90,PASS,true,visually verified marker-to-defect correspondence,previews/6_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+7,7.jpg,7m.jpg,27,80,PASS,true,visually verified marker-to-defect correspondence,previews/7_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+8,8.jpg,8m.jpg,20,90,PASS,true,visually verified marker-to-defect correspondence,previews/8_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+9,9.jpg,9m.jpg,13,90,PASS,true,visually verified marker-to-defect correspondence,previews/9_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+10,10.jpg,10m.jpg,20,90,PASS,true,visually verified marker-to-defect correspondence,previews/10_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+11,11.jpg,11m.jpg,31,70,FAIL,true,visually verified marker-to-defect correspondence,previews/11_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+12,12.jpg,12m.jpg,39,70,FAIL,true,visually verified marker-to-defect correspondence,previews/12_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+13,13.jpg,13m.jpg,20,90,PASS,true,visually verified marker-to-defect correspondence,previews/13_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+14,14.jpg,14m.jpg,15,90,PASS,true,visually verified marker-to-defect correspondence,previews/14_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers
+15,15.jpg,15m.jpg,24,80,PASS,true,visually verified marker-to-defect correspondence,previews/15_ground_truth_preview.jpg,pending_preview_confirmation,preliminary ground-truth labels from blue markers

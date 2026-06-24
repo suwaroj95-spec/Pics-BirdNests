@@ -1,0 +1,49 @@
+Anomaly Detection Summary
+
+Created at: 2026-06-17T23:15:21
+Backtest run: BacktestSelection\run_20260617_231439
+Output directory: AnomalyDetection\run_20260617_231517
+Total rows: 1500
+Total anomalies: 131
+
+system_1_opencv_content_contour / clean_negative: 24 anomalies from 300 rows
+  Features: 30
+  Isolation Forest: flagged=24, max=0.636103
+  Local Outlier Factor: flagged=24, max=1.834010
+  PCA Reconstruction Error: flagged=24, max=0.000307
+  Preview: AnomalyDetection\run_20260617_231517\previews\system_1_opencv_content_contour_clean_negative_top_anomalies.jpg
+
+system_1_opencv_content_contour / dirty_positive: 18 anomalies from 200 rows
+  Features: 30
+  Isolation Forest: flagged=16, max=0.586767
+  Local Outlier Factor: flagged=16, max=3.054501
+  PCA Reconstruction Error: flagged=16, max=0.001284
+  Preview: AnomalyDetection\run_20260617_231517\previews\system_1_opencv_content_contour_dirty_positive_top_anomalies.jpg
+
+system_2_edge_texture_sharpness / clean_negative: 26 anomalies from 300 rows
+  Features: 30
+  Isolation Forest: flagged=24, max=0.643668
+  Local Outlier Factor: flagged=24, max=1.717852
+  PCA Reconstruction Error: flagged=24, max=0.000394
+  Preview: AnomalyDetection\run_20260617_231517\previews\system_2_edge_texture_sharpness_clean_negative_top_anomalies.jpg
+
+system_2_edge_texture_sharpness / dirty_positive: 20 anomalies from 200 rows
+  Features: 30
+  Isolation Forest: flagged=16, max=0.659876
+  Local Outlier Factor: flagged=16, max=2.618981
+  PCA Reconstruction Error: flagged=16, max=0.001124
+  Preview: AnomalyDetection\run_20260617_231517\previews\system_2_edge_texture_sharpness_dirty_positive_top_anomalies.jpg
+
+system_3_numpy_frequency_balance / clean_negative: 27 anomalies from 300 rows
+  Features: 30
+  Isolation Forest: flagged=24, max=0.689508
+  Local Outlier Factor: flagged=24, max=1.775314
+  PCA Reconstruction Error: flagged=24, max=0.000665
+  Preview: AnomalyDetection\run_20260617_231517\previews\system_3_numpy_frequency_balance_clean_negative_top_anomalies.jpg
+
+system_3_numpy_frequency_balance / dirty_positive: 16 anomalies from 200 rows
+  Features: 30
+  Isolation Forest: flagged=16, max=0.667414
+  Local Outlier Factor: flagged=16, max=1.980767
+  PCA Reconstruction Error: flagged=16, max=0.000737
+  Preview: AnomalyDetection\run_20260617_231517\previews\system_3_numpy_frequency_balance_dirty_positive_top_anomalies.jpg

@@ -1,0 +1,31 @@
+{
+  "input_manifest_rows": 372,
+  "final_manifest_rows": 372,
+  "input_image_count": 15,
+  "final_image_count": 15,
+  "total_dirty_spots": 372,
+  "pass_images": 11,
+  "fail_images": 4,
+  "review_images": 0,
+  "final_confirmed_images": 15,
+  "labels_final_confirmed": 372,
+  "raw_radius_labels": 372,
+  "preview_clamped_low_count": 3,
+  "preview_clamped_high_count": 85,
+  "radius_changed_from_preliminary_count": 88,
+  "automatic_merge_enabled": false,
+  "input_file_hashes": {
+    "ground_truth_manifest.csv": "e72aec749312468175c9b41f1cf98277418a4c149f2508c3e7fd4e5756bda778",
+    "image_quality_summary.csv": "801051dab80e6742bdfd920f32a49d6ced8db4196fc136ec699ce01b080d2ae1",
+    "review_queue.csv": "669e09ab2c82a35561ed204d110b124465030ee1db4f95ca57ad6d1ea6b8565b",
+    "generation_summary.json": "08a2857d09d7d13f088106b87729e3e2aa2ea791b7475b58d9324b61d9a5ae09"
+  },
+  "output_file_hashes": {
+    "final_ground_truth_manifest.csv": "7c27812305b5d9e3776515495e69ba351529076b1d1c49a9d470b0765361eb00",
+    "final_image_quality_summary.csv": "61eb8e33b9ec1257f2d4dbb96a69869bdb7159b6bf1827c649ca643e44cd95e2",
+    "review_resolution_audit.csv": "64d4d7847cabee397f6b0b969c7665cb9dc6620d03fa76006a5fc77c05bf38e9",
+    "radius_migration_audit.csv": "40cdf64607769f56004fd2943f390e5608201c5aa7109b58a38f4b279afe0d5d",
+    "finalization_summary.json": "308151f62ba4378f5f028a4ef32ef5f8116a1bc19a6383d36a08f578d0b9394a"
+  },
+  "created_at": "2026-06-24T13:51:35"
+}

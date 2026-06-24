@@ -1,0 +1,16 @@
+image_id,source_image,marked_image,dataset_split,stratification_group,dirty_spot_count,quality_score,pass_fail_status,ground_truth_status,split_seed,split_policy_version,notes
+1,1.jpg,1m.jpg,train,PASS,26,80,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+2,2.jpg,2m.jpg,train,FAIL,41,70,FAIL,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+3,3.jpg,3m.jpg,train,FAIL,33,70,FAIL,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+4,4.jpg,4m.jpg,train,PASS,21,80,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+5,5.jpg,5m.jpg,train,PASS,25,80,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+6,6.jpg,6m.jpg,train,PASS,17,90,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+7,7.jpg,7m.jpg,train,PASS,27,80,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+8,8.jpg,8m.jpg,train,PASS,20,90,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+9,9.jpg,9m.jpg,validation,PASS,13,90,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+10,10.jpg,10m.jpg,train,PASS,20,90,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+11,11.jpg,11m.jpg,test,FAIL,31,70,FAIL,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+12,12.jpg,12m.jpg,train,FAIL,39,70,FAIL,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+13,13.jpg,13m.jpg,test,PASS,20,90,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+14,14.jpg,14m.jpg,train,PASS,15,90,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together
+15,15.jpg,15m.jpg,train,PASS,24,80,PASS,final_confirmed,20260624,source_level_80_10_10_v1,source-level split; all labels from this image_id stay together

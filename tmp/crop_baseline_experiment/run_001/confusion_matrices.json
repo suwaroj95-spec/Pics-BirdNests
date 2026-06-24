@@ -1,0 +1,114 @@
+{
+  "dummy_baseline": {
+    "train": {
+      "labels": [
+        "clean_negative",
+        "dirty_positive"
+      ],
+      "available": true,
+      "matrix": [
+        [
+          1535,
+          0
+        ],
+        [
+          1232,
+          0
+        ]
+      ],
+      "unavailable_reason": ""
+    },
+    "validation": {
+      "labels": [
+        "clean_negative",
+        "dirty_positive"
+      ],
+      "available": true,
+      "matrix": [
+        [
+          253,
+          0
+        ],
+        [
+          52,
+          0
+        ]
+      ],
+      "unavailable_reason": ""
+    },
+    "test": {
+      "labels": [
+        "clean_negative",
+        "dirty_positive"
+      ],
+      "available": true,
+      "matrix": [
+        [
+          193,
+          0
+        ],
+        [
+          204,
+          0
+        ]
+      ],
+      "unavailable_reason": ""
+    }
+  },
+  "logistic_regression": {
+    "train": {
+      "labels": [
+        "clean_negative",
+        "dirty_positive"
+      ],
+      "available": true,
+      "matrix": [
+        [
+          1153,
+          382
+        ],
+        [
+          107,
+          1125
+        ]
+      ],
+      "unavailable_reason": ""
+    },
+    "validation": {
+      "labels": [
+        "clean_negative",
+        "dirty_positive"
+      ],
+      "available": true,
+      "matrix": [
+        [
+          247,
+          6
+        ],
+        [
+          27,
+          25
+        ]
+      ],
+      "unavailable_reason": ""
+    },
+    "test": {
+      "labels": [
+        "clean_negative",
+        "dirty_positive"
+      ],
+      "available": true,
+      "matrix": [
+        [
+          167,
+          26
+        ],
+        [
+          19,
+          185
+        ]
+      ],
+      "unavailable_reason": ""
+    }
+  }
+}

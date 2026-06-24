@@ -1,0 +1,16 @@
+image_id,source_image,marked_image,original_width,original_height,marked_width,marked_height,estimated_x_offset,estimated_y_offset,alignment_confidence,alignment_status,notes
+1,1.jpg,1m.jpg,1108,1476,1108,1476,-13.315,90.3592,0.016675,FAIL,phase_correlation_original_to_marked
+2,2.jpg,2m.jpg,1108,1476,1108,1476,14.0465,-12.9815,0.099844,FAIL,phase_correlation_original_to_marked
+3,3.jpg,3m.jpg,1108,1476,1108,1476,0.5001,0.0108,0.487527,PASS,phase_correlation_original_to_marked
+4,4.jpg,4m.jpg,1108,1476,1108,1476,0.4933,-0.0014,0.570272,PASS,phase_correlation_original_to_marked
+5,5.jpg,5m.jpg,1108,1476,1108,1476,0.4916,0.0097,0.467026,PASS,phase_correlation_original_to_marked
+6,6.jpg,6m.jpg,1108,1476,1108,1476,0.4843,0.0007,0.53944,PASS,phase_correlation_original_to_marked
+7,7.jpg,7m.jpg,1108,1476,1108,1476,0.5126,0.0148,0.417022,PASS,phase_correlation_original_to_marked
+8,8.jpg,8m.jpg,1108,1476,1108,1476,0.5,-0.008,0.489411,PASS,phase_correlation_original_to_marked
+9,9.jpg,9m.jpg,1108,1476,1108,1476,0.5015,-0.0125,0.503161,PASS,phase_correlation_original_to_marked
+10,10.jpg,10m.jpg,1108,1476,1108,1476,0.4927,0.0029,0.52433,PASS,phase_correlation_original_to_marked
+11,11.jpg,11m.jpg,1108,1476,1108,1476,0.4945,-0.0263,0.3469,PASS,phase_correlation_original_to_marked
+12,12.jpg,12m.jpg,1108,1476,1108,1476,0.5298,0.0163,0.289733,PASS,phase_correlation_original_to_marked
+13,13.jpg,13m.jpg,1108,1476,1108,1476,0.4837,0.004,0.430685,PASS,phase_correlation_original_to_marked
+14,14.jpg,14m.jpg,1108,1476,1108,1476,0.4813,0.0091,0.426001,PASS,phase_correlation_original_to_marked
+15,15.jpg,15m.jpg,1108,1476,1108,1476,0.4906,0.0042,0.413844,PASS,phase_correlation_original_to_marked

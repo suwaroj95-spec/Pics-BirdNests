@@ -1,0 +1,11 @@
+dataset_split,crop_label,pass_fail_status,crop_count,none_count,low_blue_signal_count,marker_like_count,marker_like_rate,max_largest_blue_component_area
+test,clean_negative,FAIL,66,66,0,0,0.00000000,0
+test,clean_negative,PASS,127,127,0,0,0.00000000,0
+test,dirty_positive,FAIL,124,124,0,0,0.00000000,0
+test,dirty_positive,PASS,80,80,0,0,0.00000000,0
+train,clean_negative,FAIL,228,228,0,0,0.00000000,0
+train,clean_negative,PASS,1307,1307,0,0,0.00000000,0
+train,dirty_positive,FAIL,452,452,0,0,0.00000000,0
+train,dirty_positive,PASS,780,772,8,0,0.00000000,4
+validation,clean_negative,PASS,253,253,0,0,0.00000000,0
+validation,dirty_positive,PASS,52,52,0,0,0.00000000,0

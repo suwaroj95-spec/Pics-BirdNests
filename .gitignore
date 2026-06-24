@@ -1,0 +1,33 @@
+@'
+# Windows / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Python cache and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+
+# Optional generated model artifacts
+# runs/
+# weights/
+# *.pt
+# *.pth
+# *.onnx
+# *.engine
+'@ | Set-Content -Encoding utf8 .gitignore

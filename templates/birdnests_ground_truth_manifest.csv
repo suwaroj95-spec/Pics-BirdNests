@@ -1,0 +1,1 @@
+image_id,source_image,marked_image,split,review_status,reviewer,reviewed_at,image_class,dirty_spot_count,cleanliness_score,pass_fail_status,spot_id,x_center,y_center,width,height,mask_path,marker_source,label_confidence,notes

@@ -1,0 +1,16 @@
+image_id,source_image,crop_count,distinct_split_count,leakage_detected,validation_result,notes
+1,1.jpg,215,1,false,pass,all crops for image_id map to one split
+2,2.jpg,213,1,false,pass,all crops for image_id map to one split
+3,3.jpg,258,1,false,pass,all crops for image_id map to one split
+4,4.jpg,315,1,false,pass,all crops for image_id map to one split
+5,5.jpg,256,1,false,pass,all crops for image_id map to one split
+6,6.jpg,298,1,false,pass,all crops for image_id map to one split
+7,7.jpg,169,1,false,pass,all crops for image_id map to one split
+8,8.jpg,205,1,false,pass,all crops for image_id map to one split
+9,9.jpg,305,1,false,pass,all crops for image_id map to one split
+10,10.jpg,211,1,false,pass,all crops for image_id map to one split
+11,11.jpg,190,1,false,pass,all crops for image_id map to one split
+12,12.jpg,209,1,false,pass,all crops for image_id map to one split
+13,13.jpg,207,1,false,pass,all crops for image_id map to one split
+14,14.jpg,220,1,false,pass,all crops for image_id map to one split
+15,15.jpg,198,1,false,pass,all crops for image_id map to one split

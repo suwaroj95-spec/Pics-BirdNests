@@ -1,0 +1,132 @@
+{
+  "dummy_baseline": {
+    "train": {
+      "available": true,
+      "accuracy": 0.5547524394651246,
+      "precision_dirty_positive": 0.0,
+      "recall_dirty_positive": 0.0,
+      "f1_dirty_positive": 0.0,
+      "confusion_matrix": [
+        [
+          1535,
+          0
+        ],
+        [
+          1232,
+          0
+        ]
+      ],
+      "false_negative_dirty_count": 1232,
+      "false_positive_dirty_count": 0,
+      "roc_auc": 0.5,
+      "average_precision": 0.4452475605348753
+    },
+    "validation": {
+      "available": true,
+      "accuracy": 0.8295081967213115,
+      "precision_dirty_positive": 0.0,
+      "recall_dirty_positive": 0.0,
+      "f1_dirty_positive": 0.0,
+      "confusion_matrix": [
+        [
+          253,
+          0
+        ],
+        [
+          52,
+          0
+        ]
+      ],
+      "false_negative_dirty_count": 52,
+      "false_positive_dirty_count": 0,
+      "roc_auc": 0.5,
+      "average_precision": 0.17049180327868851
+    },
+    "test": {
+      "available": true,
+      "accuracy": 0.48614609571788414,
+      "precision_dirty_positive": 0.0,
+      "recall_dirty_positive": 0.0,
+      "f1_dirty_positive": 0.0,
+      "confusion_matrix": [
+        [
+          193,
+          0
+        ],
+        [
+          204,
+          0
+        ]
+      ],
+      "false_negative_dirty_count": 204,
+      "false_positive_dirty_count": 0,
+      "roc_auc": 0.5,
+      "average_precision": 0.5138539042821159
+    }
+  },
+  "logistic_regression": {
+    "train": {
+      "available": true,
+      "accuracy": 0.8232743043006867,
+      "precision_dirty_positive": 0.7465162574651626,
+      "recall_dirty_positive": 0.9131493506493507,
+      "f1_dirty_positive": 0.8214676889375685,
+      "confusion_matrix": [
+        [
+          1153,
+          382
+        ],
+        [
+          107,
+          1125
+        ]
+      ],
+      "false_negative_dirty_count": 107,
+      "false_positive_dirty_count": 382,
+      "roc_auc": 0.9336070688269387,
+      "average_precision": 0.9280905262871553
+    },
+    "validation": {
+      "available": true,
+      "accuracy": 0.8918032786885246,
+      "precision_dirty_positive": 0.8064516129032258,
+      "recall_dirty_positive": 0.4807692307692308,
+      "f1_dirty_positive": 0.6024096385542169,
+      "confusion_matrix": [
+        [
+          247,
+          6
+        ],
+        [
+          27,
+          25
+        ]
+      ],
+      "false_negative_dirty_count": 27,
+      "false_positive_dirty_count": 6,
+      "roc_auc": 0.9100790513833992,
+      "average_precision": 0.7494463708263043
+    },
+    "test": {
+      "available": true,
+      "accuracy": 0.8866498740554156,
+      "precision_dirty_positive": 0.8767772511848341,
+      "recall_dirty_positive": 0.9068627450980392,
+      "f1_dirty_positive": 0.891566265060241,
+      "confusion_matrix": [
+        [
+          167,
+          26
+        ],
+        [
+          19,
+          185
+        ]
+      ],
+      "false_negative_dirty_count": 19,
+      "false_positive_dirty_count": 26,
+      "roc_auc": 0.9592095905719802,
+      "average_precision": 0.9693459892743977
+    }
+  }
+}

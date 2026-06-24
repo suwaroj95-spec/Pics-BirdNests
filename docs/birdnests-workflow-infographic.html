@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BirdNests Project Infographic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #647084;
+      --soft: #f4f7fb;
+      --paper: #ffffff;
+      --line: #dfe7f0;
+      --blue: #2458a6;
+      --blue-soft: #eaf2ff;
+      --green: #16745c;
+      --green-soft: #e8f6f1;
+      --amber: #a66f00;
+      --amber-soft: #fff4d8;
+      --red: #b33a3a;
+      --red-soft: #fdeaea;
+      --violet: #6b4fb3;
+      --violet-soft: #f0ecff;
+      --shadow: 0 18px 45px rgba(24, 38, 63, 0.12);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      margin: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-family: "Sarabun", "Segoe UI", Arial, sans-serif;
+      line-height: 1.58;
+      letter-spacing: 0;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, #ffffff 0, #f6f9fd 46%, #eef4fb 100%);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 620px;
+      color: #ffffff;
+      background:
+        linear-gradient(90deg, rgba(18, 32, 54, 0.92), rgba(18, 32, 54, 0.64)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover;
+      background-position: center;
+      display: grid;
+      align-items: end;
+      padding: 54px 0 42px;
+    }
+
+    .hero-inner {
+      max-width: 980px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #d7efff;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #7ee0b2;
+    }
+
+    h1 {
+      max-width: 940px;
+      margin-bottom: 18px;
+      font-size: clamp(2.25rem, 5.2vw, 5rem);
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 820px;
+      margin-bottom: 26px;
+      color: #e7eef8;
+      font-size: clamp(1.08rem, 1.8vw, 1.35rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .status-pill.ok { background: rgba(22, 116, 92, 0.58); }
+    .status-pill.warn { background: rgba(166, 111, 0, 0.64); }
+    .status-pill.stop { background: rgba(179, 58, 58, 0.62); }
+
+    main {
+      margin-top: -34px;
+      position: relative;
+      z-index: 2;
+    }
+
+    section {
+      padding: 32px 0;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .panel.no-shadow {
+      box-shadow: none;
+    }
+
+    .kicker {
+      color: var(--blue);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: clamp(1.55rem, 2.7vw, 2.45rem);
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1.12rem;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .lead {
+      max-width: 820px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+
+    .section-head .lead {
+      max-width: 560px;
+    }
+
+    .decision {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .decision-card {
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .decision-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.02rem;
+    }
+
+    .decision-card span {
+      color: var(--muted);
+    }
+
+    .decision-card.ok { background: var(--green-soft); border-color: #c6e7da; }
+    .decision-card.warn { background: var(--amber-soft); border-color: #ecd28c; }
+    .decision-card.stop { background: var(--red-soft); border-color: #e6b7b7; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      min-height: 150px;
+      padding: 20px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .metric .label {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .metric .value {
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .metric .note {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      background: #cdd9e8;
+    }
+
+    .step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .step-num {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 0 0 6px #f6f9fd;
+    }
+
+    .step-card {
+      padding: 18px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .step-card p {
+      margin-bottom: 10px;
+      color: var(--muted);
+    }
+
+    .mini-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef4fb;
+      color: #263b57;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .tag.ok { background: var(--green-soft); color: #0d5d47; }
+    .tag.warn { background: var(--amber-soft); color: #744f00; }
+    .tag.stop { background: var(--red-soft); color: #8e2929; }
+    .tag.violet { background: var(--violet-soft); color: #4f3a8a; }
+
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .story-card {
+      min-height: 220px;
+      padding: 20px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .story-card p,
+    .story-card li {
+      color: var(--muted);
+    }
+
+    .story-card ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    .story-card.ok { border-top: 5px solid var(--green); }
+    .story-card.warn { border-top: 5px solid var(--amber); }
+    .story-card.stop { border-top: 5px solid var(--red); }
+    .story-card.blue { border-top: 5px solid var(--blue); }
+    .story-card.violet { border-top: 5px solid var(--violet); }
+
+    .table-card {
+      overflow: auto;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf3fb;
+      color: #24384f;
+      font-weight: 800;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .plain {
+      background: #ffffff;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .soft-blue {
+      background: #eef5ff;
+      border-top: 1px solid #d4e4fa;
+      border-bottom: 1px solid #d4e4fa;
+    }
+
+    .soft-amber {
+      background: #fff7e6;
+      border-top: 1px solid #ead39b;
+      border-bottom: 1px solid #ead39b;
+    }
+
+    .ranking {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .rank-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      background: #f7fafc;
+      border: 1px solid #e4ebf3;
+      font-weight: 700;
+    }
+
+    .rank-num {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      flex: 0 0 auto;
+      font-weight: 800;
+    }
+
+    .callout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .callout-main {
+      padding: 26px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #173763, #2458a6);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .callout-main h2 {
+      color: #ffffff;
+    }
+
+    .callout-main p {
+      color: #e8f1ff;
+      margin-bottom: 0;
+    }
+
+    footer {
+      padding: 30px 0;
+      color: #d8e6f5;
+      background: #122036;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    @media (max-width: 980px) {
+      .intro-grid, .callout { grid-template-columns: 1fr; }
+      .metrics, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { display: block; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 28px, var(--max)); }
+      .hero { min-height: 560px; padding-top: 36px; }
+      main { margin-top: -24px; }
+      section { padding: 26px 0; }
+      .metrics, .grid-2, .grid-3, .grid-4, .decision { grid-template-columns: 1fr; }
+      .timeline::before { left: 17px; }
+      .step { grid-template-columns: 36px 1fr; gap: 12px; }
+      .step-num { width: 36px; height: 36px; }
+      table { min-width: 680px; }
+    }
+
+    @media print {
+      .hero {
+        min-height: auto;
+        color: #111827;
+        background: #ffffff;
+      }
+
+      .hero-copy, .status-pill { color: #111827; }
+      main { margin-top: 0; }
+      .panel, .metric, .story-card, .table-card, .step-card, .callout-main { box-shadow: none; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <div class="eyebrow">BirdNests Project Update</div>
+      <h1>เราพร้อมสร้างโมเดลหรือยัง?</h1>
+      <p class="hero-copy">คำตอบตอนนี้คือ: ข้อมูล crop ใช้ทำการทดลองเบื้องต้นได้ แต่ผลยังไม่นิ่งพอสำหรับตัดสินใจใช้งานจริง สิ่งที่ควรทำก่อนคือดูภาพตัวอย่างที่โมเดลพลาด ปรับมาตรฐานการถ่ายภาพ และเพิ่มภาพต้นฉบับอิสระ</p>
+      <div class="hero-actions">
+        <span class="status-pill ok">ข้อมูลไม่มีร่องรอย marker รั่วเข้าโมเดล</span>
+        <span class="status-pill warn">โมเดลเบื้องต้นยังแกว่งตามภาพต้นฉบับ</span>
+        <span class="status-pill stop">ยังไม่ควรทำระบบใช้งานจริง</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap intro-grid">
+        <article class="panel">
+          <div class="kicker">สรุปสำหรับผู้บริหาร</div>
+          <h2>งานล่าสุดพาเราไปถึงขั้นรู้แล้วว่า “ปัญหาอยู่ตรงไหน”</h2>
+          <p class="lead">เราไม่ได้หยุดแค่สร้าง crop หรือ train โมเดลทดลอง แต่ตรวจต่อว่าโมเดลพลาดกับภาพต้นฉบับแบบไหน ผลที่ได้ชี้ว่าโมเดลมีสัญญาณแยก dirty/clean ได้จริงบางส่วน แต่ยังอ่อนไหวกับภาพแต่ละชุดมากเกินไป</p>
+          <div class="decision">
+            <div class="decision-card ok">
+              <strong>ทำได้แล้ว</strong>
+              <span>ตรวจข้อมูล, กันรั่ว, ทำ baseline, วิเคราะห์ error</span>
+            </div>
+            <div class="decision-card warn">
+              <strong>ยังเสี่ยง</strong>
+              <span>ผลเปลี่ยนมากเมื่อเปลี่ยนภาพต้นฉบับ</span>
+            </div>
+            <div class="decision-card stop">
+              <strong>ยังไม่ควร</strong>
+              <span>ทำ Object Detection หรือ production model ตอนนี้</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="kicker">สถานะล่าสุด</div>
+          <h2>ข้อสรุปสั้นที่สุด</h2>
+          <p class="lead">ข้อมูลสะอาดพอสำหรับทดลอง แต่ยังต้องแก้เรื่องความหลากหลายของภาพและความชัดของกติกา clean/dirty ก่อนเดินหน้าโมเดลที่ซับซ้อนกว่าเดิม</p>
+          <div class="mini-tags" style="margin-top:18px">
+            <span class="tag ok">Marker leakage: ผ่าน</span>
+            <span class="tag warn">Baseline: ยังไม่นิ่ง</span>
+            <span class="tag warn">Diagnosis: สาเหตุผสม</span>
+            <span class="tag stop">No deployment</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="metrics">
+          <div class="metric">
+            <div class="label">จำนวน crop ที่ตรวจ</div>
+            <div class="value">3,469</div>
+            <div class="note">dirty 1,488 / clean 1,981</div>
+          </div>
+          <div class="metric">
+            <div class="label">ภาพต้นฉบับอิสระ</div>
+            <div class="value">15</div>
+            <div class="note">ใช้วัดว่าโมเดลแกว่งตามภาพต้นฉบับหรือไม่</div>
+          </div>
+          <div class="metric">
+            <div class="label">ร่องรอย marker ที่เสี่ยงรั่ว</div>
+            <div class="value">0</div>
+            <div class="note">ไม่พบ marker-like component ใน crop</div>
+          </div>
+          <div class="metric">
+            <div class="label">ตัวอย่างที่โมเดลพลาด</div>
+            <div class="value">867</div>
+            <div class="note">FP 611 + FN 256 จากการวิเคราะห์ล่าสุด</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">เราเพิ่ม workflow ถึงไหนแล้ว</div>
+            <h2>จากการเตรียมข้อมูล สู่การรู้จุดอ่อนของโมเดล</h2>
+          </div>
+          <p class="lead">แต่ละขั้นมี output ชัดเจนและตรวจย้อนกลับได้ โดยยังไม่แตะข้อมูลต้นฉบับหรือเปลี่ยน label หลังวิเคราะห์</p>
+        </div>
+
+        <div class="timeline">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-card">
+              <h3>สร้างชุดข้อมูลอ้างอิง</h3>
+              <p>ตรวจตำแหน่ง dirty จาก marker และสรุปคุณภาพภาพต้นฉบับให้มีหลักฐานย้อนกลับ</p>
+              <div class="mini-tags">
+                <span class="tag">15 images</span>
+                <span class="tag">372 labels</span>
+                <span class="tag ok">review ค้าง 0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-card">
+              <h3>แบ่งข้อมูลโดยยึดภาพต้นฉบับ</h3>
+              <p>กันปัญหา crop จากภาพเดียวกันไปอยู่คนละชุด ซึ่งจะทำให้ผลดูดีเกินจริง</p>
+              <div class="mini-tags">
+                <span class="tag">train 12 sources</span>
+                <span class="tag">validation 1 source</span>
+                <span class="tag">test 2 sources</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-card">
+              <h3>ตรวจว่า crop ทุกภาพตามรอยกลับได้</h3>
+              <p>ยืนยันว่า crop ทุกไฟล์รู้ว่ามาจากภาพต้นฉบับไหน อยู่ชุดไหน และไม่มีข้อมูลหลุดข้ามชุด</p>
+              <div class="mini-tags">
+                <span class="tag ok">resolved 3,469</span>
+                <span class="tag ok">unresolved 0</span>
+                <span class="tag ok">reuse as-is</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-card">
+              <h3>ตรวจว่าโมเดลจะไม่จำสี marker</h3>
+              <p>อ่านภาพ crop จริงเพื่อตรวจว่ามีร่องรอย marker สีฟ้าที่อาจกลายเป็นทางลัดให้โมเดลหรือไม่</p>
+              <div class="mini-tags">
+                <span class="tag ok">marker-like 0</span>
+                <span class="tag">low blue signal 8</span>
+                <span class="tag ok">SAFE_TO_TRAIN</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-card">
+              <h3>ทำโมเดลเบื้องต้นแบบอธิบายได้</h3>
+              <p>ใช้คุณลักษณะจากภาพ crop เท่านั้น เพื่อดูว่าภาพมีสัญญาณพอแยก dirty กับ clean หรือไม่</p>
+              <div class="mini-tags">
+                <span class="tag">threshold 0.35</span>
+                <span class="tag">test F1 0.8916</span>
+                <span class="tag warn">validation F1 0.6024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-card">
+              <h3>ทดสอบความนิ่งเมื่อเปลี่ยนภาพต้นฉบับ</h3>
+              <p>วนถือภาพต้นฉบับออกมาทดสอบทีละภาพ เพื่อดูว่าโมเดลยังทำงานดีหรือไม่เมื่อเจอภาพคนละชุด</p>
+              <div class="mini-tags">
+                <span class="tag">15 folds</span>
+                <span class="tag warn">F1 min 0.4487</span>
+                <span class="tag warn">BASELINE_UNSTABLE</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-card">
+              <h3>สร้างแผนที่ error เพื่อหาสาเหตุ</h3>
+              <p>จัดอันดับว่าภาพต้นฉบับไหนทำให้โมเดลพลาดแบบใด และสร้าง contact sheets ให้คนตรวจภาพจริง</p>
+              <div class="mini-tags">
+                <span class="tag">contact sheets 38</span>
+                <span class="tag">selected errors 215</span>
+                <span class="tag warn">MIXED_OR_INCONCLUSIVE</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-card">
+              <h3>ตัดสินใจเชิงกลยุทธ์</h3>
+              <p>ยังไม่เพิ่มความซับซ้อนของโมเดล ให้แก้ข้อมูลและวิธีถ่ายก่อน แล้วค่อยทำ baseline รอบใหม่เพื่อเทียบอย่างยุติธรรม</p>
+              <div class="mini-tags">
+                <span class="tag stop">ยังไม่ทำ Object Detection</span>
+                <span class="tag ok">ตรวจภาพตัวอย่างก่อน</span>
+                <span class="tag ok">เพิ่มภาพต้นฉบับใหม่</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft-blue">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">ผลวัดที่ควรรายงาน</div>
+            <h2>ตัวเลขสำคัญ แปลเป็นภาษางานจริง</h2>
+          </div>
+          <p class="lead">ตารางนี้ตั้งใจเลี่ยงศัพท์เทคนิคเกินจำเป็น และชี้ว่าตัวเลขแต่ละชุดบอกอะไรกับเรา</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>สิ่งที่วัด</th>
+                <th>ค่าที่ได้</th>
+                <th>ความหมายแบบไม่เทคนิค</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ความสะอาดของข้อมูล crop</td>
+                <td>3,469 crop ใช้ได้ครบ, ไม่มี crop ที่ตามรอยไม่ได้</td>
+                <td>เรารู้ว่าภาพย่อยแต่ละภาพมาจากไหน จึงตรวจย้อนหลังได้</td>
+              </tr>
+              <tr>
+                <td>ความเสี่ยงจาก marker สีฟ้า</td>
+                <td>marker-like = 0</td>
+                <td>โมเดลไม่น่าจะใช้สี marker เป็นทางลัดในการทายผล</td>
+              </tr>
+              <tr>
+                <td>โมเดลเบื้องต้นบน test set</td>
+                <td>accuracy 88.66%, precision 87.68%, recall 90.69%, F1 89.16%</td>
+                <td>ดูดีบน test set เดิม แต่ยังสรุปไม่ได้ว่าพร้อมใช้งาน เพราะจำนวนภาพต้นฉบับมีน้อย</td>
+              </tr>
+              <tr>
+                <td>ความนิ่งเมื่อเปลี่ยนภาพต้นฉบับ</td>
+                <td>F1 ต่อภาพต้นฉบับต่ำสุด 44.87%, สูงสุด 92.81%</td>
+                <td>โมเดลทำงานไม่สม่ำเสมอ บางภาพง่าย บางภาพยากมาก</td>
+              </tr>
+              <tr>
+                <td>ภาพที่โมเดลพลาด</td>
+                <td>clean ถูกทายว่า dirty 611 crop, dirty ถูกทายว่า clean 256 crop</td>
+                <td>มีทั้งการเตือนเกินและการพลาดของสกปรก จึงต้องดูสาเหตุจากภาพจริง</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Problem Signals</div>
+            <h2>Output ที่ชี้ว่าปัญหาคืออะไร</h2>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="story-card warn">
+            <h3>1. ผลไม่เหมือนกันเมื่อเปลี่ยนภาพต้นฉบับ</h3>
+            <p>แปลว่าโมเดลยังอ่อนไหวกับสภาพภาพ เช่น แสง พื้นหลัง มุม หรือ texture ของรังนกแต่ละภาพ</p>
+            <ul>
+              <li>source-wise decision: BASELINE_UNSTABLE</li>
+              <li>threshold ที่เหมาะในแต่ละ fold ต่างกันมาก: 0.15 ถึง 0.85</li>
+            </ul>
+          </article>
+
+          <article class="story-card warn">
+            <h3>2. มีทั้งการเตือนเกินและการพลาดของสกปรก</h3>
+            <p>ถ้าเป็นปัญหาเดียว ตัวเลขมักเอียงไปทางเดียว แต่ตอนนี้บาง source เน้น over-flagging บาง source เน้น under-detection</p>
+            <ul>
+              <li>clean ถูกทายว่า dirty: 611 crop</li>
+              <li>dirty ถูกทายว่า clean: 256 crop</li>
+            </ul>
+          </article>
+
+          <article class="story-card warn">
+            <h3>3. ต้องตรวจภาพจริง ไม่ใช่ดูตัวเลขอย่างเดียว</h3>
+            <p>เราได้สร้าง contact sheets เพื่อให้คนดูว่าข้อผิดพลาดเกิดจากคราบเล็ก ภาพมืด พื้นหลังคล้ายสกปรก หรือกติกา crop ไม่ชัด</p>
+            <ul>
+              <li>contact sheets: 38 ไฟล์</li>
+              <li>ตัวอย่าง error ที่คัดมา: 215 crop</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Review Priorities</div>
+            <h2>ภาพต้นฉบับที่ควรเปิดดูเป็นอันดับแรก</h2>
+          </div>
+          <p class="lead">ตัวเลขด้านล่างไม่ได้ hard-code แต่ได้จากผล error atlas ล่าสุด</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="story-card blue">
+            <h3>กรณีพลาด dirty</h3>
+            <p>คือ crop ที่สกปรก แต่โมเดลบอกว่าสะอาด ควรดูว่าคราบเล็กเกินไปหรืออยู่ในตำแหน่งที่ crop เห็นไม่ชัดหรือไม่</p>
+            <div class="ranking">
+              <div class="rank-row"><span class="rank-num">1</span>Source 9</div>
+              <div class="rank-row"><span class="rank-num">2</span>Source 14</div>
+              <div class="rank-row"><span class="rank-num">3</span>Source 5</div>
+              <div class="rank-row"><span class="rank-num">4</span>Source 7</div>
+              <div class="rank-row"><span class="rank-num">5</span>Source 8</div>
+            </div>
+          </article>
+
+          <article class="story-card violet">
+            <h3>กรณีเตือนเกิน</h3>
+            <p>คือ crop ที่สะอาด แต่โมเดลบอกว่าสกปรก ควรดูว่าพื้นหลัง เงา หรือ texture ทำให้ดูคล้ายคราบหรือไม่</p>
+            <div class="ranking">
+              <div class="rank-row"><span class="rank-num">1</span>Source 4</div>
+              <div class="rank-row"><span class="rank-num">2</span>Source 15</div>
+              <div class="rank-row"><span class="rank-num">3</span>Source 1</div>
+              <div class="rank-row"><span class="rank-num">4</span>Source 6</div>
+              <div class="rank-row"><span class="rank-num">5</span>Source 11</div>
+            </div>
+          </article>
+
+          <article class="story-card warn">
+            <h3>ภาพที่มีความเสี่ยงรวมสูง</h3>
+            <p>เป็นกลุ่มที่ควรตรวจประชุมร่วมกัน เพราะรวมทั้งความเสี่ยงพลาด dirty, เตือนเกิน และความไม่นิ่งของผล</p>
+            <div class="ranking">
+              <div class="rank-row"><span class="rank-num">1</span>Source 9</div>
+              <div class="rank-row"><span class="rank-num">2</span>Source 6</div>
+              <div class="rank-row"><span class="rank-num">3</span>Source 1</div>
+              <div class="rank-row"><span class="rank-num">4</span>Source 4</div>
+              <div class="rank-row"><span class="rank-num">5</span>Source 8</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft-amber">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Cause Hypotheses</div>
+            <h2>สาเหตุที่น่าจะเป็น</h2>
+          </div>
+          <p class="lead">ยังไม่ฟันธงจนกว่าจะเปิด contact sheets แต่หลักฐานชี้ไปที่สาเหตุผสม ไม่ใช่แค่โมเดลยังเล็กเกินไป</p>
+        </div>
+
+        <div class="grid-4">
+          <article class="story-card warn">
+            <h3>แสงและพื้นหลังไม่คงที่</h3>
+            <p>บางภาพอาจมีเงา พื้นหลัง หรือ texture ที่ทำให้ clean ดูเหมือน dirty</p>
+          </article>
+
+          <article class="story-card warn">
+            <h3>คราบบางจุดเล็กหรือไม่ชัด</h3>
+            <p>บาง dirty crop อาจมีคราบเล็กมาก หรืออยู่ขอบภาพ ทำให้โมเดลมองเป็น clean</p>
+          </article>
+
+          <article class="story-card warn">
+            <h3>กติกา clean/dirty อาจยังมีขอบเขตกำกวม</h3>
+            <p>บางกรณีอาจต้องให้คนตกลงนิยามว่า crop แบบใดควรนับเป็น clean หรือ dirty</p>
+          </article>
+
+          <article class="story-card warn">
+            <h3>threshold ใช้ข้าม source ได้ไม่ดี</h3>
+            <p>ค่าที่เหมาะกับภาพหนึ่งอาจไม่เหมาะกับอีกภาพ แปลว่าต้องเพิ่มความหลากหลายของภาพก่อน</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap callout">
+        <div class="callout-main">
+          <div class="kicker" style="color:#aee5ff">Strategic Decision</div>
+          <h2>ยังไม่ควรทำ Object Detection หรือโมเดลซับซ้อนต่อทันที</h2>
+          <p>เหตุผลคือเรายังไม่รู้แน่ชัดว่า error มาจากการถ่ายภาพ กติกา crop/label หรือความต่างระหว่างภาพต้นฉบับ ถ้าเพิ่มโมเดลซับซ้อนตอนนี้ อาจทำให้แก้ผิดจุดและวิเคราะห์ยากขึ้น</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="story-card ok">
+            <h3>สิ่งที่ควรทำก่อน</h3>
+            <ul>
+              <li>ตรวจ contact sheets กับคนที่รู้งานจริง</li>
+              <li>กำหนดมาตรฐานแสง ระยะ มุม และพื้นหลัง</li>
+              <li>เพิ่มภาพต้นฉบับอิสระ ไม่ใช่เพิ่ม crop จากภาพเดิม</li>
+              <li>ทบทวนกติกา crop เฉพาะเคสกำกวม</li>
+            </ul>
+          </article>
+
+          <article class="story-card blue">
+            <h3>หลังทำเสร็จแล้ว</h3>
+            <ul>
+              <li>รัน baseline รอบใหม่ด้วย workflow เดิม</li>
+              <li>เทียบกับผลรอบนี้แบบตัวต่อตัว</li>
+              <li>ดูว่า source-wise variation ลดลงหรือไม่</li>
+              <li>ค่อยออกแบบ model experiment ถัดไป</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="plain">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Evidence Outputs</div>
+            <h2>ไฟล์ผลลัพธ์ที่ใช้เป็นหลักฐาน</h2>
+          </div>
+          <p class="lead">ส่วนนี้เก็บไว้สำหรับทีมเทคนิคหรือเวลาต้องตรวจย้อนกลับ ไม่จำเป็นต้องอธิบายทั้งหมดในที่ประชุม</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>ไฟล์หรือโฟลเดอร์</th>
+                <th>ใช้ตอบคำถามอะไร</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>tmp/crop_lineage_audit/run_002/crop_lineage_manifest.csv</code></td>
+                <td>crop แต่ละภาพมาจาก source ไหน และอยู่ชุด train/validation/test ใด</td>
+              </tr>
+              <tr>
+                <td><code>tmp/crop_marker_leakage_audit/run_001/marker_leakage_summary.json</code></td>
+                <td>มีร่องรอย marker สีฟ้าที่เสี่ยงรั่วเข้าโมเดลหรือไม่</td>
+              </tr>
+              <tr>
+                <td><code>tmp/crop_baseline_experiment/run_001/metrics_by_split.json</code></td>
+                <td>โมเดลเบื้องต้นทำได้แค่ไหนเมื่อวัดบนชุด train/validation/test</td>
+              </tr>
+              <tr>
+                <td><code>tmp/sourcewise_crop_robustness/run_001/sourcewise_summary.json</code></td>
+                <td>ผลโมเดลนิ่งหรือแกว่งเมื่อเปลี่ยนภาพต้นฉบับ</td>
+              </tr>
+              <tr>
+                <td><code>tmp/sourcewise_error_atlas/run_001/error_atlas_summary.json</code></td>
+                <td>ภาพต้นฉบับไหนควรตรวจ error ก่อน และ error รวมเป็นแบบใด</td>
+              </tr>
+              <tr>
+                <td><code>tmp/sourcewise_error_atlas/run_001/contact_sheets/</code></td>
+                <td>เปิดดูภาพ crop ที่โมเดลพลาด เพื่อหาสาเหตุจากภาพจริง</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>BirdNests local workflow infographic</div>
+      <div>Updated 2026-06-24</div>
+    </div>
+  </footer>
+</body>
+</html>

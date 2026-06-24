@@ -1,0 +1,2 @@
+# Optional human-review tool. Install only when you want a full labeling server.
+label-studio

@@ -1,0 +1,28 @@
+{
+  "crop_count": 3469,
+  "train_crop_count": 2767,
+  "validation_crop_count": 305,
+  "test_crop_count": 397,
+  "dirty_positive_count": 1488,
+  "clean_negative_count": 1981,
+  "none_count": 3461,
+  "low_blue_signal_count": 8,
+  "marker_like_count": 0,
+  "marker_like_dirty_positive_count": 0,
+  "marker_like_clean_negative_count": 0,
+  "marker_like_rate": "0.00000000",
+  "decision": "SAFE_TO_TRAIN",
+  "minimum_component_area": 20,
+  "blue_marker_detection_source": "Mirrors crop_clean_patches.py BLUE_HSV_LOWER=(90,50,50), BLUE_HSV_UPPER=(140,255,255), detect_blue_mask MORPH_CLOSE 5x5 ellipse, and MIN_BLUE_COMPONENT_AREA=20; also matches tools/analyze_blue_marker_distribution.py usage.",
+  "input_file_hashes": {
+    "crops_metadata": "f91dd2f097271cd8e1da6ecaf1b4cf8cdb52f8efdf8175b6a4b734fa5884871d",
+    "crop_lineage_manifest": "297fab8759a47dff64ec475c1a2234b4023717003549ec7af766dffe83829d22"
+  },
+  "output_hash_scope": "primary_csv_artifacts_only",
+  "output_file_hashes": {
+    "crop_marker_leakage_manifest.csv": "4b26f6c0f9f839409e54204171835d79b55b98148a673a3bfc884131a640fb0b",
+    "marker_leakage_summary.csv": "3a1396a081b4e00114b59cda5b12ffc7be5e9e9b3e43d875df1a09a9f3a14428",
+    "marker_like_candidates.csv": "5d273e3708d8f5e2f64581635fc9b9fbcace8691ca9d1004fa00a5e70ceaed3e"
+  },
+  "created_at": "2026-06-24T15:43:23"
+}
