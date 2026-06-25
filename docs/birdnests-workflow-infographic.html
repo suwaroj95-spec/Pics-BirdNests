@@ -71,6 +71,32 @@
       max-width: 980px;
     }
 
+    .hero-nav {
+      position: absolute;
+      top: 22px;
+      right: max(22px, calc((100vw - var(--max)) / 2));
+      z-index: 3;
+    }
+
+    .hero-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 24px rgba(10, 18, 32, 0.18);
+    }
+
+    .hero-nav a:focus-visible {
+      outline: 3px solid #ffffff;
+      outline-offset: 3px;
+    }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -493,6 +519,18 @@
     @media (max-width: 640px) {
       .wrap { width: min(100% - 28px, var(--max)); }
       .hero { min-height: 560px; padding-top: 36px; }
+      .hero-nav {
+        top: 14px;
+        right: 14px;
+        left: 14px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .hero-nav a {
+        min-height: 38px;
+        padding: 8px 12px;
+        font-size: 0.92rem;
+      }
       main { margin-top: -24px; }
       section { padding: 26px 0; }
       .metrics, .grid-2, .grid-3, .grid-4, .decision { grid-template-columns: 1fr; }
@@ -518,6 +556,9 @@
 </head>
 <body>
   <header class="hero">
+    <nav class="hero-nav" aria-label="Infographic version">
+      <a href="birdnests-workflow-infographic-simple.html">ฉบับเข้าใจง่าย</a>
+    </nav>
     <div class="wrap hero-inner">
       <div class="eyebrow">BirdNests Project Update</div>
       <h1>เราพร้อมสร้างโมเดลหรือยัง?</h1>
