@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ความก้าวหน้าโครงการตรวจสอบความสะอาดรังนก</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #4c5b70;
+      --body-copy: #36465c;
+      --soft: #f4f7fb;
+      --paper: #ffffff;
+      --line: #dfe7f0;
+      --blue: #2458a6;
+      --blue-soft: #eaf2ff;
+      --green: #16745c;
+      --green-soft: #e8f6f1;
+      --amber: #a66f00;
+      --amber-soft: #fff4d8;
+      --red: #b33a3a;
+      --red-soft: #fdeaea;
+      --violet: #6b4fb3;
+      --violet-soft: #f0ecff;
+      --shadow: 0 18px 45px rgba(24, 38, 63, 0.12);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      margin: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-family: "Sarabun", "Segoe UI", Arial, sans-serif;
+      line-height: 1.58;
+      letter-spacing: 0;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #ffffff 0, #f6f9fd 48%, #eef4fb 100%);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 620px;
+      color: #ffffff;
+      background:
+        linear-gradient(90deg, rgba(18, 32, 54, 0.92), rgba(18, 32, 54, 0.64)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover;
+      background-position: center;
+      display: grid;
+      align-items: end;
+      padding: 54px 0 42px;
+    }
+
+    .hero-inner {
+      max-width: 980px;
+    }
+
+    .hero-nav {
+      position: absolute;
+      top: 22px;
+      right: max(22px, calc((100vw - var(--max)) / 2));
+      z-index: 2;
+    }
+
+    .hero-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 10px 24px rgba(10, 18, 32, 0.18);
+    }
+
+    .hero-nav a:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #ffffff;
+      outline-offset: 3px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #d7efff;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 800;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #7ee0b2;
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      max-width: 940px;
+      margin-bottom: 18px;
+      font-size: clamp(2.25rem, 5.2vw, 5rem);
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin-bottom: 0;
+      color: #e7eef8;
+      font-size: clamp(1.08rem, 1.8vw, 1.35rem);
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      margin-top: -34px;
+    }
+
+    section { padding: 32px 0; }
+
+    .panel,
+    .card,
+    .point,
+    .flow-step,
+    .decision-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel { padding: 24px; }
+
+    .conclusion {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 20px;
+      align-items: start;
+      border-top: 5px solid var(--blue);
+    }
+
+    .icon {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .icon svg {
+      width: 25px;
+      height: 25px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .conclusion strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+      line-height: 1.26;
+    }
+
+    .conclusion p {
+      margin-bottom: 0;
+      color: var(--body-copy);
+      font-size: 1.06rem;
+      font-weight: 500;
+      line-height: 1.72;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+
+    .kicker {
+      color: var(--blue);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: clamp(1.55rem, 2.7vw, 2.45rem);
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1.12rem;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 220px;
+      padding: 20px;
+      border-top: 5px solid var(--blue);
+    }
+
+    .card p,
+    .point p,
+    .flow-step p {
+      margin-bottom: 0;
+      color: var(--body-copy);
+      font-size: 1.01rem;
+      font-weight: 500;
+      line-height: 1.72;
+    }
+
+    .card.ok { border-top-color: var(--green); }
+    .card.warn { border-top-color: var(--amber); }
+    .card.stop { border-top-color: var(--red); }
+    .card.violet { border-top-color: var(--violet); }
+
+    .soft-blue {
+      background: #eef5ff;
+      border-top: 1px solid #d4e4fa;
+      border-bottom: 1px solid #d4e4fa;
+    }
+
+    .soft-amber {
+      background: #fff7e6;
+      border-top: 1px solid #ead39b;
+      border-bottom: 1px solid #ead39b;
+    }
+
+    .points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .point {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 18px;
+      min-height: 126px;
+      border-top: 5px solid var(--amber);
+    }
+
+    .dot {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--amber-soft);
+      color: var(--amber);
+      font-weight: 800;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      counter-reset: flow;
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 178px;
+      padding: 56px 18px 18px;
+      counter-increment: flow;
+      border-top: 5px solid var(--blue);
+    }
+
+    .flow-step::before {
+      content: counter(flow);
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .decision-card {
+      padding: 28px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #173763, #2458a6);
+      border-color: #173763;
+    }
+
+    .decision-card p {
+      margin-bottom: 0;
+      color: #e8f1ff;
+      font-size: clamp(1.18rem, 2vw, 1.55rem);
+      line-height: 1.48;
+      font-weight: 800;
+    }
+
+    .outcomes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .outcome {
+      padding: 20px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-top: 5px solid var(--blue);
+    }
+
+    .outcome strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--blue);
+      font-size: 1.08rem;
+    }
+
+    .outcome p {
+      margin-bottom: 0;
+      color: var(--body-copy);
+      font-size: 1.01rem;
+      font-weight: 500;
+      line-height: 1.72;
+    }
+
+    footer {
+      padding: 30px 0;
+      color: #d8e6f5;
+      background: #122036;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .grid-3,
+      .points,
+      .flow,
+      .outcomes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .section-head { display: block; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 28px, var(--max)); }
+      .hero { min-height: 560px; padding-top: 36px; }
+      .hero-nav {
+        top: 14px;
+        right: 14px;
+        left: 14px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .hero-nav a {
+        min-height: 38px;
+        padding: 8px 12px;
+        font-size: 0.92rem;
+      }
+      main { margin-top: -24px; }
+      section { padding: 26px 0; }
+      .panel { padding: 20px; }
+      .conclusion {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .grid-3,
+      .points,
+      .flow,
+      .outcomes {
+        grid-template-columns: 1fr;
+      }
+      .card,
+      .point,
+      .flow-step {
+        min-height: auto;
+      }
+    }
+
+    @media print {
+      @page { size: A4; margin: 12mm; }
+
+      html,
+      body {
+        background: #ffffff;
+        color: #111827;
+      }
+
+      .wrap { width: 100%; }
+
+      .hero {
+        color: #111827;
+        background: #ffffff;
+        min-height: auto;
+        padding: 0 0 18px;
+      }
+
+      .hero-nav { display: none; }
+
+      .eyebrow {
+        color: #2458a6;
+        background: #eef5ff;
+        border-color: #d4e4fa;
+      }
+
+      .subtitle { color: #374151; }
+      main { margin-top: 0; }
+      section { padding: 12px 0; break-inside: avoid; }
+
+      .panel,
+      .card,
+      .point,
+      .flow-step,
+      .decision-card,
+      .outcome {
+        box-shadow: none;
+      }
+
+      .grid-3,
+      .points,
+      .flow,
+      .outcomes {
+        gap: 10px;
+      }
+
+      footer {
+        color: #111827;
+        background: #ffffff;
+        border-top: 1px solid var(--line);
+        padding: 16px 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="hero-nav" aria-label="Infographic version">
+      <a href="birdnests-workflow-infographic.html">ฉบับรายละเอียด</a>
+    </nav>
+    <div class="wrap hero-inner">
+      <div class="eyebrow">BirdNests Project</div>
+      <h1>ความก้าวหน้าโครงการตรวจสอบความสะอาดรังนก</h1>
+      <p class="subtitle">สรุปการดำเนินงาน ปัญหาที่พบ และแนวทางดำเนินการต่อ</p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <article class="panel conclusion">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3v10"></path>
+              <path d="M8 11l4 4 4-4"></path>
+              <path d="M5 19h14"></path>
+            </svg>
+          </div>
+          <div>
+            <strong>ข้อมูลปัจจุบันสามารถใช้สำหรับการทดลองเบื้องต้นได้ แต่ยังไม่พร้อมสำหรับใช้ตัดสินผลในการปฏิบัติงานจริง</strong>
+            <p>ขั้นต่อไปควรตรวจภาพที่ระบบจำแนกคลาดเคลื่อน ปรับมาตรฐานการถ่ายภาพ และเพิ่มภาพต้นฉบับใหม่ก่อนพัฒนาระบบให้ซับซ้อนขึ้น</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">สถานะงาน</div>
+          <h2>ดำเนินการแล้ว</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card ok">
+            <h3>จัดเตรียมข้อมูลภาพ</h3>
+            <p>จัดเตรียมภาพย่อย 3,469 ภาพ จากภาพต้นฉบับ 15 ภาพ โดยสามารถตรวจสอบย้อนกลับได้ว่าภาพย่อยแต่ละภาพมาจากภาพต้นฉบับใด</p>
+          </article>
+          <article class="card ok">
+            <h3>ตรวจสอบความถูกต้องของข้อมูล</h3>
+            <p>ไม่พบร่องรอยของสีที่ใช้ทำเครื่องหมายปะปนอยู่ในภาพสำหรับการทดลอง จึงลดความเสี่ยงที่ระบบจะใช้สีดังกล่าวเป็นตัวช่วยในการตัดสินผล</p>
+          </article>
+          <article class="card ok">
+            <h3>ทดลองการจำแนกภาพ</h3>
+            <p>ได้ทดลองให้ระบบแยกภาพสะอาดและภาพที่มีคราบ พร้อมรวบรวมตัวอย่างที่ระบบจำแนกไม่ตรงกับผลตรวจเพื่อวิเคราะห์สาเหตุ</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft-amber">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">ข้อควรระวัง</div>
+          <h2>ปัญหาที่พบ</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card warn">
+            <h3>ผลยังไม่สม่ำเสมอ</h3>
+            <p>เมื่อเปลี่ยนไปใช้ภาพต้นฉบับคนละภาพ ผลการจำแนกอาจเปลี่ยนแปลงมาก</p>
+          </article>
+          <article class="card warn">
+            <h3>มีทั้งการเตือนเกินและการมองข้าม</h3>
+            <p>พบภาพสะอาดที่ถูกระบุว่ามีคราบ 611 ภาพย่อย และภาพที่มีคราบแต่ไม่ได้รับการตรวจพบ 256 ภาพย่อย</p>
+          </article>
+          <article class="card warn">
+            <h3>ยังมีกรณีที่ต้องกำหนดเกณฑ์ให้ชัดเจน</h3>
+            <p>บางภาพมีลักษณะก้ำกึ่ง จึงควรกำหนดเกณฑ์ร่วมกันว่าแบบใดถือว่าสะอาด แบบใดถือว่ามีคราบ และแบบใดควรตรวจเพิ่มเติม</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">ปัจจัยที่เกี่ยวข้อง</div>
+          <h2>สาเหตุที่คาดว่าเกี่ยวข้อง</h2>
+        </div>
+        <div class="points">
+          <article class="point">
+            <div class="dot">1</div>
+            <p>แสง เงา พื้นหลัง หรือพื้นผิวของรังนกแตกต่างกัน</p>
+          </article>
+          <article class="point">
+            <div class="dot">2</div>
+            <p>คราบบางจุดมีขนาดเล็ก ไม่ชัดเจน หรืออยู่บริเวณขอบภาพ</p>
+          </article>
+          <article class="point">
+            <div class="dot">3</div>
+            <p>เกณฑ์การจำแนกภาพสะอาดและภาพที่มีคราบยังต้องทบทวนในบางกรณี</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft-blue">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">ลำดับดำเนินงาน</div>
+          <h2>แนวทางแก้ไข</h2>
+        </div>
+        <div class="flow">
+          <article class="flow-step">
+            <p>ตรวจดูภาพที่ระบบจำแนกคลาดเคลื่อนร่วมกับผู้ปฏิบัติงาน</p>
+          </article>
+          <article class="flow-step">
+            <p>กำหนดมาตรฐานการถ่ายภาพ เช่น แสง ระยะ มุม และพื้นหลัง</p>
+          </article>
+          <article class="flow-step">
+            <p>เพิ่มภาพต้นฉบับใหม่จากสถานการณ์ที่หลากหลาย ไม่ใช่เพียงเพิ่มภาพย่อยจากภาพเดิม</p>
+          </article>
+          <article class="flow-step">
+            <p>จัดทำตัวอย่างอ้างอิง 3 กลุ่ม ได้แก่ สะอาด มีคราบ และต้องตรวจเพิ่มเติม</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">ข้อเสนอในระยะนี้</div>
+          <h2>การตัดสินใจในระยะนี้</h2>
+        </div>
+        <article class="decision-card">
+          <p>ควรดำเนินงานต่อโดยแก้ไขคุณภาพและความหลากหลายของข้อมูลก่อน ยังไม่ควรนำระบบไปใช้ตัดสินงานจริง หรือเพิ่มความซับซ้อนของระบบในทันที</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">เงื่อนไขถัดไป</div>
+          <h2>เกณฑ์ก่อนเดินหน้าสู่ขั้นถัดไป</h2>
+        </div>
+        <div class="outcomes">
+          <article class="outcome">
+            <strong>ทำต่อ</strong>
+            <p>เมื่อผลการทดลองมีความสม่ำเสมอมากขึ้น แม้ใช้ภาพต้นฉบับชุดใหม่</p>
+          </article>
+          <article class="outcome">
+            <strong>ปรับปรุง</strong>
+            <p>เมื่อยังพบผลกระทบจากแสง เงา พื้นหลัง หรือคุณภาพภาพ</p>
+          </article>
+          <article class="outcome">
+            <strong>ทบทวนเกณฑ์</strong>
+            <p>เมื่อผู้ตรวจยังเห็นต่างกันว่า ภาพใดควรจัดเป็นสะอาดหรือมีคราบ</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>BirdNests Project | Simplified Progress Summary</div>
+      <div>อ้างอิงจากผลการตรวจสอบข้อมูลและการทดลองล่าสุด</div>
+    </div>
+  </footer>
+</body>
+</html>
