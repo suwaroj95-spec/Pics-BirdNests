@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BirdNests Project Documentation</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #4b5d73;
+      --subtle: #697a8f;
+      --line: #d9e2ec;
+      --line-strong: #b9c8d8;
+      --paper: #ffffff;
+      --soft: #f7fafc;
+      --blue: #2458a6;
+      --blue-soft: #eaf2ff;
+      --green: #16745c;
+      --green-soft: #e8f6f1;
+      --amber: #9a6500;
+      --amber-soft: #fff4dc;
+      --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
+      --shadow-hover: 0 22px 55px rgba(23, 32, 51, 0.13);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      background: var(--soft);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, #ffffff 0%, var(--soft) 58%, #ffffff 100%);
+      font-family: "Segoe UI", "Sarabun", "Noto Sans Thai", Arial, sans-serif;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: grid;
+      align-content: center;
+      gap: clamp(28px, 5vw, 52px);
+      padding: clamp(38px, 7vw, 84px) 0;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      max-width: 860px;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      margin: 0;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--blue);
+      background: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 8vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+      color: #111827;
+    }
+
+    .subtitle {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.32rem);
+      line-height: 1.85;
+    }
+
+    .links {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .card {
+      --accent: var(--blue);
+      --accent-soft: var(--blue-soft);
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 236px;
+      padding: 24px;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease,
+        background-color 180ms ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      border-radius: 8px 8px 0 0;
+      background: var(--accent);
+    }
+
+    .card.green {
+      --accent: var(--green);
+      --accent-soft: var(--green-soft);
+    }
+
+    .card.amber {
+      --accent: var(--amber);
+      --accent-soft: var(--amber-soft);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .icon {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      flex: 0 0 auto;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid color-mix(in srgb, var(--accent) 24%, #ffffff);
+      border-radius: 8px;
+    }
+
+    .icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .tag {
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      display: grid;
+      gap: 9px;
+      align-content: start;
+    }
+
+    .card strong {
+      color: #111827;
+      font-size: clamp(1.28rem, 2vw, 1.55rem);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .card span.description {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .cue {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      margin-top: 26px;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.96rem;
+    }
+
+    .cue svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 180ms ease;
+    }
+
+    .card:hover {
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .card:hover .cue svg {
+      transform: translateX(3px);
+    }
+
+    .card:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 34%, transparent);
+      outline-offset: 4px;
+      border-color: var(--accent);
+      box-shadow: var(--shadow-hover);
+    }
+
+    @media (max-width: 900px) {
+      main {
+        width: min(720px, calc(100% - 36px));
+        align-content: start;
+      }
+
+      .links {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: 190px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      main {
+        width: min(100% - 28px, 420px);
+        padding: 32px 0;
+      }
+
+      .eyebrow {
+        font-size: 0.76rem;
+      }
+
+      .card {
+        min-height: 0;
+        padding: 20px;
+      }
+
+      .card-top {
+        margin-bottom: 20px;
+      }
+
+      .icon {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+        animation-duration: 1ms !important;
+      }
+
+      .card:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <p class="eyebrow">Project documentation gateway</p>
+      <h1>BirdNests Project</h1>
+      <p class="subtitle">ศูนย์รวมเอกสารสำหรับภาพรวมผู้บริหาร คู่มือเทคนิค และ repository ของระบบเตรียมข้อมูลภาพรังนก</p>
+    </header>
+
+    <section class="links" aria-label="Project documentation links">
+      <a class="card" href="birdnests-workflow-infographic.html">
+        <div class="card-top">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19V5"></path>
+              <path d="M4 19h16"></path>
+              <path d="M8 16V9"></path>
+              <path d="M12 16V7"></path>
+              <path d="M16 16v-5"></path>
+              <path d="M20 16v-3"></path>
+            </svg>
+          </span>
+          <span class="tag">Overview</span>
+        </div>
+        <div class="card-body">
+          <strong>Executive Infographic</strong>
+          <span class="description">ภาพรวม workflow สำหรับหัวหน้างานและผู้ตัดสินใจ</span>
+        </div>
+        <span class="cue">
+          Open infographic
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </span>
+      </a>
+
+      <a class="card green" href="manual/index.html">
+        <div class="card-top">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path>
+              <path d="M8 7h8"></path>
+              <path d="M8 11h7"></path>
+            </svg>
+          </span>
+          <span class="tag">Manual</span>
+        </div>
+        <div class="card-body">
+          <strong>Technical Manual</strong>
+          <span class="description">คู่มือค้นหาได้สำหรับ operator, researcher, และ developer</span>
+        </div>
+        <span class="cue">
+          Open manual
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </span>
+      </a>
+
+      <a class="card amber" href="https://github.com/suwaroj95-spec/Pics-BirdNests" rel="noopener">
+        <div class="card-top">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m16 18 6-6-6-6"></path>
+              <path d="m8 6-6 6 6 6"></path>
+              <path d="m14 4-4 16"></path>
+            </svg>
+          </span>
+          <span class="tag">Source</span>
+        </div>
+        <div class="card-body">
+          <strong>Source Code Repository</strong>
+          <span class="description">เปิด repository ต้นทางของโครงการและประวัติการพัฒนา</span>
+        </div>
+        <span class="cue">
+          View repository
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>

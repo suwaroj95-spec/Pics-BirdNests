@@ -1,4 +1,3 @@
-@'
 # Windows / editor
 .DS_Store
 Thumbs.db
@@ -30,4 +29,3 @@ env/
 # *.pth
 # *.onnx
 # *.engine
-'@ | Set-Content -Encoding utf8 .gitignore

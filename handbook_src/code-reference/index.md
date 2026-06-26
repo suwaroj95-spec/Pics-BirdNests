@@ -1,0 +1,47 @@
+# Code Reference
+
+Generated code reference index. Do not edit generated sections by hand.
+
+Coverage rules exclude generated outputs, binary assets, raw image folders, virtual environments, caches, and full CSV row content.
+
+## Files
+
+- [`.codex/skills/ui-ux-pro-max/scripts/core.py`](generated/-codex__skills__ui-ux-pro-max__scripts__core-py.md)
+- [`.codex/skills/ui-ux-pro-max/scripts/design_system.py`](generated/-codex__skills__ui-ux-pro-max__scripts__design_system-py.md)
+- [`.codex/skills/ui-ux-pro-max/scripts/search.py`](generated/-codex__skills__ui-ux-pro-max__scripts__search-py.md)
+- [`anomaly_detection.py`](generated/anomaly_detection-py.md)
+- [`clear_project_cache.ps1`](generated/clear_project_cache-ps1.md)
+- [`crop_clean_patches.py`](generated/crop_clean_patches-py.md)
+- [`InstallKit/install_project_tools.ps1`](generated/InstallKit__install_project_tools-ps1.md)
+- [`InstallKit/make_wheelhouse.ps1`](generated/InstallKit__make_wheelhouse-ps1.md)
+- [`InstallKit/requirements-core.txt`](generated/InstallKit__requirements-core-txt.md)
+- [`InstallKit/requirements-docs.txt`](generated/InstallKit__requirements-docs-txt.md)
+- [`InstallKit/requirements-optional-annotation.txt`](generated/InstallKit__requirements-optional-annotation-txt.md)
+- [`InstallKit/requirements-optional-tracking.txt`](generated/InstallKit__requirements-optional-tracking-txt.md)
+- [`manage_project_panel.bat`](generated/manage_project_panel-bat.md)
+- [`project_panel.py`](generated/project_panel-py.md)
+- [`run_project_panel.bat`](generated/run_project_panel-bat.md)
+- [`run_project_panel.ps1`](generated/run_project_panel-ps1.md)
+- [`select_birdnest_samples.py`](generated/select_birdnest_samples-py.md)
+- [`tests/test_crop_baseline_experiment.py`](generated/tests__test_crop_baseline_experiment-py.md)
+- [`tests/test_crop_dataset_lineage.py`](generated/tests__test_crop_dataset_lineage-py.md)
+- [`tests/test_crop_marker_leakage.py`](generated/tests__test_crop_marker_leakage-py.md)
+- [`tests/test_finalize_ground_truth.py`](generated/tests__test_finalize_ground_truth-py.md)
+- [`tests/test_ground_truth_builder.py`](generated/tests__test_ground_truth_builder-py.md)
+- [`tests/test_marker_distribution.py`](generated/tests__test_marker_distribution-py.md)
+- [`tests/test_smoke_and_safety.py`](generated/tests__test_smoke_and_safety-py.md)
+- [`tests/test_source_level_split.py`](generated/tests__test_source_level_split-py.md)
+- [`tests/test_sourcewise_crop_robustness.py`](generated/tests__test_sourcewise_crop_robustness-py.md)
+- [`tests/test_sourcewise_error_atlas.py`](generated/tests__test_sourcewise_error_atlas-py.md)
+- [`tools/analyze_blue_marker_distribution.py`](generated/tools__analyze_blue_marker_distribution-py.md)
+- [`tools/audit_crop_dataset_lineage.py`](generated/tools__audit_crop_dataset_lineage-py.md)
+- [`tools/audit_crop_marker_leakage.py`](generated/tools__audit_crop_marker_leakage-py.md)
+- [`tools/build_documentation.ps1`](generated/tools__build_documentation-ps1.md)
+- [`tools/build_ground_truth_from_markers.py`](generated/tools__build_ground_truth_from_markers-py.md)
+- [`tools/build_source_level_split.py`](generated/tools__build_source_level_split-py.md)
+- [`tools/build_sourcewise_error_atlas.py`](generated/tools__build_sourcewise_error_atlas-py.md)
+- [`tools/finalize_ground_truth.py`](generated/tools__finalize_ground_truth-py.md)
+- [`tools/generate_code_reference.py`](generated/tools__generate_code_reference-py.md)
+- [`tools/run_crop_baseline_experiment.py`](generated/tools__run_crop_baseline_experiment-py.md)
+- [`tools/run_sourcewise_crop_robustness.py`](generated/tools__run_sourcewise_crop_robustness-py.md)
+- [`tools/verify_documentation_coverage.py`](generated/tools__verify_documentation_coverage-py.md)

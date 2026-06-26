@@ -1,0 +1,296 @@
+{
+  "generated_by": "tools/generate_code_reference.py",
+  "coverage_scope": "Executable Python, PowerShell, batch, and requirements files only.",
+  "excluded": [
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".venv",
+    "AnomalyDetection",
+    "AnomalyDetectionPanelTest",
+    "AnomalyDetectionTest",
+    "BacktestSelection",
+    "Crops",
+    "RawPics",
+    "__pycache__",
+    "docs",
+    "env",
+    "tmp",
+    "venv"
+  ],
+  "files": [
+    {
+      "path": ".codex/skills/ui-ux-pro-max/scripts/core.py",
+      "reference": "handbook_src/code-reference/generated/-codex__skills__ui-ux-pro-max__scripts__core-py.md",
+      "purpose": "Executable Python source file.",
+      "symbol_count": 6,
+      "included": true
+    },
+    {
+      "path": ".codex/skills/ui-ux-pro-max/scripts/design_system.py",
+      "reference": "handbook_src/code-reference/generated/-codex__skills__ui-ux-pro-max__scripts__design_system-py.md",
+      "purpose": "Executable Python source file.",
+      "symbol_count": 9,
+      "included": true
+    },
+    {
+      "path": ".codex/skills/ui-ux-pro-max/scripts/search.py",
+      "reference": "handbook_src/code-reference/generated/-codex__skills__ui-ux-pro-max__scripts__search-py.md",
+      "purpose": "Executable Python source file.",
+      "symbol_count": 1,
+      "included": true
+    },
+    {
+      "path": "anomaly_detection.py",
+      "reference": "handbook_src/code-reference/generated/anomaly_detection-py.md",
+      "purpose": "Ranks suspicious selected crops using feature-based anomaly scoring.",
+      "symbol_count": 32,
+      "included": true
+    },
+    {
+      "path": "clear_project_cache.ps1",
+      "reference": "handbook_src/code-reference/generated/clear_project_cache-ps1.md",
+      "purpose": "Removes Python __pycache__ folders under the project root.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "crop_clean_patches.py",
+      "reference": "handbook_src/code-reference/generated/crop_clean_patches-py.md",
+      "purpose": "Generates clean and dirty crop patches plus metadata from raw image pairs.",
+      "symbol_count": 38,
+      "included": true
+    },
+    {
+      "path": "InstallKit/install_project_tools.ps1",
+      "reference": "handbook_src/code-reference/generated/InstallKit__install_project_tools-ps1.md",
+      "purpose": "Creates or updates the project virtual environment and installs runtime requirements.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "InstallKit/make_wheelhouse.ps1",
+      "reference": "handbook_src/code-reference/generated/InstallKit__make_wheelhouse-ps1.md",
+      "purpose": "Downloads Python wheels for offline installation.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "InstallKit/requirements-core.txt",
+      "reference": "handbook_src/code-reference/generated/InstallKit__requirements-core-txt.md",
+      "purpose": "Core runtime dependencies for pipeline and panel work.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "InstallKit/requirements-docs.txt",
+      "reference": "handbook_src/code-reference/generated/InstallKit__requirements-docs-txt.md",
+      "purpose": "Documentation-only dependencies for MkDocs Material.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "InstallKit/requirements-optional-annotation.txt",
+      "reference": "handbook_src/code-reference/generated/InstallKit__requirements-optional-annotation-txt.md",
+      "purpose": "Optional annotation dependency list.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "InstallKit/requirements-optional-tracking.txt",
+      "reference": "handbook_src/code-reference/generated/InstallKit__requirements-optional-tracking-txt.md",
+      "purpose": "Optional experiment tracking dependency list.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "manage_project_panel.bat",
+      "reference": "handbook_src/code-reference/generated/manage_project_panel-bat.md",
+      "purpose": "Checks, starts, reports, or stops the managed project panel process.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "project_panel.py",
+      "reference": "handbook_src/code-reference/generated/project_panel-py.md",
+      "purpose": "Serves the local workflow panel and safely launches pipeline subprocesses.",
+      "symbol_count": 23,
+      "included": true
+    },
+    {
+      "path": "run_project_panel.bat",
+      "reference": "handbook_src/code-reference/generated/run_project_panel-bat.md",
+      "purpose": "Batch wrapper for run_project_panel.ps1.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "run_project_panel.ps1",
+      "reference": "handbook_src/code-reference/generated/run_project_panel-ps1.md",
+      "purpose": "Starts the project panel after preparing local runtime state.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "select_birdnest_samples.py",
+      "reference": "handbook_src/code-reference/generated/select_birdnest_samples-py.md",
+      "purpose": "Backtests crop-selection systems and writes selected manifests.",
+      "symbol_count": 35,
+      "included": true
+    },
+    {
+      "path": "tests/test_crop_baseline_experiment.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_crop_baseline_experiment-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 4,
+      "included": true
+    },
+    {
+      "path": "tests/test_crop_dataset_lineage.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_crop_dataset_lineage-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 4,
+      "included": true
+    },
+    {
+      "path": "tests/test_crop_marker_leakage.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_crop_marker_leakage-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 5,
+      "included": true
+    },
+    {
+      "path": "tests/test_finalize_ground_truth.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_finalize_ground_truth-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 4,
+      "included": true
+    },
+    {
+      "path": "tests/test_ground_truth_builder.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_ground_truth_builder-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 1,
+      "included": true
+    },
+    {
+      "path": "tests/test_marker_distribution.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_marker_distribution-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 1,
+      "included": true
+    },
+    {
+      "path": "tests/test_smoke_and_safety.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_smoke_and_safety-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 4,
+      "included": true
+    },
+    {
+      "path": "tests/test_source_level_split.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_source_level_split-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 4,
+      "included": true
+    },
+    {
+      "path": "tests/test_sourcewise_crop_robustness.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_sourcewise_crop_robustness-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 4,
+      "included": true
+    },
+    {
+      "path": "tests/test_sourcewise_error_atlas.py",
+      "reference": "handbook_src/code-reference/generated/tests__test_sourcewise_error_atlas-py.md",
+      "purpose": "Automated test module covering pipeline safety, validation, or documentation-relevant behavior.",
+      "symbol_count": 4,
+      "included": true
+    },
+    {
+      "path": "tools/analyze_blue_marker_distribution.py",
+      "reference": "handbook_src/code-reference/generated/tools__analyze_blue_marker_distribution-py.md",
+      "purpose": "Analyzes Blue Marker distribution and source/marked alignment.",
+      "symbol_count": 26,
+      "included": true
+    },
+    {
+      "path": "tools/audit_crop_dataset_lineage.py",
+      "reference": "handbook_src/code-reference/generated/tools__audit_crop_dataset_lineage-py.md",
+      "purpose": "Audits crop lineage against source-level split and final ground truth.",
+      "symbol_count": 19,
+      "included": true
+    },
+    {
+      "path": "tools/audit_crop_marker_leakage.py",
+      "reference": "handbook_src/code-reference/generated/tools__audit_crop_marker_leakage-py.md",
+      "purpose": "Audits crop images for marker-like blue annotation leakage.",
+      "symbol_count": 18,
+      "included": true
+    },
+    {
+      "path": "tools/build_documentation.ps1",
+      "reference": "handbook_src/code-reference/generated/tools__build_documentation-ps1.md",
+      "purpose": "Builds documentation safely without changing pipeline outputs.",
+      "symbol_count": 0,
+      "included": true
+    },
+    {
+      "path": "tools/build_ground_truth_from_markers.py",
+      "reference": "handbook_src/code-reference/generated/tools__build_ground_truth_from_markers-py.md",
+      "purpose": "Builds preliminary ground-truth labels from verified Blue Markers.",
+      "symbol_count": 22,
+      "included": true
+    },
+    {
+      "path": "tools/build_source_level_split.py",
+      "reference": "handbook_src/code-reference/generated/tools__build_source_level_split-py.md",
+      "purpose": "Builds deterministic train/validation/test split manifests by source image.",
+      "symbol_count": 18,
+      "included": true
+    },
+    {
+      "path": "tools/build_sourcewise_error_atlas.py",
+      "reference": "handbook_src/code-reference/generated/tools__build_sourcewise_error_atlas-py.md",
+      "purpose": "Builds source-wise error profiles, rankings, and review examples.",
+      "symbol_count": 21,
+      "included": true
+    },
+    {
+      "path": "tools/finalize_ground_truth.py",
+      "reference": "handbook_src/code-reference/generated/tools__finalize_ground_truth-py.md",
+      "purpose": "Finalizes human-verified preliminary ground-truth labels.",
+      "symbol_count": 19,
+      "included": true
+    },
+    {
+      "path": "tools/generate_code_reference.py",
+      "reference": "handbook_src/code-reference/generated/tools__generate_code_reference-py.md",
+      "purpose": "Generates this documentation-only code reference from source files.",
+      "symbol_count": 13,
+      "included": true
+    },
+    {
+      "path": "tools/run_crop_baseline_experiment.py",
+      "reference": "handbook_src/code-reference/generated/tools__run_crop_baseline_experiment-py.md",
+      "purpose": "Runs a handcrafted crop baseline experiment with safety checks.",
+      "symbol_count": 23,
+      "included": true
+    },
+    {
+      "path": "tools/run_sourcewise_crop_robustness.py",
+      "reference": "handbook_src/code-reference/generated/tools__run_sourcewise_crop_robustness-py.md",
+      "purpose": "Runs source-wise crop robustness evaluation.",
+      "symbol_count": 19,
+      "included": true
+    },
+    {
+      "path": "tools/verify_documentation_coverage.py",
+      "reference": "handbook_src/code-reference/generated/tools__verify_documentation_coverage-py.md",
+      "purpose": "Verifies every executable file has documentation coverage mapping.",
+      "symbol_count": 4,
+      "included": true
+    }
+  ]
+}

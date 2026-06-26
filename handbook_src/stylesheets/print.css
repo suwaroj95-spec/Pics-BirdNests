@@ -1,0 +1,36 @@
+@media print {
+  .md-header,
+  .md-tabs,
+  .md-sidebar,
+  .md-footer,
+  .md-content__button {
+    display: none !important;
+  }
+
+  .md-main__inner,
+  .md-content,
+  .md-content__inner {
+    margin: 0 !important;
+    max-width: none !important;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  h1,
+  h2 {
+    break-after: avoid;
+  }
+
+  h2 {
+    break-before: page;
+  }
+
+  table,
+  pre,
+  blockquote {
+    break-inside: avoid;
+  }
+}

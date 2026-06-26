@@ -1,0 +1,1111 @@
+
+<!doctype html>
+<html lang="th" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Searchable Thai-first technical manual for the BirdNests image pipeline.">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>tools/run_sourcewise_crop_robustness.py - BirdNests Technical Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#toolsrun_sourcewise_crop_robustnesspy" class="md-skip">
+          ข้ามไปที่เนื้อหา
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="หัวข้อ">
+    <a href="../../index.html" title="BirdNests Technical Manual" class="md-header__button md-logo" aria-label="BirdNests Technical Manual" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BirdNests Technical Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              tools/run_sourcewise_crop_robustness.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="ค้นหา" placeholder="ค้นหา" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="ค้นหา">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="แบ่งปัน" aria-label="แบ่งปัน" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="ล้าง" aria-label="ล้าง" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            กำลังเริ่มต้นการค้นหา
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ตัวนำทาง" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="BirdNests Technical Manual" class="md-nav__button md-logo" aria-label="BirdNests Technical Manual" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BirdNests Technical Manual
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    หน้าแรก
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../executive-overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture-data-flow.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture And Data Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-folders.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Folders And Boundaries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../label-policy-ground-truth.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Label Policy And Ground Truth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../crop-generation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crop Generation Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sample-selection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample Selection Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anomaly-detection-review.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anomaly Detection And Review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../local-panel-safe-run.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Panel And Safe Run
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation-testing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation And Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../results-evidence-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results And Evidence Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting-recovery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting And Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary-keywords.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary And Keyword Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Code Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../print-handbook.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Print Handbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="สารบัญ">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      สารบัญ
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#top-level-classes-and-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-Level Classes And Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Top-Level Classes And Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#robustnesserror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RobustnessError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read_csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read_csv
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write_csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_csv
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file_sha256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        file_sha256
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensure_output_empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ensure_output_empty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric_source_sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        numeric_source_sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safe_crop_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        safe_crop_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate_marker_audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate_marker_audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rows_for_sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rows_for_sources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#positive_probabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        positive_probabilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y_to_label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        y_to_label
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        evaluate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision_from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decision_from
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_robustness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run_robustness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#report_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        report_text
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_args" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parse_args
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        main
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="toolsrun_sourcewise_crop_robustnesspy"><code>tools/run_sourcewise_crop_robustness.py</code><a class="headerlink" href="#toolsrun_sourcewise_crop_robustnesspy" title="Permanent link">&para;</a></h1>
+<p>Generated content. Do not edit by hand.</p>
+<ul>
+<li>Purpose: Runs source-wise crop robustness evaluation.</li>
+<li>Source path: <code>tools/run_sourcewise_crop_robustness.py</code></li>
+<li>Source link: <a href="https://github.com/suwaroj95-spec/Pics-BirdNests/blob/main/tools/run_sourcewise_crop_robustness.py">tools/run_sourcewise_crop_robustness.py</a></li>
+<li>Risk notes: Writes experiment outputs and may create model/report artifacts.</li>
+</ul>
+<h2 id="top-level-classes-and-functions">Top-Level Classes And Functions<a class="headerlink" href="#top-level-classes-and-functions" title="Permanent link">&para;</a></h2>
+<h3 id="robustnesserror"><code>RobustnessError</code><a class="headerlink" href="#robustnesserror" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>class</code></li>
+<li>Signature: <code>class RobustnessError</code></li>
+<li>Lines: 54-55</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="read_csv"><code>read_csv</code><a class="headerlink" href="#read_csv" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def read_csv(path)</code></li>
+<li>Lines: 58-61</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="write_csv"><code>write_csv</code><a class="headerlink" href="#write_csv" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def write_csv(path, columns, rows)</code></li>
+<li>Lines: 64-69</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="file_sha256"><code>file_sha256</code><a class="headerlink" href="#file_sha256" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def file_sha256(path)</code></li>
+<li>Lines: 72-77</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="ensure_output_empty"><code>ensure_output_empty</code><a class="headerlink" href="#ensure_output_empty" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def ensure_output_empty(output_dir)</code></li>
+<li>Lines: 80-82</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="numeric_source_sort"><code>numeric_source_sort</code><a class="headerlink" href="#numeric_source_sort" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def numeric_source_sort(source_id)</code></li>
+<li>Lines: 85-86</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="safe_crop_path"><code>safe_crop_path</code><a class="headerlink" href="#safe_crop_path" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def safe_crop_path(crops_dir, crop_path_text)</code></li>
+<li>Lines: 89-96</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="validate_marker_audit"><code>validate_marker_audit</code><a class="headerlink" href="#validate_marker_audit" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def validate_marker_audit(marker_audit_dir)</code></li>
+<li>Lines: 99-109</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="load_dataset"><code>load_dataset</code><a class="headerlink" href="#load_dataset" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def load_dataset(crops_dir, lineage_manifest, marker_audit_dir)</code></li>
+<li>Lines: 112-172</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="rows_for_sources"><code>rows_for_sources</code><a class="headerlink" href="#rows_for_sources" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def rows_for_sources(dataset, source_ids)</code></li>
+<li>Lines: 175-177</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="positive_probabilities"><code>positive_probabilities</code><a class="headerlink" href="#positive_probabilities" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def positive_probabilities(model, X)</code></li>
+<li>Lines: 180-182</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="y_to_label"><code>y_to_label</code><a class="headerlink" href="#y_to_label" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def y_to_label(value)</code></li>
+<li>Lines: 185-186</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="evaluate"><code>evaluate</code><a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def evaluate(y_true, predictions, probabilities)</code></li>
+<li>Lines: 189-205</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="distribution"><code>distribution</code><a class="headerlink" href="#distribution" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def distribution(values)</code></li>
+<li>Lines: 208-219</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="decision_from"><code>decision_from</code><a class="headerlink" href="#decision_from" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def decision_from(metrics_rows)</code></li>
+<li>Lines: 222-231</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="run_robustness"><code>run_robustness</code><a class="headerlink" href="#run_robustness" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def run_robustness(crops_dir, lineage_manifest, marker_audit_dir, output_dir, seed, enforce_empty_output)</code></li>
+<li>Lines: 234-384</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="report_text"><code>report_text</code><a class="headerlink" href="#report_text" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def report_text(summary, metrics_rows)</code></li>
+<li>Lines: 387-441</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="parse_args"><code>parse_args</code><a class="headerlink" href="#parse_args" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def parse_args()</code></li>
+<li>Lines: 444-451</li>
+<li>Docstring: No docstring.</li>
+</ul>
+<h3 id="main"><code>main</code><a class="headerlink" href="#main" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kind: <code>function</code></li>
+<li>Signature: <code>def main()</code></li>
+<li>Lines: 454-463</li>
+<li>Docstring: No docstring.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "search.highlight", "search.share", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27", "clipboard.copy": "\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01", "search.result.more.one": "\u0e2d\u0e35\u0e01\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49", "search.result.more.other": "# \u0e40\u0e1e\u0e34\u0e48\u0e21\u0e40\u0e15\u0e34\u0e21\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49", "search.result.none": "\u0e44\u0e21\u0e48\u0e1e\u0e1a\u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e17\u0e35\u0e48\u0e15\u0e23\u0e07\u0e01\u0e31\u0e19", "search.result.one": "\u0e1e\u0e1a\u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e17\u0e35\u0e48\u0e15\u0e23\u0e07\u0e01\u0e31\u0e19", "search.result.other": "\u0e1e\u0e1a # \u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e17\u0e35\u0e48\u0e15\u0e23\u0e07\u0e01\u0e31\u0e19", "search.result.placeholder": "\u0e1e\u0e34\u0e21\u0e1e\u0e4c\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e23\u0e34\u0e48\u0e21\u0e04\u0e49\u0e19\u0e2b\u0e32", "search.result.term.missing": "\u0e44\u0e21\u0e48\u0e1e\u0e1a", "select.version": "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

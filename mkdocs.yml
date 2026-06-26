@@ -1,0 +1,48 @@
+site_name: BirdNests Technical Manual
+site_description: Searchable Thai-first technical manual for the BirdNests image pipeline.
+site_url: ""
+docs_dir: handbook_src
+site_dir: docs/manual
+use_directory_urls: false
+theme:
+  name: material
+  language: th
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - search.highlight
+    - search.share
+    - toc.follow
+plugins:
+  - search:
+      lang:
+        - en
+        - th
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+extra_css:
+  - stylesheets/print.css
+not_in_nav: |
+  code-reference/generated/*.md
+nav:
+  - หน้าแรก: index.md
+  - Executive Overview: executive-overview.md
+  - Architecture And Data Flow: architecture-data-flow.md
+  - Data Folders And Boundaries: data-folders.md
+  - Label Policy And Ground Truth: label-policy-ground-truth.md
+  - Crop Generation Workflow: crop-generation.md
+  - Sample Selection Workflow: sample-selection.md
+  - Anomaly Detection And Review: anomaly-detection-review.md
+  - Local Panel And Safe Run: local-panel-safe-run.md
+  - Installation And Testing: installation-testing.md
+  - Results And Evidence Map: results-evidence-map.md
+  - Troubleshooting And Recovery: troubleshooting-recovery.md
+  - Glossary And Keyword Index: glossary-keywords.md
+  - Code Reference:
+      - Index: code-reference/index.md
+  - Print Handbook: print-handbook.md

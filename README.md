@@ -107,3 +107,33 @@ The main generated folders are:
 - `AnomalyDetectionPanelTest`
 
 Before a destructive rerun, copy the current run folder or use a new output directory. The project is still in data-readiness and review mode; it does not yet contain a production baseline model with final metrics.
+
+## 8. Documentation
+
+Install documentation tools only when you need to build the manual:
+
+```powershell
+.\tools\build_documentation.ps1 -InstallDocsDependencies
+```
+
+Build the searchable manual under `docs/manual`:
+
+```powershell
+.\tools\build_documentation.ps1
+```
+
+Preview locally:
+
+```powershell
+.\.venv\Scripts\python.exe -m mkdocs serve
+```
+
+Verify executable documentation coverage:
+
+```powershell
+.\.venv\Scripts\python.exe tools\verify_documentation_coverage.py
+```
+
+Export the print handbook from `docs/manual/print-handbook.html` using Microsoft Edge `Save as PDF`; see `docs/HOW_TO_EXPORT_PDF.md`.
+
+After adding or renaming executable source files, rerun the documentation build so the generated code reference and coverage manifest stay current.
