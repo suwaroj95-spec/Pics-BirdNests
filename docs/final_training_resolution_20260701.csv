@@ -1,0 +1,12 @@
+pair_sequence,original_target_id,decision,preferred_reference_sorted_position,reason
+17,32,QUARANTINE_PAIR,33,both images are marker images; no valid matching raw image exists
+72,87,QUARANTINE_PAIR,,raw and marker are different source images
+74,89,QUARANTINE_PAIR,,raw and marker are different source images
+83,98,QUARANTINE_PAIR,,raw and marker are different source images
+87,102,QUARANTINE_PAIR,,raw and marker are different source images
+88,103,QUARANTINE_PAIR,,raw and marker are different source images
+89,104,QUARANTINE_PAIR,,raw and marker are different source images
+100,115,QUARANTINE_PAIR,,exact duplicate within pair
+101,116,QUARANTINE_PAIR,,exact duplicate within pair
+102,117,QUARANTINE_PAIR,,exact duplicate within pair
+95,110,INCLUDE_WITH_ROLE_SWAP,,"the two images are a valid pair, but current raw/marker roles are reversed"
