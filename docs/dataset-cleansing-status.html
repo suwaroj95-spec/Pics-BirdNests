@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>สรุปความคืบหน้าการทำความสะอาดชุดข้อมูล | BirdNests Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    /*
+      แนวทางอัปเดต Set 4+:
+      1. เพิ่ม object ใหม่ใน window.datasetStatus.sets
+      2. ปรับ totalMarkerCount เมื่อจำนวน marker ที่ตรวจสอบแล้วเปลี่ยน
+      3. คง targetPairs = 300 จนกว่าเป้าหมายโครงการจะเปลี่ยน
+    */
+    window.datasetStatus = {
+      targetPairs: 300,
+      totalMarkerCount: 7115,
+      recommendedBufferPairs: 70,
+      lastUpdated: "6 กรกฎาคม 2569",
+      sets: [
+        {
+          id: "set_1",
+          title: "ชุดข้อมูลที่ 1",
+          filesReceived: 370,
+          usableFiles: 342,
+          validPairs: 171,
+          excludedFiles: 28,
+          cleansingStatus: "ทำความสะอาดและรับรองแล้ว",
+          cropReadiness: "พร้อมสำหรับสร้างภาพย่อย (Crop A)",
+          integrated: true
+        },
+        {
+          id: "set_2",
+          title: "ชุดข้อมูลที่ 2",
+          filesReceived: 82,
+          usableFiles: 78,
+          validPairs: 39,
+          excludedFiles: 4,
+          cleansingStatus: "ทำความสะอาดและรับรองแล้ว",
+          cropReadiness: "พร้อมสำหรับสร้างภาพย่อย (Crop A)",
+          integrated: true
+        },
+        {
+          id: "set_3",
+          title: "ชุดข้อมูลที่ 3",
+          filesReceived: 60,
+          usableFiles: 60,
+          validPairs: 30,
+          excludedFiles: 0,
+          cleansingStatus: "ทำความสะอาดและรับรองแล้ว",
+          cropReadiness: "พร้อมสำหรับสร้างภาพย่อย (Crop A)",
+          integrated: true,
+          technicalNote: "ผ่านการรับรองตามมาตรฐาน red_v1 และมีป้ายกำกับที่ตรวจสอบแล้ว 673 จุด"
+        }
+      ]
+    };
+  </script>
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #334155;
+      --subtle: #64748b;
+      --line: #cbd5e1;
+      --line-soft: #e2e8f0;
+      --paper: #ffffff;
+      --soft: #f8fafc;
+      --navy: #12315f;
+      --navy-soft: #e8effa;
+      --teal: #0f766e;
+      --teal-dark: #115e59;
+      --teal-soft: #e6f6f3;
+      --amber: #a16207;
+      --amber-dark: #854d0e;
+      --amber-soft: #fff4d6;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+      --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.07);
+      --radius: 8px;
+      --max: 1160px;
+      --text-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+      --text-note: clamp(0.95rem, 0.92rem + 0.12vw, 1.0625rem);
+      --text-label: clamp(0.95rem, 0.92rem + 0.12vw, 1rem);
+      --text-h1: clamp(2rem, 3vw, 2.625rem);
+      --text-h2: clamp(1.375rem, 2.2vw, 1.875rem);
+      --text-h3: clamp(1.1875rem, 1.8vw, 1.5rem);
+      --text-kpi: clamp(1.875rem, 3vw, 2.75rem);
+      --text-progress: clamp(2rem, 3.3vw, 2.75rem);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--soft);
+      font-family: "Sarabun", "TH Sarabun New", Tahoma, sans-serif;
+      font-weight: 400;
+      line-height: 1.62;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 42%, #eef6f8 100%);
+      font-size: var(--text-body);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      padding: 20px 0 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--navy);
+      background: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: var(--shadow-soft);
+      transition: border-color 180ms ease, background-color 180ms ease;
+    }
+
+    .back-link:hover {
+      border-color: #9fb2c8;
+      background: var(--navy-soft);
+    }
+
+    .back-link:focus-visible,
+    .card:focus-visible {
+      outline: 3px solid rgba(18, 49, 95, 0.28);
+      outline-offset: 4px;
+    }
+
+    .back-link svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .hero {
+      padding: clamp(34px, 6vw, 72px) 0 30px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      margin-bottom: 16px;
+      padding: 6px 12px;
+      border: 1px solid #b7d8d2;
+      border-radius: 999px;
+      color: var(--teal-dark);
+      background: var(--teal-soft);
+      font-size: var(--text-label);
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    h1 {
+      max-width: 840px;
+      margin-bottom: 16px;
+      color: var(--navy);
+      font-size: var(--text-h1);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 790px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.3125rem);
+      font-weight: 400;
+      line-height: 1.58;
+    }
+
+    .status-panel {
+      padding: 22px;
+      border: 1px solid #b7d8d2;
+      border-top: 4px solid var(--teal);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .status-panel h2 {
+      margin-bottom: 8px;
+      color: var(--teal-dark);
+      font-size: var(--text-h3);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .status-panel p {
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    .updated-pill {
+      display: inline-flex;
+      width: fit-content;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: var(--navy-soft);
+      font-size: var(--text-label);
+      font-weight: 700;
+    }
+
+    main {
+      display: grid;
+      gap: 26px;
+      padding: 0 0 56px;
+    }
+
+    section {
+      display: grid;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      min-width: 0;
+    }
+
+    .section-head > * { min-width: 0; }
+
+    .section-head h2 {
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: var(--text-h2);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .section-head p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .kpi-card {
+      display: grid;
+      gap: 12px;
+      min-height: 176px;
+      padding: 20px;
+      align-content: space-between;
+      border-top: 4px solid var(--navy);
+    }
+
+    .kpi-card.success { border-top-color: var(--teal); }
+    .kpi-card.warning { border-top-color: var(--amber); }
+
+    .kpi-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .kpi-label {
+      color: var(--muted);
+      font-size: var(--text-label);
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .metric-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      border: 1px solid rgba(18, 49, 95, 0.18);
+      border-radius: var(--radius);
+      color: var(--navy);
+      background: var(--navy-soft);
+    }
+
+    .success .metric-icon {
+      color: var(--teal-dark);
+      background: var(--teal-soft);
+      border-color: rgba(15, 118, 110, 0.2);
+    }
+
+    .warning .metric-icon {
+      color: var(--amber-dark);
+      background: var(--amber-soft);
+      border-color: rgba(161, 98, 7, 0.22);
+    }
+
+    .metric-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .kpi-value {
+      margin: 0;
+      color: var(--navy);
+      font-size: var(--text-kpi);
+      font-weight: 700;
+      line-height: 1.08;
+    }
+
+    .kpi-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: var(--text-note);
+      line-height: 1.58;
+    }
+
+    .progress-card {
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 26px;
+      align-items: center;
+      padding: 24px;
+      border-color: #d8c08a;
+      background: linear-gradient(180deg, #ffffff 0%, #fffdf7 100%);
+    }
+
+    .progress-number {
+      display: grid;
+      place-items: center;
+      width: min(258px, 100%);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border: 1px solid #d8c08a;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #ffffff 0 58%, transparent 59%),
+        conic-gradient(var(--amber) var(--progress-deg), #e7edf4 0);
+    }
+
+    .progress-number strong {
+      display: block;
+      color: var(--amber-dark);
+      font-size: var(--text-progress);
+      font-weight: 700;
+      line-height: 1.05;
+      text-align: center;
+    }
+
+    .progress-number span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: var(--text-label);
+      font-weight: 700;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .progress-copy h2 {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: var(--text-h2);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .progress-copy p {
+      color: var(--muted);
+      font-size: var(--text-body);
+      line-height: 1.58;
+    }
+
+    .progress-track {
+      height: 16px;
+      margin: 18px 0 12px;
+      overflow: hidden;
+      border: 1px solid #d8c08a;
+      border-radius: 999px;
+      background: #f0e4c4;
+    }
+
+    .progress-fill {
+      width: var(--progress-pct);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--amber), var(--teal));
+    }
+
+    .progress-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mini-stat {
+      padding: 14px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .mini-stat strong {
+      display: block;
+      color: var(--navy);
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .mini-stat span {
+      color: var(--muted);
+      font-size: var(--text-label);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .set-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .set-card {
+      display: grid;
+      gap: 16px;
+      padding: 20px;
+      border-top: 4px solid var(--teal);
+    }
+
+    .set-card h3 {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: var(--text-h3);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .badge-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .status-badge,
+    .readiness-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      min-height: 32px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: var(--text-label);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .status-badge {
+      color: var(--teal-dark);
+      background: var(--teal-soft);
+      border: 1px solid rgba(15, 118, 110, 0.22);
+    }
+
+    .readiness-badge {
+      color: var(--navy);
+      background: var(--navy-soft);
+      border: 1px solid rgba(18, 49, 95, 0.18);
+    }
+
+    .status-badge::before,
+    .readiness-badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .fact-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .fact-list li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .fact-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .fact-label {
+      color: var(--muted);
+      font-size: 0.96rem;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .fact-value {
+      color: var(--navy);
+      font-size: clamp(1.125rem, 1.3vw, 1.25rem);
+      font-weight: 600;
+      line-height: 1.25;
+      text-align: right;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 16px;
+    }
+
+    .plain-card {
+      padding: 22px;
+    }
+
+    .plain-card h2,
+    .plain-card h3 {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: var(--text-h3);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .readiness-summary {
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: var(--text-body);
+      line-height: 1.6;
+    }
+
+    .next-step {
+      padding: 16px;
+      border: 1px solid #d8c08a;
+      border-left: 4px solid var(--amber);
+      border-radius: var(--radius);
+      color: var(--amber-dark);
+      background: var(--amber-soft);
+      font-size: var(--text-note);
+      font-weight: 600;
+      line-height: 1.58;
+    }
+
+    .note-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .note-list li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      color: var(--muted);
+      font-size: var(--text-note);
+      line-height: 1.6;
+    }
+
+    .note-list svg {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      color: var(--teal);
+    }
+
+    .update-card {
+      border-color: #bfccd9;
+      background: linear-gradient(180deg, #ffffff 0%, #f6f9fd 100%);
+    }
+
+    .update-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: var(--text-note);
+      line-height: 1.6;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 6px;
+      color: var(--navy);
+      background: #e8effa;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .progress-card,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .kpi-grid,
+      .set-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .status-panel {
+        max-width: 720px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 36px, 460px);
+      }
+
+      .topbar {
+        padding-top: 14px;
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+
+      .section-head {
+        display: grid;
+        gap: 6px;
+      }
+
+      .kpi-grid,
+      .set-grid,
+      .progress-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-card,
+      .plain-card,
+      .set-card,
+      .kpi-card {
+        padding: 18px;
+      }
+
+      .progress-number {
+        width: min(220px, 100%);
+      }
+
+      .fact-list li {
+        align-items: start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+        animation-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <a class="back-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5"></path>
+          <path d="m11 18-6-6 6-6"></path>
+        </svg>
+        กลับสู่หน้ารวมเอกสารโครงการ
+      </a>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">สถานะการเตรียมข้อมูล</p>
+        <h1>สรุปความคืบหน้าการทำความสะอาดชุดข้อมูล</h1>
+        <p class="subtitle">สถานะการตรวจสอบและรับรองคุณภาพข้อมูลภาพรังนก ก่อนนำไปสร้างภาพย่อยและพัฒนาโมเดล</p>
+      </div>
+      <aside class="status-panel" aria-labelledby="current-status-title">
+        <h2 id="current-status-title">สถานะโดยรวม</h2>
+        <p>ชุดข้อมูลที่ 1-3 ทำความสะอาด ตรวจสอบคุณภาพ และพร้อมสำหรับสร้างภาพย่อย (Crop A) แล้ว การฝึกโมเดลรอบหลักควรเริ่มเมื่อมีข้อมูลที่ผ่านการรับรองอย่างน้อย 300 คู่ภาพ</p>
+        <span class="updated-pill" id="last-updated">อัปเดตล่าสุด: -</span>
+      </aside>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section aria-labelledby="kpi-title">
+      <div class="section-head">
+        <div>
+          <h2 id="kpi-title">ภาพรวมสำหรับผู้บริหาร</h2>
+          <p>ตัวเลขสำคัญของข้อมูลที่ผ่านการรับรองและเป้าหมายระยะถัดไป</p>
+        </div>
+      </div>
+      <div class="kpi-grid" id="kpi-grid"></div>
+    </section>
+
+    <section aria-labelledby="progress-title">
+      <article class="card progress-card">
+        <div class="progress-number" aria-hidden="true">
+          <div>
+            <strong id="progress-percent">0%</strong>
+            <span>ของเป้าหมาย 300 คู่</span>
+          </div>
+        </div>
+        <div class="progress-copy">
+          <h2 id="progress-title">ความคืบหน้าสู่เกณฑ์เริ่มฝึกโมเดลหลัก</h2>
+          <p>ขณะนี้ชุดข้อมูลทั้ง 3 ชุดพร้อมสำหรับสร้างภาพย่อยแล้ว อย่างไรก็ตาม การฝึกโมเดลรอบหลักจะเริ่มเมื่อมีข้อมูลที่ผ่านการรับรองอย่างน้อย 300 คู่ภาพ</p>
+          <div class="progress-track" role="progressbar" aria-label="ความคืบหน้าของคู่ภาพที่ผ่านการรับรองสู่เป้าหมาย 300 คู่" aria-valuemin="0" aria-valuemax="300" aria-valuenow="0">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="progress-stats" id="progress-stats"></div>
+        </div>
+      </article>
+    </section>
+
+    <section aria-labelledby="breakdown-title">
+      <div class="section-head">
+        <div>
+          <h2 id="breakdown-title">ผลการทำความสะอาดข้อมูลแยกตามชุด</h2>
+          <p>ทุกชุดใช้โครงสร้างการรายงานเดียวกัน เพื่อให้เปรียบเทียบสถานะได้ชัดเจน</p>
+        </div>
+      </div>
+      <div class="set-grid" id="set-grid"></div>
+    </section>
+
+    <section class="summary-grid" aria-label="สถานะความพร้อมปัจจุบันและขั้นตอนถัดไป">
+      <article class="card plain-card">
+        <h2>สถานะความพร้อมปัจจุบัน</h2>
+        <p class="readiness-summary" id="readiness-summary"></p>
+        <div class="next-step">ขั้นตอนถัดไป: รับและตรวจสอบข้อมูลชุดถัดไป เพื่อให้มีข้อมูลผ่านการรับรองครบอย่างน้อย 300 คู่ภาพก่อนเริ่มการฝึกโมเดลรอบหลัก</div>
+      </article>
+
+      <article class="card plain-card">
+        <h3>หมายเหตุการตรวจสอบข้อมูล</h3>
+        <ul class="note-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>ไฟล์ที่ไม่นำมาใช้ยังถูกเก็บไว้ พร้อมบันทึกเหตุผล เพื่อให้ตรวจสอบย้อนหลังได้</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>ข้อมูลจะนับเป็นคู่ภาพที่ผ่านการรับรองเมื่อผ่านการตรวจสอบความถูกต้องของภาพต้นฉบับ ภาพทำเครื่องหมาย และตำแหน่งรังนก</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>ชุดข้อมูลที่ 3 ใช้มาตรฐาน <code>red_v1</code> สำหรับบันทึกแหล่งที่มาของ marker โดยไม่กระทบมาตรฐานเดิมของชุดข้อมูลก่อนหน้า และมีป้ายกำกับที่ตรวจสอบแล้ว 673 จุด</span>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <section aria-labelledby="update-title">
+      <article class="card plain-card update-card">
+        <h2 id="update-title">แนวทางการอัปเดตชุดข้อมูลถัดไป</h2>
+        <p>เมื่อได้รับชุดข้อมูลใหม่ ให้เพิ่มข้อมูลของ Set 4 หรือชุดถัดไปใน <code>window.datasetStatus.sets</code> ระบบจะคำนวณยอดรวม จำนวนคู่ที่ยังขาด และความคืบหน้าสู่เป้าหมาย 300 คู่ภาพโดยอัตโนมัติ</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const statusData = window.datasetStatus;
+    const numberFormatter = new Intl.NumberFormat("en-US");
+    const format = (value) => numberFormatter.format(value);
+    const approvedPairs = statusData.sets.reduce((total, set) => total + set.validPairs, 0);
+    const totalFilesReceived = statusData.sets.reduce((total, set) => total + set.filesReceived, 0);
+    const remainingPairs = Math.max(statusData.targetPairs - approvedPairs, 0);
+    const readySetCount = statusData.sets.filter((set) => set.integrated).length;
+    const progressRatio = Math.min(approvedPairs / statusData.targetPairs, 1);
+    const progressPercent = Math.round(progressRatio * 100);
+
+    const metricIcon = {
+      pairs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7h8"></path><path d="M8 12h8"></path><path d="M8 17h5"></path><path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"></path></svg>',
+      markers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>',
+      ready: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path><path d="M21 12a9 9 0 1 1-5.3-8.2"></path></svg>',
+      remaining: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>'
+    };
+
+    document.getElementById("last-updated").textContent = `อัปเดตล่าสุด: ${statusData.lastUpdated}`;
+    document.documentElement.style.setProperty("--progress-pct", `${progressPercent}%`);
+    document.documentElement.style.setProperty("--progress-deg", `${progressRatio * 360}deg`);
+    document.getElementById("progress-percent").textContent = `${progressPercent}%`;
+    document.querySelector(".progress-track").setAttribute("aria-valuenow", String(approvedPairs));
+
+    const kpis = [
+      {
+        label: "ข้อมูลที่รับรองแล้ว",
+        value: `${format(approvedPairs)} คู่ภาพที่ผ่านการรับรอง`,
+        note: `จากไฟล์ที่ได้รับทั้งหมด ${format(totalFilesReceived)} ไฟล์`,
+        icon: "pairs",
+        tone: "success"
+      },
+      {
+        label: "ตำแหน่งรังนก",
+        value: `${format(statusData.totalMarkerCount)} จุดรังนกที่ตรวจสอบแล้ว`,
+        note: "จำนวน marker ที่ผ่านการตรวจสอบในทะเบียนข้อมูล",
+        icon: "markers",
+        tone: "success"
+      },
+      {
+        label: "ความพร้อม Crop A",
+        value: `${readySetCount} ชุดข้อมูลพร้อมสร้างภาพย่อย`,
+        note: "ชุดข้อมูลที่ 1-3 พร้อมสำหรับ Crop A",
+        icon: "ready",
+        tone: "success"
+      },
+      {
+        label: "ส่วนที่ยังต้องเพิ่ม",
+        value: `ยังขาดอีก ${format(remainingPairs)} คู่ภาพ`,
+        note: `เพื่อให้ครบเป้าหมาย ${format(statusData.targetPairs)} คู่ ควรขอเผื่อประมาณ ${format(statusData.recommendedBufferPairs)} คู่ภาพ`,
+        icon: "remaining",
+        tone: "warning"
+      }
+    ];
+
+    document.getElementById("kpi-grid").innerHTML = kpis.map((kpi) => `
+      <article class="card kpi-card ${kpi.tone}">
+        <div class="kpi-top">
+          <span class="kpi-label">${kpi.label}</span>
+          <span class="metric-icon" aria-hidden="true">${metricIcon[kpi.icon]}</span>
+        </div>
+        <p class="kpi-value">${kpi.value}</p>
+        <p class="kpi-note">${kpi.note}</p>
+      </article>
+    `).join("");
+
+    const progressStats = [
+      ["ปัจจุบัน", `${format(approvedPairs)} คู่ภาพ`],
+      ["เป้าหมาย", `${format(statusData.targetPairs)} คู่ภาพ`],
+      ["ยังขาด", `${format(remainingPairs)} คู่ภาพ`]
+    ];
+
+    document.getElementById("progress-stats").innerHTML = progressStats.map(([label, value]) => `
+      <div class="mini-stat">
+        <strong>${value}</strong>
+        <span>${label}</span>
+      </div>
+    `).join("");
+
+    const factRows = (set) => [
+      ["จำนวนไฟล์ที่ได้รับ", set.filesReceived],
+      ["จำนวนไฟล์ที่ผ่านการตรวจ", set.usableFiles],
+      ["จำนวนคู่ภาพที่ใช้ได้", set.validPairs],
+      ["จำนวนไฟล์ที่ไม่นำมาใช้", set.excludedFiles]
+    ];
+
+    document.getElementById("set-grid").innerHTML = statusData.sets.map((set) => `
+      <article class="card set-card">
+        <div>
+          <h3>${set.title}</h3>
+          <div class="badge-stack">
+            <span class="status-badge">${set.cleansingStatus}</span>
+            <span class="readiness-badge">${set.cropReadiness}</span>
+          </div>
+        </div>
+        <ul class="fact-list">
+          ${factRows(set).map(([label, value]) => `
+            <li>
+              <span class="fact-label">${label}</span>
+              <span class="fact-value">${format(value)}</span>
+            </li>
+          `).join("")}
+        </ul>
+      </article>
+    `).join("");
+
+    document.getElementById("readiness-summary").textContent =
+      `ชุดข้อมูลที่ 1-3 ผ่านการทำความสะอาด ตรวจสอบคู่ภาพ และรับรองคุณภาพเรียบร้อยแล้ว รวมเป็น ${format(approvedPairs)} คู่ภาพ พร้อมเข้าสู่ขั้นตอนสร้างภาพย่อย (Crop A)`;
+  </script>
+</body>
+</html>

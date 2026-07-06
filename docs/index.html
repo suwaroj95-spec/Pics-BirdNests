@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BirdNests Project Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #172033;
@@ -17,6 +20,8 @@
       --blue-soft: #eaf2ff;
       --green: #16745c;
       --green-soft: #e8f6f1;
+      --teal: #0f766e;
+      --teal-soft: #e7f7f5;
       --amber: #9a6500;
       --amber-soft: #fff4dc;
       --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
@@ -37,7 +42,9 @@
       color: var(--ink);
       background:
         linear-gradient(180deg, #ffffff 0%, var(--soft) 58%, #ffffff 100%);
-      font-family: "Segoe UI", "Sarabun", "Noto Sans Thai", Arial, sans-serif;
+      font-family: "Sarabun", "TH Sarabun New", Tahoma, sans-serif;
+      font-size: 17px;
+      font-weight: 400;
       line-height: 1.6;
       text-rendering: optimizeLegibility;
     }
@@ -90,7 +97,7 @@
 
     .links {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 18px;
       align-items: stretch;
     }
@@ -129,6 +136,11 @@
     .card.green {
       --accent: var(--green);
       --accent-soft: var(--green-soft);
+    }
+
+    .card.teal {
+      --accent: var(--teal);
+      --accent-soft: var(--teal-soft);
     }
 
     .card.amber {
@@ -177,15 +189,24 @@
 
     .card strong {
       color: #111827;
-      font-size: clamp(1.28rem, 2vw, 1.55rem);
-      line-height: 1.18;
+      font-size: clamp(1.1875rem, 1.8vw, 1.5rem);
+      font-weight: 700;
+      line-height: 1.3;
       letter-spacing: 0;
     }
 
     .card span.description {
       color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
+      font-size: clamp(1rem, 1.2vw, 1.0625rem);
+      font-weight: 400;
+      line-height: 1.62;
+    }
+
+    .card.teal .tag {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
     }
 
     .cue {
@@ -229,7 +250,7 @@
       }
 
       .links {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .card {
@@ -250,6 +271,10 @@
       .card {
         min-height: 0;
         padding: 20px;
+      }
+
+      .links {
+        grid-template-columns: 1fr;
       }
 
       .card-top {
@@ -306,6 +331,34 @@
         </div>
         <span class="cue">
           Open infographic
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </span>
+      </a>
+
+      <a class="card teal" href="dataset-cleansing-status.html">
+        <div class="card-top">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19V5"></path>
+              <path d="M4 19h16"></path>
+              <path d="M8 16v-4"></path>
+              <path d="M12 16V8"></path>
+              <path d="M16 16v-6"></path>
+              <path d="M7 7h10"></path>
+              <path d="m15 5 2 2-2 2"></path>
+            </svg>
+          </span>
+          <span class="tag">สถานะข้อมูล</span>
+        </div>
+        <div class="card-body">
+          <strong>ความคืบหน้าการทำความสะอาดข้อมูล</strong>
+          <span class="description">สรุปจำนวนข้อมูลที่ผ่านการตรวจสอบ ความพร้อมสำหรับสร้างภาพย่อย และความคืบหน้าสู่เป้าหมาย 300 คู่ภาพ</span>
+        </div>
+        <span class="cue">
+          เปิดหน้าสถานะ
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14"></path>
             <path d="m13 6 6 6-6 6"></path>
