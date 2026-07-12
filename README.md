@@ -1,139 +1,143 @@
-# Bird Nest Image Pipeline
+﻿# BirdNests Faster R-CNN Prototype
 
-Local research pipeline for preparing and reviewing bird-nest image crops. The current project focuses on data readiness, crop selection, and anomaly review before building a baseline classification model.
+This repository contains the BirdNests engineering Prototype for dirty-spot detection in bird-nest images. The current handoff state includes a frozen Faster R-CNN engineering Prototype, verified evaluation policy, sanitized Contact Sheets, and GitHub Pages documentation.
 
-## 1. Create And Activate `.venv`
+This is an engineering Prototype, not a production-ready system and not an expert-confirmed detector.
 
-From the project root:
+## Current Status
+
+- Prototype status: `FASTER_RCNN_PILOT_PROMISING`
+- Frozen configuration: `PROTOTYPE_CONFIGURATION_FROZEN`
+- Approved dataset scope: 240 raw/marker pairs incorporated into the Prototype data pipeline
+- Validation scope: 36 sources, 432 model-input tiles
+- Primary operating point: threshold `0.125`, Recall `70.99%`, `MODEL_ONLY_MARKER_ABSENT` = 1,785
+- Comparison operating point: threshold `0.175`, `MODEL_ONLY_MARKER_ABSENT` = 405
+- Sanitized public Contact Sheet viewer: `docs/contact-sheets/index.html`
+
+The 240 approved pairs are the approved Prototype dataset scope. Do not describe all 240 pairs as training images.
+
+## Dataset Summary
+
+The dataset status page reports the completed Prototype data scope:
+
+- 512 received files
+- 480 usable files
+- 240 valid raw/marker pairs
+- 32 excluded files
+- 7,115 verified marker points
+- 3 completed data sets
+
+See `docs/dataset-cleansing-status.html`.
+
+## Model Summary
+
+The Prototype uses Faster R-CNN with a MobileNetV3-Large-FPN backbone and 2 classes: background and dirty-spot candidate. The selected checkpoint is the frozen final checkpoint from the controlled CUDA pilot run.
+
+The primary threshold `0.125` is recall-prioritized for review. The comparison threshold `0.175` provides a lower-workload reference point. `MODEL_ONLY_MARKER_ABSENT` means a merged model prediction that does not match the original marker-derived Ground Truth under the frozen matching rule. It does not mean confirmed false positive or confirmed dirty spot.
+
+## Documentation Links
+
+- Gateway: `docs/index.html`
+- Workflow infographic: `docs/birdnests-workflow-infographic.html`
+- Dataset status: `docs/dataset-cleansing-status.html`
+- Model Prototype infographic: `docs/birdnests-model-prototype-infographic.html`
+- Sanitized Contact Sheet viewer: `docs/contact-sheets/index.html`
+- Company handoff package: `handoff/prototype_v1/README_HANDOFF.md`
+
+## Quick Start Paths
+
+For documentation review, open `docs/index.html` locally or through GitHub Pages after publication.
+
+For engineering handoff, start with:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+Get-Content .\handoff\prototype_v1\README_HANDOFF.md
+Get-Content .\handoff\prototype_v1\INSTALLATION.md
+Get-Content .\handoff\prototype_v1\INFERENCE_CONTRACT.md
 ```
 
-If PowerShell blocks activation, run the project commands with the explicit interpreter path instead:
+## Environment Installation
+
+Core project utilities remain in `InstallKit/requirements-core.txt`.
+
+The model runtime requirements are split into:
+
+- `InstallKit/requirements-model-common.txt`
+- `InstallKit/requirements-model-cuda.txt`
+
+Use the official PyTorch selector for the exact CUDA build that matches the target machine. Do not assume CUDA wheels can be installed from the default PyPI index.
+
+## Stable Inference Entry Point
+
+The supported entry point is:
 
 ```powershell
-.\.venv\Scripts\python.exe --version
+python .\tools\run_prototype_inference.py `
+  --input .\path\to\image-or-directory `
+  --output .\prototype_inference_output `
+  --checkpoint .\path\to\final_checkpoint.pt `
+  --config .\handoff\prototype_v1\prototype_runtime_config.json `
+  --threshold 0.125 `
+  --device cpu `
+  --save-json predictions.json `
+  --save-preview previews
 ```
 
-## 2. Install Requirements
+The wrapper validates arguments without loading the checkpoint. It loads PyTorch and the checkpoint only when actual inference is requested.
 
-Install the core tools:
+## Contact Sheet Viewer
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r .\InstallKit\requirements-core.txt
-```
+The public viewer uses sanitized page images and a sanitized manifest only:
 
-The installer wrapper can also create/update the environment, but it may use the network and modify `.venv`:
+- `docs/contact-sheets/index.html`
+- `docs/contact-sheets/contact-sheet-manifest.json`
+- `docs/contact-sheets/pages/primary/`
+- `docs/contact-sheets/pages/comparison/`
 
-```powershell
-.\InstallKit\install_project_tools.ps1
-```
+The Contact Sheet is for engineering review. It is not expert-confirmed Ground Truth.
 
-Optional tools are intentionally separate:
+## Checkpoint Distribution Policy
 
-```powershell
-.\InstallKit\install_project_tools.ps1 -WithAnnotation
-.\InstallKit\install_project_tools.ps1 -WithTracking
-```
+Do not commit checkpoint files to regular Git and do not copy them into `docs/`.
 
-## 3. Run The Panel
-
-The local panel binds to `127.0.0.1` by default:
-
-```powershell
-.\.venv\Scripts\python.exe project_panel.py
-```
-
-Then open:
+The authoritative frozen checkpoint should be distributed later as a GitHub Release asset:
 
 ```text
-http://127.0.0.1:8769/
+final_checkpoint.pt
 ```
 
-To open the browser automatically:
+SHA256:
+
+```text
+660b59465e1514f39eae79c4a53d2cc4181c0d829bd1365be853c6260b0def5c
+```
+
+## Limitations
+
+- Engineering Prototype only; not production-ready.
+- Contact Sheet labels are model-vs-marker review states, not expert decisions.
+- Marker incompleteness is a possible limitation but must not be assumed for any individual point.
+- CUDA memory and production throughput require further benchmarking.
+- Publication of image-derived Contact Sheet pages requires owner authorization even when privacy sanitization passes.
+
+## Repository And Data-Publication Policy
+
+The repository is public after publication. Public Contact Sheet images are accessible to anyone who knows or discovers the URL. Raw images, marker images, local datasets, caches, temporary runs, checkpoints, optimizer states, and secrets must not be committed unless explicitly approved and documented.
+
+## Tests And Validation
+
+Focused non-inference tests cover inference CLI validation, output schema construction, and public Contact Sheet manifest/link checks:
 
 ```powershell
-.\.venv\Scripts\python.exe project_panel.py --open
+python -m unittest tests.test_run_prototype_inference tests.test_contact_sheet_public_manifest -v
 ```
 
-## 4. Run Crop Safely
+These tests do not load the checkpoint, run inference, or require CUDA.
 
-The safe default keeps existing generated files:
+## Company Handoff Package
 
-```powershell
-.\.venv\Scripts\python.exe crop_clean_patches.py --raw-dir RawPics --output-dir Crops
+The package lives at:
+
+```text
+handoff/prototype_v1/
 ```
-
-For a test run, prefer a new output directory:
-
-```powershell
-.\.venv\Scripts\python.exe crop_clean_patches.py --raw-dir RawPics --output-dir Crops_Test
-```
-
-## 5. Default vs `--keep-existing` vs `--clear-output`
-
-- Default: keeps existing crop/debug files and writes/updates output files in the selected output directory.
-- `--keep-existing`: explicit form of the default safe behavior.
-- `--clear-output`: deletes previous generated `.jpg` files in `clean_negative` and `dirty_positive`, plus `.png`/`.jpg` files in `debug_masks`, under the selected output directory before writing new output.
-
-Use `--clear-output` only after confirming the selected output directory is disposable or backed up.
-
-## 6. Run Tests
-
-Run the automated safety and smoke tests:
-
-```powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-```
-
-Compile-check the main scripts:
-
-```powershell
-.\.venv\Scripts\python.exe -m py_compile project_panel.py crop_clean_patches.py select_birdnest_samples.py anomaly_detection.py tests\test_smoke_and_safety.py
-```
-
-## 7. Output And Backup Cautions
-
-Do not point experimental runs at important output folders unless they are backed up.
-
-The main generated folders are:
-
-- `Crops`
-- `BacktestSelection`
-- `AnomalyDetection`
-- `AnomalyDetectionTest`
-- `AnomalyDetectionPanelTest`
-
-Before a destructive rerun, copy the current run folder or use a new output directory. The project is still in data-readiness and review mode; it does not yet contain a production baseline model with final metrics.
-
-## 8. Documentation
-
-Install documentation tools only when you need to build the manual:
-
-```powershell
-.\tools\build_documentation.ps1 -InstallDocsDependencies
-```
-
-Build the searchable manual under `docs/manual`:
-
-```powershell
-.\tools\build_documentation.ps1
-```
-
-Preview locally:
-
-```powershell
-.\.venv\Scripts\python.exe -m mkdocs serve
-```
-
-Verify executable documentation coverage:
-
-```powershell
-.\.venv\Scripts\python.exe tools\verify_documentation_coverage.py
-```
-
-Export the print handbook from `docs/manual/print-handbook.html` using Microsoft Edge `Save as PDF`; see `docs/HOW_TO_EXPORT_PDF.md`.
-
-After adding or renaming executable source files, rerun the documentation build so the generated code reference and coverage manifest stay current.

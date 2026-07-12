@@ -24,6 +24,8 @@
       --teal-soft: #e7f7f5;
       --amber: #9a6500;
       --amber-soft: #fff4dc;
+      --rose: #b42346;
+      --rose-soft: #fff1f4;
       --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
       --shadow-hover: 0 22px 55px rgba(23, 32, 51, 0.13);
     }
@@ -97,7 +99,7 @@
 
     .links {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 18px;
       align-items: stretch;
     }
@@ -146,6 +148,11 @@
     .card.amber {
       --accent: var(--amber);
       --accent-soft: var(--amber-soft);
+    }
+
+    .card.model {
+      --accent: var(--rose);
+      --accent-soft: var(--rose-soft);
     }
 
     .card-top {
@@ -243,6 +250,12 @@
       box-shadow: var(--shadow-hover);
     }
 
+    @media (max-width: 1180px) {
+      .links {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 900px) {
       main {
         width: min(720px, calc(100% - 36px));
@@ -338,6 +351,36 @@
         </span>
       </a>
 
+      <a class="card model" href="birdnests-model-prototype-infographic.html">
+        <div class="card-top">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4"></path>
+              <path d="M12 18v4"></path>
+              <path d="M4.93 4.93 7.76 7.76"></path>
+              <path d="m16.24 16.24 2.83 2.83"></path>
+              <path d="M2 12h4"></path>
+              <path d="M18 12h4"></path>
+              <path d="m4.93 19.07 2.83-2.83"></path>
+              <path d="m16.24 7.76 2.83-2.83"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </span>
+          <span class="tag">MODEL</span>
+        </div>
+        <div class="card-body">
+          <strong>ผลการพัฒนาโมเดล</strong>
+          <span class="description">สรุปการทดลอง Faster R-CNN ผลประเมิน Contact Sheet เครื่องมือ Environment Hardware และแนวทางพัฒนาต่อ</span>
+        </div>
+        <span class="cue">
+          เปิดผลการพัฒนาโมเดล
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </span>
+      </a>
+
       <a class="card teal" href="dataset-cleansing-status.html">
         <div class="card-top">
           <span class="icon" aria-hidden="true">
@@ -355,7 +398,7 @@
         </div>
         <div class="card-body">
           <strong>ความคืบหน้าการทำความสะอาดข้อมูล</strong>
-          <span class="description">สรุปจำนวนข้อมูลที่ผ่านการตรวจสอบ ความพร้อมสำหรับสร้างภาพย่อย และความคืบหน้าสู่เป้าหมาย 300 คู่ภาพ</span>
+          <span class="description">สรุปข้อมูลที่ผ่านการตรวจสอบครบ 240 คู่ภาพ ความพร้อมของชุดข้อมูล และการนำเข้าสู่กระบวนการพัฒนา Prototype</span>
         </div>
         <span class="cue">
           เปิดหน้าสถานะ

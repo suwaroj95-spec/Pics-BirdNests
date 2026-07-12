@@ -1,0 +1,911 @@
+{
+  "status": "SANITIZED_PUBLIC_CONTACT_SHEET_READY",
+  "generated_at": "2026-07-12T18:26:53+0700",
+  "terminology": "MODEL_ONLY_MARKER_ABSENT",
+  "disclaimer": "Engineering review artifact only. Not expert-confirmed ground truth.",
+  "privacy_policy": "Manifest contains only public relative paths, page numbers, thresholds, sizes and checksums. It excludes raw image paths, marker image paths, checkpoint paths and internal temporary paths.",
+  "sets": {
+    "primary": {
+      "threshold": "0.125",
+      "model_only_records": 1785,
+      "page_count": 90,
+      "pages": [
+        {
+          "page_number": 1,
+          "filename": "primary_0125_page_001.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_001.png",
+          "public_path": "pages/primary/primary_0125_page_001.png",
+          "size_bytes": 5798858,
+          "sha256": "88d524d28514f60c6e2f6c056f17e97d4c80cbec36c6027afcacc811210ecc04"
+        },
+        {
+          "page_number": 2,
+          "filename": "primary_0125_page_002.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_002.png",
+          "public_path": "pages/primary/primary_0125_page_002.png",
+          "size_bytes": 5795488,
+          "sha256": "291f0785183cf75ce5285e8018158aac3a098071e7c22181df3c9954723a6f22"
+        },
+        {
+          "page_number": 3,
+          "filename": "primary_0125_page_003.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_003.png",
+          "public_path": "pages/primary/primary_0125_page_003.png",
+          "size_bytes": 5937052,
+          "sha256": "603e00157b3c9c95f2265b1a7749c9203622f142586ca0ad2edbbcf6c56c9ac4"
+        },
+        {
+          "page_number": 4,
+          "filename": "primary_0125_page_004.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_004.png",
+          "public_path": "pages/primary/primary_0125_page_004.png",
+          "size_bytes": 5929425,
+          "sha256": "fafcc4765dab539a6a7709be93999a55e5ce09e490dead97c15fba848c7105c7"
+        },
+        {
+          "page_number": 5,
+          "filename": "primary_0125_page_005.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_005.png",
+          "public_path": "pages/primary/primary_0125_page_005.png",
+          "size_bytes": 6026862,
+          "sha256": "e49be8d828cdaf8e7b4c74d6a30a094a24bbebb8032241ef23ea4bcffe313024"
+        },
+        {
+          "page_number": 6,
+          "filename": "primary_0125_page_006.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_006.png",
+          "public_path": "pages/primary/primary_0125_page_006.png",
+          "size_bytes": 6078396,
+          "sha256": "b6dd62265566fcae7ed273b74472059cb261a45608f3e0b7a38ad519b85b649c"
+        },
+        {
+          "page_number": 7,
+          "filename": "primary_0125_page_007.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_007.png",
+          "public_path": "pages/primary/primary_0125_page_007.png",
+          "size_bytes": 6142242,
+          "sha256": "d1c84840da36e8555264ee870c00a8486e1024fa48b2685bdf8450cef3af63a4"
+        },
+        {
+          "page_number": 8,
+          "filename": "primary_0125_page_008.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_008.png",
+          "public_path": "pages/primary/primary_0125_page_008.png",
+          "size_bytes": 6099122,
+          "sha256": "d6e016dc74808821c6da7c2e0497dd8a4291f87280b16280e1412fd3ff9f5718"
+        },
+        {
+          "page_number": 9,
+          "filename": "primary_0125_page_009.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_009.png",
+          "public_path": "pages/primary/primary_0125_page_009.png",
+          "size_bytes": 6086838,
+          "sha256": "cd86b282115025c7841939c446cc360316002d8812aacc1ca9023d2253e83b3d"
+        },
+        {
+          "page_number": 10,
+          "filename": "primary_0125_page_010.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_010.png",
+          "public_path": "pages/primary/primary_0125_page_010.png",
+          "size_bytes": 6072914,
+          "sha256": "b48adc24330ad213f26542db5a1547e35c7140a3ef7a14705535e4790ed045f6"
+        },
+        {
+          "page_number": 11,
+          "filename": "primary_0125_page_011.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_011.png",
+          "public_path": "pages/primary/primary_0125_page_011.png",
+          "size_bytes": 5990645,
+          "sha256": "eb766ccc445edbacfefd0bd3a4affa134126ec0e18fb004ba7c5fcf8e82af904"
+        },
+        {
+          "page_number": 12,
+          "filename": "primary_0125_page_012.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_012.png",
+          "public_path": "pages/primary/primary_0125_page_012.png",
+          "size_bytes": 6161494,
+          "sha256": "5189cebd70efa56de2c0323a5de4e7b0cbef0a4fbfc369d14b5b3ebed8390c4d"
+        },
+        {
+          "page_number": 13,
+          "filename": "primary_0125_page_013.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_013.png",
+          "public_path": "pages/primary/primary_0125_page_013.png",
+          "size_bytes": 6000905,
+          "sha256": "fd12fa117ec1e6cf6fc3d6256cd408abcbbdf2b0b24c960357c9a3337fae9512"
+        },
+        {
+          "page_number": 14,
+          "filename": "primary_0125_page_014.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_014.png",
+          "public_path": "pages/primary/primary_0125_page_014.png",
+          "size_bytes": 6191101,
+          "sha256": "5ccff3334c22a53cc100095a92d718911871b0944acc5d3c9dc7304d97706b50"
+        },
+        {
+          "page_number": 15,
+          "filename": "primary_0125_page_015.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_015.png",
+          "public_path": "pages/primary/primary_0125_page_015.png",
+          "size_bytes": 6325994,
+          "sha256": "d49573636fb6e1d1bcb2dcd3849a0ef9c4e0d581f9b6ff153bbbaa0de5218087"
+        },
+        {
+          "page_number": 16,
+          "filename": "primary_0125_page_016.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_016.png",
+          "public_path": "pages/primary/primary_0125_page_016.png",
+          "size_bytes": 6138299,
+          "sha256": "92abbcc87ae044a546f2127981b60a9fb817ad1aa730dfc9bc67fc3aad47bead"
+        },
+        {
+          "page_number": 17,
+          "filename": "primary_0125_page_017.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_017.png",
+          "public_path": "pages/primary/primary_0125_page_017.png",
+          "size_bytes": 6135354,
+          "sha256": "08fa46fc5565849bc61b69ed2add1b8d252a0c6406d0f15a1281b594cf0995ac"
+        },
+        {
+          "page_number": 18,
+          "filename": "primary_0125_page_018.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_018.png",
+          "public_path": "pages/primary/primary_0125_page_018.png",
+          "size_bytes": 6147017,
+          "sha256": "7fd7bc9e960db041a0e6db43f26e59b3ad92c8b5561a0db6962a3f13471d0598"
+        },
+        {
+          "page_number": 19,
+          "filename": "primary_0125_page_019.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_019.png",
+          "public_path": "pages/primary/primary_0125_page_019.png",
+          "size_bytes": 5630835,
+          "sha256": "96eadae19f95c23db6904c85639e046f57a4de5da56d5e21afbe7115396ec326"
+        },
+        {
+          "page_number": 20,
+          "filename": "primary_0125_page_020.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_020.png",
+          "public_path": "pages/primary/primary_0125_page_020.png",
+          "size_bytes": 5566072,
+          "sha256": "193a3a9117c68387d56d26cf4f345a0b35d2a104e4f8a61e0e5f6309eb748756"
+        },
+        {
+          "page_number": 21,
+          "filename": "primary_0125_page_021.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_021.png",
+          "public_path": "pages/primary/primary_0125_page_021.png",
+          "size_bytes": 5727735,
+          "sha256": "e607dba198d60609cb027199d4256273e08f10310bdaea1cc8f56a6a77bf8967"
+        },
+        {
+          "page_number": 22,
+          "filename": "primary_0125_page_022.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_022.png",
+          "public_path": "pages/primary/primary_0125_page_022.png",
+          "size_bytes": 5508553,
+          "sha256": "f07daf30e5c7179be1194ace3e9da0fbc4592b249efb5ba40701af10bcd94af0"
+        },
+        {
+          "page_number": 23,
+          "filename": "primary_0125_page_023.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_023.png",
+          "public_path": "pages/primary/primary_0125_page_023.png",
+          "size_bytes": 5522713,
+          "sha256": "3916ed3e4635dacadaf702c6184f32fb54e4bdd4efc553b0c9afe5a5b396c67c"
+        },
+        {
+          "page_number": 24,
+          "filename": "primary_0125_page_024.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_024.png",
+          "public_path": "pages/primary/primary_0125_page_024.png",
+          "size_bytes": 5590475,
+          "sha256": "e302b25267904446ace3bdb2b16677304233d594497c908d2bc1b31d4706667f"
+        },
+        {
+          "page_number": 25,
+          "filename": "primary_0125_page_025.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_025.png",
+          "public_path": "pages/primary/primary_0125_page_025.png",
+          "size_bytes": 5969873,
+          "sha256": "9b5b1c73b8eb6ad7e84cd393165bf95754dc351ac2955a064b266878043eaaa5"
+        },
+        {
+          "page_number": 26,
+          "filename": "primary_0125_page_026.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_026.png",
+          "public_path": "pages/primary/primary_0125_page_026.png",
+          "size_bytes": 6183734,
+          "sha256": "d2ef81bf74d3ae3132e5f6d01280da3b1359a2f937662979ddccd072317860b6"
+        },
+        {
+          "page_number": 27,
+          "filename": "primary_0125_page_027.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_027.png",
+          "public_path": "pages/primary/primary_0125_page_027.png",
+          "size_bytes": 5931207,
+          "sha256": "83f56d4b3b779f42b6b854fedc8c80c0ca301c4cca701f03fc87afafd1ee8b85"
+        },
+        {
+          "page_number": 28,
+          "filename": "primary_0125_page_028.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_028.png",
+          "public_path": "pages/primary/primary_0125_page_028.png",
+          "size_bytes": 5872571,
+          "sha256": "7abe0193802a8cc532714305eef97d8c7cbd3735521bf62103d5ba5a968dec12"
+        },
+        {
+          "page_number": 29,
+          "filename": "primary_0125_page_029.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_029.png",
+          "public_path": "pages/primary/primary_0125_page_029.png",
+          "size_bytes": 5758797,
+          "sha256": "c332190c043b686ba54c165f1095004b62249665d69eb784be90f68f29c2ce2e"
+        },
+        {
+          "page_number": 30,
+          "filename": "primary_0125_page_030.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_030.png",
+          "public_path": "pages/primary/primary_0125_page_030.png",
+          "size_bytes": 5834194,
+          "sha256": "650fc93e1cb5c5314201636103bf4340e18fd54269c8d4903f1f8db9a38ba9b2"
+        },
+        {
+          "page_number": 31,
+          "filename": "primary_0125_page_031.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_031.png",
+          "public_path": "pages/primary/primary_0125_page_031.png",
+          "size_bytes": 5807683,
+          "sha256": "aaa71d1664c005546fdd19409fa47c99be514042f6cb802fe6d441106e5af550"
+        },
+        {
+          "page_number": 32,
+          "filename": "primary_0125_page_032.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_032.png",
+          "public_path": "pages/primary/primary_0125_page_032.png",
+          "size_bytes": 5802208,
+          "sha256": "5618db5db491da02d4dcc3dd9251c1247ea3e911f5cd4d6722db8292bec2b921"
+        },
+        {
+          "page_number": 33,
+          "filename": "primary_0125_page_033.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_033.png",
+          "public_path": "pages/primary/primary_0125_page_033.png",
+          "size_bytes": 6188343,
+          "sha256": "5df160b3447b9141112380af6df9753d4e2fdd40265a8d702fe3c6c6c813ac49"
+        },
+        {
+          "page_number": 34,
+          "filename": "primary_0125_page_034.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_034.png",
+          "public_path": "pages/primary/primary_0125_page_034.png",
+          "size_bytes": 6122366,
+          "sha256": "e30947397bd908e5fce796a214735b607a65389ed04d2ce30e067119965c58c8"
+        },
+        {
+          "page_number": 35,
+          "filename": "primary_0125_page_035.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_035.png",
+          "public_path": "pages/primary/primary_0125_page_035.png",
+          "size_bytes": 6202256,
+          "sha256": "f999bdba2c46c7ee6729059e564a2514cb6453a988c493a287ead80e45840cf0"
+        },
+        {
+          "page_number": 36,
+          "filename": "primary_0125_page_036.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_036.png",
+          "public_path": "pages/primary/primary_0125_page_036.png",
+          "size_bytes": 6018141,
+          "sha256": "0ea1f4fd37c5a6cf6911787dc2a2e309fe5f94c4022c705c2831db97ff71a993"
+        },
+        {
+          "page_number": 37,
+          "filename": "primary_0125_page_037.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_037.png",
+          "public_path": "pages/primary/primary_0125_page_037.png",
+          "size_bytes": 5844881,
+          "sha256": "80875cb64524b5478ca9c9a7fcdf70469ac74bb788a0ae3d0eec42fd271e2af5"
+        },
+        {
+          "page_number": 38,
+          "filename": "primary_0125_page_038.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_038.png",
+          "public_path": "pages/primary/primary_0125_page_038.png",
+          "size_bytes": 5851505,
+          "sha256": "99bcf179ba58732bf62bf4f000bcb8d2b01c9228d2fea15b33fe33bfcab510c1"
+        },
+        {
+          "page_number": 39,
+          "filename": "primary_0125_page_039.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_039.png",
+          "public_path": "pages/primary/primary_0125_page_039.png",
+          "size_bytes": 5908410,
+          "sha256": "555c2c9097c4231f29020a9013b039fff85e1251778556991c6584a124eb5668"
+        },
+        {
+          "page_number": 40,
+          "filename": "primary_0125_page_040.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_040.png",
+          "public_path": "pages/primary/primary_0125_page_040.png",
+          "size_bytes": 6257362,
+          "sha256": "62a3caf2c0f6646624778b059047c170066afd9d0a4e1ac90e8ba25e033853f3"
+        },
+        {
+          "page_number": 41,
+          "filename": "primary_0125_page_041.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_041.png",
+          "public_path": "pages/primary/primary_0125_page_041.png",
+          "size_bytes": 6274270,
+          "sha256": "1c6268613e6fea94923ce71ee8d3ea31066c2699cc97b7c46575ce7eb86368ba"
+        },
+        {
+          "page_number": 42,
+          "filename": "primary_0125_page_042.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_042.png",
+          "public_path": "pages/primary/primary_0125_page_042.png",
+          "size_bytes": 6347162,
+          "sha256": "91f8752309b8274f3a4678fef09c841a08ee755f7fe28943a52e5fa7013db0e9"
+        },
+        {
+          "page_number": 43,
+          "filename": "primary_0125_page_043.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_043.png",
+          "public_path": "pages/primary/primary_0125_page_043.png",
+          "size_bytes": 6271378,
+          "sha256": "b888cd94805defecc08d6f15d75b6b20053b9c142e94eb5dc2deb1839d0d0c49"
+        },
+        {
+          "page_number": 44,
+          "filename": "primary_0125_page_044.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_044.png",
+          "public_path": "pages/primary/primary_0125_page_044.png",
+          "size_bytes": 6261559,
+          "sha256": "e68dd6eca434715c93d5b7873cad4e03ef87cb58f452b01a30dcebe89d8d4a40"
+        },
+        {
+          "page_number": 45,
+          "filename": "primary_0125_page_045.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_045.png",
+          "public_path": "pages/primary/primary_0125_page_045.png",
+          "size_bytes": 5984476,
+          "sha256": "d4cd7c3bef7d9534f302ab73ef6476b5cc23f3570364aaf46d33bf62ae258e49"
+        },
+        {
+          "page_number": 46,
+          "filename": "primary_0125_page_046.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_046.png",
+          "public_path": "pages/primary/primary_0125_page_046.png",
+          "size_bytes": 6137234,
+          "sha256": "14ce23b1b3efdc8fe463cb399fcbb531136f5645e385ec6921c3a530adc6f904"
+        },
+        {
+          "page_number": 47,
+          "filename": "primary_0125_page_047.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_047.png",
+          "public_path": "pages/primary/primary_0125_page_047.png",
+          "size_bytes": 6088681,
+          "sha256": "537eba6de6a42794907f520a4ea5074061a4788a65f15c35bd3f1bfe444bb352"
+        },
+        {
+          "page_number": 48,
+          "filename": "primary_0125_page_048.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_048.png",
+          "public_path": "pages/primary/primary_0125_page_048.png",
+          "size_bytes": 6174806,
+          "sha256": "587190893367ab77eef51058a055d165d8c286c2b495c756b6a3838ddffdbdbc"
+        },
+        {
+          "page_number": 49,
+          "filename": "primary_0125_page_049.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_049.png",
+          "public_path": "pages/primary/primary_0125_page_049.png",
+          "size_bytes": 6129479,
+          "sha256": "7865d8551dd7a73c6e3382278257e588861514f1d0dbc0b04ce0f1d02bb85936"
+        },
+        {
+          "page_number": 50,
+          "filename": "primary_0125_page_050.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_050.png",
+          "public_path": "pages/primary/primary_0125_page_050.png",
+          "size_bytes": 6238414,
+          "sha256": "80233492ecfdbeb27214ce46e9cfa38be02a1a67e52987c01e94ac6b090544b7"
+        },
+        {
+          "page_number": 51,
+          "filename": "primary_0125_page_051.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_051.png",
+          "public_path": "pages/primary/primary_0125_page_051.png",
+          "size_bytes": 6245711,
+          "sha256": "5d3f75f4f27ff18c4275f21fc087dc9069bc638cda1fbbb50776c591244a5b42"
+        },
+        {
+          "page_number": 52,
+          "filename": "primary_0125_page_052.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_052.png",
+          "public_path": "pages/primary/primary_0125_page_052.png",
+          "size_bytes": 6225119,
+          "sha256": "36f5efaf4d201f2018bb55dbc1759908e8f5e04dc97edf14f4407b9c3866c90f"
+        },
+        {
+          "page_number": 53,
+          "filename": "primary_0125_page_053.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_053.png",
+          "public_path": "pages/primary/primary_0125_page_053.png",
+          "size_bytes": 6202191,
+          "sha256": "1ffc66002e0533d7eadd6fb65fd3e7f76b25d7932a7c1f6862ae669b79d12d02"
+        },
+        {
+          "page_number": 54,
+          "filename": "primary_0125_page_054.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_054.png",
+          "public_path": "pages/primary/primary_0125_page_054.png",
+          "size_bytes": 6081103,
+          "sha256": "6ac67c37ef9db4086c676c7288a9b6de25ec719d3857e03c5b34928551e974a8"
+        },
+        {
+          "page_number": 55,
+          "filename": "primary_0125_page_055.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_055.png",
+          "public_path": "pages/primary/primary_0125_page_055.png",
+          "size_bytes": 6073027,
+          "sha256": "8986026192144e2279885cb51d2d9b6f75d106c58c5c6f3716b06d55f3131170"
+        },
+        {
+          "page_number": 56,
+          "filename": "primary_0125_page_056.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_056.png",
+          "public_path": "pages/primary/primary_0125_page_056.png",
+          "size_bytes": 6146634,
+          "sha256": "866801bab5001ef426d733fd16c7728234ece24d7b33fdc7077802387721a4bc"
+        },
+        {
+          "page_number": 57,
+          "filename": "primary_0125_page_057.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_057.png",
+          "public_path": "pages/primary/primary_0125_page_057.png",
+          "size_bytes": 5898291,
+          "sha256": "bef03ba783f0701f8f21fda341c4404188a2090f99753175ce191c7adaec7184"
+        },
+        {
+          "page_number": 58,
+          "filename": "primary_0125_page_058.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_058.png",
+          "public_path": "pages/primary/primary_0125_page_058.png",
+          "size_bytes": 5911137,
+          "sha256": "a319e98e73083a52119ab7fabc1917b509f7c1a5acf048c18f409c54b8f95077"
+        },
+        {
+          "page_number": 59,
+          "filename": "primary_0125_page_059.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_059.png",
+          "public_path": "pages/primary/primary_0125_page_059.png",
+          "size_bytes": 5886339,
+          "sha256": "9237ce3321cf314b7787a9c6f7afffb32f4d1c0d59d784a1ae7783dd4e8e6531"
+        },
+        {
+          "page_number": 60,
+          "filename": "primary_0125_page_060.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_060.png",
+          "public_path": "pages/primary/primary_0125_page_060.png",
+          "size_bytes": 5793340,
+          "sha256": "a29ef6b815c4e631ce9fcc2215f892b3a2b1b3c18758fee985bbc59cbadc22aa"
+        },
+        {
+          "page_number": 61,
+          "filename": "primary_0125_page_061.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_061.png",
+          "public_path": "pages/primary/primary_0125_page_061.png",
+          "size_bytes": 6315075,
+          "sha256": "77faa19a98c7d97274948ee2cf2eb4b81d0707f59920908ae76741cec06de052"
+        },
+        {
+          "page_number": 62,
+          "filename": "primary_0125_page_062.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_062.png",
+          "public_path": "pages/primary/primary_0125_page_062.png",
+          "size_bytes": 6193024,
+          "sha256": "84e11c3b86f0836d2b14f8aa2531606979b9a8a24fda51d42370a19a947a0f59"
+        },
+        {
+          "page_number": 63,
+          "filename": "primary_0125_page_063.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_063.png",
+          "public_path": "pages/primary/primary_0125_page_063.png",
+          "size_bytes": 6310966,
+          "sha256": "7e6aef34373b16498b3aafd7d0cf12fcd3ca0421fecaf910fee753674e000c38"
+        },
+        {
+          "page_number": 64,
+          "filename": "primary_0125_page_064.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_064.png",
+          "public_path": "pages/primary/primary_0125_page_064.png",
+          "size_bytes": 6272373,
+          "sha256": "f02d654efab909fe3d8a8c6fc05f0ffae42e6e0763734efac2a57ca708e37347"
+        },
+        {
+          "page_number": 65,
+          "filename": "primary_0125_page_065.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_065.png",
+          "public_path": "pages/primary/primary_0125_page_065.png",
+          "size_bytes": 6299970,
+          "sha256": "e90ecb2f69390d781492e52fe73a727fe7312827e5747b3222c4f96cba2fa6db"
+        },
+        {
+          "page_number": 66,
+          "filename": "primary_0125_page_066.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_066.png",
+          "public_path": "pages/primary/primary_0125_page_066.png",
+          "size_bytes": 6172865,
+          "sha256": "5e36bd36e68cfc01f3c1431784afe43a88662959d3ccaa6498b88206c179022b"
+        },
+        {
+          "page_number": 67,
+          "filename": "primary_0125_page_067.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_067.png",
+          "public_path": "pages/primary/primary_0125_page_067.png",
+          "size_bytes": 5838889,
+          "sha256": "67a21e668989dbc588a27776adf5535bef928866d2e3e7301a0c04fb21341b93"
+        },
+        {
+          "page_number": 68,
+          "filename": "primary_0125_page_068.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_068.png",
+          "public_path": "pages/primary/primary_0125_page_068.png",
+          "size_bytes": 5842236,
+          "sha256": "d550d94503b7f7915e39306088cbd7d5708cdc4d72c1e057822ac971d3afb809"
+        },
+        {
+          "page_number": 69,
+          "filename": "primary_0125_page_069.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_069.png",
+          "public_path": "pages/primary/primary_0125_page_069.png",
+          "size_bytes": 5755109,
+          "sha256": "b89bd99d5873d6ac16c56c83594a36ce161ca1cd83ad531e6cd3506ab02c8c76"
+        },
+        {
+          "page_number": 70,
+          "filename": "primary_0125_page_070.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_070.png",
+          "public_path": "pages/primary/primary_0125_page_070.png",
+          "size_bytes": 6012030,
+          "sha256": "62040217e334e00b771ce3a5cbd5bfe583e297698cc4a0af6371fda8ef4ff812"
+        },
+        {
+          "page_number": 71,
+          "filename": "primary_0125_page_071.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_071.png",
+          "public_path": "pages/primary/primary_0125_page_071.png",
+          "size_bytes": 6103731,
+          "sha256": "9c280cde25e40867bc1680d30883a6255f578466b5e954dabe9b98db0cf4ae52"
+        },
+        {
+          "page_number": 72,
+          "filename": "primary_0125_page_072.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_072.png",
+          "public_path": "pages/primary/primary_0125_page_072.png",
+          "size_bytes": 5966415,
+          "sha256": "80aba7aa7001dd2403ced91ec971e5c2d5b0516afc7ffdbf954e0d16fc6890c8"
+        },
+        {
+          "page_number": 73,
+          "filename": "primary_0125_page_073.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_073.png",
+          "public_path": "pages/primary/primary_0125_page_073.png",
+          "size_bytes": 6161314,
+          "sha256": "2daae1561b1f4b8d815d66eb624371a878486e4ba4c33d3130e3ca4530972757"
+        },
+        {
+          "page_number": 74,
+          "filename": "primary_0125_page_074.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_074.png",
+          "public_path": "pages/primary/primary_0125_page_074.png",
+          "size_bytes": 6264981,
+          "sha256": "62e8e8102a8e477898751d4233b02ab490a90d3576fe845c6647402f954d8948"
+        },
+        {
+          "page_number": 75,
+          "filename": "primary_0125_page_075.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_075.png",
+          "public_path": "pages/primary/primary_0125_page_075.png",
+          "size_bytes": 6352186,
+          "sha256": "c55bfab945e69dbc1b7e5739be2825dec3a365edca41faca58ad728a7f360f82"
+        },
+        {
+          "page_number": 76,
+          "filename": "primary_0125_page_076.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_076.png",
+          "public_path": "pages/primary/primary_0125_page_076.png",
+          "size_bytes": 6213106,
+          "sha256": "3690f1d7b23d1cf8e7dd05456f89e1d9451141807d41a7ec2ab72afd342057bf"
+        },
+        {
+          "page_number": 77,
+          "filename": "primary_0125_page_077.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_077.png",
+          "public_path": "pages/primary/primary_0125_page_077.png",
+          "size_bytes": 6069815,
+          "sha256": "9f9f7d4324ff054b0571561bfe39601611edaf63df429a7890441bdeeae05e53"
+        },
+        {
+          "page_number": 78,
+          "filename": "primary_0125_page_078.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_078.png",
+          "public_path": "pages/primary/primary_0125_page_078.png",
+          "size_bytes": 6412369,
+          "sha256": "9e7c7b207067ee8f7deca690cbe5455d2ad05b1cd7698e71896e853340f05bb6"
+        },
+        {
+          "page_number": 79,
+          "filename": "primary_0125_page_079.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_079.png",
+          "public_path": "pages/primary/primary_0125_page_079.png",
+          "size_bytes": 6115263,
+          "sha256": "eec73db0aace484d277c7b4768de05e23f88563d34be95f4c09ce927d8693bf2"
+        },
+        {
+          "page_number": 80,
+          "filename": "primary_0125_page_080.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_080.png",
+          "public_path": "pages/primary/primary_0125_page_080.png",
+          "size_bytes": 6105605,
+          "sha256": "7e14f04c4852682f35601027b1ec5eead8dfbf97f9dad8e2c84a9a938d6684cc"
+        },
+        {
+          "page_number": 81,
+          "filename": "primary_0125_page_081.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_081.png",
+          "public_path": "pages/primary/primary_0125_page_081.png",
+          "size_bytes": 5678263,
+          "sha256": "50142bd5c91a6198fe2ae877817eedf0404042e1430b6519bf9169f2b50b32fd"
+        },
+        {
+          "page_number": 82,
+          "filename": "primary_0125_page_082.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_082.png",
+          "public_path": "pages/primary/primary_0125_page_082.png",
+          "size_bytes": 5742662,
+          "sha256": "b5c853d21a837076a1d14f2fe0e8aaa2d5423b5de8c88729f2f2918336c427c3"
+        },
+        {
+          "page_number": 83,
+          "filename": "primary_0125_page_083.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_083.png",
+          "public_path": "pages/primary/primary_0125_page_083.png",
+          "size_bytes": 5725840,
+          "sha256": "8916790b52e57e69204b22e2f85fa7765bb783f03e8256438992edd1609df1da"
+        },
+        {
+          "page_number": 84,
+          "filename": "primary_0125_page_084.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_084.png",
+          "public_path": "pages/primary/primary_0125_page_084.png",
+          "size_bytes": 6317741,
+          "sha256": "f1c61de3fbde64ae2371c66ee38f9518590e702f4e0a9146415e90ca0723cc61"
+        },
+        {
+          "page_number": 85,
+          "filename": "primary_0125_page_085.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_085.png",
+          "public_path": "pages/primary/primary_0125_page_085.png",
+          "size_bytes": 6071701,
+          "sha256": "6aa2378b48ca4576cbb053a1ea3bba5b0fa82c10f455e21bae922a5487ef4d51"
+        },
+        {
+          "page_number": 86,
+          "filename": "primary_0125_page_086.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_086.png",
+          "public_path": "pages/primary/primary_0125_page_086.png",
+          "size_bytes": 6221636,
+          "sha256": "ac6672c68f9e0d0cad84824b7bb54ee8f6ded54e1de254485e8070faff8e34ec"
+        },
+        {
+          "page_number": 87,
+          "filename": "primary_0125_page_087.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_087.png",
+          "public_path": "pages/primary/primary_0125_page_087.png",
+          "size_bytes": 6024805,
+          "sha256": "9f1a0449c1e92967b4b932338deeb55d5fdd561649554e100e063ee61fec8d58"
+        },
+        {
+          "page_number": 88,
+          "filename": "primary_0125_page_088.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_088.png",
+          "public_path": "pages/primary/primary_0125_page_088.png",
+          "size_bytes": 6150500,
+          "sha256": "a3b242b47115e115f5b905e9a554c33fe5ad73c8ce3fa6418d74dda5e96b587a"
+        },
+        {
+          "page_number": 89,
+          "filename": "primary_0125_page_089.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_089.png",
+          "public_path": "pages/primary/primary_0125_page_089.png",
+          "size_bytes": 6410314,
+          "sha256": "004694f326247e6b68f9d7617d5384822f8dbf7006d2ae4c8b306f9926645320"
+        },
+        {
+          "page_number": 90,
+          "filename": "primary_0125_page_090.png",
+          "relative_path": "docs/contact-sheets/pages/primary/primary_0125_page_090.png",
+          "public_path": "pages/primary/primary_0125_page_090.png",
+          "size_bytes": 1671992,
+          "sha256": "5c531233241e8c42bf72920960dcef819916cd48298a4762bb1718c270586ebf"
+        }
+      ]
+    },
+    "comparison": {
+      "threshold": "0.175",
+      "model_only_records": 405,
+      "page_count": 21,
+      "pages": [
+        {
+          "page_number": 1,
+          "filename": "comparison_0175_page_001.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_001.png",
+          "public_path": "pages/comparison/comparison_0175_page_001.png",
+          "size_bytes": 5890217,
+          "sha256": "d23b55a5a7f9ee2aa07cda0d987ef1ddd10befc34003fc895d1f545840c4865a"
+        },
+        {
+          "page_number": 2,
+          "filename": "comparison_0175_page_002.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_002.png",
+          "public_path": "pages/comparison/comparison_0175_page_002.png",
+          "size_bytes": 6057125,
+          "sha256": "5225244db04bcb7a5522ea37552485e51fcad29b055e392746655504ab96a274"
+        },
+        {
+          "page_number": 3,
+          "filename": "comparison_0175_page_003.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_003.png",
+          "public_path": "pages/comparison/comparison_0175_page_003.png",
+          "size_bytes": 6043382,
+          "sha256": "c5d4a6d2a8e58f8e66497ede6f65b00202a6fea3ab94b15e71e9c95dd6e84e9f"
+        },
+        {
+          "page_number": 4,
+          "filename": "comparison_0175_page_004.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_004.png",
+          "public_path": "pages/comparison/comparison_0175_page_004.png",
+          "size_bytes": 6092033,
+          "sha256": "fe1f9c33e13c1cffc62b13c4b555457425fcba7339ae1285ed733c8d163b2b3f"
+        },
+        {
+          "page_number": 5,
+          "filename": "comparison_0175_page_005.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_005.png",
+          "public_path": "pages/comparison/comparison_0175_page_005.png",
+          "size_bytes": 5582461,
+          "sha256": "76a6fedb9930dd78121f491379ec27b3ca0a060ebdc22856611bd2cc7b6df1ba"
+        },
+        {
+          "page_number": 6,
+          "filename": "comparison_0175_page_006.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_006.png",
+          "public_path": "pages/comparison/comparison_0175_page_006.png",
+          "size_bytes": 5547064,
+          "sha256": "43186a190fc9c5d6e282112ab5baa6ec14140762d12a201fddb42e23a4e41bc3"
+        },
+        {
+          "page_number": 7,
+          "filename": "comparison_0175_page_007.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_007.png",
+          "public_path": "pages/comparison/comparison_0175_page_007.png",
+          "size_bytes": 5788756,
+          "sha256": "2afbe631a765bd86703c2d1e49ac1059cc889092c247dbf16d368327d1ca17f5"
+        },
+        {
+          "page_number": 8,
+          "filename": "comparison_0175_page_008.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_008.png",
+          "public_path": "pages/comparison/comparison_0175_page_008.png",
+          "size_bytes": 5905440,
+          "sha256": "f309f692915ece5617044e0bc552af9760632565aed98b218604834f9062929c"
+        },
+        {
+          "page_number": 9,
+          "filename": "comparison_0175_page_009.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_009.png",
+          "public_path": "pages/comparison/comparison_0175_page_009.png",
+          "size_bytes": 5873632,
+          "sha256": "fb0f81691181bf19e50e552779bd5a25ec1af17ed3ca3264a68e5891c5bdd62d"
+        },
+        {
+          "page_number": 10,
+          "filename": "comparison_0175_page_010.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_010.png",
+          "public_path": "pages/comparison/comparison_0175_page_010.png",
+          "size_bytes": 5909000,
+          "sha256": "2524807ea44ec623d040e31df74ce4f23a1aafeba61179cc4dd0a42469a6b5ef"
+        },
+        {
+          "page_number": 11,
+          "filename": "comparison_0175_page_011.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_011.png",
+          "public_path": "pages/comparison/comparison_0175_page_011.png",
+          "size_bytes": 6221544,
+          "sha256": "57330f5ff14bbace2c7ad559a9489fe7b1c91be6f3dfe52351d2b5f5c93eea7f"
+        },
+        {
+          "page_number": 12,
+          "filename": "comparison_0175_page_012.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_012.png",
+          "public_path": "pages/comparison/comparison_0175_page_012.png",
+          "size_bytes": 5990826,
+          "sha256": "1082ad7dd070a74e3de82f4666ca8dfb4038ec2640668c95e28e670c1e401c5d"
+        },
+        {
+          "page_number": 13,
+          "filename": "comparison_0175_page_013.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_013.png",
+          "public_path": "pages/comparison/comparison_0175_page_013.png",
+          "size_bytes": 6271683,
+          "sha256": "13e2ce677516a2da06defd102e1b64bfb7c94fb9a9faf6de3c5e3f31ee4404ee"
+        },
+        {
+          "page_number": 14,
+          "filename": "comparison_0175_page_014.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_014.png",
+          "public_path": "pages/comparison/comparison_0175_page_014.png",
+          "size_bytes": 5843593,
+          "sha256": "da8ad6dd683aa085deea20617aeeb15fc12b1d7b5e5d38218d92e55cd6d64801"
+        },
+        {
+          "page_number": 15,
+          "filename": "comparison_0175_page_015.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_015.png",
+          "public_path": "pages/comparison/comparison_0175_page_015.png",
+          "size_bytes": 6208933,
+          "sha256": "5bf2b1650da73457fbd39b2dc5585f8fa48d941a318a6bac7c6459f03788753f"
+        },
+        {
+          "page_number": 16,
+          "filename": "comparison_0175_page_016.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_016.png",
+          "public_path": "pages/comparison/comparison_0175_page_016.png",
+          "size_bytes": 5822604,
+          "sha256": "703083bf5aef0c4acbd599fafc719536c77e1b36763445c1f7320ed6c5f5ab6c"
+        },
+        {
+          "page_number": 17,
+          "filename": "comparison_0175_page_017.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_017.png",
+          "public_path": "pages/comparison/comparison_0175_page_017.png",
+          "size_bytes": 6069041,
+          "sha256": "3a016b45a226b3cd5bdbd10445bda7af8c9d791c7252803b22b4f816ea2d8f9b"
+        },
+        {
+          "page_number": 18,
+          "filename": "comparison_0175_page_018.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_018.png",
+          "public_path": "pages/comparison/comparison_0175_page_018.png",
+          "size_bytes": 6257661,
+          "sha256": "17f050ca4a31772d19e8c02a4565d56524ebc4ef6df2710d07b4a97f77fc3fb6"
+        },
+        {
+          "page_number": 19,
+          "filename": "comparison_0175_page_019.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_019.png",
+          "public_path": "pages/comparison/comparison_0175_page_019.png",
+          "size_bytes": 5794927,
+          "sha256": "aecf07a2df5a4b9bff31ab650aaed220a5be93d9600b485feae8b4ac4a81997b"
+        },
+        {
+          "page_number": 20,
+          "filename": "comparison_0175_page_020.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_020.png",
+          "public_path": "pages/comparison/comparison_0175_page_020.png",
+          "size_bytes": 5847761,
+          "sha256": "da4985ee341dd4952223d352002210f9ba34272c34b61323f4aa2bbc3a1bae99"
+        },
+        {
+          "page_number": 21,
+          "filename": "comparison_0175_page_021.png",
+          "relative_path": "docs/contact-sheets/pages/comparison/comparison_0175_page_021.png",
+          "public_path": "pages/comparison/comparison_0175_page_021.png",
+          "size_bytes": 1710430,
+          "sha256": "28554efad03365b082f0f0bea94c1cd4ee03fbb621ad0e867be586482a1036ba"
+        }
+      ]
+    }
+  }
+}

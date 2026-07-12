@@ -1,0 +1,17 @@
+{
+  "release_asset_filename": "final_checkpoint.pt",
+  "source_relative_path": "release_asset:final_checkpoint.pt",
+  "size_bytes": 134088795,
+  "SHA256": "660b59465e1514f39eae79c4a53d2cc4181c0d829bd1365be853c6260b0def5c",
+  "model_architecture": "FasterRCNN_MobileNetV3-Large-FPN",
+  "classes": [
+    "background",
+    "dirty_spot_candidate"
+  ],
+  "intended_runtime_config": "handoff/prototype_v1/prototype_runtime_config.json",
+  "primary_threshold": "0.125",
+  "comparison_threshold": "0.175",
+  "required": true,
+  "distribution_method": "GITHUB_RELEASE_ASSET",
+  "notes": "Single authoritative frozen checkpoint for the Prototype. Distribute as a GitHub Release asset; do not commit to regular Git."
+}

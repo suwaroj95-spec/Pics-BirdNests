@@ -1,0 +1,6 @@
+{
+  "checkpoint": "final_checkpoint.pt",
+  "SHA256": "660b59465e1514f39eae79c4a53d2cc4181c0d829bd1365be853c6260b0def5c",
+  "distribution_method": "GITHUB_RELEASE_ASSET",
+  "regular_git": false
+}

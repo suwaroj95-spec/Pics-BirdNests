@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MODEL_ONLY_MARKER_ABSENT Contact Sheet | BirdNests</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#0f172a;--muted:#475569;--paper:#fff;--soft:#f8fafc;--line:#cbd5e1;--blue:#0369a1;--teal:#0f766e;--radius:8px}
+    *{box-sizing:border-box} body{margin:0;font-family:"Sarabun",Tahoma,sans-serif;background:var(--soft);color:var(--ink);line-height:1.65}
+    header{position:sticky;top:0;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);z-index:5;padding:18px 20px}
+    h1{margin:0;font-size:clamp(1.4rem,3vw,2.15rem);line-height:1.2}.lead{margin:6px 0 0;color:var(--muted)}.notice{margin:12px 0 0;padding:10px 12px;border-left:4px solid var(--teal);background:#ecfdf5;border-radius:var(--radius)}
+    .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}button,select{font:inherit;border:1px solid var(--line);border-radius:var(--radius);background:white;color:var(--ink);padding:9px 12px}button{cursor:pointer}button[aria-pressed="true"]{background:var(--blue);color:white;border-color:var(--blue)}
+    main{width:min(1180px,calc(100% - 28px));margin:20px auto 36px}.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:0 8px 22px rgba(15,23,42,.06)}.card strong{display:block;font-size:1.45rem}
+    .page-list{display:grid;gap:18px}.page-card h2{margin:0 0 10px;font-size:1.05rem}.page-card img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:6px;background:white}.meta{margin-top:8px;color:var(--muted);font-size:.92rem}
+    a{color:var(--blue);font-weight:700}.hidden{display:none}@media(max-width:760px){.summary{grid-template-columns:1fr}.controls{display:grid;grid-template-columns:1fr 1fr}main{width:min(100% - 20px,1180px)}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition-duration:1ms!important}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MODEL_ONLY_MARKER_ABSENT Contact Sheet</h1>
+    <p class="lead">Sanitized public page bundle for engineering review. Primary threshold 0.125 and comparison threshold 0.175.</p>
+    <p class="notice">This public artifact contains page images and a sanitized manifest only. It is not expert-confirmed ground truth and does not expose raw image paths, marker paths, checkpoint paths or internal temporary paths.</p>
+    <div class="controls" aria-label="Contact Sheet controls">
+      <button type="button" id="show-primary" aria-pressed="true">Primary 0.125</button>
+      <button type="button" id="show-comparison" aria-pressed="false">Comparison 0.175</button>
+      <select id="page-jump" aria-label="Jump to page"></select>
+      <a href="contact-sheet-manifest.json">Manifest JSON</a>
+    </div>
+  </header>
+  <main>
+    <section class="summary" aria-label="Summary">
+      <article class="card"><strong id="record-count">1,785</strong><span>model-only records</span></article>
+      <article class="card"><strong id="page-count">90</strong><span>pages</span></article>
+      <article class="card"><strong id="threshold">0.125</strong><span>threshold</span></article>
+    </section>
+    <section id="pages" class="page-list" aria-live="polite"></section>
+  </main>
+  <script>
+    const state = { active: "primary", manifest: null };
+    const pagesEl = document.getElementById("pages");
+    const jump = document.getElementById("page-jump");
+    const buttons = { primary: document.getElementById("show-primary"), comparison: document.getElementById("show-comparison") };
+    function setActive(kind){
+      state.active = kind;
+      buttons.primary.setAttribute("aria-pressed", String(kind === "primary"));
+      buttons.comparison.setAttribute("aria-pressed", String(kind === "comparison"));
+      render();
+    }
+    function render(){
+      const data = state.manifest.sets[state.active];
+      document.getElementById("record-count").textContent = data.model_only_records.toLocaleString("en-US");
+      document.getElementById("page-count").textContent = data.page_count.toLocaleString("en-US");
+      document.getElementById("threshold").textContent = data.threshold;
+      jump.innerHTML = data.pages.map(page => `<option value="page-${state.active}-${page.page_number}">Page ${page.page_number}</option>`).join("");
+      pagesEl.innerHTML = data.pages.map(page => `<article class="card page-card" id="page-${state.active}-${page.page_number}"><h2>${state.active} page ${page.page_number}</h2><a href="${page.public_path}"><img loading="lazy" src="${page.public_path}" alt="${state.active} MODEL_ONLY_MARKER_ABSENT contact sheet page ${page.page_number}"></a><p class="meta">SHA256 ${page.sha256}</p></article>`).join("");
+    }
+    buttons.primary.addEventListener("click", () => setActive("primary"));
+    buttons.comparison.addEventListener("click", () => setActive("comparison"));
+    jump.addEventListener("change", () => document.getElementById(jump.value)?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    fetch("contact-sheet-manifest.json").then(r => {
+      if (!r.ok) throw new Error("manifest load failed");
+      return r.json();
+    }).then(manifest => {
+      state.manifest = manifest;
+      render();
+    }).catch(error => {
+      pagesEl.innerHTML = `<article class="card"><strong>Unable to load manifest</strong><p>${error.message}</p></article>`;
+    });
+  </script>
+</body>
+</html>

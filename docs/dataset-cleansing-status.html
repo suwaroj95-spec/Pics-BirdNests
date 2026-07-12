@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>สรุปความคืบหน้าการทำความสะอาดชุดข้อมูล | BirdNests Project</title>
+  <title>สรุปสถานะการทำความสะอาดและการใช้ชุดข้อมูล | BirdNests Project</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,13 +12,13 @@
       แนวทางอัปเดต Set 4+:
       1. เพิ่ม object ใหม่ใน window.datasetStatus.sets
       2. ปรับ totalMarkerCount เมื่อจำนวน marker ที่ตรวจสอบแล้วเปลี่ยน
-      3. คง targetPairs = 300 จนกว่าเป้าหมายโครงการจะเปลี่ยน
+      3. ขอบเขตข้อมูลสำหรับ Prototype รอบนี้ปิดที่ 240 คู่ภาพที่ผ่านการรับรองแล้ว ข้อมูลเพิ่มเติมในอนาคตถือเป็นการขยายชุดข้อมูล ไม่ใช่เงื่อนไขที่ต้องรอก่อนใช้งาน Prototype
     */
     window.datasetStatus = {
-      targetPairs: 300,
+      approvedScopePairs: 240,
       totalMarkerCount: 7115,
-      recommendedBufferPairs: 70,
-      lastUpdated: "6 กรกฎาคม 2569",
+      datasetUsageStatus: "COMPLETE",
+      lastUpdated: "12 กรกฎาคม 2569",
       sets: [
         {
           id: "set_1",
@@ -28,7 +28,7 @@
           validPairs: 171,
           excludedFiles: 28,
           cleansingStatus: "ทำความสะอาดและรับรองแล้ว",
-          cropReadiness: "พร้อมสำหรับสร้างภาพย่อย (Crop A)",
+          cropReadiness: "พร้อมและถูกนำเข้าสู่ Prototype pipeline แล้ว",
           integrated: true
         },
         {
@@ -39,7 +39,7 @@
           validPairs: 39,
           excludedFiles: 4,
           cleansingStatus: "ทำความสะอาดและรับรองแล้ว",
-          cropReadiness: "พร้อมสำหรับสร้างภาพย่อย (Crop A)",
+          cropReadiness: "พร้อมและถูกนำเข้าสู่ Prototype pipeline แล้ว",
           integrated: true
         },
         {
@@ -50,7 +50,7 @@
           validPairs: 30,
           excludedFiles: 0,
           cleansingStatus: "ทำความสะอาดและรับรองแล้ว",
-          cropReadiness: "พร้อมสำหรับสร้างภาพย่อย (Crop A)",
+          cropReadiness: "พร้อมและถูกนำเข้าสู่ Prototype pipeline แล้ว",
           integrated: true,
           technicalNote: "ผ่านการรับรองตามมาตรฐาน red_v1 และมีป้ายกำกับที่ตรวจสอบแล้ว 673 จุด"
         }
@@ -378,12 +378,12 @@
       border-radius: 50%;
       background:
         radial-gradient(circle at center, #ffffff 0 58%, transparent 59%),
-        conic-gradient(var(--amber) var(--progress-deg), #e7edf4 0);
+        conic-gradient(var(--teal) var(--progress-deg), #e7edf4 0);
     }
 
     .progress-number strong {
       display: block;
-      color: var(--amber-dark);
+      color: var(--teal-dark);
       font-size: var(--text-progress);
       font-weight: 700;
       line-height: 1.05;
@@ -427,7 +427,7 @@
       width: var(--progress-pct);
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(90deg, var(--amber), var(--teal));
+      background: linear-gradient(90deg, var(--teal), #22c55e);
     }
 
     .progress-stats {
@@ -587,11 +587,11 @@
 
     .next-step {
       padding: 16px;
-      border: 1px solid #d8c08a;
-      border-left: 4px solid var(--amber);
+      border: 1px solid rgba(15, 118, 110, 0.24);
+      border-left: 4px solid var(--teal);
       border-radius: var(--radius);
-      color: var(--amber-dark);
-      background: var(--amber-soft);
+      color: var(--teal-dark);
+      background: var(--teal-soft);
       font-size: var(--text-note);
       font-weight: 600;
       line-height: 1.58;
@@ -727,12 +727,13 @@
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow">สถานะการเตรียมข้อมูล</p>
-        <h1>สรุปความคืบหน้าการทำความสะอาดชุดข้อมูล</h1>
-        <p class="subtitle">สถานะการตรวจสอบและรับรองคุณภาพข้อมูลภาพรังนก ก่อนนำไปสร้างภาพย่อยและพัฒนาโมเดล</p>
+        <h1>สรุปสถานะการทำความสะอาดและการใช้ชุดข้อมูล</h1>
+        <p class="subtitle">ชุดข้อมูลที่ 1–3 ผ่านการตรวจสอบและรับรองครบ 240 คู่ภาพ และถูกนำเข้าสู่กระบวนการพัฒนาโมเดล Prototype แล้ว</p>
       </div>
       <aside class="status-panel" aria-labelledby="current-status-title">
         <h2 id="current-status-title">สถานะโดยรวม</h2>
-        <p>ชุดข้อมูลที่ 1-3 ทำความสะอาด ตรวจสอบคุณภาพ และพร้อมสำหรับสร้างภาพย่อย (Crop A) แล้ว การฝึกโมเดลรอบหลักควรเริ่มเมื่อมีข้อมูลที่ผ่านการรับรองอย่างน้อย 300 คู่ภาพ</p>
+        <p>ชุดข้อมูลที่ 1–3 ผ่านการทำความสะอาด ตรวจสอบคุณภาพ และรับรองครบทั้ง 240 คู่ภาพแล้ว ข้อมูลทั้งหมดถูกนำเข้าสู่กระบวนการเตรียมข้อมูล แบ่งชุดข้อมูล พัฒนา และประเมินโมเดล Prototype โดยโครงการไม่ต้องรอให้ครบ 300 คู่ภาพอีกต่อไป</p>
+        <span class="status-badge">ขอบเขตข้อมูล Prototype ครบแล้ว</span>
         <span class="updated-pill" id="last-updated">อัปเดตล่าสุด: -</span>
       </aside>
     </div>
@@ -743,7 +744,7 @@
       <div class="section-head">
         <div>
           <h2 id="kpi-title">ภาพรวมสำหรับผู้บริหาร</h2>
-          <p>ตัวเลขสำคัญของข้อมูลที่ผ่านการรับรองและเป้าหมายระยะถัดไป</p>
+          <p>ตัวเลขสำคัญของข้อมูลที่ผ่านการรับรองและนำเข้าสู่ Prototype pipeline แล้ว</p>
         </div>
       </div>
       <div class="kpi-grid" id="kpi-grid"></div>
@@ -754,13 +755,13 @@
         <div class="progress-number" aria-hidden="true">
           <div>
             <strong id="progress-percent">0%</strong>
-            <span>ของเป้าหมาย 300 คู่</span>
+            <span>ขอบเขตข้อมูล Prototype</span>
           </div>
         </div>
         <div class="progress-copy">
-          <h2 id="progress-title">ความคืบหน้าสู่เกณฑ์เริ่มฝึกโมเดลหลัก</h2>
-          <p>ขณะนี้ชุดข้อมูลทั้ง 3 ชุดพร้อมสำหรับสร้างภาพย่อยแล้ว อย่างไรก็ตาม การฝึกโมเดลรอบหลักจะเริ่มเมื่อมีข้อมูลที่ผ่านการรับรองอย่างน้อย 300 คู่ภาพ</p>
-          <div class="progress-track" role="progressbar" aria-label="ความคืบหน้าของคู่ภาพที่ผ่านการรับรองสู่เป้าหมาย 300 คู่" aria-valuemin="0" aria-valuemax="300" aria-valuenow="0">
+          <h2 id="progress-title">ความพร้อมของข้อมูลสำหรับ Prototype</h2>
+          <p>ข้อมูลที่ผ่านการรับรองทั้ง 240 คู่ภาพถูกนำเข้าสู่กระบวนการเตรียมข้อมูล แบ่งชุดข้อมูล พัฒนา และประเมินโมเดล Prototype แล้ว สถานะข้อมูลของรอบนี้จึงถือว่าเสร็จสมบูรณ์ 100%</p>
+          <div class="progress-track" role="progressbar" aria-label="ขอบเขตข้อมูล Prototype ที่ผ่านการรับรองครบ 240 คู่ภาพเสร็จสมบูรณ์" aria-valuemin="0" aria-valuemax="240" aria-valuenow="0">
             <div class="progress-fill"></div>
           </div>
           <div class="progress-stats" id="progress-stats"></div>
@@ -782,7 +783,7 @@
       <article class="card plain-card">
         <h2>สถานะความพร้อมปัจจุบัน</h2>
         <p class="readiness-summary" id="readiness-summary"></p>
-        <div class="next-step">ขั้นตอนถัดไป: รับและตรวจสอบข้อมูลชุดถัดไป เพื่อให้มีข้อมูลผ่านการรับรองครบอย่างน้อย 300 คู่ภาพก่อนเริ่มการฝึกโมเดลรอบหลัก</div>
+        <div class="next-step"><strong>ผลการดำเนินงาน</strong><br>ขอบเขตข้อมูลสำหรับ Prototype รอบปัจจุบันเสร็จสมบูรณ์แล้ว ขั้นตอนถัดไปคือการตรวจผลโมเดลผ่าน Contact Sheet การส่งต่อให้ทีมโปรแกรมเมอร์ และการวางแผนพัฒนารุ่นถัดไป</div>
       </article>
 
       <article class="card plain-card">
@@ -806,8 +807,8 @@
 
     <section aria-labelledby="update-title">
       <article class="card plain-card update-card">
-        <h2 id="update-title">แนวทางการอัปเดตชุดข้อมูลถัดไป</h2>
-        <p>เมื่อได้รับชุดข้อมูลใหม่ ให้เพิ่มข้อมูลของ Set 4 หรือชุดถัดไปใน <code>window.datasetStatus.sets</code> ระบบจะคำนวณยอดรวม จำนวนคู่ที่ยังขาด และความคืบหน้าสู่เป้าหมาย 300 คู่ภาพโดยอัตโนมัติ</p>
+        <h2 id="update-title">แนวทางเมื่อมีข้อมูลเพิ่มเติมในอนาคต</h2>
+        <p>หากได้รับข้อมูลเพิ่มเติมในอนาคต สามารถเพิ่ม Set 4 หรือชุดถัดไปเข้าสู่ทะเบียนข้อมูลเพื่อขยายการวิจัยและปรับปรุงโมเดลได้ แต่ข้อมูลเพิ่มเติมไม่ใช่เงื่อนไขที่ต้องรอก่อนใช้งาน Prototype ปัจจุบัน ซึ่งใช้ขอบเขตข้อมูลที่ผ่านการรับรองครบ 240 คู่ภาพแล้ว</p>
       </article>
     </section>
   </main>
@@ -818,52 +819,55 @@
     const format = (value) => numberFormatter.format(value);
     const approvedPairs = statusData.sets.reduce((total, set) => total + set.validPairs, 0);
     const totalFilesReceived = statusData.sets.reduce((total, set) => total + set.filesReceived, 0);
-    const remainingPairs = Math.max(statusData.targetPairs - approvedPairs, 0);
+    const approvedScopePairs = statusData.approvedScopePairs;
+    const incorporatedPairs = approvedPairs;
+    const remainingRequiredPairs = Math.max(approvedScopePairs - incorporatedPairs, 0);
     const readySetCount = statusData.sets.filter((set) => set.integrated).length;
-    const progressRatio = Math.min(approvedPairs / statusData.targetPairs, 1);
-    const progressPercent = Math.round(progressRatio * 100);
+    const completionRatio = approvedScopePairs > 0 ? Math.min(incorporatedPairs / approvedScopePairs, 1) : 0;
+    const completionPercent = Math.round(completionRatio * 100);
 
     const metricIcon = {
       pairs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7h8"></path><path d="M8 12h8"></path><path d="M8 17h5"></path><path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"></path></svg>',
       markers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>',
       ready: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path><path d="M21 12a9 9 0 1 1-5.3-8.2"></path></svg>',
-      remaining: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>'
+      incorporated: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-5"></path><path d="M21 12a9 9 0 1 1-5.3-8.2"></path><path d="M21 3v6h-6"></path></svg>'
     };
 
     document.getElementById("last-updated").textContent = `อัปเดตล่าสุด: ${statusData.lastUpdated}`;
-    document.documentElement.style.setProperty("--progress-pct", `${progressPercent}%`);
-    document.documentElement.style.setProperty("--progress-deg", `${progressRatio * 360}deg`);
-    document.getElementById("progress-percent").textContent = `${progressPercent}%`;
-    document.querySelector(".progress-track").setAttribute("aria-valuenow", String(approvedPairs));
+    document.documentElement.style.setProperty("--progress-pct", `${completionPercent}%`);
+    document.documentElement.style.setProperty("--progress-deg", `${completionRatio * 360}deg`);
+    document.getElementById("progress-percent").textContent = `${completionPercent}%`;
+    document.querySelector(".progress-track").setAttribute("aria-valuemax", String(approvedScopePairs));
+    document.querySelector(".progress-track").setAttribute("aria-valuenow", String(incorporatedPairs));
 
     const kpis = [
       {
-        label: "ข้อมูลที่รับรองแล้ว",
-        value: `${format(approvedPairs)} คู่ภาพที่ผ่านการรับรอง`,
+        label: "ข้อมูลที่ผ่านการรับรอง",
+        value: `${format(approvedPairs)} คู่ภาพ`,
         note: `จากไฟล์ที่ได้รับทั้งหมด ${format(totalFilesReceived)} ไฟล์`,
         icon: "pairs",
         tone: "success"
       },
       {
-        label: "ตำแหน่งรังนก",
-        value: `${format(statusData.totalMarkerCount)} จุดรังนกที่ตรวจสอบแล้ว`,
-        note: "จำนวน marker ที่ผ่านการตรวจสอบในทะเบียนข้อมูล",
+        label: "ตำแหน่ง Marker ที่ตรวจสอบแล้ว",
+        value: `${format(statusData.totalMarkerCount)} จุด`,
+        note: "จำนวน Marker ที่ผ่านการตรวจสอบในทะเบียนข้อมูล",
         icon: "markers",
         tone: "success"
       },
       {
-        label: "ความพร้อม Crop A",
-        value: `${readySetCount} ชุดข้อมูลพร้อมสร้างภาพย่อย`,
-        note: "ชุดข้อมูลที่ 1-3 พร้อมสำหรับ Crop A",
+        label: "ความพร้อมของข้อมูล",
+        value: `${readySetCount} ชุดข้อมูลพร้อมใช้งาน`,
+        note: "ชุดข้อมูลที่ 1–3 ผ่านการตรวจและนำเข้าสู่ Prototype pipeline แล้ว",
         icon: "ready",
         tone: "success"
       },
       {
-        label: "ส่วนที่ยังต้องเพิ่ม",
-        value: `ยังขาดอีก ${format(remainingPairs)} คู่ภาพ`,
-        note: `เพื่อให้ครบเป้าหมาย ${format(statusData.targetPairs)} คู่ ควรขอเผื่อประมาณ ${format(statusData.recommendedBufferPairs)} คู่ภาพ`,
-        icon: "remaining",
-        tone: "warning"
+        label: "สถานะการใช้ข้อมูล",
+        value: `ใช้ครบ ${format(incorporatedPairs)} คู่ภาพ`,
+        note: "ไม่มีคู่ภาพที่ต้องรอเพิ่มสำหรับ Prototype รอบปัจจุบัน",
+        icon: "incorporated",
+        tone: "success"
       }
     ];
 
@@ -879,9 +883,9 @@
     `).join("");
 
     const progressStats = [
-      ["ปัจจุบัน", `${format(approvedPairs)} คู่ภาพ`],
-      ["เป้าหมาย", `${format(statusData.targetPairs)} คู่ภาพ`],
-      ["ยังขาด", `${format(remainingPairs)} คู่ภาพ`]
+      ["ผ่านการรับรอง", `${format(approvedPairs)} คู่ภาพ`],
+      ["นำเข้าสู่ Pipeline", `${format(incorporatedPairs)} คู่ภาพ`],
+      ["คงเหลือที่ต้องรอ", `${format(remainingRequiredPairs)} คู่ภาพ`]
     ];
 
     document.getElementById("progress-stats").innerHTML = progressStats.map(([label, value]) => `
@@ -919,7 +923,7 @@
     `).join("");
 
     document.getElementById("readiness-summary").textContent =
-      `ชุดข้อมูลที่ 1-3 ผ่านการทำความสะอาด ตรวจสอบคู่ภาพ และรับรองคุณภาพเรียบร้อยแล้ว รวมเป็น ${format(approvedPairs)} คู่ภาพ พร้อมเข้าสู่ขั้นตอนสร้างภาพย่อย (Crop A)`;
+      `ชุดข้อมูลที่ 1–3 ผ่านการทำความสะอาด ตรวจสอบคู่ภาพ และรับรองคุณภาพเรียบร้อยแล้ว รวม ${format(approvedPairs)} คู่ภาพ ข้อมูลทั้งหมดถูกนำเข้าสู่กระบวนการพัฒนาและประเมินโมเดล Prototype แล้ว`;
   </script>
 </body>
 </html>

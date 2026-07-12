@@ -1,0 +1,106 @@
+{
+  "comparison_operating_point": {
+    "dense_output": false,
+    "estimated_contact_sheet_pages_20_cards": 39,
+    "extras_per_matched_gt": "1.080000",
+    "matched_gt": 375,
+    "maximum_merged_predictions_per_source": 69,
+    "merged_predictions": 780,
+    "recall": "0.3985122210",
+    "role": "lower_workload_comparison",
+    "threshold": 0.175,
+    "threshold_relevant_capped_tiles": 0,
+    "threshold_string": "0.175",
+    "unverified_extras": 405
+  },
+  "created_utc": "2026-07-11T13:39:34.492406+00:00",
+  "detector_settings": {
+    "candidate_limit": 100,
+    "internal_score_threshold": 0.05,
+    "roi_head_nms_threshold": 0.5
+  },
+  "merge_settings": {
+    "cross_tile_merge_nms_iou": 0.3
+  },
+  "model": {
+    "architecture": "FasterRCNN_MobileNetV3-Large-FPN",
+    "checkpoint_sha256": "660b59465e1514f39eae79c4a53d2cc4181c0d829bd1365be853c6260b0def5c",
+    "maturity_level": "engineering prototype, not production-final",
+    "model_family": "Faster R-CNN",
+    "number_of_classes": 2,
+    "prototype_status": "FASTER_RCNN_PILOT_PROMISING"
+  },
+  "primary_operating_point": {
+    "dense_output": false,
+    "estimated_contact_sheet_pages_20_cards": 123,
+    "extras_per_matched_gt": "2.672156",
+    "matched_gt": 668,
+    "maximum_merged_predictions_per_source": 151,
+    "merged_predictions": 2453,
+    "recall": "0.7098831031",
+    "role": "recall_prioritized_primary",
+    "threshold": 0.125,
+    "threshold_relevant_capped_tiles": 0,
+    "threshold_string": "0.125",
+    "unverified_extras": 1785
+  },
+  "run_id": "controlled_20260711_fasterrcnn_prototype_freeze_001",
+  "schema_version": 1,
+  "source_artifact_references": {
+    "checkpoint": {
+      "path": "release_asset:final_checkpoint.pt",
+      "sha256": "660b59465e1514f39eae79c4a53d2cc4181c0d829bd1365be853c6260b0def5c"
+    },
+    "final_threshold_audit": {
+      "corrected_eligibility_table": {
+        "path": "evidence:corrected_eligibility_table",
+        "sha256": "c92d4b3313d889243693cfccf071fcac7deb0e68b18f4ce1a377e4a3d033a54f"
+      },
+      "corrected_selected_operating_point": {
+        "path": "evidence:corrected_selected_operating_point",
+        "sha256": "e41c603ea4b745605ffc43376be24b58022ab3838d6c63853904d04086c2605b"
+      },
+      "eligibility_audit_report": {
+        "path": "evidence:eligibility_audit_report",
+        "sha256": "e3b2e7f7187d4d3238e6bf70eed535f5fa08555d30cda4a9dd8d5acb4b66e95e"
+      },
+      "eligibility_audit_summary": {
+        "path": "evidence:eligibility_audit_summary",
+        "sha256": "3b8513dd6ec0c7a08c6d81091b2b450359fa0b1d593f4be014805cc88c725473"
+      },
+      "review_balanced_alternative": {
+        "path": "evidence:review_balanced_alternative",
+        "sha256": "91d9f6c4909a384c77d4c49dc3be93849d935e899360567be08629b9f0e1650c"
+      },
+      "threshold_specific_saturation": {
+        "path": "evidence:threshold_specific_saturation",
+        "sha256": "74938f156c7d117bf474d47b57eac3eeee2c5a743f40b5944b94d5da4b62ae71"
+      }
+    },
+    "model_runtime_provenance": {
+      "candidate_boundary_cache_provenance": {
+        "path": "evidence:candidate_boundary_cache_provenance",
+        "sha256": "532f9e30d1b35324148169a9d2b6582bd41e4e00948d880925143183240869e9"
+      },
+      "candidate_boundary_summary": {
+        "path": "evidence:candidate_boundary_summary",
+        "sha256": "18f1d87f04017d389be22edcea80eae54eabc970e3eeb131bf96346210e9dfd8"
+      },
+      "tile_count_semantics_audit": {
+        "path": "evidence:tile_count_semantics_audit",
+        "sha256": "db763488f87a57f08b4481a63a29eeaddd6803f6cbdd46845d4c8916e96270a7"
+      }
+    },
+    "validation_manifest": {
+      "path": "evidence:validation_spots_manifest",
+      "sha256": "09cefae6b443628bab00c50c6470eb585f2a1c1fbef22905f47f41fc042596a4"
+    }
+  },
+  "tile_settings": {
+    "tile_overlap": 128,
+    "tile_size": 512,
+    "tile_stride": 384,
+    "validation_model_input_tiles": 432,
+    "validation_sources": 36
+  }
+}

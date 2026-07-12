@@ -1,0 +1,9 @@
+{
+  "python": "3.12.5",
+  "torch": "2.8.0",
+  "torchvision": "0.23.0",
+  "pillow": ">=10.4,<12",
+  "numpy": ">=2.1,<2.4",
+  "pandas": ">=2.2,<2.4",
+  "cuda_note": "Use official PyTorch selector for target CUDA build."
+}

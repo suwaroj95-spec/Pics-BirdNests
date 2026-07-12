@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ต้นแบบระบบตรวจหาจุดสกปรกในรังนก - BirdNests</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #4b5d73;
+      --subtle: #64748b;
+      --paper: #ffffff;
+      --soft: #f8fafc;
+      --blue-soft: #eaf2ff;
+      --teal-soft: #e7f7f5;
+      --green-soft: #e8f6f1;
+      --amber-soft: #fff7e6;
+      --red-soft: #fff1f4;
+      --line: #d9e2ec;
+      --line-strong: #b9c8d8;
+      --blue: #2563eb;
+      --teal: #0f766e;
+      --green: #16745c;
+      --amber: #9a6500;
+      --red: #b42346;
+      --radius: 16px;
+      --shadow: 0 18px 48px rgba(23, 32, 51, 0.08);
+      --measure: 76ch;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffffff 0%, #f5f8fc 44%, #ffffff 100%);
+      font-family: "Sarabun", "TH Sarabun New", "Leelawadee UI", Tahoma, sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.82;
+      letter-spacing: 0;
+      font-kerning: normal;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    svg { flex: 0 0 auto; }
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 16px;
+      z-index: 20;
+      transform: translateY(-140%);
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .wrap { width: min(1200px, calc(100% - 36px)); margin: 0 auto; }
+    .wrap,
+    .utility-inner,
+    .utility nav,
+    .hero > *,
+    .card,
+    .metric-card,
+    .hero-panel,
+    .contact-center { min-width: 0; }
+    .utility {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+    .utility-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 0;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #1e3a5f;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      border: 1px solid #cfe0ff;
+    }
+    .utility nav,
+    .hero-actions,
+    .local-actions,
+    .viewer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .button,
+    .nav-link,
+    .artifact-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: #1e3a5f;
+      font: inherit;
+      font-size: 0.96rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+    }
+    .button.primary,
+    .artifact-action.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+    }
+    .button.success {
+      border-color: var(--green);
+      background: var(--green);
+      color: #fff;
+    }
+    .button:hover,
+    .nav-link:hover,
+    .artifact-action:hover {
+      border-color: var(--line-strong);
+      box-shadow: 0 8px 24px rgba(23, 32, 51, 0.10);
+    }
+    .button:focus-visible,
+    .nav-link:focus-visible,
+    .artifact-action:focus-visible,
+    summary:focus-visible,
+    .toc a:focus-visible {
+      outline: 3px solid rgba(37, 99, 235, 0.28);
+      outline-offset: 3px;
+    }
+    .button[aria-disabled="true"],
+    .artifact-action[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.62;
+      box-shadow: none;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+      gap: clamp(28px, 5vw, 56px);
+      align-items: center;
+      padding: clamp(38px, 7vw, 82px) 0 34px;
+    }
+    .eyebrow,
+    .badge,
+    .decision {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0;
+      white-space: normal;
+      line-height: 1.35;
+    }
+    .eyebrow {
+      padding: 6px 12px;
+      color: #2458a6;
+      background: var(--blue-soft);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin: 0; }
+    p,
+    li,
+    .lead,
+    .conclusion,
+    .card p,
+    .notice p,
+    .timeline-item p,
+    details p {
+      word-break: normal;
+      overflow-wrap: break-word;
+      line-break: loose;
+      text-wrap: pretty;
+    }
+    .status-code,
+    code,
+    .artifact-meta,
+    .hero-number {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    h1 {
+      max-width: 14ch;
+      margin-top: 18px;
+      font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+      line-height: 1.16;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+    h1 span { display: block; }
+    h2 {
+      font-size: clamp(1.7rem, 2.7vw, 2.45rem);
+      line-height: 1.32;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+    h3 { font-size: 1.24rem; line-height: 1.45; font-weight: 700; }
+    .lead {
+      max-width: var(--measure);
+      color: var(--muted);
+      font-size: clamp(1.05rem, 1.45vw, 1.18rem);
+      line-height: 1.82;
+    }
+    .hero .lead { margin-top: 18px; }
+    .conclusion {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-left: 5px solid var(--green);
+      border-radius: 14px;
+      background: var(--green-soft);
+      color: #0f513f;
+      font-weight: 700;
+    }
+    .status-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0;
+    }
+    .badge {
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #1e3a5f;
+      font-size: 0.82rem;
+    }
+    .badge.green { color: var(--green); background: var(--green-soft); border-color: #c7ecdf; }
+    .badge.blue { color: var(--blue); background: var(--blue-soft); border-color: #cfe0ff; }
+    .badge.teal { color: var(--teal); background: var(--teal-soft); border-color: #bfe8e2; }
+    .status-code {
+      display: inline;
+      font-family: "Sarabun", "TH Sarabun New", "Leelawadee UI", Tahoma, sans-serif;
+      font-weight: 700;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .badge .status-code { display: inline-block; max-width: 100%; }
+    .hero-panel,
+    .card,
+    .metric-card,
+    .section-panel,
+    .toc,
+    .notice {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .hero-panel { padding: 24px; }
+    .hero-panel .label { color: var(--muted); font-weight: 700; font-size: 0.88rem; }
+    .hero-number {
+      margin: 8px 0 8px;
+      color: var(--red);
+      font-size: clamp(3.8rem, 8vw, 6.5rem);
+      line-height: 1;
+      font-weight: 700;
+    }
+    .process-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .process-step {
+      min-height: 58px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--soft);
+      color: #1e3a5f;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .toc-wrap {
+      position: sticky;
+      top: 65px;
+      z-index: 9;
+      padding: 9px 0;
+      background: rgba(248, 250, 252, 0.94);
+      border-block: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      overflow-x: visible;
+      padding: 9px;
+      box-shadow: none;
+      scrollbar-width: thin;
+    }
+    .toc a {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .toc a[aria-current="true"] {
+      background: var(--blue);
+      color: #fff;
+    }
+    main section { padding: clamp(34px, 6vw, 70px) 0; }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.7fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+    .section-head .lead { font-size: 1rem; }
+    .grid { display: grid; gap: 16px; }
+    .metrics { grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: -10px; }
+    .metric-card { padding: 18px; box-shadow: 0 10px 30px rgba(23, 32, 51, 0.06); }
+    .metric-card strong { display: block; font-size: clamp(1.55rem, 2.8vw, 2.35rem); line-height: 1.1; }
+    .metric-card span { display: block; margin: 6px 0; color: #1e3a5f; font-weight: 700; }
+    .metric-card p,
+    .card p,
+    .notice p,
+    li { color: var(--muted); }
+    .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card { padding: 20px; box-shadow: 0 10px 30px rgba(23, 32, 51, 0.055); }
+    .card .kicker {
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .card h3 { margin-top: 8px; margin-bottom: 8px; }
+    .card p { margin-top: 0.58em; line-height: 1.76; }
+    .card p + p { margin-top: 0.75em; }
+    .mini-list { margin: 12px 0 0; padding-left: 20px; }
+    .mini-list li { margin: 0.48em 0; line-height: 1.72; }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .flow-item {
+      position: relative;
+      min-height: 96px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+    }
+    .flow-item b { display: block; margin-top: 6px; }
+    details {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      padding: 13px 15px;
+      color: #1e3a5f;
+      font-weight: 700;
+    }
+    details > div { padding: 0 16px 18px; color: var(--muted); line-height: 1.78; }
+    .evidence-card {
+      display: grid;
+      gap: 12px;
+    }
+    .evidence-row {
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--soft);
+    }
+    .evidence-row b { display: block; color: var(--ink); }
+    .chapters { gap: 22px; }
+    .chapter { padding: 20px; border-radius: 18px; background: #fff; border: 1px solid var(--line); }
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--soft);
+    }
+    .timeline-item time {
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .matrix-wrap,
+    .comparison-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 840px;
+    }
+    th, td {
+      padding: 14px 15px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: #1e3a5f; background: var(--soft); font-size: 0.9rem; }
+    tr:last-child td { border-bottom: 0; }
+    .decision {
+      padding: 5px 9px;
+      color: #1e3a5f;
+      background: var(--blue-soft);
+      font-size: 0.8rem;
+    }
+    .decision.green { color: var(--green); background: var(--green-soft); }
+    .decision.amber { color: var(--amber); background: var(--amber-soft); }
+    .op-card { padding: 0; overflow: hidden; }
+    .op-head { padding: 20px; background: var(--soft); border-bottom: 1px solid var(--line); }
+    .op-body { padding: 20px; display: grid; gap: 13px; }
+    .bar-row { display: grid; gap: 6px; }
+    .bar-label { display: flex; justify-content: space-between; gap: 14px; color: var(--muted); font-weight: 800; }
+    .bar-track { height: 11px; overflow: hidden; border-radius: 999px; background: #e2e8f0; }
+    .bar-fill { display: block; height: 100%; border-radius: inherit; background: var(--blue); }
+    .bar-fill.teal { background: var(--teal); }
+    .contact-center {
+      border: 1px solid #cfe0ff;
+      border-radius: 22px;
+      padding: clamp(20px, 4vw, 34px);
+      background: linear-gradient(180deg, #ffffff 0%, #f0f6ff 100%);
+      box-shadow: var(--shadow);
+    }
+    .artifact-card {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+    }
+    .artifact-meta { color: var(--muted); font-size: 0.9rem; }
+    .public-message {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid #f2d18b;
+      background: var(--amber-soft);
+      color: #6d4600;
+      font-weight: 700;
+    }
+    .viewer-panel {
+      display: none;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .viewer-panel.is-open { display: block; }
+    .viewer-toolbar {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+    .viewer-frame-wrap {
+      min-height: 460px;
+      display: grid;
+      place-items: center;
+      background: #f8fafc;
+    }
+    iframe {
+      width: 100%;
+      height: min(72vh, 760px);
+      border: 0;
+      background: #fff;
+    }
+    .notice {
+      padding: 18px;
+      box-shadow: none;
+    }
+    .notice.warning { border-color: #f2d18b; background: var(--amber-soft); }
+    .notice.danger { border-color: #f4beca; background: var(--red-soft); }
+    .notice.success { border-color: #c7ecdf; background: var(--green-soft); }
+    .hardware-tier {
+      display: grid;
+      grid-template-columns: 0.8fr 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    .tier-cell {
+      padding: 13px;
+      border-radius: 14px;
+      background: var(--soft);
+      border: 1px solid var(--line);
+    }
+    .to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 12;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+    }
+    .to-top.is-visible { opacity: 1; pointer-events: auto; }
+    footer { padding: 34px 0 46px; color: var(--muted); font-size: 0.92rem; }
+    @media (max-width: 1040px) {
+      .hero, .section-head, .metrics, .two, .three, .four, .flow, .hardware-tier {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero { align-items: start; }
+      .process-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      html { scroll-padding-top: 128px; }
+      .wrap { width: min(100% - 72px, 560px); }
+      .utility-inner { display: grid; align-items: flex-start; }
+      .utility nav { overflow-x: auto; flex-wrap: nowrap; width: 100%; max-width: 100%; padding-bottom: 2px; }
+      .toc { flex-wrap: nowrap; overflow-x: auto; }
+      .hero .lead,
+      .conclusion,
+      .hero-panel p,
+      .hero-actions { max-width: 100%; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .hero-actions .button { width: 100%; }
+      .hero, .section-head, .metrics, .two, .three, .four, .flow, .hardware-tier, .timeline-item {
+        grid-template-columns: 1fr;
+      }
+      h1 { max-width: 100%; font-size: clamp(2rem, 9vw, 2.65rem); line-height: 1.24; }
+      .hero-panel { padding: 18px; }
+      .hero-number { font-size: clamp(3rem, 18vw, 4.8rem); }
+      .process-strip { grid-template-columns: 1fr; }
+      .viewer-frame-wrap { min-height: 360px; }
+      iframe { height: 70vh; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 1ms !important;
+        animation-duration: 1ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    @media print {
+      .utility, .toc-wrap, .hero-actions, .local-actions, .viewer-panel, .to-top, .skip-link { display: none !important; }
+      body { background: #fff; color: #000; font-size: 11pt; line-height: 1.68; font-family: "Sarabun", "TH Sarabun New", "Leelawadee UI", Tahoma, sans-serif; }
+      .wrap { width: 100%; }
+      main section, .hero { padding: 18px 0; break-inside: avoid; }
+      .card, .metric-card, .notice, .contact-center, .hero-panel { box-shadow: none; border-color: #999; }
+      main a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.78em; color: #555; overflow-wrap: anywhere; }
+      .artifact-action::after, .nav-link::after { content: none; }
+      details > div { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">ข้ามไปยังเนื้อหาหลัก</a>
+  <header class="utility" aria-label="Top utility bar">
+    <div class="wrap utility-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18c4-7 12-7 16 0"/><path d="M7 14c3-3 7-3 10 0"/><path d="M12 10v8"/></svg>
+        </span>
+        BirdNests Model Handoff
+      </div>
+      <nav aria-label="เครื่องมือหน้าเว็บ">
+        <a class="nav-link" href="index.html">กลับหน้าหลัก</a>
+        <a class="nav-link" href="birdnests-workflow-infographic.html">ดู Workflow ทั้งหมด</a>
+        <a class="nav-link" href="#toc">สารบัญ</a>
+        <a class="nav-link" href="#contact-sheet-center">เปิด Contact Sheet</a>
+        <button class="button" type="button" id="print-page">พิมพ์ / บันทึก PDF</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="hero" id="top">
+      <div>
+        <div class="eyebrow">Engineering prototype summary</div>
+        <h1><span>ต้นแบบระบบ</span><span>ตรวจหาจุดสกปรก</span><span>ในรังนก</span></h1>
+        <p class="lead">สร้าง Prototype เพื่อตรวจเทียบผลโมเดล ใช้ชีตตรวจผลต่อ</p>
+        <p class="conclusion">พร้อมส่งต่อเป็น Prototype. ยังไม่ใช่ระบบผลิตจริง.</p>
+        <div class="status-badges" aria-label="สถานะหลัก">
+          <span class="badge green"><span class="status-code">FASTER_RCNN_PILOT_PROMISING</span></span>
+          <span class="badge blue"><span class="status-code">PROTOTYPE_CONFIGURATION_FROZEN</span></span>
+          <span class="badge teal"><span class="status-code">MODEL_ONLY_CONTACT_SHEETS_READY</span></span>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="#executive-snapshot">ดูผลลัพธ์หลัก</a>
+          <a class="button success" href="#contact-sheet-center">เปิด Contact Sheet</a>
+          <a class="button" href="#development-journey">ดูเส้นทางการพัฒนา</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="ข้อสรุปรอบ prototype">
+        <span class="label">Frozen primary threshold</span>
+        <div class="hero-number">0.125</div>
+        <p>จุดตัดหลักเพื่อเน้น Recall: matched GT 668 และ <span class="status-code">MODEL_ONLY_MARKER_ABSENT</span> 1,785 รายการสำหรับตรวจต่อ</p>
+        <div class="process-strip" aria-label="กระบวนการย่อ">
+          <div class="process-step">ข้อมูล</div>
+          <div class="process-step">โมเดล</div>
+          <div class="process-step">ประเมิน</div>
+          <div class="process-step">Contact Sheet</div>
+          <div class="process-step">ส่งต่อทีมโปรแกรมเมอร์</div>
+        </div>
+      </aside>
+    </section>
+  </div>
+
+  <div class="toc-wrap" id="toc">
+    <nav class="wrap toc" aria-label="สารบัญในหน้า">
+      <a href="#executive-snapshot">สรุปผู้บริหาร</a>
+      <a href="#what-built">สิ่งที่สร้าง</a>
+      <a href="#ready-evidence">เหตุผลที่พร้อมพัฒนาต่อ</a>
+      <a href="#development-journey">เส้นทางพัฒนา</a>
+      <a href="#decision-matrix">Decision matrix</a>
+      <a href="#operating-points">Threshold</a>
+      <a href="#contact-sheet-center">Contact Sheet</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#environment">Software/Hardware</a>
+      <a href="#limitations">ข้อจำกัด</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#handoff">Handoff</a>
+      <a href="#appendix">Appendix</a>
+    </nav>
+  </div>
+
+  <main id="main" class="wrap">
+    <section id="executive-snapshot">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Executive snapshot</div>
+          <h2>อ่านหน้าจอแรกแล้วรู้ทันทีว่าโมเดลอยู่ตรงไหน</h2>
+        </div>
+        <p class="lead">ส่วนนี้แยกข้อสรุปทางธุรกิจและ engineering handoff ออกจากรายละเอียดเชิงเทคนิค เพื่อให้หัวหน้างานและทีมโปรแกรมเมอร์สแกนได้เร็วขึ้น</p>
+      </div>
+      <div class="grid metrics">
+        <article class="metric-card"><strong>Faster R-CNN</strong><span>โมเดลที่ใช้</span><p>ใช้ FasterRCNN_MobileNetV3-Large-FPN สำหรับตรวจ object จากภาพรังนกแบบแบ่ง tile</p></article>
+        <article class="metric-card"><strong>0.125</strong><span>Threshold หลัก</span><p>จุดตัดหลักที่ freeze แล้วเพื่อรักษา Recall ก่อนตรวจภาระงานด้วย Contact Sheet</p></article>
+        <article class="metric-card"><strong>70.99%</strong><span>Recall</span><p>สัดส่วน Ground Truth ที่มี prediction จับคู่ได้ในรอบ Validation ภายใต้กติกาที่ freeze แล้ว</p></article>
+        <article class="metric-card"><strong>1,785</strong><span><span class="status-code">MODEL_ONLY_MARKER_ABSENT</span></span><p>รายการที่โมเดลพบแต่ไม่ได้ match แบบหนึ่งต่อหนึ่งกับ marker-derived Ground Truth ต้องตรวจด้วยมนุษย์</p></article>
+        <article class="metric-card"><strong>Prototype</strong><span>สถานะปัจจุบัน</span><p>พร้อมส่งต่อเพื่อทำเครื่องมือและวิจัยต่อ แต่ยังต้องผ่าน locked-test และ operational validation ก่อน Production</p></article>
+      </div>
+    </section>
+
+    <section id="what-built">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">What we built</div>
+          <h2>จากภาพต้นฉบับสู่รายการตรวจ Contact Sheet</h2>
+        </div>
+        <p class="lead">คำว่า “model-only” ในหน้านี้ไม่ใช่คำตัดสินว่าถูกหรือผิด แต่เป็นสถานะหลังการจับคู่กับ marker-derived Ground Truth ตามกติกาที่ freeze แล้ว</p>
+      </div>
+      <div class="flow" aria-label="ภาพรวมสิ่งที่สร้าง">
+        <div class="flow-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 15 4-4 4 4 3-3 7 7"/></svg><b>Raw image</b><p>ภาพรังนกต้นฉบับที่ต้องตรวจ</p></div>
+        <div class="flow-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8v8H8z"/></svg><b>Original marker</b><p>ภาพ marker ที่ใช้สร้าง Ground Truth อ้างอิง</p></div>
+        <div class="flow-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="3"/></svg><b>Faster R-CNN prediction</b><p>ผลตรวจจากโมเดลบน tile แล้ว merge ข้าม tile</p></div>
+        <div class="flow-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg><b>Contact Sheet</b><p>หน้ารวมภาพสำหรับตรวจรายการ <span class="status-code">MODEL_ONLY_MARKER_ABSENT</span></p></div>
+      </div>
+      <details>
+        <summary>กติกาเชิงเทคนิคของ <span class="status-code">MODEL_ONLY_MARKER_ABSENT</span></summary>
+        <div>
+          <p><span class="status-code">MODEL_ONLY_MARKER_ABSENT</span> หมายถึง prediction ของโมเดลที่ไม่ได้รับ one-to-one match กับ original marker-derived Ground Truth point ภายใต้ frozen matching rule จึงเป็นรายการที่ต้องเปิดดูภาพ raw panel, marker panel และกล่อง cyan เพื่อตรวจต่อ ไม่ใช่คำยืนยันว่าโมเดลถูกหรือ marker ผิด</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="ready-evidence">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Evidence for handoff</div>
+          <h2>ทำไม prototype นี้จึงน่าส่งต่อเพื่อพัฒนา</h2>
+        </div>
+        <p class="lead">หลักฐานด้านล่างไม่ใช่การประกาศ Production readiness แต่เป็นเหตุผลว่า prototype มีค่าพอสำหรับทำเครื่องมือตรวจทานและวิจัยต่อ</p>
+      </div>
+      <div class="grid three">
+        <article class="card evidence-card"><div class="kicker">Recall</div><h3>70.99% ที่ threshold 0.125</h3><div class="evidence-row"><b>Observed fact</b>Matched GT = 668 จาก Validation</div><div class="evidence-row"><b>Interpretation</b>จุดตัดนี้เก็บสัญญาณได้มากพอสำหรับรอบตรวจทาน</div><div class="evidence-row"><b>Limitation</b>ยังต้องดู model-only workload และ locked-test</div></article>
+        <article class="card evidence-card"><div class="kicker">Saturation</div><h3>ไม่มี threshold-relevant candidate saturation</h3><div class="evidence-row"><b>Observed fact</b>relevant capped tiles ที่ threshold 0.125 และ 0.175 = 0</div><div class="evidence-row"><b>Interpretation</b>ผลประเมินไม่ได้ถูกจำกัดโดย candidate limit ใน operating points นี้</div><div class="evidence-row"><b>Limitation</b>candidate cache ยังเป็นหลักฐานเชิง validation ไม่ใช่ production monitor</div></article>
+        <article class="card evidence-card"><div class="kicker">Handoff</div><h3>Configuration และ Contact Sheet ครบ</h3><div class="evidence-row"><b>Observed fact</b>freeze contract, raw-marker mapping, viewer, PDFs และ CSV manifests พร้อม</div><div class="evidence-row"><b>Interpretation</b>ทีมโปรแกรมเมอร์มี baseline ที่ reproducible</div><div class="evidence-row"><b>Limitation</b>ยังต้องผูกเข้ากับ workflow ตรวจจริงและสิทธิ์เข้าถึง artifact</div></article>
+      </div>
+    </section>
+
+    <section id="development-journey">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Development journey</div>
+          <h2>สิ่งที่ทดลอง พบ แก้ และใช้ต่อได้</h2>
+        </div>
+        <p class="lead">ไทม์ไลน์นี้รวมทั้งงานข้อมูล งานโมเดล และงาน validation เพื่อให้เห็นว่าข้อสรุปล่าสุดไม่ได้เกิดจากตัวเลขเดียว</p>
+      </div>
+      <div class="grid chapters">
+        <div class="chapter">
+          <h3>บทที่ 1: เตรียมข้อมูลและ Ground Truth</h3>
+          <div class="timeline">
+            <article class="timeline-item"><time>Dataset cleaning</time><div><b>ทำอะไร</b><p>จัดระเบียบ raw/marker pairs และแยก source-level split</p><b>ตัดสินใจ</b><p>เก็บ provenance เพื่อป้องกันข้อมูลหลุดข้ามชุด</p></div></article>
+            <article class="timeline-item"><time>Raw-marker pairing</time><div><b>พบอะไร</b><p>Validation sources 36 mapped ครบ, unmapped 0, dimension mismatch 0</p><b>ตัดสินใจ</b><p>ใช้ mapping นี้เป็นฐานตรวจ Contact Sheet</p></div></article>
+            <article class="timeline-item"><time>Leakage check</time><div><b>ทำไม</b><p>ลดความเสี่ยงที่ crop หรือ source จากชุด train/validation ปะปนกัน</p><b>ผลลัพธ์</b><p>พร้อมใช้กับ baseline และ Faster R-CNN pilot</p></div></article>
+          </div>
+        </div>
+        <div class="chapter">
+          <h3>บทที่ 2: จาก baseline สู่ Faster R-CNN pilot</h3>
+          <div class="timeline">
+            <article class="timeline-item"><time>Crop-level baseline</time><div><b>วัตถุประสงค์</b><p>ใช้เป็น baseline ของงานตรวจจุดจากข้อมูลที่เตรียมไว้</p><b>ความเกี่ยวข้องตอนนี้</b><p>เป็นจุดเปรียบเทียบ แต่ไม่ใช่ output handoff หลักของรอบนี้</p></div></article>
+            <article class="timeline-item"><time>Faster R-CNN pilot</time><div><b>ทำอะไร</b><p>เทรน FasterRCNN_MobileNetV3-Large-FPN จำนวน 2 epochs บน CUDA</p><b>พบอะไร</b><p>Mean loss ลดจาก 0.402236 เป็น 0.394545 และ validation tile count = 432</p></div></article>
+            <article class="timeline-item"><time>CUDA validation</time><div><b>ทำไม</b><p>ตรวจว่า runtime, Torchvision NMS, GPU และ inference path ทำงานร่วมกันได้</p><b>ตัดสินใจ</b><p>ใช้ environment นี้เป็น provenance ของ prototype</p></div></article>
+          </div>
+        </div>
+        <div class="chapter">
+          <h3>บทที่ 3: แก้กติกาประเมินและ freeze</h3>
+          <div class="timeline">
+            <article class="timeline-item"><time>Threshold refinement</time><div><b>พบอะไร</b><p>0.125 ให้ Recall 70.99% และ 0.175 ให้ Recall 39.85%</p><b>ตัดสินใจ</b><p>freeze 0.125 เป็น recall-prioritized operating point</p></div></article>
+            <article class="timeline-item"><time>Candidate-limit policy defect</time><div><b>ปัญหา</b><p>ต้องแยก candidate saturation ที่เกี่ยวข้องกับ threshold ออกจาก capped tile ทั่วไป</p><b>แก้แล้ว</b><p>corrected saturation rule ยืนยัน relevant saturation = 0 ที่ threshold ที่ใช้</p></div></article>
+            <article class="timeline-item"><time>Tile-count correction</time><div><b>พบอะไร</b><p><span class="status-code">TILE_COUNT_SEMANTICS_CONFIRMED</span>: actual model-input tiles = 432</p><b>แก้ความเข้าใจ</b><p>468 คือ opened-image operations = 36 source-image opens + 432 tile-image inference opens</p></div></article>
+            <article class="timeline-item"><time>Prototype freeze</time><div><b>ตัดสินใจ</b><p>ล็อก runtime configuration, evaluation policy, threshold และ merge settings</p><b>ทำไมไม่ retrain ทันที</b><p>หลังแก้ audit แล้วผล threshold ยังใช้งานได้และไม่มี saturation ที่เกี่ยวข้อง จึงควรตรวจ Contact Sheet ก่อนตัดสินใจวิจัยรอบถัดไป</p></div></article>
+          </div>
+        </div>
+        <div class="chapter">
+          <h3>บทที่ 4: Handoff และ web documentation</h3>
+          <div class="timeline">
+            <article class="timeline-item"><time>Raw-marker mapping</time><div><b>ผลลัพธ์</b><p><span class="status-code">VALIDATION_RAW_MARKER_MAPPING_READY</span> พร้อม 36 mapped sources</p><b>ใช้ต่ออย่างไร</b><p>ช่วยให้ผู้ตรวจเทียบ raw panel กับ marker panel ได้ถูก source</p></div></article>
+            <article class="timeline-item"><time>Contact Sheet generation</time><div><b>ผลลัพธ์</b><p>primary 1,785 cards / 90 pages, comparison 405 cards / 21 pages, source overviews 36</p><b>ใช้ต่ออย่างไร</b><p>เป็นชุดตรวจ <span class="status-code">MODEL_ONLY_MARKER_ABSENT</span> ก่อนตัดสินใจ annotation หรือ model iteration</p></div></article>
+            <article class="timeline-item"><time>Web handoff</time><div><b>เป้าหมาย</b><p>ทำหน้า infographic ที่แยกข้อมูลผู้บริหารกับรายละเอียดเทคนิค</p><b>ตัดสินใจ</b><p>เปลี่ยน artifact links เป็น public relative URL และบล็อกการเปิด Contact Sheet จนกว่า privacy gate จะผ่าน</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="decision-matrix">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Experiment decision matrix</div>
+          <h2>ผลทดลองใดใช้ต่อ อะไรเป็น baseline และอะไรแก้แล้ว</h2>
+        </div>
+        <p class="lead">ตารางนี้ช่วยลดการทำซ้ำโดยไม่จำเป็น และบอกว่าหลักฐานใดมีผลกับขั้นถัดไป</p>
+      </div>
+      <div class="matrix-wrap">
+        <table>
+          <thead><tr><th>Experiment</th><th>Objective</th><th>Outcome</th><th>Decision</th><th>Current relevance</th></tr></thead>
+          <tbody>
+            <tr><td>Dataset cleaning</td><td>ทำให้ raw/marker/source ตรวจย้อนกลับได้</td><td>ใช้เป็นฐานของ validation และ handoff</td><td><span class="decision green">ใช้งานต่อ</span></td><td>เป็น provenance ของทุกตัวเลข</td></tr>
+            <tr><td>Crop-level baseline</td><td>มี baseline ก่อน detector</td><td>ให้บริบทการทดลองรุ่นก่อนหน้า</td><td><span class="decision">Baseline</span></td><td>ใช้เทียบแนวโน้ม ไม่ใช่ artifact หลักรอบนี้</td></tr>
+            <tr><td>Faster R-CNN pilot</td><td>ตรวจ object-level จากภาพ tile</td><td><span class="status-code">FASTER_RCNN_PILOT_PROMISING</span></td><td><span class="decision green">ใช้งานต่อ</span></td><td>เป็นโมเดลหลักของ prototype</td></tr>
+            <tr><td>Threshold audit</td><td>หาจุดตัดที่เหมาะกับ recall/workload</td><td>0.125 เหมาะกับ recall-prioritized handoff</td><td><span class="decision amber">แก้หลักการประเมินแล้ว</span></td><td>ไม่ต้อง retrain ทันที เพราะข้อบกพร่องอยู่ที่การนับ saturation ไม่ใช่น้ำหนักโมเดล</td></tr>
+            <tr><td>Candidate-boundary cache</td><td>พิสูจน์ candidate limit และ tile semantics</td><td><span class="status-code">CANDIDATE_BOUNDARY_CACHE_READY</span></td><td><span class="decision green">ใช้งานต่อ</span></td><td>รองรับข้อสรุป 432 tiles และ saturation = 0</td></tr>
+            <tr><td>Contact Sheet generation</td><td>เตรียม evidence review</td><td>viewer/PDF/CSV พร้อม</td><td><span class="decision green">ใช้งานต่อ</span></td><td>เป็นงานถัดไปสำหรับตรวจ <span class="status-code">MODEL_ONLY_MARKER_ABSENT</span></td></tr>
+            <tr><td>Immediate retraining</td><td>ปรับน้ำหนักโมเดลทันทีหลัง audit</td><td>ยังไม่มี evidence review จาก Contact Sheet</td><td><span class="decision amber">ไม่จำเป็นต้องทำซ้ำ</span></td><td>ควรรอผล review ก่อนเลือกข้อมูลเพิ่มหรือปรับ model</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="operating-points">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Operating point comparison</div>
+          <h2>0.125 เทียบกับ 0.175 อย่างไร</h2>
+        </div>
+        <p class="lead">0.125 คือ frozen recall-prioritized prototype operating point ส่วน 0.175 เก็บไว้เป็นจุดเปรียบเทียบที่ภาระตรวจน้อยลง</p>
+      </div>
+      <div class="grid two">
+        <article class="card op-card">
+          <div class="op-head"><div class="kicker">Primary</div><h3>Threshold 0.125</h3><p>ใช้เมื่อต้องการเก็บสัญญาณให้มากก่อนตรวจมือ</p></div>
+          <div class="op-body">
+            <div class="bar-row"><div class="bar-label"><span>Recall</span><b>70.99%</b></div><div class="bar-track"><span class="bar-fill" style="width:70.99%"></span></div></div>
+            <div class="bar-row"><div class="bar-label"><span>Predictions</span><b>2,453</b></div><div class="bar-track"><span class="bar-fill teal" style="width:100%"></span></div></div>
+            <div class="bar-row"><div class="bar-label"><span>Matched GT</span><b>668</b></div><div class="bar-track"><span class="bar-fill" style="width:100%"></span></div></div>
+            <div class="bar-row"><div class="bar-label"><span><span class="status-code">MODEL_ONLY_MARKER_ABSENT</span></span><b>1,785</b></div><div class="bar-track"><span class="bar-fill teal" style="width:100%"></span></div></div>
+            <p>Max predictions/source = 151, Contact Sheet = 90 pages. ภาระตรวจสูงกว่า แต่เหมาะกับการเรียนรู้จุดที่โมเดลเห็นเพิ่ม</p>
+          </div>
+        </article>
+        <article class="card op-card">
+          <div class="op-head"><div class="kicker">Comparison</div><h3>Threshold 0.175</h3><p>ใช้เปรียบเทียบกรณีลดภาระตรวจ</p></div>
+          <div class="op-body">
+            <div class="bar-row"><div class="bar-label"><span>Recall</span><b>39.85%</b></div><div class="bar-track"><span class="bar-fill" style="width:39.85%"></span></div></div>
+            <div class="bar-row"><div class="bar-label"><span>Predictions</span><b>780</b></div><div class="bar-track"><span class="bar-fill teal" style="width:31.8%"></span></div></div>
+            <div class="bar-row"><div class="bar-label"><span>Matched GT</span><b>375</b></div><div class="bar-track"><span class="bar-fill" style="width:56.1%"></span></div></div>
+            <div class="bar-row"><div class="bar-label"><span><span class="status-code">MODEL_ONLY_MARKER_ABSENT</span></span><b>405</b></div><div class="bar-track"><span class="bar-fill teal" style="width:22.7%"></span></div></div>
+            <p>Max predictions/source = 69, Contact Sheet = 21 pages. ภาระตรวจต่ำกว่า แต่ Recall ลดลงมาก จึงไม่ใช่ operating point หลัก</p>
+          </div>
+        </article>
+      </div>
+      <details>
+        <summary>ค่าประเมิน frozen เพิ่มเติม</summary>
+        <div>
+          <p>Primary extras per matched GT = 2.672156, relevant candidate saturation = 0, dense output = false. Comparison extras per matched GT = 1.08, relevant candidate saturation = 0, dense output = false.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="contact-sheet-center">
+      <div class="contact-center">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Contact Sheet Center</div>
+            <h2>เปิดดู Contact Sheet</h2>
+          </div>
+          <p class="lead">Contact Sheet รวม raw panel, marker panel และ prediction box สี cyan เพื่อให้ผู้ตรวจเห็นบริบทเดียวกัน รายการนี้ใช้ตรวจทาน ไม่ใช่คำตัดสินสุดท้าย</p>
+        </div>
+        <div class="grid three">
+          <article class="artifact-card">
+            <h3>Interactive Contact Sheet Viewer</h3>
+            <p>เหมาะสำหรับเปิดดูและนำทางผ่านรายการ <span class="status-code">MODEL_ONLY_MARKER_ABSENT</span> แบบ interactive</p>
+            <span class="artifact-meta">Public target: contact-sheets/index.html</span>
+            <button class="artifact-action primary" type="button" data-artifact-kind="viewer" data-public-target="contact-sheets/index.html" disabled aria-disabled="true">เปิดในแท็บใหม่</button>
+          </article>
+          <article class="artifact-card">
+            <h3>Primary PDF - threshold 0.125</h3>
+            <p>PDF หลัก 1,785 cards / 90 pages สำหรับ review ที่เน้น Recall</p>
+            <span class="artifact-meta">Public target: model_only_contact_sheet_primary_0125.pdf</span>
+            <button class="artifact-action" type="button" data-artifact-kind="pdf" disabled aria-disabled="true" title="PDF เดิมถูกบล็อกโดย privacy gate">เปิด PDF หลัก</button>
+          </article>
+          <article class="artifact-card">
+            <h3>Comparison PDF - threshold 0.175</h3>
+            <p>PDF เปรียบเทียบ 405 cards / 21 pages สำหรับดู workload ที่ต่ำกว่า</p>
+            <span class="artifact-meta">Public target: model_only_contact_sheet_comparison_0175.pdf</span>
+            <button class="artifact-action" type="button" data-artifact-kind="pdf" disabled aria-disabled="true" title="PDF เดิมถูกบล็อกโดย privacy gate">เปิด PDF เปรียบเทียบ</button>
+          </article>
+        </div>
+        <div class="local-actions" style="margin-top:16px">
+          <button class="button success" type="button" id="embed-viewer" aria-expanded="false" aria-controls="embedded-viewer" disabled aria-disabled="true">เปิด Contact Sheet ในหน้านี้</button>
+          <button class="button" type="button" id="open-viewer-tab" disabled aria-disabled="true">เปิด Viewer ในแท็บใหม่</button>
+        </div>
+        <p class="public-message" id="contact-public-message">Contact Sheet แบบ sanitized พร้อมเปิดผ่านเว็บไซต์สาธารณะของโครงการ ส่วน PDF เดิมยังถูกปิดไว้เพราะไม่ผ่าน privacy gate โปรดใช้เพื่อการตรวจทานเชิงวิศวกรรม ไม่ใช่คำตัดสินสุดท้าย</p>
+        <div class="viewer-panel" id="embedded-viewer" aria-live="polite">
+          <div class="viewer-toolbar">
+            <strong>Embedded Contact Sheet Viewer</strong>
+            <div class="viewer-actions">
+              <button class="button" type="button" id="open-viewer-tab-2">เปิดในแท็บใหม่</button>
+              <button class="button" type="button" id="close-viewer">ปิด / ซ่อน</button>
+            </div>
+          </div>
+          <div class="viewer-frame-wrap" id="viewer-frame-wrap">
+            <p id="viewer-loading">ยังไม่ได้โหลด iframe กด “เปิด Contact Sheet ในหน้านี้” เพื่อโหลดแบบ lazy-load</p>
+          </div>
+        </div>
+        <details>
+          <summary>วิธีอ่าน Contact Sheet และข้อจำกัด</summary>
+          <div>
+            <p>Raw panel คือภาพต้นฉบับ, marker panel คือภาพอ้างอิงจาก marker เดิม และกล่อง cyan คือ prediction ของโมเดลในบริเวณที่ต้องตรวจต่อ ความแตกต่างระหว่าง 0.125 และ 0.175 คือจำนวนรายการและ Recall ไม่ใช่ความจริงสุดท้ายของแต่ละจุด</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="contact-summary">
+      <div class="section-head">
+        <div><div class="eyebrow">Contact Sheet summary</div><h2>ชุด deliverables ที่พร้อมเปิดบนเว็บไซต์</h2></div>
+        <p class="lead">ตัวเลขด้านล่างอ้างอิง Contact Sheet run ล่าสุด โดยไม่มี inference, checkpoint load หรือ training เพิ่มในขั้นสร้างหน้าเว็บนี้</p>
+      </div>
+      <div class="grid four">
+        <article class="metric-card"><strong>1,785</strong><span>Primary cards</span><p>รายการตรวจหลักที่ threshold 0.125</p></article>
+        <article class="metric-card"><strong>90</strong><span>Primary pages</span><p>จำนวนหน้า PDF หลักที่ 20 cards/page</p></article>
+        <article class="metric-card"><strong>405</strong><span>Comparison cards</span><p>รายการเปรียบเทียบที่ threshold 0.175</p></article>
+        <article class="metric-card"><strong>21</strong><span>Comparison pages</span><p>จำนวนหน้า PDF เปรียบเทียบ</p></article>
+        <article class="metric-card"><strong>36</strong><span>Source overviews</span><p>ภาพรวมราย source สำหรับตรวจ pattern</p></article>
+        <article class="metric-card"><strong>2</strong><span>PDF files</span><p>primary และ comparison</p></article>
+        <article class="metric-card"><strong>1</strong><span>Public viewer</span><p>HTML viewer สำหรับเปิดผ่าน GitHub Pages</p></article>
+      </div>
+    </section>
+
+    <section id="pipeline">
+      <div class="section-head">
+        <div><div class="eyebrow">Technical pipeline</div><h2>Pipeline ที่ freeze แล้วในภาษาคนอ่านง่าย</h2></div>
+        <p class="lead">Threshold คือจุดตัดคะแนน prediction, candidate limit คือเพดานจำนวน candidate ต่อ tile, และ dense output หมายถึง output ที่หนาแน่นผิดปกติจนทำให้ตรวจยาก รอบนี้ dense output = false</p>
+      </div>
+      <div class="flow" aria-label="technical pipeline">
+        <div class="flow-item"><b>Raw image</b><p>ภาพต้นทาง</p></div>
+        <div class="flow-item"><b>512x512 tiling</b><p>overlap 128, stride 384</p></div>
+        <div class="flow-item"><b>Faster R-CNN</b><p>per-tile candidates</p></div>
+        <div class="flow-item"><b>Cross-tile merge</b><p>NMS IoU 0.3</p></div>
+        <div class="flow-item"><b>Threshold</b><p>0.125 หรือ 0.175</p></div>
+        <div class="flow-item"><b>Marker matching</b><p>one-to-one reference rule</p></div>
+        <div class="flow-item"><b><span class="status-code">MODEL_ONLY_MARKER_ABSENT</span></b><p>รายการตรวจต่อ</p></div>
+        <div class="flow-item"><b>Contact Sheet</b><p>viewer/PDF/CSV</p></div>
+      </div>
+      <details>
+        <summary>Frozen parameters</summary>
+        <div>
+          <p>tile size 512, overlap 128, stride 384, candidate limit 100, internal detector threshold 0.05, ROI-head NMS 0.5, cross-tile merge NMS IoU 0.3, classes 2, architecture FasterRCNN_MobileNetV3-Large-FPN.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="environment">
+      <div class="section-head">
+        <div><div class="eyebrow">Software and hardware</div><h2>แยก runtime ที่ใช้จริงออกจากคำแนะนำ hardware</h2></div>
+        <p class="lead">เครื่องที่ audit เป็นเครื่องที่ใช้กับ prototype รอบนี้ ไม่ได้หมายความว่า hardware เดียวกันเป็นข้อบังคับสำหรับทุกงาน</p>
+      </div>
+      <div class="grid two">
+        <article class="card"><div class="kicker">Software environment</div><h3>Runtime ที่ verified</h3><ul class="mini-list"><li>Windows</li><li>Python 3.12.5</li><li>PyTorch 2.8.0+cu128</li><li>Torchvision 0.23.0+cu128</li><li>CUDA 12.8</li><li>NVIDIA GeForce RTX 4060 Laptop GPU</li></ul></article>
+        <article class="card"><div class="kicker">Actual hardware audit</div><h3>เครื่องที่ใช้ตรวจรอบนี้</h3><ul class="mini-list"><li>Windows 11 build 26200</li><li>Intel Core i7-13620H, 10 cores / 16 logical processors</li><li>RAM 15.78 GiB</li><li>NVIDIA GeForce RTX 4060 Laptop GPU</li><li>project-drive free space ประมาณ 261.6 GiB</li></ul></article>
+      </div>
+      <h3 style="margin-top:24px">Minimum hardware guidance</h3>
+      <div class="hardware-tier" style="margin-top:12px">
+        <div class="tier-cell"><b>ดูผลลัพธ์อย่างเดียว</b><p>Task: เปิด HTML/PDF<br>CPU: modern desktop<br>RAM: 4 GiB<br>GPU: ไม่จำเป็น<br>Storage: พอเปิด docs<br>Evidence: ตรวจสอบแล้ว</p></div>
+        <div class="tier-cell"><b>รัน Prototype Inference</b><p>Task: inference จาก config เดิม<br>CPU: modern multi-core<br>RAM: แนะนำ 16 GiB<br>GPU: CUDA-capable NVIDIA หากใช้ CUDA<br>Storage: หลายสิบ GiB<br>Evidence: ข้อกำหนดจากเอกสารทางการ + engineering estimate</p></div>
+        <div class="tier-cell"><b>พัฒนาและ Train ต่อ</b><p>Task: training/experiment<br>CPU: multi-core<br>RAM: 16 GiB ขึ้นไป<br>GPU: CUDA-capable NVIDIA<br>Storage: เผื่อ checkpoint, working files และ PDF<br>Evidence: ข้อเสนอเชิงวิศวกรรม</p></div>
+        <div class="tier-cell"><b>ข้อควรรู้</b><p>Peak reserved CUDA memory ที่ observed = 444.0 MiB ใน pilot แต่ peak VRAM เต็มรูปแบบยังไม่ได้ Benchmark สำหรับงาน production หรือ batch ใหญ่</p></div>
+      </div>
+    </section>
+
+    <section id="limitations">
+      <div class="notice danger">
+        <div class="eyebrow">Safe interpretation</div>
+        <h2>ข้อจำกัดที่ต้องไม่ข้าม</h2>
+        <ul class="mini-list">
+          <li>นี่คือ engineering prototype ไม่ใช่ production-final system</li>
+          <li>หลักฐานอยู่บน Validation set และยังต้องมี locked-test กับ operational validation</li>
+          <li>marker completeness อาจแตกต่างกันได้ แต่หน้านี้ไม่สรุปแทนผู้ตรวจ</li>
+          <li><span class="status-code">MODEL_ONLY_MARKER_ABSENT</span> เป็นสถานะจาก matching rule ไม่ใช่คำยืนยันความถูกต้องของโมเดล</li>
+          <li>hardware tier ต่ำกว่ายังไม่ได้ benchmark และ peak VRAM ยังไม่ได้วัดครบทุก scenario</li>
+          <li>environment versions ควรถูก pin ก่อนทำ production pipeline</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="section-head">
+        <div><div class="eyebrow">Development roadmap</div><h2>สี่ช่วงงานต่อจาก infographic นี้</h2></div>
+      </div>
+      <div class="grid four">
+        <article class="card"><div class="kicker">Programmer handoff</div><h3>Objective</h3><p>เปิด viewer/PDF/CSV และยืนยัน contract</p><p><b>Output:</b> task-ready implementation brief</p><p><b>Gate:</b> เปิด artifact ได้ครบ</p></article>
+        <article class="card"><div class="kicker">Application integration</div><h3>Objective</h3><p>ผูกผลโมเดลเข้ากับ UI สำหรับตรวจทาน</p><p><b>Output:</b> review workflow prototype</p><p><b>Gate:</b> ผู้ตรวจใช้ได้จริง</p></article>
+        <article class="card"><div class="kicker">Further model research</div><h3>Objective</h3><p>ใช้ผล Contact Sheet เลือก negative/background หรือปรับ policy</p><p><b>Output:</b> experiment plan รุ่นถัดไป</p><p><b>Gate:</b> มี evidence จาก review</p></article>
+        <article class="card"><div class="kicker">Production readiness</div><h3>Objective</h3><p>ทดสอบ locked-test, performance, monitoring และ operation</p><p><b>Output:</b> production decision package</p><p><b>Gate:</b> ผ่าน validation ภาคสนาม</p></article>
+      </div>
+    </section>
+
+    <section id="handoff">
+      <div class="section-head">
+        <div><div class="eyebrow">Handoff package</div><h2>สิ่งที่มีพร้อม สิ่งที่ต้องทำต่อ และสิ่งที่รอ production</h2></div>
+      </div>
+      <div class="grid three">
+        <article class="card"><div class="kicker">Ready now</div><ul class="mini-list"><li>checkpoint identity</li><li>frozen runtime configuration</li><li>evaluation policy</li><li>raw-marker mapping</li><li>Contact Sheet viewer</li><li>PDF Contact Sheets</li><li>CSV manifests</li><li>environment information</li><li>hardware analysis</li></ul></article>
+        <article class="card"><div class="kicker">Next development task</div><ul class="mini-list"><li>เผยแพร่ viewer และ PDF หลังผ่าน privacy gate</li><li>ตรวจ <span class="status-code">MODEL_ONLY_MARKER_ABSENT</span> ที่ threshold 0.125</li><li>จัดกลุ่ม pattern จาก review</li><li>ส่งข้อค้นพบกลับ model research</li></ul></article>
+        <article class="card"><div class="kicker">Future production requirement</div><ul class="mini-list"><li>locked-test evaluation</li><li>operational validation</li><li>version pinning</li><li>monitoring and rollback</li><li>access control for artifacts</li></ul></article>
+      </div>
+    </section>
+
+    <section id="appendix">
+      <div class="section-head">
+        <div><div class="eyebrow">Technical appendix</div><h2>Run IDs, hashes และ references</h2></div>
+        <p class="lead">ข้อมูลหนาแน่นถูกย้ายมาไว้ท้ายหน้าเพื่อให้ main flow อ่านง่าย แต่ยังตรวจย้อนกลับได้</p>
+      </div>
+      <details open>
+        <summary>Run IDs ที่ใช้อ้างอิง</summary>
+        <div>
+          <ul class="mini-list">
+            <li>Prototype freeze: controlled_20260711_fasterrcnn_prototype_freeze_001</li>
+            <li>Contact Sheet: controlled_20260711_fasterrcnn_model_only_contact_sheet_002</li>
+            <li>Raw-marker mapping: controlled_20260711_validation_raw_marker_mapping_001</li>
+            <li>Threshold audit: controlled_20260711_fasterrcnn_threshold_eligibility_audit_002</li>
+            <li>Candidate-boundary cache: controlled_20260711_fasterrcnn_candidate_boundary_cache_002</li>
+            <li>UX build: controlled_20260712_model_infographic_ux_001</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>Official references</summary>
+        <div>
+          <ul class="mini-list">
+            <li><a href="https://docs.pytorch.org/vision/main/models/generated/torchvision.models.detection.fasterrcnn_mobilenet_v3_large_fpn.html" rel="noopener">Torchvision Faster R-CNN model reference</a></li>
+            <li><a href="https://pytorch.org/get-started/locally/" rel="noopener">PyTorch Start Locally</a></li>
+            <li><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html" rel="noopener">NVIDIA CUDA Installation Guide for Microsoft Windows</a></li>
+          </ul>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <button class="to-top" type="button" id="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <footer class="wrap">BirdNests model prototype UX handoff. Status: MODEL_INFOGRAPHIC_UX_READY.</footer>
+
+  <script>
+    (function () {
+      var publicViewerPath = "contact-sheets/index.html";
+      var contactSheetPublicationAvailable = true;
+      var publicMessage = document.getElementById("contact-public-message");
+      var embedButton = document.getElementById("embed-viewer");
+      var openViewerTab = document.getElementById("open-viewer-tab");
+      var openViewerTab2 = document.getElementById("open-viewer-tab-2");
+      var closeViewer = document.getElementById("close-viewer");
+      var panel = document.getElementById("embedded-viewer");
+      var frameWrap = document.getElementById("viewer-frame-wrap");
+      var iframeLoaded = false;
+
+      function openTarget(path) {
+        window.open(path, "_blank", "noopener");
+      }
+
+      document.querySelectorAll("[data-public-target]").forEach(function (button) {
+        var target = button.getAttribute("data-public-target");
+        if (contactSheetPublicationAvailable) {
+          button.removeAttribute("disabled");
+          button.setAttribute("aria-disabled", "false");
+          button.addEventListener("click", function () { openTarget(target); });
+        } else {
+          button.setAttribute("disabled", "disabled");
+          button.setAttribute("aria-disabled", "true");
+          button.setAttribute("title", "รอเผยแพร่หลังผ่าน privacy gate");
+        }
+      });
+
+      if (contactSheetPublicationAvailable) {
+        publicMessage.textContent = "Contact Sheet แบบ sanitized พร้อมเปิดผ่าน public relative URL ของ GitHub Pages และมีเฉพาะข้อมูล public page/manifest ที่ผ่าน privacy gate";
+        openViewerTab.addEventListener("click", function () { openTarget(publicViewerPath); });
+        openViewerTab2.addEventListener("click", function () { openTarget(publicViewerPath); });
+      } else {
+        publicMessage.textContent = "Contact Sheet publication ถูกบล็อกโดย privacy gate: ต้องสร้าง PDF/manifest ที่ไม่มี absolute path หรือ private metadata ก่อนเปิดบนเว็บไซต์สาธารณะ";
+        embedButton.setAttribute("disabled", "disabled");
+        embedButton.setAttribute("aria-disabled", "true");
+        openViewerTab.setAttribute("disabled", "disabled");
+        openViewerTab.setAttribute("aria-disabled", "true");
+        openViewerTab2.setAttribute("disabled", "disabled");
+        openViewerTab2.setAttribute("aria-disabled", "true");
+      }
+
+      embedButton.addEventListener("click", function () {
+        if (!contactSheetPublicationAvailable) return;
+        panel.classList.add("is-open");
+        embedButton.setAttribute("aria-expanded", "true");
+        if (!iframeLoaded) {
+          frameWrap.innerHTML = '<iframe loading="lazy" title="Interactive MODEL_ONLY_MARKER_ABSENT Contact Sheet Viewer" src="' + publicViewerPath + '"></iframe>';
+          iframeLoaded = true;
+        }
+      });
+      closeViewer.addEventListener("click", function () {
+        panel.classList.remove("is-open");
+        embedButton.setAttribute("aria-expanded", "false");
+        embedButton.focus();
+      });
+
+      document.getElementById("print-page").addEventListener("click", function () { window.print(); });
+
+      var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".toc a"));
+      var sections = tocLinks.map(function (link) { return document.querySelector(link.getAttribute("href")); }).filter(Boolean);
+      if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              tocLinks.forEach(function (link) { link.removeAttribute("aria-current"); });
+              var active = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+              if (active) active.setAttribute("aria-current", "true");
+            }
+          });
+        }, { rootMargin: "-30% 0px -62% 0px", threshold: 0.01 });
+        sections.forEach(function (section) { observer.observe(section); });
+      }
+
+      var toTop = document.getElementById("to-top");
+      window.addEventListener("scroll", function () {
+        toTop.classList.toggle("is-visible", window.scrollY > 640);
+      }, { passive: true });
+      toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    }());
+  </script>
+</body>
+</html>

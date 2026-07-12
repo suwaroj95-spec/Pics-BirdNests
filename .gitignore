@@ -9,10 +9,13 @@ Desktop.ini
 __pycache__/
 *.py[cod]
 .venv/
+.venv-*/
 venv/
 env/
 .pytest_cache/
 .mypy_cache/
+htmlcov/
+.coverage
 
 # Local secrets
 .env
@@ -21,11 +24,37 @@ env/
 *.pem
 *.key
 *.pfx
+secrets/
+secrets.*
 
-# Optional generated model artifacts
-# runs/
-# weights/
-# *.pt
-# *.pth
-# *.onnx
-# *.engine
+# Local datasets and generated runs
+tmp/
+!tmp/
+!tmp/fasterrcnn_handoff/
+artifacts/
+New_RawPics_birdnest_*/
+Staging_Final_Red_*/
+RawPics/
+Crops/
+BacktestSelection/
+AnomalyDetection/
+AnomalyDetectionTest/
+AnomalyDetectionPanelTest/
+
+# Model checkpoints and local release staging
+*.pt
+*.pth
+*.onnx
+*.engine
+*.ckpt
+*.weights
+release_assets/
+
+# Intentionally public handoff assets
+!docs/contact-sheets/
+!docs/contact-sheets/**
+!handoff/
+!handoff/prototype_v1/
+!handoff/prototype_v1/**
+!tmp/fasterrcnn_handoff/controlled_20260712_company_handoff_preparation_001/
+!tmp/fasterrcnn_handoff/controlled_20260712_company_handoff_preparation_001/**

@@ -1,0 +1,12 @@
+# BirdNests Faster R-CNN Prototype CUDA guidance.
+# Python: 3.12.5
+#
+# Do not install CUDA builds from the default PyPI index by guesswork.
+# Use https://pytorch.org/get-started/locally/ and select:
+#   PyTorch 2.8.0
+#   Torchvision 0.23.0
+#   CUDA build matching the target NVIDIA driver/runtime
+#
+# Example pattern only; replace the index URL with the official selector output:
+# python -m pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/<cuda-build>
+-r requirements-model-common.txt

@@ -1,0 +1,68 @@
+{
+  "canonical_threshold_precision_policy": {
+    "do_not_derive_from_rounded_csv_label": true,
+    "prohibited_rounded_labels": [
+      "0.12",
+      "0.17"
+    ],
+    "store_and_display": [
+      "0.125",
+      "0.175"
+    ],
+    "store_numeric_and_string_fields": true
+  },
+  "comparison_operating_point": {
+    "dense_output": false,
+    "estimated_contact_sheet_pages_20_cards": 39,
+    "extras_per_matched_gt": "1.080000",
+    "matched_gt": 375,
+    "maximum_merged_predictions_per_source": 69,
+    "merged_predictions": 780,
+    "recall": "0.3985122210",
+    "role": "lower_workload_comparison",
+    "threshold": 0.175,
+    "threshold_relevant_capped_tiles": 0,
+    "threshold_string": "0.175",
+    "unverified_extras": 405
+  },
+  "eligibility_evidence": {
+    "comparison": {
+      "dense_output": false,
+      "eligible": true,
+      "source": {
+        "source_field_or_row": "threshold 0.175",
+        "source_file": "evidence:threshold_eligibility_review_balanced_alternative",
+        "source_sha256": "91d9f6c4909a384c77d4c49dc3be93849d935e899360567be08629b9f0e1650c"
+      },
+      "threshold_relevant_saturation": 0
+    },
+    "primary": {
+      "dense_output": false,
+      "eligible": true,
+      "source": {
+        "source_field_or_row": "threshold 0.125",
+        "source_file": "evidence:threshold_eligibility_corrected_selected_operating_point",
+        "source_sha256": "e41c603ea4b745605ffc43376be24b58022ab3838d6c63853904d04086c2605b"
+      },
+      "threshold_relevant_saturation": 0
+    }
+  },
+  "primary_operating_point": {
+    "dense_output": false,
+    "estimated_contact_sheet_pages_20_cards": 123,
+    "extras_per_matched_gt": "2.672156",
+    "matched_gt": 668,
+    "maximum_merged_predictions_per_source": 151,
+    "merged_predictions": 2453,
+    "recall": "0.7098831031",
+    "role": "recall_prioritized_primary",
+    "threshold": 0.125,
+    "threshold_relevant_capped_tiles": 0,
+    "threshold_string": "0.125",
+    "unverified_extras": 1785
+  },
+  "selection_rationale": {
+    "comparison": "Lower workload eligible threshold retained for limited expert-review comparison metadata.",
+    "primary": "Highest recall among eligible thresholds after corrected candidate-limit audit."
+  }
+}

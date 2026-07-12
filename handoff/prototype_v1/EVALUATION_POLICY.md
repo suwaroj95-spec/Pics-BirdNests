@@ -1,0 +1,24 @@
+# Evaluation Policy
+
+```json
+{
+  "allowed_terminology": [
+    "MODEL_ONLY_MARKER_ABSENT",
+    "engineering comparison",
+    "marker-reference comparison"
+  ],
+  "authoritative_marker_reference_definition": "original marker-derived Ground Truth",
+  "contact_sheet_target_definition": "model-only-versus-marker engineering comparison at threshold 0.125, with 0.175 membership retained as comparison metadata",
+  "current_engineering_validation_scope": "prototype configuration freeze for downstream handoff artifacts; no domain-expert review in this task",
+  "limitations": [
+    "marker incompleteness remains a documented possible limitation but must not be assumed as fact",
+    "engineering prototype, not production-final"
+  ],
+  "model_only_detection_definition": "a merged prediction produced at the frozen operating threshold that does not match or fall within the accepted matching rule of an original marker-derived Ground Truth point",
+  "prohibited_overclaims": [
+    "confirmed false positives",
+    "confirmed dirty spots",
+    "domain-expert confirmed"
+  ]
+}
+```
