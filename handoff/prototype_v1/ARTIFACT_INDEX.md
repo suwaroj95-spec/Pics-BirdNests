@@ -15,6 +15,14 @@
 
 - `final_checkpoint.pt`
 - `birdnests_prototype_v1_company_handoff.zip`
+- `SHA256SUMS.txt`
+
+## Release Download Links
+
+- Release page: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/tag/v0.1.0-prototype
+- `final_checkpoint.pt`: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/final_checkpoint.pt
+- `birdnests_prototype_v1_company_handoff.zip`: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/birdnests_prototype_v1_company_handoff.zip
+- `SHA256SUMS.txt`: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/SHA256SUMS.txt
 
 ## Excluded
 

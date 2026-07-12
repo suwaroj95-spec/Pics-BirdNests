@@ -12,6 +12,13 @@ The repository contains a frozen Faster R-CNN Prototype for dirty-spot detection
 4. Obtain the checkpoint from the later GitHub Release asset listed in `checkpoint_release_manifest.json`.
 5. Run `tools/run_prototype_inference.py` only after installing the model runtime.
 
+## Release Downloads
+
+- Release page: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/tag/v0.1.0-prototype
+- `final_checkpoint.pt`: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/final_checkpoint.pt
+- `birdnests_prototype_v1_company_handoff.zip`: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/birdnests_prototype_v1_company_handoff.zip
+- `SHA256SUMS.txt`: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/SHA256SUMS.txt
+
 ## Key Facts
 
 - Approved Prototype data scope: 240 raw/marker pairs.

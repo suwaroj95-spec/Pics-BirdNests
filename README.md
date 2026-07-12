@@ -100,11 +100,12 @@ The Contact Sheet is for engineering review. It is not expert-confirmed Ground T
 
 Do not commit checkpoint files to regular Git and do not copy them into `docs/`.
 
-The authoritative frozen checkpoint should be distributed later as a GitHub Release asset:
+The authoritative frozen checkpoint is distributed through the project Release:
 
-```text
-final_checkpoint.pt
-```
+- Release page: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/tag/v0.1.0-prototype
+- Checkpoint: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/final_checkpoint.pt
+- Company handoff ZIP: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/birdnests_prototype_v1_company_handoff.zip
+- Checksums: https://github.com/suwaroj95-spec/Pics-BirdNests/releases/download/v0.1.0-prototype/SHA256SUMS.txt
 
 SHA256:
 
