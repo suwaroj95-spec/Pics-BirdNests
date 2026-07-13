@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Developer Quick Start | BirdNests Project</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #4b5d73;
+      --subtle: #697a8f;
+      --line: #d9e2ec;
+      --paper: #ffffff;
+      --soft: #f7fafc;
+      --blue: #2458a6;
+      --blue-soft: #eaf2ff;
+      --green: #16745c;
+      --green-soft: #e8f6f1;
+      --amber: #9a6500;
+      --amber-soft: #fff4dc;
+      --rose: #b42346;
+      --rose-soft: #fff1f4;
+      --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      background: var(--soft);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffffff 0%, var(--soft) 56%, #ffffff 100%);
+      font-family: Arial, "Helvetica Neue", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.16em;
+    }
+
+    a:hover {
+      color: #173f7d;
+    }
+
+    a:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid rgba(36, 88, 166, 0.35);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    code {
+      padding: 0.14em 0.35em;
+      color: #111827;
+      background: #eef2f7;
+      border: 1px solid #d8e2ed;
+      border-radius: 6px;
+      font-family: Consolas, "Liberation Mono", monospace;
+      font-size: 0.94em;
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 0;
+      padding: 18px;
+      color: #111827;
+      background: #f0f5fb;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-family: Consolas, "Liberation Mono", monospace;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    pre code {
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      font-size: inherit;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: clamp(30px, 6vw, 72px) 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .back-link svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      max-width: 900px;
+      margin-bottom: clamp(30px, 5vw, 54px);
+    }
+
+    .eyebrow {
+      width: fit-content;
+      margin: 0;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--blue);
+      background: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: #111827;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.35rem, 6vw, 4.9rem);
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.18;
+    }
+
+    h3 {
+      font-size: 1.08rem;
+      line-height: 1.35;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .subtitle {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.28rem);
+      line-height: 1.78;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: clamp(30px, 5vw, 54px);
+    }
+
+    .status {
+      padding: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .status span {
+      display: block;
+      color: var(--subtle);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .status strong {
+      display: block;
+      margin-top: 8px;
+      color: #111827;
+      font-size: 1.08rem;
+      line-height: 1.32;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sections {
+      display: grid;
+      gap: 22px;
+    }
+
+    section,
+    .side-panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    section {
+      padding: clamp(22px, 4vw, 32px);
+    }
+
+    section > * + * {
+      margin-top: 16px;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+
+    li + li {
+      margin-top: 8px;
+    }
+
+    .callout {
+      padding: 16px;
+      border: 1px solid var(--amber);
+      border-radius: 8px;
+      background: var(--amber-soft);
+      color: #513700;
+    }
+
+    .callout strong {
+      color: #3f2a00;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .link-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      color: var(--ink);
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 180ms ease, background-color 180ms ease;
+    }
+
+    .link-list a:hover {
+      background: var(--blue-soft);
+      border-color: #b9c8d8;
+    }
+
+    .link-list svg {
+      width: 17px;
+      height: 17px;
+      color: var(--blue);
+      flex: 0 0 auto;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      margin: 0;
+      padding: 16px 16px 16px 54px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      color: #ffffff;
+      background: var(--blue);
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .steps strong {
+      display: block;
+      color: #111827;
+    }
+
+    .side-panel {
+      position: sticky;
+      top: 20px;
+      display: grid;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .side-panel nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .side-panel a {
+      padding: 8px 0;
+      color: var(--muted);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .side-panel a:hover {
+      color: var(--blue);
+    }
+
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      padding: 5px 9px;
+      color: var(--green);
+      background: var(--green-soft);
+      border: 1px solid rgba(22, 116, 92, 0.2);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 960px) {
+      .status-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .side-panel {
+        position: static;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: min(100% - 28px, 440px);
+        padding: 28px 0;
+      }
+
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps li {
+        padding-left: 48px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+        animation-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <a class="back-link" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+      </svg>
+      Documentation gateway
+    </a>
+
+    <header class="hero">
+      <p class="eyebrow">Developer handoff</p>
+      <h1>Developer Quick Start</h1>
+      <p class="subtitle">A compact path for setting up the BirdNests Faster R-CNN Prototype, finding the supported runtime contract, and validating the public documentation without changing the frozen engineering scope.</p>
+    </header>
+
+    <div class="status-grid" aria-label="Prototype status summary">
+      <div class="status">
+        <span>Status</span>
+        <strong>FASTER_RCNN_PILOT_PROMISING</strong>
+      </div>
+      <div class="status">
+        <span>Configuration</span>
+        <strong>PROTOTYPE_CONFIGURATION_FROZEN</strong>
+      </div>
+      <div class="status">
+        <span>Dataset Scope</span>
+        <strong>240 approved raw/marker pairs</strong>
+      </div>
+      <div class="status">
+        <span>Primary Threshold</span>
+        <strong>0.125 recall-prioritized</strong>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="sections">
+        <section id="start-here">
+          <h2>Start Here</h2>
+          <ol class="steps">
+            <li>
+              <strong>Review the handoff package.</strong>
+              Read <code>handoff/prototype_v1/README_HANDOFF.md</code>, then follow the installation and inference contract documents in the same folder.
+            </li>
+            <li>
+              <strong>Create an isolated Python environment.</strong>
+              Keep local data, checkpoints, caches, and temporary inference outputs outside Git-tracked publication paths.
+            </li>
+            <li>
+              <strong>Install the runtime requirements for the target machine.</strong>
+              Use the common model requirements first, then choose the CUDA package set only when the machine supports it.
+            </li>
+            <li>
+              <strong>Run validation before changing behavior.</strong>
+              The included unit tests validate CLI argument handling, schema construction, and public Contact Sheet links without loading the model checkpoint.
+            </li>
+          </ol>
+        </section>
+
+        <section id="setup">
+          <h2>Local Setup</h2>
+          <p>From the repository root, create or activate a virtual environment before installing project packages.</p>
+          <pre><code>python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r InstallKit\requirements-core.txt
+python -m pip install -r InstallKit\requirements-model-common.txt</code></pre>
+          <p>CUDA installs must follow the official PyTorch selector for the exact target hardware. Do not assume CUDA wheels can be installed from the default PyPI index.</p>
+        </section>
+
+        <section id="inference">
+          <h2>Supported Inference Entry Point</h2>
+          <p>The supported wrapper is <code>tools/run_prototype_inference.py</code>. It validates arguments before loading PyTorch or the checkpoint.</p>
+          <pre><code>python .\tools\run_prototype_inference.py `
+  --input .\path\to\image-or-directory `
+  --output .\prototype_inference_output `
+  --checkpoint .\path\to\final_checkpoint.pt `
+  --config .\handoff\prototype_v1\prototype_runtime_config.json `
+  --threshold 0.125 `
+  --device cpu `
+  --save-json predictions.json `
+  --save-preview previews</code></pre>
+          <div class="callout">
+            <strong>Checkpoint policy:</strong> do not commit checkpoint files to regular Git and do not copy them into <code>docs/</code>. Use the project Release artifact for the frozen checkpoint.
+          </div>
+        </section>
+
+        <section id="validation">
+          <h2>Validation</h2>
+          <p>Run the focused non-inference tests when making handoff, CLI, schema, or public documentation changes.</p>
+          <pre><code>python -m unittest tests.test_run_prototype_inference tests.test_contact_sheet_public_manifest -v</code></pre>
+          <p>These tests do not run inference, load the checkpoint, or require CUDA.</p>
+        </section>
+
+        <section id="public-docs">
+          <h2>Public Documentation Paths</h2>
+          <ul class="link-list">
+            <li><a href="index.html">Documentation gateway <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a></li>
+            <li><a href="birdnests-workflow-infographic.html">Executive workflow infographic <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a></li>
+            <li><a href="dataset-cleansing-status.html">Dataset cleansing status <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a></li>
+            <li><a href="birdnests-model-prototype-infographic.html">Model Prototype infographic <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a></li>
+            <li><a href="contact-sheets/index.html">Sanitized Contact Sheet viewer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a></li>
+          </ul>
+        </section>
+
+        <section id="boundaries">
+          <h2>Engineering Boundaries</h2>
+          <ul>
+            <li>This is an engineering Prototype, not a production-ready detector.</li>
+            <li>Contact Sheet labels are model-vs-marker review states, not expert decisions.</li>
+            <li>Do not describe all 240 approved pairs as training images.</li>
+            <li>Raw images, marker images, local datasets, caches, checkpoints, optimizer states, and secrets must stay out of public documentation paths unless explicitly approved.</li>
+          </ul>
+        </section>
+      </div>
+
+      <aside class="side-panel" aria-label="On this page">
+        <span class="badge">Quick path</span>
+        <nav>
+          <a href="#start-here">Start here</a>
+          <a href="#setup">Local setup</a>
+          <a href="#inference">Inference</a>
+          <a href="#validation">Validation</a>
+          <a href="#public-docs">Public docs</a>
+          <a href="#boundaries">Boundaries</a>
+        </nav>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

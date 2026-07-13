@@ -38,6 +38,7 @@ The primary threshold `0.125` is recall-prioritized for review. The comparison t
 ## Documentation Links
 
 - Gateway: `docs/index.html`
+- Developer Quick Start: `docs/developer-quick-start.html`
 - Workflow infographic: `docs/birdnests-workflow-infographic.html`
 - Dataset status: `docs/dataset-cleansing-status.html`
 - Model Prototype infographic: `docs/birdnests-model-prototype-infographic.html`
