@@ -1,0 +1,773 @@
+{
+  "title": "Small Anchor 16/32/64/128 Expert Review",
+  "status": "pending_human_review",
+  "canonicalGalleryPackage": "package_a_small_anchor_0125",
+  "packageComparison": {
+    "effectivePredictionSetIdentical": true,
+    "pagePngHashesIdentical": false,
+    "manifestsDifferOnlyByPackageId": true,
+    "packageBThresholdDiffersFrom0125": false,
+    "reasonSingleGallery": "Package A and B have the same threshold, checkpoint, card count, page count, and effective prediction/card set. Page PNG hashes differ because the package-id text differs on rendered cards."
+  },
+  "packages": [
+    {
+      "card_count": 1400,
+      "checkpoint_sha256": "e9f4d2e1b8530662fd3390165419008647c7d9baaf80e8a2d3cc4108b22fa7c0",
+      "contains_previous_expert_markings": false,
+      "model_profile": "small_16_32_64_128",
+      "package_id": "package_a_small_anchor_0125",
+      "page_count": 70,
+      "same_source_pairing_asserted": true,
+      "threshold": "0.125"
+    },
+    {
+      "card_count": 1400,
+      "checkpoint_sha256": "e9f4d2e1b8530662fd3390165419008647c7d9baaf80e8a2d3cc4108b22fa7c0",
+      "contains_previous_expert_markings": false,
+      "model_profile": "small_16_32_64_128",
+      "package_id": "package_b_small_anchor_validation_selected",
+      "page_count": 70,
+      "same_source_pairing_asserted": true,
+      "threshold": "0.125"
+    }
+  ],
+  "experiment": {
+    "baselineAnchors": [
+      32,
+      64,
+      128,
+      256,
+      512
+    ],
+    "smallAnchors": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "checkpointSha256": "e9f4d2e1b8530662fd3390165419008647c7d9baaf80e8a2d3cc4108b22fa7c0",
+    "threshold": "0.125",
+    "cardCount": 1400,
+    "pageCount": 70
+  },
+  "metrics": {
+    "baseline": {
+      "recall0125": 0.7099,
+      "automaticPrecisionProxy": 0.2723,
+      "unmatchedPredictions": 1785,
+      "humanReviewedPrecision": 0.0717,
+      "reviewedPredictions": 1785,
+      "expertAccepted": 128,
+      "expertFalsePositive": 1657,
+      "pairingErrors": 0,
+      "unresolved": 0
+    },
+    "smallAnchor": {
+      "recall0125": 0.7322,
+      "automaticPrecisionProxy": 0.3298,
+      "unmatchedPredictions": 1400
+    }
+  },
+  "pages": [
+    {
+      "page": 1,
+      "cardStart": 1,
+      "cardEnd": 20,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_001.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125652,
+      "scoreMax": 0.221773
+    },
+    {
+      "page": 2,
+      "cardStart": 21,
+      "cardEnd": 40,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_002.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.136758,
+      "scoreMax": 0.20262
+    },
+    {
+      "page": 3,
+      "cardStart": 41,
+      "cardEnd": 60,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_003.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125354,
+      "scoreMax": 0.282991
+    },
+    {
+      "page": 4,
+      "cardStart": 61,
+      "cardEnd": 80,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_004.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.14015,
+      "scoreMax": 0.186161
+    },
+    {
+      "page": 5,
+      "cardStart": 81,
+      "cardEnd": 100,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_005.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125179,
+      "scoreMax": 0.246521
+    },
+    {
+      "page": 6,
+      "cardStart": 101,
+      "cardEnd": 120,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_006.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.128525,
+      "scoreMax": 0.200041
+    },
+    {
+      "page": 7,
+      "cardStart": 121,
+      "cardEnd": 140,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_007.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125963,
+      "scoreMax": 0.326065
+    },
+    {
+      "page": 8,
+      "cardStart": 141,
+      "cardEnd": 160,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_008.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.140646,
+      "scoreMax": 0.162013
+    },
+    {
+      "page": 9,
+      "cardStart": 161,
+      "cardEnd": 180,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_009.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.12558,
+      "scoreMax": 0.302219
+    },
+    {
+      "page": 10,
+      "cardStart": 181,
+      "cardEnd": 200,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_010.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.161312,
+      "scoreMax": 0.208124
+    },
+    {
+      "page": 11,
+      "cardStart": 201,
+      "cardEnd": 220,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_011.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.126211,
+      "scoreMax": 0.157662
+    },
+    {
+      "page": 12,
+      "cardStart": 221,
+      "cardEnd": 240,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_012.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125274,
+      "scoreMax": 0.338552
+    },
+    {
+      "page": 13,
+      "cardStart": 241,
+      "cardEnd": 260,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_013.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.126146,
+      "scoreMax": 0.31215
+    },
+    {
+      "page": 14,
+      "cardStart": 261,
+      "cardEnd": 280,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_014.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.142463,
+      "scoreMax": 0.226824
+    },
+    {
+      "page": 15,
+      "cardStart": 281,
+      "cardEnd": 300,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_015.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.126963,
+      "scoreMax": 0.335551
+    },
+    {
+      "page": 16,
+      "cardStart": 301,
+      "cardEnd": 320,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_016.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.141119,
+      "scoreMax": 0.284229
+    },
+    {
+      "page": 17,
+      "cardStart": 321,
+      "cardEnd": 340,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_017.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125399,
+      "scoreMax": 0.370662
+    },
+    {
+      "page": 18,
+      "cardStart": 341,
+      "cardEnd": 360,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_018.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.130558,
+      "scoreMax": 0.18066
+    },
+    {
+      "page": 19,
+      "cardStart": 361,
+      "cardEnd": 380,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_019.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125247,
+      "scoreMax": 0.296469
+    },
+    {
+      "page": 20,
+      "cardStart": 381,
+      "cardEnd": 400,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_020.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.145321,
+      "scoreMax": 0.174424
+    },
+    {
+      "page": 21,
+      "cardStart": 401,
+      "cardEnd": 420,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_021.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.126052,
+      "scoreMax": 0.144754
+    },
+    {
+      "page": 22,
+      "cardStart": 421,
+      "cardEnd": 440,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_022.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125582,
+      "scoreMax": 0.358245
+    },
+    {
+      "page": 23,
+      "cardStart": 441,
+      "cardEnd": 460,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_023.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.165586,
+      "scoreMax": 0.184327
+    },
+    {
+      "page": 24,
+      "cardStart": 461,
+      "cardEnd": 480,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_024.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.146872,
+      "scoreMax": 0.163749
+    },
+    {
+      "page": 25,
+      "cardStart": 481,
+      "cardEnd": 500,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_025.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.125522,
+      "scoreMax": 0.141614
+    },
+    {
+      "page": 26,
+      "cardStart": 501,
+      "cardEnd": 520,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_026.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125124,
+      "scoreMax": 0.332298
+    },
+    {
+      "page": 27,
+      "cardStart": 521,
+      "cardEnd": 540,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_027.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.139143,
+      "scoreMax": 0.174405
+    },
+    {
+      "page": 28,
+      "cardStart": 541,
+      "cardEnd": 560,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_028.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.125583,
+      "scoreMax": 0.13888
+    },
+    {
+      "page": 29,
+      "cardStart": 561,
+      "cardEnd": 580,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_029.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.165068,
+      "scoreMax": 0.328518
+    },
+    {
+      "page": 30,
+      "cardStart": 581,
+      "cardEnd": 600,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_030.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.137771,
+      "scoreMax": 0.163611
+    },
+    {
+      "page": 31,
+      "cardStart": 601,
+      "cardEnd": 620,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_031.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125139,
+      "scoreMax": 0.247144
+    },
+    {
+      "page": 32,
+      "cardStart": 621,
+      "cardEnd": 640,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_032.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.14809,
+      "scoreMax": 0.1881
+    },
+    {
+      "page": 33,
+      "cardStart": 641,
+      "cardEnd": 660,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_033.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.132986,
+      "scoreMax": 0.147482
+    },
+    {
+      "page": 34,
+      "cardStart": 661,
+      "cardEnd": 680,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_034.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.127887,
+      "scoreMax": 0.325599
+    },
+    {
+      "page": 35,
+      "cardStart": 681,
+      "cardEnd": 700,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_035.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.147693,
+      "scoreMax": 0.179139
+    },
+    {
+      "page": 36,
+      "cardStart": 701,
+      "cardEnd": 720,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_036.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125581,
+      "scoreMax": 0.238798
+    },
+    {
+      "page": 37,
+      "cardStart": 721,
+      "cardEnd": 740,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_037.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.150178,
+      "scoreMax": 0.209746
+    },
+    {
+      "page": 38,
+      "cardStart": 741,
+      "cardEnd": 760,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_038.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.131349,
+      "scoreMax": 0.150166
+    },
+    {
+      "page": 39,
+      "cardStart": 761,
+      "cardEnd": 780,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_039.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125092,
+      "scoreMax": 0.270576
+    },
+    {
+      "page": 40,
+      "cardStart": 781,
+      "cardEnd": 800,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_040.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.13928,
+      "scoreMax": 0.16795
+    },
+    {
+      "page": 41,
+      "cardStart": 801,
+      "cardEnd": 820,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_041.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.125467,
+      "scoreMax": 0.139059
+    },
+    {
+      "page": 42,
+      "cardStart": 821,
+      "cardEnd": 840,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_042.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125451,
+      "scoreMax": 0.341954
+    },
+    {
+      "page": 43,
+      "cardStart": 841,
+      "cardEnd": 860,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_043.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.142902,
+      "scoreMax": 0.168614
+    },
+    {
+      "page": 44,
+      "cardStart": 861,
+      "cardEnd": 880,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_044.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.126419,
+      "scoreMax": 0.142189
+    },
+    {
+      "page": 45,
+      "cardStart": 881,
+      "cardEnd": 900,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_045.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.12621,
+      "scoreMax": 0.294147
+    },
+    {
+      "page": 46,
+      "cardStart": 901,
+      "cardEnd": 920,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_046.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.126198,
+      "scoreMax": 0.180639
+    },
+    {
+      "page": 47,
+      "cardStart": 921,
+      "cardEnd": 940,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_047.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.153113,
+      "scoreMax": 0.354005
+    },
+    {
+      "page": 48,
+      "cardStart": 941,
+      "cardEnd": 960,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_048.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.126892,
+      "scoreMax": 0.151567
+    },
+    {
+      "page": 49,
+      "cardStart": 961,
+      "cardEnd": 980,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_049.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125342,
+      "scoreMax": 0.282049
+    },
+    {
+      "page": 50,
+      "cardStart": 981,
+      "cardEnd": 1000,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_050.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125804,
+      "scoreMax": 0.310813
+    },
+    {
+      "page": 51,
+      "cardStart": 1001,
+      "cardEnd": 1020,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_051.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125056,
+      "scoreMax": 0.278698
+    },
+    {
+      "page": 52,
+      "cardStart": 1021,
+      "cardEnd": 1040,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_052.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.130721,
+      "scoreMax": 0.176201
+    },
+    {
+      "page": 53,
+      "cardStart": 1041,
+      "cardEnd": 1060,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_053.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125419,
+      "scoreMax": 0.341482
+    },
+    {
+      "page": 54,
+      "cardStart": 1061,
+      "cardEnd": 1080,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_054.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.152619,
+      "scoreMax": 0.210705
+    },
+    {
+      "page": 55,
+      "cardStart": 1081,
+      "cardEnd": 1100,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_055.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.133632,
+      "scoreMax": 0.152063
+    },
+    {
+      "page": 56,
+      "cardStart": 1101,
+      "cardEnd": 1120,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_056.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125705,
+      "scoreMax": 0.314468
+    },
+    {
+      "page": 57,
+      "cardStart": 1121,
+      "cardEnd": 1140,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_057.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.150736,
+      "scoreMax": 0.177644
+    },
+    {
+      "page": 58,
+      "cardStart": 1141,
+      "cardEnd": 1160,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_058.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.136022,
+      "scoreMax": 0.150322
+    },
+    {
+      "page": 59,
+      "cardStart": 1161,
+      "cardEnd": 1180,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_059.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.126649,
+      "scoreMax": 0.265382
+    },
+    {
+      "page": 60,
+      "cardStart": 1181,
+      "cardEnd": 1200,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_060.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125908,
+      "scoreMax": 0.257438
+    },
+    {
+      "page": 61,
+      "cardStart": 1201,
+      "cardEnd": 1220,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_061.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.12647,
+      "scoreMax": 0.198047
+    },
+    {
+      "page": 62,
+      "cardStart": 1221,
+      "cardEnd": 1240,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_062.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125163,
+      "scoreMax": 0.263385
+    },
+    {
+      "page": 63,
+      "cardStart": 1241,
+      "cardEnd": 1260,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_063.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125006,
+      "scoreMax": 0.296372
+    },
+    {
+      "page": 64,
+      "cardStart": 1261,
+      "cardEnd": 1280,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_064.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.154579,
+      "scoreMax": 0.266373
+    },
+    {
+      "page": 65,
+      "cardStart": 1281,
+      "cardEnd": 1300,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_065.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.130549,
+      "scoreMax": 0.152095
+    },
+    {
+      "page": 66,
+      "cardStart": 1301,
+      "cardEnd": 1320,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_066.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125614,
+      "scoreMax": 0.32956
+    },
+    {
+      "page": 67,
+      "cardStart": 1321,
+      "cardEnd": 1340,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_067.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125044,
+      "scoreMax": 0.218921
+    },
+    {
+      "page": 68,
+      "cardStart": 1341,
+      "cardEnd": 1360,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_068.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.125641,
+      "scoreMax": 0.177667
+    },
+    {
+      "page": 69,
+      "cardStart": 1361,
+      "cardEnd": 1380,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_069.webp",
+      "sourceCount": 2,
+      "scoreMin": 0.125448,
+      "scoreMax": 0.294927
+    },
+    {
+      "page": 70,
+      "cardStart": 1381,
+      "cardEnd": 1400,
+      "cardCount": 20,
+      "image": "assets/review-pages/page_070.webp",
+      "sourceCount": 1,
+      "scoreMin": 0.125064,
+      "scoreMax": 0.221573
+    }
+  ]
+}

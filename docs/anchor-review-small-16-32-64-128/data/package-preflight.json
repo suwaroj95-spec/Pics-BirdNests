@@ -1,0 +1,48 @@
+{
+  "checkpointSha256": "e9f4d2e1b8530662fd3390165419008647c7d9baaf80e8a2d3cc4108b22fa7c0",
+  "effectiveManifestIdenticalIgnoringPackageId": true,
+  "exactManifestIdentical": false,
+  "manifestsDifferOnlyByPackageId": true,
+  "packageA": {
+    "cardCount": 1400,
+    "id": "package_a_small_anchor_0125",
+    "pageCount": 70,
+    "sourcePngBytes": 141170651,
+    "threshold": "0.125"
+  },
+  "packageB": {
+    "cardCount": 1400,
+    "id": "package_b_small_anchor_validation_selected",
+    "pageCount": 70,
+    "sourcePngBytes": 141259380,
+    "threshold": "0.125"
+  },
+  "packageBThresholdDiffersFrom0125": false,
+  "pagePngHashesCompared": 70,
+  "pagePngHashesIdenticalCount": 0,
+  "publishedStrategy": "single-gallery-webp-from-package-a",
+  "publishedWebpBytes": 21583932,
+  "publishedWebpMegabytes": 20.58,
+  "samplePageHashComparison": [
+    {
+      "identical": false,
+      "packageAHash": "613852003339700877f29e79728f9693e35298c3f941984b97f32e8dfe231659",
+      "packageBHash": "8b49921d367f39e02a560101cab7b81782cdc0e6dc8bb78d0904959ffcdd837d",
+      "page": 1
+    },
+    {
+      "identical": false,
+      "packageAHash": "33dcb24802a725c0b4da7b77727a29388ae792f947c2e84243dea778242e2778",
+      "packageBHash": "8cdf91c0132d6d45dec44db6765fc192ce35656d2bc45dea7170194bc3421e5e",
+      "page": 35
+    },
+    {
+      "identical": false,
+      "packageAHash": "63f9aab8be622522fb1d02f1e6ac7f596fcfb02cf703f134ceb98e90bd629da3",
+      "packageBHash": "86aedd4ab5231c3472cfad9586af18adbfb9c4101adf104f9508fac8d27499e0",
+      "page": 70
+    }
+  ],
+  "sourcePackageAMegabytes": 134.63,
+  "sourcePackageBMegabytes": 134.72
+}

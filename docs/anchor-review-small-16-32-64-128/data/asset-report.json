@@ -1,0 +1,391 @@
+{
+  "fileCount": 77,
+  "files": [
+    {
+      "bytes": 271014,
+      "path": "assets/review-pages/page_001.webp",
+      "sha256": "bdb7f1228910a06f1fd0672198d13731f6809f5b1eac9781a055f7e84f7d1b87"
+    },
+    {
+      "bytes": 266948,
+      "path": "assets/review-pages/page_002.webp",
+      "sha256": "b50d13bd4e4fe2b1e5913ef1de4789a1be343ed4af6f4d5ab0a01239cabb3e22"
+    },
+    {
+      "bytes": 271234,
+      "path": "assets/review-pages/page_003.webp",
+      "sha256": "2cea776a40af75fa5bd71f6a8e987010d97fa01cb2d5cc8aa4b79d62942992f9"
+    },
+    {
+      "bytes": 277162,
+      "path": "assets/review-pages/page_004.webp",
+      "sha256": "071ad5261a16b13450d9a13ef0f5e0a91c77958c34f55fd823e146fba8427d6e"
+    },
+    {
+      "bytes": 289306,
+      "path": "assets/review-pages/page_005.webp",
+      "sha256": "58f423e818536bcca0c773d2055a8cd8d78aaf1949c79f2a07424409effc5ab2"
+    },
+    {
+      "bytes": 281534,
+      "path": "assets/review-pages/page_006.webp",
+      "sha256": "a3b4bc2ca43cd7de32232b3c6e1bef24c9319680cb2562a4598ee3fb9e1c54d8"
+    },
+    {
+      "bytes": 290734,
+      "path": "assets/review-pages/page_007.webp",
+      "sha256": "fad7aa25ab8a09cb664b7f61148cf09e84d1c04d8b7cdef1e05355a25c659a4e"
+    },
+    {
+      "bytes": 288402,
+      "path": "assets/review-pages/page_008.webp",
+      "sha256": "921095031c49939d8a9cfab7983e4afb320a81d34165f2dd9aa31ff2d5180e19"
+    },
+    {
+      "bytes": 285796,
+      "path": "assets/review-pages/page_009.webp",
+      "sha256": "3ddf54f5427306de949fb5307b4c159abe3d3a9cc46b5b034ebdbc4bc98f69a1"
+    },
+    {
+      "bytes": 263946,
+      "path": "assets/review-pages/page_010.webp",
+      "sha256": "7faabecbafb9a25f75e2367b4a03c675b2e03117511eca0d042bc5713cacaa93"
+    },
+    {
+      "bytes": 278306,
+      "path": "assets/review-pages/page_011.webp",
+      "sha256": "65c3e083bf32d2ee8020a8a1adb5c34d52c5ab39bdc758448c720cc1110526df"
+    },
+    {
+      "bytes": 289676,
+      "path": "assets/review-pages/page_012.webp",
+      "sha256": "08e7a32fe6dce35878340aef38150dd922cd2c51e4b55b7a6c6e8ea39ba11b42"
+    },
+    {
+      "bytes": 285352,
+      "path": "assets/review-pages/page_013.webp",
+      "sha256": "0e3fe51eb4a8e015763a29b7304ec4b1bddf31922a6dad40c17bb56b3db904f5"
+    },
+    {
+      "bytes": 303490,
+      "path": "assets/review-pages/page_014.webp",
+      "sha256": "cecc83ab04fe426603dce5a4ee5c6cefbc9ab08bf396359a1688a9ba129abee6"
+    },
+    {
+      "bytes": 304698,
+      "path": "assets/review-pages/page_015.webp",
+      "sha256": "c31d287469874fc1b1fb045c09baec34985c6d7c2e67d52b0f5c438dff89a323"
+    },
+    {
+      "bytes": 266294,
+      "path": "assets/review-pages/page_016.webp",
+      "sha256": "933544f4d94eb956dbb80deb60a03102a130ddb7c3dd01eea57075b153458887"
+    },
+    {
+      "bytes": 253326,
+      "path": "assets/review-pages/page_017.webp",
+      "sha256": "c0cde986d972d77a867a19f69091dbad80adaf3b1180e47fc816468181de2a70"
+    },
+    {
+      "bytes": 238060,
+      "path": "assets/review-pages/page_018.webp",
+      "sha256": "b5d8032980c655fd154043ffab34f90f0c43bd6189e1dfb5af3b64bdb930e25c"
+    },
+    {
+      "bytes": 296464,
+      "path": "assets/review-pages/page_019.webp",
+      "sha256": "49fd24da758fae8b3ddff3e69f32b12686e9c507901404362d9a56d5e40650cb"
+    },
+    {
+      "bytes": 323216,
+      "path": "assets/review-pages/page_020.webp",
+      "sha256": "48608d31dd46f40f0adfc9bf6ec8638d50647a4bcf76b0a37073256a99e10772"
+    },
+    {
+      "bytes": 323560,
+      "path": "assets/review-pages/page_021.webp",
+      "sha256": "f8a0aa209bef7516a1bea487d3301cad5a1e29e42ec9135a5c7e13059b771917"
+    },
+    {
+      "bytes": 308214,
+      "path": "assets/review-pages/page_022.webp",
+      "sha256": "9836266f2ef6be0707b49e7c42704416077688649ff913cc326f13a6cadb6b14"
+    },
+    {
+      "bytes": 305100,
+      "path": "assets/review-pages/page_023.webp",
+      "sha256": "8a09d446e6f38ebdd004d17b232e120623e33dba7e86e516868c296f72849758"
+    },
+    {
+      "bytes": 304030,
+      "path": "assets/review-pages/page_024.webp",
+      "sha256": "0db3f5b0a50306613efb14b103b810a873c1319baece60b72722425ec09091a7"
+    },
+    {
+      "bytes": 307644,
+      "path": "assets/review-pages/page_025.webp",
+      "sha256": "b9a13dfaf2756864837e95d9f79df28ea10ce7b94b8727fb0bb99424be60a609"
+    },
+    {
+      "bytes": 282254,
+      "path": "assets/review-pages/page_026.webp",
+      "sha256": "4d9c5708bde5e7be1c057e4cf5886e30d5aed83956272da56e98f1d42f776241"
+    },
+    {
+      "bytes": 285254,
+      "path": "assets/review-pages/page_027.webp",
+      "sha256": "871219bc711cedacabfa1cd684cca7787c690f40b571477c6e2893f8a6d5278b"
+    },
+    {
+      "bytes": 288948,
+      "path": "assets/review-pages/page_028.webp",
+      "sha256": "dffe5bf537da36b051f144368b7e6a9d812f3e2fe9cbaf665d1ff317d30d5acf"
+    },
+    {
+      "bytes": 297994,
+      "path": "assets/review-pages/page_029.webp",
+      "sha256": "1e4dc971f149f096a2f6d8258fd1519073324e7af089bbda41f7a6bf7f2798f4"
+    },
+    {
+      "bytes": 307418,
+      "path": "assets/review-pages/page_030.webp",
+      "sha256": "132f1f1dda711a1cfdd20b3b77dd8399ad1902d2e3b308eaad59f80b3eefe01e"
+    },
+    {
+      "bytes": 323040,
+      "path": "assets/review-pages/page_031.webp",
+      "sha256": "0cd8bdd0ae825e35c1e88a21bd51d40b4d65ef0bc4c92a2a39d286b280f5decb"
+    },
+    {
+      "bytes": 333998,
+      "path": "assets/review-pages/page_032.webp",
+      "sha256": "bf167951efcd15717540023b76fcf04f6887e13c75aba6137de5a089c44b0c73"
+    },
+    {
+      "bytes": 324462,
+      "path": "assets/review-pages/page_033.webp",
+      "sha256": "7fb47cfc8ff76651b57ac668928b950c7cd5cdb1b9470e8aa9467ee7b7ae310e"
+    },
+    {
+      "bytes": 321040,
+      "path": "assets/review-pages/page_034.webp",
+      "sha256": "7020bd3ae2c60b322282e29b5c5743cd45ee3d37e19cf60c21f2db33e742beff"
+    },
+    {
+      "bytes": 322846,
+      "path": "assets/review-pages/page_035.webp",
+      "sha256": "b8c43914250ff2cf21358a57bcad843417cdf61595a4f683ff16fbf64b06f17a"
+    },
+    {
+      "bytes": 329308,
+      "path": "assets/review-pages/page_036.webp",
+      "sha256": "a5c135589415953470b7d087851e2738751a6c4319b7d42a530bcc88d97a15cd"
+    },
+    {
+      "bytes": 304522,
+      "path": "assets/review-pages/page_037.webp",
+      "sha256": "cb871a14599ebcdf0546b8799de4f44cb8edc939d46028cf2be8ca814fad8c1c"
+    },
+    {
+      "bytes": 303934,
+      "path": "assets/review-pages/page_038.webp",
+      "sha256": "d5b76cdd157d6a006d4c7bf15b751280419a04a9f47a63ab4cb68638dc6fc0de"
+    },
+    {
+      "bytes": 315736,
+      "path": "assets/review-pages/page_039.webp",
+      "sha256": "a82d97cdf1f0844b03dd5b8809a4ee07fe5dae6568919925bfeb5b553495f025"
+    },
+    {
+      "bytes": 323426,
+      "path": "assets/review-pages/page_040.webp",
+      "sha256": "5d27fc27a771ab09b1719cbee1dc3938b6ebb361f07f0a2fbdee6110c5477dd5"
+    },
+    {
+      "bytes": 318546,
+      "path": "assets/review-pages/page_041.webp",
+      "sha256": "e32ff98b5dacadd47ec11296b3c7ba51b8adb2bb5f8b899f3dd5a4a44035efcf"
+    },
+    {
+      "bytes": 323638,
+      "path": "assets/review-pages/page_042.webp",
+      "sha256": "ae0270534e646d1e025ded2d0e6e37ffbb40d61bed3dca4d6db9f68240e53631"
+    },
+    {
+      "bytes": 321254,
+      "path": "assets/review-pages/page_043.webp",
+      "sha256": "fd2716cf40acc3e20c010909f05a92641c01b51972c3a19e446669f4f42abb8f"
+    },
+    {
+      "bytes": 337706,
+      "path": "assets/review-pages/page_044.webp",
+      "sha256": "5e5e85c054d481e787b70f09b7acb0dbd64d515baf72d74384c4ed4f05d3ccf2"
+    },
+    {
+      "bytes": 317882,
+      "path": "assets/review-pages/page_045.webp",
+      "sha256": "fc86e1a63383af6a3c76425e38ad0f5d6218df91e5656afd7425891b312932d1"
+    },
+    {
+      "bytes": 328856,
+      "path": "assets/review-pages/page_046.webp",
+      "sha256": "84b84cd662ad7e6baac924301b2503333270ee4a6431bf33f97425335978d661"
+    },
+    {
+      "bytes": 294738,
+      "path": "assets/review-pages/page_047.webp",
+      "sha256": "06adc14034a7db9f931acf3c4762bbe8e4eb0ce48c2006a15a6806c8da3dbab6"
+    },
+    {
+      "bytes": 314900,
+      "path": "assets/review-pages/page_048.webp",
+      "sha256": "bce2a631a5dc42f8f43f3eb7642228b915d46f1e1b0e64035230039ea3d49ba0"
+    },
+    {
+      "bytes": 316806,
+      "path": "assets/review-pages/page_049.webp",
+      "sha256": "d17e2d8050c1e68af8526d0dc441677948b934254e326453ad868702b0444825"
+    },
+    {
+      "bytes": 311866,
+      "path": "assets/review-pages/page_050.webp",
+      "sha256": "e59f174433b404e28e42e4f51afb0a583efb7d9d1a936d2092945c8fa05fe9af"
+    },
+    {
+      "bytes": 322112,
+      "path": "assets/review-pages/page_051.webp",
+      "sha256": "06cac026851f89201c02693360a3271fd01e57de82189526206ec4efacde6953"
+    },
+    {
+      "bytes": 328824,
+      "path": "assets/review-pages/page_052.webp",
+      "sha256": "b79fa3b3a8fc17a20f0ede01f5f9254f2d17c2f25b3baa43f1927a7b6b7c4dfb"
+    },
+    {
+      "bytes": 307034,
+      "path": "assets/review-pages/page_053.webp",
+      "sha256": "5cef011bc2e4146bebd7462d8dd3e11e6b71e3469ec1ae646f7ac850c6244a64"
+    },
+    {
+      "bytes": 304996,
+      "path": "assets/review-pages/page_054.webp",
+      "sha256": "c4993765e059cfc2333ee4157c3537612ae0421f5b3143c1585b932f35af653d"
+    },
+    {
+      "bytes": 312728,
+      "path": "assets/review-pages/page_055.webp",
+      "sha256": "e920c73ac2f10a071e848b4bdb16670932157d57fea133729e73100c3a7a0795"
+    },
+    {
+      "bytes": 313922,
+      "path": "assets/review-pages/page_056.webp",
+      "sha256": "06c7b1f49a7e24757054bde11ab90bc2f0d24b33f8bda7fa408ee82620a443bb"
+    },
+    {
+      "bytes": 329542,
+      "path": "assets/review-pages/page_057.webp",
+      "sha256": "c193441c334758a0e5ded5807a47e678f31ceff0989c2d133c904cb1265af6d9"
+    },
+    {
+      "bytes": 326374,
+      "path": "assets/review-pages/page_058.webp",
+      "sha256": "a2e46bdaa649190aa289c877b164bbc5a33c543a88f52216ef158519e36cf5f5"
+    },
+    {
+      "bytes": 336432,
+      "path": "assets/review-pages/page_059.webp",
+      "sha256": "98729aedaa6f2fd654b989e0fc7f4cb740eb842816c427699b4cdd3654a848af"
+    },
+    {
+      "bytes": 337858,
+      "path": "assets/review-pages/page_060.webp",
+      "sha256": "18c56065b8f9b826dd3bb6b72bee4761fdea829fba6ac4f9e343ef64dddf686f"
+    },
+    {
+      "bytes": 338086,
+      "path": "assets/review-pages/page_061.webp",
+      "sha256": "2b869796f587e180e983f963914cfe3434b4209c4ae3ab68cb52a43f286a4134"
+    },
+    {
+      "bytes": 352746,
+      "path": "assets/review-pages/page_062.webp",
+      "sha256": "b451c847886f655d86b838f37b488cbac7ebea17b92b9a10813aa0c02a5e109d"
+    },
+    {
+      "bytes": 337426,
+      "path": "assets/review-pages/page_063.webp",
+      "sha256": "520678abc023aca678051bbea599d21d45a656289dffd401e319fafafbb9fd4d"
+    },
+    {
+      "bytes": 311340,
+      "path": "assets/review-pages/page_064.webp",
+      "sha256": "01b683d6c5b47c4c99f4e1360a64159b4d09284673fef2e4c602c2675888a4a3"
+    },
+    {
+      "bytes": 304686,
+      "path": "assets/review-pages/page_065.webp",
+      "sha256": "a284c81cc1aa916869ff9ef5ff85f19a1402dd339ec17e07c45005ccba974d41"
+    },
+    {
+      "bytes": 334760,
+      "path": "assets/review-pages/page_066.webp",
+      "sha256": "06c9a84bc62d72fd5b4255e4924d356d0b4679acfa8bbf2f093e48032d8cfeef"
+    },
+    {
+      "bytes": 338354,
+      "path": "assets/review-pages/page_067.webp",
+      "sha256": "4f94fb548c3fa1e2e50024bfe41cf45e87189fd0457e5f6a4effedffc28847d0"
+    },
+    {
+      "bytes": 338058,
+      "path": "assets/review-pages/page_068.webp",
+      "sha256": "c062055711db6bcd57e2abd437a0b6ab8fb1656bbfa1a85e90c355e95a9d91fd"
+    },
+    {
+      "bytes": 331568,
+      "path": "assets/review-pages/page_069.webp",
+      "sha256": "dff2c9a9effd8fe516f8889b636e959725cd5fd69e552e4e2f12ee4ad1fa90a9"
+    },
+    {
+      "bytes": 353208,
+      "path": "assets/review-pages/page_070.webp",
+      "sha256": "df119b230871bb5758c38cc35e8343da9c21951251f7effa6aafb527bf52ca29"
+    },
+    {
+      "bytes": 247365,
+      "path": "data/card-manifest-public.csv",
+      "sha256": "820f332203eb9999774b6c8ce52035e592c8d279355ab7402ae4cecdf8f18543"
+    },
+    {
+      "bytes": 171,
+      "path": "data/local-verification.json",
+      "sha256": "985b68ea222b9aeabfa74d9ed722cd7f8fb604875de15cb3f55aaf368b88fd90"
+    },
+    {
+      "bytes": 1673,
+      "path": "data/package-preflight.json",
+      "sha256": "059d869654cdcf91686b18478cc1a6d68b36d07a2af07ac910fc5f608638138e"
+    },
+    {
+      "bytes": 19131,
+      "path": "data/review-data.json",
+      "sha256": "6d74c18f05e3fc4e9cae9002f0d311a6ee509a4cbfe6157bcfcbfc1eb61fa27e"
+    },
+    {
+      "bytes": 8699,
+      "path": "index.html",
+      "sha256": "bcf290b92350b34b6b7ddd2b52016801e98a352c7bd9aa26f1aade99866e50f4"
+    },
+    {
+      "bytes": 4280,
+      "path": "review.js",
+      "sha256": "25e37b1f282cb44740f93f0eba1fd15998f5cd361b8067b3118b5e59581d9f1c"
+    },
+    {
+      "bytes": 8408,
+      "path": "styles.css",
+      "sha256": "b6df7f3f2900bf4677f7aa50f2c22cc5ad123af45ca0eae4d99e0479d50388e6"
+    }
+  ],
+  "totalBytes": 21873659
+}
