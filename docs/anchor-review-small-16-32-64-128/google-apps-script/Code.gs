@@ -32,6 +32,10 @@ const SESSION_COLUMNS = [
   "remaining",
   "submission_status",
   "client_version",
+  "review_state_json",
+  "review_state_updated_at",
+  "review_state_version",
+  "reviewer_notes",
 ];
 
 const RESULT_COLUMNS = [
@@ -74,7 +78,6 @@ function doGet() {
   return jsonResponse({
     ok: true,
     service: "Pics-BirdNests Expert Review Google Sheets bridge",
-    spreadsheetId: SPREADSHEET_ID,
     reviewSiteOrigin: REVIEW_SITE_ORIGIN,
   });
 }
@@ -94,12 +97,21 @@ function doPost(event) {
     validatePayloadShape(payload);
     validateIdentity(payload, config);
 
+    if (payload.action === "LOAD_PROGRESS") {
+      const result = loadProgress(spreadsheet, payload);
+      return jsonResponse(Object.assign({
+        ok: true,
+        action: payload.action,
+      }, result));
+    }
+
     if (payload.action === "SAVE_PROGRESS") {
       const result = saveProgress(spreadsheet, payload);
       return jsonResponse({
         ok: true,
         action: payload.action,
         sessionId: payload.sessionId,
+        reviewStateUpdatedAt: result.reviewStateUpdatedAt,
         message: "Progress saved to ReviewSessions.",
         result,
       });
@@ -111,6 +123,7 @@ function doPost(event) {
         ok: true,
         action: payload.action,
         sessionId: payload.sessionId,
+        reviewStateUpdatedAt: payload.reviewState && payload.reviewState.updatedAt,
         message: "Final review submitted to ReviewSessions and ReviewResults.",
         result,
       });
@@ -122,6 +135,12 @@ function doPost(event) {
       ok: false,
       code: error.code || "SERVER_ERROR",
       message: error.message || String(error),
+      sessionId: error.sessionId || "",
+      submissionStatus: error.submissionStatus || "",
+      lastSavedAt: error.lastSavedAt || "",
+      reviewStateUpdatedAt: error.reviewStateUpdatedAt || "",
+      summary: error.summary || null,
+      reviewState: error.reviewState || null,
     });
   } finally {
     lock.releaseLock();
@@ -140,11 +159,14 @@ function parsePayload(event) {
 
 function validatePayloadShape(payload) {
   if (!payload || typeof payload !== "object") throw userError("INVALID_PAYLOAD", "Payload must be an object.");
-  if (!payload.sessionId) throw userError("MISSING_SESSION_ID", "session_id is required.");
+  if (String(payload.action) !== "LOAD_PROGRESS" && !payload.sessionId) throw userError("MISSING_SESSION_ID", "session_id is required.");
   if (!payload.reviewerName) throw userError("MISSING_REVIEWER_NAME", "reviewer_name is required.");
-  if (!payload.summary || typeof payload.summary !== "object") throw userError("MISSING_SUMMARY", "summary is required.");
   if (!payload.packageId || !payload.modelProfile || !payload.checkpointSha256) {
     throw userError("MISSING_IDENTITY", "package/model/checkpoint identity is required.");
+  }
+  if (String(payload.action) !== "LOAD_PROGRESS") {
+    if (!payload.summary || typeof payload.summary !== "object") throw userError("MISSING_SUMMARY", "summary is required.");
+    validateReviewState(payload.reviewState);
   }
   if (String(payload.action) === "SUBMIT_FINAL") {
     if (!Array.isArray(payload.results)) throw userError("MISSING_RESULTS", "Final submit requires results.");
@@ -173,22 +195,25 @@ function validateIdentity(payload, config) {
   assertEqual("model_profile", payload.modelProfile, expected.model_profile);
   assertEqual("checkpoint_sha256", payload.checkpointSha256, expected.checkpoint_sha256);
   assertEqual("threshold", Number(payload.threshold), Number(expected.threshold));
-  assertEqual("card_count", Number(payload.summary.cardCount), Number(expected.card_count));
-  assertEqual("page_count", Number(payload.summary.pageCount), Number(expected.page_count));
+  if (payload.summary) {
+    assertEqual("card_count", Number(payload.summary.cardCount), Number(expected.card_count));
+    assertEqual("page_count", Number(payload.summary.pageCount), Number(expected.page_count));
+  }
 }
 
 function saveProgress(spreadsheet, payload) {
   const sheet = getRequiredSheet(spreadsheet, "ReviewSessions");
   const header = ensureColumns(sheet, SESSION_COLUMNS);
+  guardReviewStateConflict(sheet, header, payload);
   const rowObject = buildSessionRow(payload, "IN_PROGRESS");
   const rowNumber = findSessionRow(sheet, header, payload.sessionId);
   const values = rowToValues(header, rowObject);
   if (rowNumber) {
     sheet.getRange(rowNumber, 1, 1, header.length).setValues([values]);
-    return { wrote: "updated", row: rowNumber };
+    return { wrote: "updated", row: rowNumber, reviewStateUpdatedAt: rowObject.review_state_updated_at };
   }
   sheet.appendRow(values);
-  return { wrote: "inserted", row: sheet.getLastRow() };
+  return { wrote: "inserted", row: sheet.getLastRow(), reviewStateUpdatedAt: rowObject.review_state_updated_at };
 }
 
 function submitFinal(spreadsheet, payload) {
@@ -222,8 +247,33 @@ function submitFinal(spreadsheet, payload) {
   return { resultsWritten: resultRows.length, overwrittenRows: existingCount };
 }
 
+function loadProgress(spreadsheet, payload) {
+  const sheet = getRequiredSheet(spreadsheet, "ReviewSessions");
+  const header = ensureColumns(sheet, SESSION_COLUMNS);
+  const matches = findMatchingSessionRows(sheet, header, payload);
+  if (!matches.length) return { found: false };
+  const sorted = matches.sort(function (left, right) {
+    const statusDelta = statusRank(left.row.submission_status) - statusRank(right.row.submission_status);
+    if (statusDelta !== 0) return statusDelta;
+    return timestampValue(right.row.review_state_updated_at || right.row.last_saved_at) - timestampValue(left.row.review_state_updated_at || left.row.last_saved_at);
+  });
+  const selected = sorted[0].row;
+  return {
+    found: true,
+    sessionId: selected.session_id,
+    reviewerName: selected.reviewer_name,
+    submissionStatus: selected.submission_status || "IN_PROGRESS",
+    lastSavedAt: selected.last_saved_at || "",
+    reviewStateUpdatedAt: selected.review_state_updated_at || "",
+    alternativesExist: sorted.length > 1,
+    summary: sessionSummaryFromRow(selected),
+    reviewState: parseReviewState(selected.review_state_json, selected.review_state_updated_at),
+  };
+}
+
 function buildSessionRow(payload, status, submittedAt) {
   const summary = payload.summary;
+  const reviewState = validateReviewState(payload.reviewState);
   const now = new Date().toISOString();
   return {
     session_id: payload.sessionId,
@@ -247,6 +297,9 @@ function buildSessionRow(payload, status, submittedAt) {
     remaining: summary.remaining,
     submission_status: status,
     client_version: payload.clientVersion,
+    review_state_json: JSON.stringify(reviewState),
+    review_state_updated_at: reviewState.updatedAt,
+    review_state_version: reviewState.version || 1,
     reviewer_notes: payload.reviewerNotes || "",
   };
 }
@@ -281,6 +334,50 @@ function buildResultRow(payload, row, submittedAt) {
   };
 }
 
+function validateReviewState(reviewState) {
+  if (!reviewState || typeof reviewState !== "object") throw userError("MISSING_REVIEW_STATE", "reviewState is required.");
+  const normalized = {
+    version: 1,
+    f: normalizeReviewIndexes(reviewState.f),
+    p: normalizeReviewIndexes(reviewState.p),
+    u: normalizeReviewIndexes(reviewState.u),
+    completedPages: reviewState.completedPages && typeof reviewState.completedPages === "object" ? reviewState.completedPages : {},
+    updatedAt: reviewState.updatedAt || new Date().toISOString(),
+  };
+  return normalized;
+}
+
+function normalizeReviewIndexes(values) {
+  if (!Array.isArray(values)) return [];
+  const seen = {};
+  return values.map(function (value) { return Number(value); })
+    .filter(function (value) {
+      if (!Number.isInteger(value) || value < 1 || value > Number(EXPECTED_IDENTITY.card_count) || seen[value]) return false;
+      seen[value] = true;
+      return true;
+    })
+    .sort(function (left, right) { return left - right; });
+}
+
+function guardReviewStateConflict(sheet, header, payload) {
+  if (payload.forceOverwriteState) return;
+  const rowNumber = findSessionRow(sheet, header, payload.sessionId);
+  if (!rowNumber) return;
+  const row = rowObjectFromValues(header, sheet.getRange(rowNumber, 1, 1, header.length).getValues()[0]);
+  const serverUpdatedAt = row.review_state_updated_at || "";
+  const baseUpdatedAt = payload.baseReviewStateUpdatedAt || "";
+  if (serverUpdatedAt && (!baseUpdatedAt || timestampValue(serverUpdatedAt) > timestampValue(baseUpdatedAt))) {
+    const error = userError("STALE_REVIEW_STATE", "Cloud review state is newer than the client base state.");
+    error.sessionId = payload.sessionId;
+    error.submissionStatus = row.submission_status || "IN_PROGRESS";
+    error.lastSavedAt = row.last_saved_at || "";
+    error.reviewStateUpdatedAt = serverUpdatedAt;
+    error.summary = sessionSummaryFromRow(row);
+    error.reviewState = parseReviewState(row.review_state_json, serverUpdatedAt);
+    throw error;
+  }
+}
+
 function getRequiredSheet(spreadsheet, name) {
   const sheet = spreadsheet.getSheetByName(name);
   if (!sheet) throw userError("MISSING_SHEET", "Missing sheet tab: " + name + ".");
@@ -310,6 +407,13 @@ function rowToValues(header, rowObject) {
   });
 }
 
+function rowObjectFromValues(header, values) {
+  return header.reduce(function (acc, column, index) {
+    acc[column] = values[index];
+    return acc;
+  }, {});
+}
+
 function findSessionRow(sheet, header, sessionId) {
   const index = header.indexOf("session_id");
   if (index === -1 || sheet.getLastRow() < 2) return 0;
@@ -318,6 +422,68 @@ function findSessionRow(sheet, header, sessionId) {
     if (String(values[i][0]) === String(sessionId)) return i + 2;
   }
   return 0;
+}
+
+function findMatchingSessionRows(sheet, header, payload) {
+  if (sheet.getLastRow() < 2) return [];
+  const values = sheet.getRange(2, 1, sheet.getLastRow() - 1, header.length).getValues();
+  const rows = values.map(function (value, index) {
+    return { rowNumber: index + 2, row: rowObjectFromValues(header, value) };
+  });
+  if (payload.sessionId) {
+    const exactMatches = rows.filter(function (item) {
+      return String(item.row.session_id) === String(payload.sessionId) && identityRowMatches(item.row, payload);
+    });
+    if (exactMatches.length) return exactMatches;
+  }
+  const reviewerName = normalizeReviewerName(payload.reviewerName);
+  return rows.filter(function (item) {
+    return normalizeReviewerName(item.row.reviewer_name) === reviewerName && identityRowMatches(item.row, payload);
+  });
+}
+
+function identityRowMatches(row, payload) {
+  return String(row.package_id) === String(payload.packageId) &&
+    String(row.model_profile) === String(payload.modelProfile) &&
+    String(row.checkpoint_sha256) === String(payload.checkpointSha256) &&
+    Number(row.threshold) === Number(payload.threshold);
+}
+
+function normalizeReviewerName(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function statusRank(status) {
+  return String(status) === "IN_PROGRESS" ? 0 : 1;
+}
+
+function timestampValue(value) {
+  const time = value ? Date.parse(value) : 0;
+  return Number.isFinite(time) ? time : 0;
+}
+
+function sessionSummaryFromRow(row) {
+  return {
+    pageCount: Number(row.page_count) || 0,
+    cardCount: Number(row.card_count) || 0,
+    reviewedPages: Number(row.reviewed_pages) || 0,
+    completedCards: Number(row.completed_cards) || 0,
+    accepted: Number(row.accepted) || 0,
+    falsePositive: Number(row.false_positive) || 0,
+    pairingError: Number(row.pairing_error) || 0,
+    uncertain: Number(row.uncertain) || 0,
+    remaining: Number(row.remaining) || 0,
+  };
+}
+
+function parseReviewState(value, fallbackUpdatedAt) {
+  try {
+    const parsed = value ? JSON.parse(String(value)) : {};
+    if (!parsed.updatedAt && fallbackUpdatedAt) parsed.updatedAt = fallbackUpdatedAt;
+    return validateReviewState(parsed);
+  } catch (_error) {
+    return { version: 1, f: [], p: [], u: [], completedPages: {}, updatedAt: fallbackUpdatedAt || "" };
+  }
 }
 
 function countRowsForSession(sheet, header, sessionId) {

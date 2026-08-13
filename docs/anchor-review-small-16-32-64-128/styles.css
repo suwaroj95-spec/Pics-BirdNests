@@ -68,6 +68,7 @@ a {
 .sheets-grid,
 .sheets-grid label,
 .sheets-actions,
+.cloud-resume-panel,
 .fact-grid > div,
 .provenance-grid > div {
   min-width: 0;
@@ -871,7 +872,7 @@ summary {
 
 .sheets-grid {
   display: grid;
-  grid-template-columns: minmax(220px, 2fr) minmax(180px, 1fr);
+  grid-template-columns: minmax(180px, 1fr);
   gap: 12px;
 }
 
@@ -923,6 +924,45 @@ summary {
   background: var(--soft);
   border: 1px dashed var(--line-strong);
   border-radius: var(--radius);
+}
+
+.cloud-resume-panel {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  background: var(--blue-soft);
+  border: 1px solid #cbdcf5;
+  border-radius: var(--radius);
+}
+
+.cloud-resume-panel[hidden] {
+  display: none;
+}
+
+.cloud-resume-panel strong,
+.cloud-resume-panel span {
+  display: block;
+}
+
+.cloud-resume-panel strong {
+  color: var(--ink);
+  font-size: 0.98rem;
+}
+
+.cloud-resume-panel span {
+  color: var(--body-copy);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.cloud-resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cloud-resume-actions button {
+  padding: 8px 12px;
 }
 
 .export-status {
@@ -1162,6 +1202,7 @@ footer {
   }
 
   .sheets-actions button,
+  .cloud-resume-actions button,
   #sheetsLastSync {
     width: 100%;
   }

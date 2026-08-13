@@ -1,10 +1,11 @@
 const UI_STORAGE_SUFFIX = ":ui:v1";
 const SHEETS_STORAGE_SUFFIX = ":sheets:v1";
-const CLIENT_VERSION = "review-web-20260813-google-sheets-v1";
-const DEFAULT_GOOGLE_SHEETS_WEB_APP_URL = "";
+const CLIENT_VERSION = "review-web-20260813-cloud-resume-v1";
+const DEFAULT_GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxr5yysjT4AOmUvy_VX4IfobRHAELHp3ZfklGK5xafB2GErI-hlWnfJ0cGmcF6AA4Ex/exec";
 const SUBMISSION_ACTIONS = {
   saveProgress: "SAVE_PROGRESS",
   submitFinal: "SUBMIT_FINAL",
+  loadProgress: "LOAD_PROGRESS",
 };
 
 const state = {
@@ -29,9 +30,11 @@ const state = {
     startedAt: "",
     lastSyncedAt: "",
     finalSubmittedAt: "",
+    baseReviewStateUpdatedAt: "",
     status: "not_configured",
     message: "",
     isSubmitting: false,
+    cloudCandidate: null,
   },
   modalCardId: null,
   toastTimer: null,
@@ -50,14 +53,15 @@ const els = {
   importJson: document.getElementById("importJson"),
   importFile: document.getElementById("importFile"),
   clearReview: document.getElementById("clearReview"),
-  sheetsEndpoint: document.getElementById("sheetsEndpoint"),
   reviewerName: document.getElementById("reviewerName"),
   reviewerNotes: document.getElementById("reviewerNotes"),
+  loadCloudSheets: document.getElementById("loadCloudSheets"),
   saveProgressSheets: document.getElementById("saveProgressSheets"),
   submitFinalSheets: document.getElementById("submitFinalSheets"),
   sheetsStatus: document.getElementById("sheetsStatus"),
   sheetsLastSync: document.getElementById("sheetsLastSync"),
   sheetsWarning: document.getElementById("sheetsWarning"),
+  cloudResumePanel: document.getElementById("cloudResumePanel"),
   overviewMode: document.getElementById("overviewMode"),
   focusMode: document.getElementById("focusMode"),
   pageSelect: document.getElementById("pageSelect"),
@@ -178,13 +182,14 @@ function loadSheetsState() {
   try {
     const parsed = JSON.parse(raw);
     if (parsed && parsed.storageKey === sheetsStorageKey()) {
-      state.sheets.endpointUrl = normalizeEndpointUrl(parsed.endpointUrl || configuredUrl);
+      state.sheets.endpointUrl = configuredUrl;
       state.sheets.reviewerName = parsed.reviewerName || "";
       state.sheets.reviewerNotes = parsed.reviewerNotes || "";
       state.sheets.sessionId = parsed.sessionId || state.sheets.sessionId;
       state.sheets.startedAt = parsed.startedAt || state.sheets.startedAt;
       state.sheets.lastSyncedAt = parsed.lastSyncedAt || "";
       state.sheets.finalSubmittedAt = parsed.finalSubmittedAt || "";
+      state.sheets.baseReviewStateUpdatedAt = parsed.baseReviewStateUpdatedAt || "";
       state.sheets.status = parsed.status || (state.sheets.endpointUrl ? "ready" : "not_configured");
       state.sheets.message = parsed.message || "";
     }
@@ -231,6 +236,7 @@ function saveSheetsState() {
       startedAt: state.sheets.startedAt,
       lastSyncedAt: state.sheets.lastSyncedAt,
       finalSubmittedAt: state.sheets.finalSubmittedAt,
+      baseReviewStateUpdatedAt: state.sheets.baseReviewStateUpdatedAt,
       status: state.sheets.status,
       message: state.sheets.message,
       updatedAt: new Date().toISOString(),
@@ -394,11 +400,12 @@ function renderSheetsPanel(counts = calculateProgress()) {
   const complete = counts.pagesDone === counts.totalPages;
   const missingPages = counts.totalPages - counts.pagesDone;
 
-  els.sheetsEndpoint.value = state.sheets.endpointUrl;
   els.reviewerName.value = state.sheets.reviewerName;
   els.reviewerNotes.value = state.sheets.reviewerNotes;
+  els.loadCloudSheets.disabled = !ready;
   els.saveProgressSheets.disabled = !ready;
   els.submitFinalSheets.disabled = !finalReady;
+  els.loadCloudSheets.textContent = state.sheets.isSubmitting ? "Checking..." : "Load Cloud Progress";
   els.saveProgressSheets.textContent = state.sheets.isSubmitting ? "Saving..." : "Save Progress to Google Sheet";
   els.submitFinalSheets.textContent = state.sheets.isSubmitting ? "Submitting..." : "Submit Final Review";
   els.sheetsLastSync.textContent = `Last sync: ${formatSyncTime(state.sheets.lastSyncedAt)}`;
@@ -410,14 +417,15 @@ function renderSheetsPanel(counts = calculateProgress()) {
     els.sheetsStatus.textContent = state.sheets.message || "Google Sheet sync failed. Keep JSON backup.";
   } else if (!endpointReady) {
     els.sheetsStatus.dataset.status = "not_configured";
-    els.sheetsStatus.textContent = "Paste the deployed Apps Script Web App URL before syncing.";
+    els.sheetsStatus.textContent = "Google Sheet Sync endpoint is not configured. LocalStorage and JSON backup remain available.";
   } else if (!reviewerReady) {
     els.sheetsStatus.dataset.status = "not_configured";
-    els.sheetsStatus.textContent = "Enter reviewer name before syncing.";
+    els.sheetsStatus.textContent = "Google Sheet Sync: Connected. Enter reviewer name to save or load cloud progress.";
   } else {
     els.sheetsStatus.dataset.status = "ready";
-    els.sheetsStatus.textContent = "Ready to sync. JSON export remains the trusted backup.";
+    els.sheetsStatus.textContent = "Google Sheet Sync: Connected. JSON export remains the trusted backup.";
   }
+  renderCloudResumePanel(counts);
 
   if (!complete) {
     els.sheetsWarning.hidden = false;
@@ -426,6 +434,59 @@ function renderSheetsPanel(counts = calculateProgress()) {
     els.sheetsWarning.hidden = false;
     els.sheetsWarning.textContent = "All 70 pages are complete. Final Submit is recommended, and JSON backup should still be downloaded.";
   }
+}
+
+function renderCloudResumePanel() {
+  if (!els.cloudResumePanel) return;
+  const candidate = state.sheets.cloudCandidate;
+  if (!candidate || !candidate.found) {
+    els.cloudResumePanel.hidden = true;
+    els.cloudResumePanel.innerHTML = "";
+    return;
+  }
+
+  const cloudFingerprint = reviewStateFingerprint(candidate.reviewState);
+  const localFingerprint = reviewStateFingerprint();
+  const localUpdatedAt = state.review.updatedAt || "";
+  const cloudUpdatedAt = candidate.reviewStateUpdatedAt || candidate.reviewState?.updatedAt || "";
+  const sameState = cloudFingerprint === localFingerprint;
+  const localEmpty = isLocalReviewEmpty();
+  const cloudNewer = compareIsoTimestamp(cloudUpdatedAt, localUpdatedAt) > 0;
+  const localNewer = compareIsoTimestamp(localUpdatedAt, cloudUpdatedAt) > 0;
+  const submitted = candidate.submissionStatus === "SUBMITTED";
+  let title = `Cloud progress found: ${candidate.summary?.reviewedPages || 0} / ${state.data.pages.length} pages`;
+  if (submitted) title = "Cloud session was already Final Submitted";
+  if (sameState) title = "Cloud progress matches this browser";
+  if (localEmpty) title = `Cloud progress found: ${candidate.summary?.reviewedPages || 0} / ${state.data.pages.length} pages - ready to restore`;
+  if (cloudNewer && !localEmpty) title = "Cloud progress is newer than this browser";
+  if (localNewer && !sameState) title = "This browser has newer unsynced progress";
+
+  const meta = [
+    `Session: ${candidate.sessionId}`,
+    `Status: ${candidate.submissionStatus || "IN_PROGRESS"}`,
+    `Cloud updated: ${formatSyncTime(cloudUpdatedAt)}`,
+    localUpdatedAt ? `Local updated: ${formatSyncTime(localUpdatedAt)}` : "Local updated: Not saved yet",
+  ].join(" | ");
+
+  const restoreButton = `<button type="button" data-cloud-action="restore">Use Google Sheet Progress</button>`;
+  const keepButton = `<button type="button" data-cloud-action="keep-local">Use This Browser</button>`;
+  const overwriteButton = `<button type="button" data-cloud-action="overwrite">Save This Browser to Google Sheet</button>`;
+
+  let actions = restoreButton;
+  if (sameState) actions = keepButton;
+  if (localNewer && !sameState) actions = `${overwriteButton}${restoreButton}`;
+  if (cloudNewer && !localEmpty) actions = `${restoreButton}${keepButton}`;
+  if (candidate.conflict === "STALE_REVIEW_STATE") actions = `${restoreButton}${overwriteButton}`;
+
+  els.cloudResumePanel.hidden = false;
+  els.cloudResumePanel.innerHTML = `
+    <div>
+      <strong>${title}</strong>
+      <span>${meta}</span>
+      ${candidate.alternativesExist ? "<span>Multiple matching sessions exist; newest matching session is shown.</span>" : ""}
+    </div>
+    <div class="cloud-resume-actions">${actions}</div>
+  `;
 }
 
 function renderCompletionPanel(counts = calculateProgress()) {
@@ -737,10 +798,98 @@ function buildSessionSummary(counts = calculateProgress()) {
   };
 }
 
+function buildCompactReviewState(updatedAt = state.review.updatedAt || new Date().toISOString()) {
+  const compact = {
+    version: 1,
+    f: [],
+    p: [],
+    u: [],
+    completedPages: { ...state.review.completedPages },
+    updatedAt,
+  };
+  state.data.cards.forEach((card) => {
+    const selection = cardSelection(card.cardId);
+    if (selection === "F") compact.f.push(card.cardIndex);
+    if (selection === "P") compact.p.push(card.cardIndex);
+    if (selection === "U") compact.u.push(card.cardIndex);
+  });
+  return compact;
+}
+
+function normalizeCompactReviewState(reviewState) {
+  const safeIndexes = (values) => Array.from(new Set((Array.isArray(values) ? values : [])
+    .map((value) => Number(value))
+    .filter((value) => Number.isInteger(value) && value >= 1 && value <= state.data.cards.length)))
+    .sort((a, b) => a - b);
+  return {
+    version: 1,
+    f: safeIndexes(reviewState?.f),
+    p: safeIndexes(reviewState?.p),
+    u: safeIndexes(reviewState?.u),
+    completedPages: reviewState?.completedPages && typeof reviewState.completedPages === "object" ? { ...reviewState.completedPages } : {},
+    updatedAt: reviewState?.updatedAt || "",
+  };
+}
+
+function reviewStateFingerprint(reviewState = buildCompactReviewState()) {
+  const compact = normalizeCompactReviewState(reviewState);
+  const completedPages = Object.keys(compact.completedPages)
+    .sort((a, b) => Number(a) - Number(b))
+    .reduce((acc, key) => {
+      acc[key] = compact.completedPages[key];
+      return acc;
+    }, {});
+  return JSON.stringify({
+    f: compact.f,
+    p: compact.p,
+    u: compact.u,
+    completedPages,
+  });
+}
+
+function isLocalReviewEmpty() {
+  return Object.keys(state.review.selections).length === 0 && Object.keys(state.review.completedPages).length === 0;
+}
+
+function compareIsoTimestamp(left, right) {
+  const leftTime = left ? Date.parse(left) : 0;
+  const rightTime = right ? Date.parse(right) : 0;
+  if (leftTime > rightTime) return 1;
+  if (leftTime < rightTime) return -1;
+  return 0;
+}
+
+function applyCompactReviewState(reviewState, sessionId) {
+  const compact = normalizeCompactReviewState(reviewState);
+  const selections = {};
+  [
+    ["f", "F"],
+    ["p", "P"],
+    ["u", "U"],
+  ].forEach(([field, value]) => {
+    compact[field].forEach((cardIndex) => {
+      const card = state.data.cards[cardIndex - 1];
+      if (card) selections[card.cardId] = value;
+    });
+  });
+  state.review = {
+    selections,
+    completedPages: compact.completedPages,
+    updatedAt: compact.updatedAt || new Date().toISOString(),
+  };
+  if (sessionId) state.sheets.sessionId = sessionId;
+  state.sheets.baseReviewStateUpdatedAt = compact.updatedAt || state.sheets.baseReviewStateUpdatedAt;
+  state.sheets.cloudCandidate = null;
+  saveReviewState();
+  saveSheetsState();
+  renderAll();
+}
+
 function buildSubmissionPayload(action, options = {}) {
   const isFinal = action === SUBMISSION_ACTIONS.submitFinal;
   const submittedAt = new Date().toISOString();
   const rows = isFinal ? buildResultRows() : [];
+  const reviewState = buildCompactReviewState(state.review.updatedAt || submittedAt);
   return {
     schemaVersion: "google-sheets-review-submission:v1",
     clientVersion: CLIENT_VERSION,
@@ -751,6 +900,8 @@ function buildSubmissionPayload(action, options = {}) {
     startedAt: state.sheets.startedAt,
     clientSubmittedAt: submittedAt,
     overwriteResults: Boolean(options.overwriteResults),
+    forceOverwriteState: Boolean(options.forceOverwriteState),
+    baseReviewStateUpdatedAt: state.sheets.baseReviewStateUpdatedAt,
     reviewSchemaVersion: state.data.reviewSchemaVersion,
     packageId: state.data.canonicalGalleryPackage,
     modelProfile: state.data.experiment.modelProfile,
@@ -758,7 +909,23 @@ function buildSubmissionPayload(action, options = {}) {
     threshold: state.data.experiment.threshold,
     manifestIdentifier: state.data.manifestIdentifier,
     summary: buildSessionSummary(),
+    reviewState,
     results: rows,
+  };
+}
+
+function buildLoadProgressPayload() {
+  return {
+    schemaVersion: "google-sheets-review-submission:v1",
+    clientVersion: CLIENT_VERSION,
+    action: SUBMISSION_ACTIONS.loadProgress,
+    sessionId: state.sheets.sessionId,
+    reviewerName: state.sheets.reviewerName.trim(),
+    packageId: state.data.canonicalGalleryPackage,
+    modelProfile: state.data.experiment.modelProfile,
+    checkpointSha256: state.data.experiment.checkpointSha256,
+    threshold: state.data.experiment.threshold,
+    manifestIdentifier: state.data.manifestIdentifier,
   };
 }
 
@@ -843,7 +1010,7 @@ function importJsonFile(file) {
 }
 
 function validateSheetSubmission(action) {
-  if (!state.sheets.endpointUrl) return "Paste the Apps Script Web App URL before syncing.";
+  if (!state.sheets.endpointUrl) return "Google Sheet Sync endpoint is not configured.";
   if (!/^https:\/\/script\.google\.com\/macros\/s\//.test(state.sheets.endpointUrl)) {
     return "Apps Script URL should start with https://script.google.com/macros/s/.";
   }
@@ -919,11 +1086,30 @@ async function submitToGoogleSheets(action, options = {}) {
     const result = await postSheetPayload(payload);
     const now = new Date().toISOString();
     state.sheets.lastSyncedAt = now;
+    state.sheets.sessionId = result.sessionId || state.sheets.sessionId;
+    state.sheets.baseReviewStateUpdatedAt = result.reviewStateUpdatedAt || payload.reviewState?.updatedAt || state.sheets.baseReviewStateUpdatedAt;
     if (isFinal) state.sheets.finalSubmittedAt = now;
     setSheetStatus("success", result.message || (isFinal ? "Final review submitted to Google Sheet." : "Progress saved to Google Sheet."));
     showToast(isFinal ? "Google Sheet final submit complete" : "Google Sheet progress saved");
   } catch (error) {
     const duplicateFinal = error.response && error.response.code === "DUPLICATE_FINAL_SUBMISSION";
+    const staleState = error.response && error.response.code === "STALE_REVIEW_STATE";
+    if (staleState) {
+      state.sheets.cloudCandidate = {
+        found: true,
+        conflict: "STALE_REVIEW_STATE",
+        sessionId: error.response.sessionId || state.sheets.sessionId,
+        reviewerName: state.sheets.reviewerName,
+        submissionStatus: error.response.submissionStatus || "IN_PROGRESS",
+        lastSavedAt: error.response.lastSavedAt || "",
+        reviewStateUpdatedAt: error.response.reviewStateUpdatedAt || "",
+        summary: error.response.summary || {},
+        reviewState: error.response.reviewState || { version: 1, f: [], p: [], u: [], completedPages: {}, updatedAt: "" },
+      };
+      setSheetStatus("error", "Google Sheet has newer progress from another device. Choose whether to load it or explicitly overwrite it.");
+      showToast("Cloud progress is newer - choose before saving");
+      return;
+    }
     if (isFinal && duplicateFinal && !options.overwriteResults) {
       const ok = window.confirm("This session_id already has ReviewResults rows. Replace those rows and submit again?");
       if (ok) {
@@ -939,6 +1125,44 @@ async function submitToGoogleSheets(action, options = {}) {
     saveSheetsState();
     renderSheetsPanel();
   }
+}
+
+async function loadCloudProgress() {
+  const validationError = validateSheetSubmission(SUBMISSION_ACTIONS.loadProgress);
+  if (validationError) {
+    setSheetStatus("error", validationError);
+    showToast(validationError);
+    return;
+  }
+  state.sheets.isSubmitting = true;
+  renderSheetsPanel();
+  try {
+    const result = await postSheetPayload(buildLoadProgressPayload());
+    if (!result.found) {
+      state.sheets.cloudCandidate = null;
+      setSheetStatus("ready", "No cloud progress found for this reviewer/package yet.");
+      showToast("No cloud progress found");
+      return;
+    }
+    state.sheets.cloudCandidate = result;
+    state.sheets.lastSyncedAt = new Date().toISOString();
+    setSheetStatus("success", "Cloud progress found. Review the restore choice below.");
+    showToast("Cloud progress found");
+  } catch (error) {
+    setSheetStatus("error", `${error.message || "Cloud progress load failed."} LocalStorage and JSON backup remain available.`);
+    showToast("Cloud progress load failed");
+  } finally {
+    state.sheets.isSubmitting = false;
+    saveSheetsState();
+    renderSheetsPanel();
+  }
+}
+
+async function overwriteCloudWithLocal() {
+  const ok = window.confirm("Overwrite the cloud review state with this browser's current progress?");
+  if (!ok) return;
+  state.sheets.cloudCandidate = null;
+  await submitToGoogleSheets(SUBMISSION_ACTIONS.saveProgress, { forceOverwriteState: true });
 }
 
 function isTypingTarget(target) {
@@ -1006,17 +1230,11 @@ function initEvents() {
     const page = findIncompletePage(1);
     if (page) setPage(page);
   });
-  els.sheetsEndpoint.addEventListener("input", (event) => {
-    state.sheets.endpointUrl = normalizeEndpointUrl(event.target.value);
-    state.sheets.status = state.sheets.endpointUrl ? "ready" : "not_configured";
-    state.sheets.message = "";
-    saveSheetsState();
-    renderSheetsPanel();
-  });
   els.reviewerName.addEventListener("input", (event) => {
     state.sheets.reviewerName = event.target.value;
     state.sheets.status = state.sheets.endpointUrl ? "ready" : "not_configured";
     state.sheets.message = "";
+    state.sheets.cloudCandidate = null;
     saveSheetsState();
     renderSheetsPanel();
   });
@@ -1024,8 +1242,27 @@ function initEvents() {
     state.sheets.reviewerNotes = event.target.value;
     saveSheetsState();
   });
+  els.loadCloudSheets.addEventListener("click", loadCloudProgress);
   els.saveProgressSheets.addEventListener("click", () => submitToGoogleSheets(SUBMISSION_ACTIONS.saveProgress));
   els.submitFinalSheets.addEventListener("click", () => submitToGoogleSheets(SUBMISSION_ACTIONS.submitFinal));
+  els.cloudResumePanel.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-cloud-action]");
+    if (!button) return;
+    if (button.dataset.cloudAction === "restore" && state.sheets.cloudCandidate?.reviewState) {
+      applyCompactReviewState(state.sheets.cloudCandidate.reviewState, state.sheets.cloudCandidate.sessionId);
+      setSheetStatus("success", "Cloud progress restored into this browser.");
+      showToast("Cloud progress restored");
+    }
+    if (button.dataset.cloudAction === "keep-local") {
+      state.sheets.cloudCandidate = null;
+      saveSheetsState();
+      renderSheetsPanel();
+      showToast("Using this browser's progress");
+    }
+    if (button.dataset.cloudAction === "overwrite") {
+      overwriteCloudWithLocal();
+    }
+  });
   els.downloadCsv.addEventListener("click", downloadCsv);
   els.downloadJson.addEventListener("click", downloadJson);
   els.importJson.addEventListener("click", () => els.importFile.click());
@@ -1101,7 +1338,11 @@ async function init() {
     calculateProgress,
     buildResultRows,
     buildSessionSummary,
+    buildCompactReviewState,
+    normalizeCompactReviewState,
+    applyCompactReviewState,
     buildSubmissionPayload,
+    buildLoadProgressPayload,
     exportPayload,
     finalClassification,
     reviewStatus,

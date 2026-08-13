@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260813-sheets">
+  <link rel="stylesheet" href="styles.css?v=20260813-cloud-resume">
 </head>
 <body>
   <a class="skip-link" href="#gallery">ข้ามไปยังพื้นที่ตรวจ</a>
@@ -154,10 +154,6 @@
             </div>
             <div class="sheets-grid">
               <label>
-                <span>Apps Script Web App URL</span>
-                <input type="url" id="sheetsEndpoint" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off">
-              </label>
-              <label>
                 <span>Reviewer name</span>
                 <input type="text" id="reviewerName" autocomplete="name" placeholder="Dr.C">
               </label>
@@ -167,10 +163,12 @@
               </label>
             </div>
             <div class="sheets-actions">
+              <button type="button" id="loadCloudSheets">Load Cloud Progress</button>
               <button type="button" id="saveProgressSheets">Save Progress to Google Sheet</button>
               <button type="button" class="primary-export" id="submitFinalSheets">Submit Final Review</button>
               <span id="sheetsLastSync">Last sync: Not synced yet</span>
             </div>
+            <div class="cloud-resume-panel" id="cloudResumePanel" hidden></div>
             <p class="sheets-warning" id="sheetsWarning" aria-live="polite"></p>
           </div>
           <div class="export-status" id="exportNotice" aria-live="polite"></div>
