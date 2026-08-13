@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260813-review-ux">
+  <link rel="stylesheet" href="styles.css?v=20260813-sheets">
 </head>
 <body>
   <a class="skip-link" href="#gallery">ข้ามไปยังพื้นที่ตรวจ</a>
@@ -144,6 +144,35 @@
       <details open>
         <summary id="export-title">ผลตรวจ / Export</summary>
         <div class="export-panel">
+          <div class="sheets-panel" aria-labelledby="sheets-title">
+            <div class="sheets-head">
+              <div>
+                <p class="section-kicker">Google Sheet Sync</p>
+                <h3 id="sheets-title">ส่งผลตรวจไปยัง Google Sheet</h3>
+              </div>
+              <div class="sheets-status" id="sheetsStatus" data-status="not_configured" aria-live="polite"></div>
+            </div>
+            <div class="sheets-grid">
+              <label>
+                <span>Apps Script Web App URL</span>
+                <input type="url" id="sheetsEndpoint" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off">
+              </label>
+              <label>
+                <span>Reviewer name</span>
+                <input type="text" id="reviewerName" autocomplete="name" placeholder="Dr.C">
+              </label>
+              <label class="sheets-notes">
+                <span>Notes</span>
+                <textarea id="reviewerNotes" rows="3" placeholder="Optional session note"></textarea>
+              </label>
+            </div>
+            <div class="sheets-actions">
+              <button type="button" id="saveProgressSheets">Save Progress to Google Sheet</button>
+              <button type="button" class="primary-export" id="submitFinalSheets">Submit Final Review</button>
+              <span id="sheetsLastSync">Last sync: Not synced yet</span>
+            </div>
+            <p class="sheets-warning" id="sheetsWarning" aria-live="polite"></p>
+          </div>
           <div class="export-status" id="exportNotice" aria-live="polite"></div>
           <div class="export-actions">
             <button type="button" class="primary-export" id="downloadJson">ดาวน์โหลดผลตรวจ JSON</button>

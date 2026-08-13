@@ -1,4 +1,11 @@
 const UI_STORAGE_SUFFIX = ":ui:v1";
+const SHEETS_STORAGE_SUFFIX = ":sheets:v1";
+const CLIENT_VERSION = "review-web-20260813-google-sheets-v1";
+const DEFAULT_GOOGLE_SHEETS_WEB_APP_URL = "";
+const SUBMISSION_ACTIONS = {
+  saveProgress: "SAVE_PROGRESS",
+  submitFinal: "SUBMIT_FINAL",
+};
 
 const state = {
   page: 1,
@@ -13,6 +20,18 @@ const state = {
     mode: "overview",
     focusCardId: null,
     autoAdvance: false,
+  },
+  sheets: {
+    endpointUrl: "",
+    reviewerName: "",
+    reviewerNotes: "",
+    sessionId: "",
+    startedAt: "",
+    lastSyncedAt: "",
+    finalSubmittedAt: "",
+    status: "not_configured",
+    message: "",
+    isSubmitting: false,
   },
   modalCardId: null,
   toastTimer: null,
@@ -31,6 +50,14 @@ const els = {
   importJson: document.getElementById("importJson"),
   importFile: document.getElementById("importFile"),
   clearReview: document.getElementById("clearReview"),
+  sheetsEndpoint: document.getElementById("sheetsEndpoint"),
+  reviewerName: document.getElementById("reviewerName"),
+  reviewerNotes: document.getElementById("reviewerNotes"),
+  saveProgressSheets: document.getElementById("saveProgressSheets"),
+  submitFinalSheets: document.getElementById("submitFinalSheets"),
+  sheetsStatus: document.getElementById("sheetsStatus"),
+  sheetsLastSync: document.getElementById("sheetsLastSync"),
+  sheetsWarning: document.getElementById("sheetsWarning"),
   overviewMode: document.getElementById("overviewMode"),
   focusMode: document.getElementById("focusMode"),
   pageSelect: document.getElementById("pageSelect"),
@@ -93,6 +120,19 @@ function uiStorageKey() {
   return `${storageKey()}${UI_STORAGE_SUFFIX}`;
 }
 
+function sheetsStorageKey() {
+  return `${storageKey()}${SHEETS_STORAGE_SUFFIX}`;
+}
+
+function generateSessionId() {
+  const seed = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  return `review_${seed.replace(/[^a-zA-Z0-9_-]/g, "")}`;
+}
+
+function normalizeEndpointUrl(value) {
+  return String(value || "").trim();
+}
+
 function loadReviewState() {
   const raw = localStorage.getItem(storageKey());
   if (!raw) return;
@@ -127,6 +167,32 @@ function loadUiState() {
   }
 }
 
+function loadSheetsState() {
+  const configuredUrl = normalizeEndpointUrl(window.PICS_BIRDNESTS_REVIEW_SHEETS_URL || DEFAULT_GOOGLE_SHEETS_WEB_APP_URL);
+  state.sheets.endpointUrl = configuredUrl;
+  state.sheets.sessionId = generateSessionId();
+  state.sheets.startedAt = new Date().toISOString();
+
+  const raw = localStorage.getItem(sheetsStorageKey());
+  if (!raw) return;
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.storageKey === sheetsStorageKey()) {
+      state.sheets.endpointUrl = normalizeEndpointUrl(parsed.endpointUrl || configuredUrl);
+      state.sheets.reviewerName = parsed.reviewerName || "";
+      state.sheets.reviewerNotes = parsed.reviewerNotes || "";
+      state.sheets.sessionId = parsed.sessionId || state.sheets.sessionId;
+      state.sheets.startedAt = parsed.startedAt || state.sheets.startedAt;
+      state.sheets.lastSyncedAt = parsed.lastSyncedAt || "";
+      state.sheets.finalSubmittedAt = parsed.finalSubmittedAt || "";
+      state.sheets.status = parsed.status || (state.sheets.endpointUrl ? "ready" : "not_configured");
+      state.sheets.message = parsed.message || "";
+    }
+  } catch (_error) {
+    localStorage.removeItem(sheetsStorageKey());
+  }
+}
+
 function saveReviewState() {
   state.review.updatedAt = new Date().toISOString();
   localStorage.setItem(
@@ -148,6 +214,25 @@ function saveUiState() {
       mode: state.ui.mode,
       focusCardId: state.ui.focusCardId,
       autoAdvance: state.ui.autoAdvance,
+      updatedAt: new Date().toISOString(),
+    }),
+  );
+}
+
+function saveSheetsState() {
+  localStorage.setItem(
+    sheetsStorageKey(),
+    JSON.stringify({
+      storageKey: sheetsStorageKey(),
+      endpointUrl: state.sheets.endpointUrl,
+      reviewerName: state.sheets.reviewerName,
+      reviewerNotes: state.sheets.reviewerNotes,
+      sessionId: state.sheets.sessionId,
+      startedAt: state.sheets.startedAt,
+      lastSyncedAt: state.sheets.lastSyncedAt,
+      finalSubmittedAt: state.sheets.finalSubmittedAt,
+      status: state.sheets.status,
+      message: state.sheets.message,
       updatedAt: new Date().toISOString(),
     }),
   );
@@ -288,6 +373,61 @@ function renderExportNotice(counts = calculateProgress()) {
   els.exportNotice.textContent = `ยังตรวจไม่ครบ ${missingPages} หน้า - export ได้เพื่อ backup แต่ผลจะมี NOT_REVIEWED`;
 }
 
+function formatSyncTime(value) {
+  if (!value) return "Not synced yet";
+  try {
+    return new Intl.DateTimeFormat("th-TH", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(new Date(value));
+  } catch (_error) {
+    return value;
+  }
+}
+
+function renderSheetsPanel(counts = calculateProgress()) {
+  if (!els.sheetsStatus) return;
+  const endpointReady = Boolean(state.sheets.endpointUrl);
+  const reviewerReady = Boolean(state.sheets.reviewerName.trim());
+  const ready = endpointReady && reviewerReady && !state.sheets.isSubmitting;
+  const finalReady = ready && counts.totalCards === state.data.cards.length;
+  const complete = counts.pagesDone === counts.totalPages;
+  const missingPages = counts.totalPages - counts.pagesDone;
+
+  els.sheetsEndpoint.value = state.sheets.endpointUrl;
+  els.reviewerName.value = state.sheets.reviewerName;
+  els.reviewerNotes.value = state.sheets.reviewerNotes;
+  els.saveProgressSheets.disabled = !ready;
+  els.submitFinalSheets.disabled = !finalReady;
+  els.saveProgressSheets.textContent = state.sheets.isSubmitting ? "Saving..." : "Save Progress to Google Sheet";
+  els.submitFinalSheets.textContent = state.sheets.isSubmitting ? "Submitting..." : "Submit Final Review";
+  els.sheetsLastSync.textContent = `Last sync: ${formatSyncTime(state.sheets.lastSyncedAt)}`;
+
+  els.sheetsStatus.dataset.status = state.sheets.status;
+  if (state.sheets.status === "success") {
+    els.sheetsStatus.textContent = state.sheets.message || "Google Sheet sync complete.";
+  } else if (state.sheets.status === "error") {
+    els.sheetsStatus.textContent = state.sheets.message || "Google Sheet sync failed. Keep JSON backup.";
+  } else if (!endpointReady) {
+    els.sheetsStatus.dataset.status = "not_configured";
+    els.sheetsStatus.textContent = "Paste the deployed Apps Script Web App URL before syncing.";
+  } else if (!reviewerReady) {
+    els.sheetsStatus.dataset.status = "not_configured";
+    els.sheetsStatus.textContent = "Enter reviewer name before syncing.";
+  } else {
+    els.sheetsStatus.dataset.status = "ready";
+    els.sheetsStatus.textContent = "Ready to sync. JSON export remains the trusted backup.";
+  }
+
+  if (!complete) {
+    els.sheetsWarning.hidden = false;
+    els.sheetsWarning.textContent = `Incomplete review: ${missingPages} pages / ${counts.remaining.toLocaleString("th-TH")} cards remain. Save Progress is allowed; Final Submit requires confirmation.`;
+  } else {
+    els.sheetsWarning.hidden = false;
+    els.sheetsWarning.textContent = "All 70 pages are complete. Final Submit is recommended, and JSON backup should still be downloaded.";
+  }
+}
+
 function renderCompletionPanel(counts = calculateProgress()) {
   if (counts.pagesDone !== counts.totalPages) {
     els.completionPanel.hidden = true;
@@ -420,6 +560,7 @@ function renderPageCompletionControl() {
 
 function renderAll() {
   renderProgress();
+  renderSheetsPanel();
   renderThumbs();
   renderPageCompletionControl();
   renderCardLayer();
@@ -582,6 +723,45 @@ function exportPayload() {
   };
 }
 
+function buildSessionSummary(counts = calculateProgress()) {
+  return {
+    pageCount: state.data.pages.length,
+    cardCount: state.data.cards.length,
+    reviewedPages: counts.pagesDone,
+    completedCards: counts.completedCards,
+    accepted: counts.accepted,
+    falsePositive: counts.f,
+    pairingError: counts.p,
+    uncertain: counts.u,
+    remaining: counts.remaining,
+  };
+}
+
+function buildSubmissionPayload(action, options = {}) {
+  const isFinal = action === SUBMISSION_ACTIONS.submitFinal;
+  const submittedAt = new Date().toISOString();
+  const rows = isFinal ? buildResultRows() : [];
+  return {
+    schemaVersion: "google-sheets-review-submission:v1",
+    clientVersion: CLIENT_VERSION,
+    action,
+    sessionId: state.sheets.sessionId,
+    reviewerName: state.sheets.reviewerName.trim(),
+    reviewerNotes: state.sheets.reviewerNotes.trim(),
+    startedAt: state.sheets.startedAt,
+    clientSubmittedAt: submittedAt,
+    overwriteResults: Boolean(options.overwriteResults),
+    reviewSchemaVersion: state.data.reviewSchemaVersion,
+    packageId: state.data.canonicalGalleryPackage,
+    modelProfile: state.data.experiment.modelProfile,
+    checkpointSha256: state.data.experiment.checkpointSha256,
+    threshold: state.data.experiment.threshold,
+    manifestIdentifier: state.data.manifestIdentifier,
+    summary: buildSessionSummary(),
+    results: rows,
+  };
+}
+
 function download(filename, mime, textValue) {
   const blob = new Blob([textValue], { type: mime });
   const url = URL.createObjectURL(blob);
@@ -662,6 +842,105 @@ function importJsonFile(file) {
   reader.readAsText(file, "utf-8");
 }
 
+function validateSheetSubmission(action) {
+  if (!state.sheets.endpointUrl) return "Paste the Apps Script Web App URL before syncing.";
+  if (!/^https:\/\/script\.google\.com\/macros\/s\//.test(state.sheets.endpointUrl)) {
+    return "Apps Script URL should start with https://script.google.com/macros/s/.";
+  }
+  if (!state.sheets.reviewerName.trim()) return "Enter reviewer name before syncing.";
+  if (action === SUBMISSION_ACTIONS.submitFinal && buildResultRows().length !== state.data.cards.length) {
+    return "Final Submit row count does not match the 1,400-card review package.";
+  }
+  return "";
+}
+
+function setSheetStatus(status, message) {
+  state.sheets.status = status;
+  state.sheets.message = message;
+  saveSheetsState();
+  renderSheetsPanel();
+}
+
+async function postSheetPayload(payload) {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), 45000);
+  try {
+    const response = await fetch(state.sheets.endpointUrl, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    const text = await response.text();
+    let result;
+    try {
+      result = JSON.parse(text);
+    } catch (_error) {
+      result = { ok: response.ok, message: text || response.statusText };
+    }
+    if (!response.ok || result.ok === false) {
+      const error = new Error(result.message || `Google Apps Script returned HTTP ${response.status}`);
+      error.response = result;
+      throw error;
+    }
+    return result;
+  } finally {
+    window.clearTimeout(timer);
+  }
+}
+
+async function submitToGoogleSheets(action, options = {}) {
+  const validationError = validateSheetSubmission(action);
+  if (validationError) {
+    setSheetStatus("error", validationError);
+    showToast(validationError);
+    return;
+  }
+
+  const counts = calculateProgress();
+  const isFinal = action === SUBMISSION_ACTIONS.submitFinal;
+  if (isFinal && counts.remaining > 0 && !options.confirmedIncomplete) {
+    const ok = window.confirm(`Final Submit includes ${counts.remaining.toLocaleString("th-TH")} NOT_REVIEWED cards because ${counts.totalPages - counts.pagesDone} pages are incomplete. Submit anyway?`);
+    if (!ok) return;
+  }
+  if (isFinal && state.sheets.finalSubmittedAt && !options.overwriteResults) {
+    const ok = window.confirm("This session was already submitted. Replace the existing ReviewResults rows for this session_id?");
+    if (!ok) return;
+    options = { ...options, overwriteResults: true };
+  }
+
+  state.sheets.isSubmitting = true;
+  renderSheetsPanel(counts);
+  try {
+    const payload = buildSubmissionPayload(action, options);
+    const result = await postSheetPayload(payload);
+    const now = new Date().toISOString();
+    state.sheets.lastSyncedAt = now;
+    if (isFinal) state.sheets.finalSubmittedAt = now;
+    setSheetStatus("success", result.message || (isFinal ? "Final review submitted to Google Sheet." : "Progress saved to Google Sheet."));
+    showToast(isFinal ? "Google Sheet final submit complete" : "Google Sheet progress saved");
+  } catch (error) {
+    const duplicateFinal = error.response && error.response.code === "DUPLICATE_FINAL_SUBMISSION";
+    if (isFinal && duplicateFinal && !options.overwriteResults) {
+      const ok = window.confirm("This session_id already has ReviewResults rows. Replace those rows and submit again?");
+      if (ok) {
+        state.sheets.isSubmitting = false;
+        await submitToGoogleSheets(action, { ...options, overwriteResults: true });
+        return;
+      }
+    }
+    setSheetStatus("error", `${error.message || "Google Sheet sync failed."} JSON backup is still available.`);
+    showToast("Google Sheet sync failed - use JSON backup if needed");
+  } finally {
+    state.sheets.isSubmitting = false;
+    saveSheetsState();
+    renderSheetsPanel();
+  }
+}
+
 function isTypingTarget(target) {
   return Boolean(target.closest("input, textarea, select, [contenteditable='true']"));
 }
@@ -727,6 +1006,26 @@ function initEvents() {
     const page = findIncompletePage(1);
     if (page) setPage(page);
   });
+  els.sheetsEndpoint.addEventListener("input", (event) => {
+    state.sheets.endpointUrl = normalizeEndpointUrl(event.target.value);
+    state.sheets.status = state.sheets.endpointUrl ? "ready" : "not_configured";
+    state.sheets.message = "";
+    saveSheetsState();
+    renderSheetsPanel();
+  });
+  els.reviewerName.addEventListener("input", (event) => {
+    state.sheets.reviewerName = event.target.value;
+    state.sheets.status = state.sheets.endpointUrl ? "ready" : "not_configured";
+    state.sheets.message = "";
+    saveSheetsState();
+    renderSheetsPanel();
+  });
+  els.reviewerNotes.addEventListener("input", (event) => {
+    state.sheets.reviewerNotes = event.target.value;
+    saveSheetsState();
+  });
+  els.saveProgressSheets.addEventListener("click", () => submitToGoogleSheets(SUBMISSION_ACTIONS.saveProgress));
+  els.submitFinalSheets.addEventListener("click", () => submitToGoogleSheets(SUBMISSION_ACTIONS.submitFinal));
   els.downloadCsv.addEventListener("click", downloadCsv);
   els.downloadJson.addEventListener("click", downloadJson);
   els.importJson.addEventListener("click", () => els.importFile.click());
@@ -790,6 +1089,7 @@ async function init() {
   state.data.cards.forEach((card) => state.cardsById.set(card.cardId, card));
   loadReviewState();
   loadUiState();
+  loadSheetsState();
   renderSelector();
   renderProvenance();
   initEvents();
@@ -800,6 +1100,8 @@ async function init() {
     uiStorageKey,
     calculateProgress,
     buildResultRows,
+    buildSessionSummary,
+    buildSubmissionPayload,
     exportPayload,
     finalClassification,
     reviewStatus,
