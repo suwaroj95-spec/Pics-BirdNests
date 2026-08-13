@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>สรุปผลทดลอง Anchor - Pics-BirdNests</title>
   <meta name="description" content="Interim management summary for the Pics-BirdNests Faster R-CNN anchor experiment.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -52,12 +55,23 @@
       <div class="anchor-compare">
         <article class="compare-card baseline">
           <span>Baseline</span>
-          <strong>32 / 64 / 128 / 256 / 512</strong>
+          <div class="anchor-chips" aria-label="Baseline anchors 32 64 128 256 512">
+            <b>32</b>
+            <b>64</b>
+            <b>128</b>
+            <b class="removed">256</b>
+            <b class="removed">512</b>
+          </div>
           <p>ชุด anchor เดิมสำหรับ baseline ที่มีผล expert review แล้ว</p>
         </article>
         <article class="compare-card new">
           <span>New experiment</span>
-          <strong>16 / 32 / 64 / 128</strong>
+          <div class="anchor-chips" aria-label="Small Anchor experiment anchors 16 32 64 128">
+            <b class="added">16</b>
+            <b>32</b>
+            <b>64</b>
+            <b>128</b>
+          </div>
           <p>ชุดทดลองใหม่ที่ใช้สำหรับ automatic comparison และกำลังรอ expert review</p>
         </article>
       </div>
