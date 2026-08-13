@@ -3,140 +3,114 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ผลการทดสอบโมเดลตรวจจุดสกปรก - Small Anchor 16/32/64/128</title>
-  <meta name="description" content="Expert review gallery for the Pics-BirdNests Faster R-CNN small-anchor experiment.">
+  <title>ผลตรวจ Expert Review - Small Anchor 16/32/64/128</title>
+  <meta name="description" content="Interactive expert review gallery for the Pics-BirdNests Faster R-CNN small-anchor experiment.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="hero">
+  <header class="site-header">
     <nav class="topbar" aria-label="หน้าหลัก">
       <a href="../">Pics-BirdNests Docs</a>
-      <a href="#gallery">ไปที่ชุดภาพตรวจ</a>
+      <a href="REVIEW_RESULT_FORMAT.md">Review Result Format</a>
     </nav>
-    <div class="hero-inner">
-      <p class="eyebrow">Expert Review Package</p>
-      <h1>ผลการทดสอบโมเดลตรวจจุดสกปรก - Small Anchor 16/32/64/128</h1>
-      <p class="subtitle">ชุดภาพสำหรับผู้เชี่ยวชาญตรวจผลการทดลอง anchor ใหม่ของ Faster R-CNN โดยใช้ผล Phase 7 ที่สร้างไว้แล้วเท่านั้น</p>
-      <div class="status" role="status">สถานะ: รอผลตรวจจากผู้เชี่ยวชาญ</div>
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">Expert Review Package</p>
+        <h1>Small Anchor 16/32/64/128 Expert Review</h1>
+        <p class="subtitle">ตรวจคู่ภาพซ้าย/ขวาโดยตรงใน browser และ export ผลเป็น CSV/JSON สำหรับ Phase 8</p>
+      </div>
+      <div class="identity-panel" id="identityPanel">Loading experiment identity...</div>
     </div>
   </header>
 
   <main>
-    <section class="section summary-grid" aria-labelledby="experiment-title">
+    <section class="section review-first" aria-labelledby="review-title">
       <div>
-        <p class="section-kicker">Experiment Summary</p>
-        <h2 id="experiment-title">เปรียบเทียบ anchor เดิมกับ anchor ทดลอง</h2>
-        <p>การทดลองนี้เพิ่ม anchor ขนาดเล็ก 16 พิกเซล และตัด anchor ขนาด 256/512 ออก เพื่อดูว่าช่วยตรวจจุดสกปรกขนาดเล็กได้ดีขึ้นหรือไม่ ผลส่วนนี้ยังไม่ใช่การอนุมัติใช้งานจริง</p>
+        <p class="section-kicker">Review Instructions</p>
+        <h2 id="review-title">ตรวจคู่ภาพก่อนตัดสินผลโมเดล</h2>
       </div>
-      <div class="anchor-compare" aria-label="anchor comparison">
-        <article>
-          <span>Baseline</span>
-          <strong>32 / 64 / 128 / 256 / 512</strong>
-        </article>
-        <article class="highlight">
-          <span>New Experiment</span>
-          <strong>16 / 32 / 64 / 128</strong>
-        </article>
+      <div class="instruction-grid">
+        <p>ดูภาพซ้ายและขวาว่าเป็นภาพคู่เดียวกันก่อน</p>
+        <p>ถ้าผลตรวจถูก ไม่ต้องเลือกอะไร</p>
+        <p>ถ้าโมเดลบอกว่าสกปรกแต่จริง ๆ ไม่สกปรก ให้เลือก F</p>
+        <p>ถ้าภาพซ้ายและขวาไม่ใช่คู่เดียวกัน ให้เลือก P</p>
+        <p>ถ้าไม่แน่ใจ ให้เลือก U</p>
+        <p>เมื่อตรวจครบทุก Card ในหน้าแล้ว ให้กด “ตรวจครบหน้านี้แล้ว”</p>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="metrics-title">
-      <div class="section-heading">
+    <section class="section progress-section" aria-labelledby="progress-title">
+      <div class="progress-main">
         <div>
-          <p class="section-kicker">Automatic Results</p>
-          <h2 id="metrics-title">ผลประเมินอัตโนมัติที่ threshold 0.125</h2>
+          <p class="section-kicker">Progress</p>
+          <h2 id="progress-title">สถานะการตรวจ</h2>
         </div>
-        <p class="warning">ผลส่วนนี้เป็นการประเมินอัตโนมัติ ยังไม่ใช่ผลยืนยันจากผู้เชี่ยวชาญ</p>
+        <div class="progress-actions">
+          <button type="button" id="prevIncomplete">หน้าค้างก่อนหน้า</button>
+          <button type="button" id="nextIncomplete">หน้าค้างถัดไป</button>
+        </div>
       </div>
-      <div class="metric-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>Baseline</th>
-              <th>Small Anchor</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Recall @ 0.125</td>
-              <td>0.7099</td>
-              <td>0.7322</td>
-            </tr>
-            <tr>
-              <td>Automatic precision proxy</td>
-              <td>0.2723</td>
-              <td>0.3298</td>
-            </tr>
-            <tr>
-              <td>Unmatched predictions</td>
-              <td>1,785</td>
-              <td>1,400</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="progress-strip" id="progressStrip" aria-live="polite"></div>
+      <div class="export-actions">
+        <button type="button" id="downloadCsv">ดาวน์โหลดผลตรวจ CSV</button>
+        <button type="button" id="downloadJson">ดาวน์โหลดผลตรวจ JSON</button>
+        <button type="button" id="importJson">นำเข้าผลตรวจ JSON</button>
+        <button type="button" class="danger" id="clearReview">ล้างผลตรวจทั้งหมด</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
       </div>
-      <p class="plain-note">Recall เพิ่มขึ้นเล็กน้อย และจำนวน unmatched predictions ลดลง แต่ต้องให้ผู้เชี่ยวชาญตรวจภาพก่อนจึงจะสรุปได้ว่าโมเดลดีขึ้นจริงหรือไม่</p>
-    </section>
-
-    <section class="section baseline-review" aria-labelledby="baseline-title">
-      <div>
-        <p class="section-kicker">Previous Expert Baseline</p>
-        <h2 id="baseline-title">ผลตรวจเดิมของ baseline anchor</h2>
-        <p>ตัวเลขนี้คือ human-reviewed precision ของชุด baseline เดิม ไม่ใช่ accuracy รวมของโมเดล</p>
-      </div>
-      <dl class="stats">
-        <div><dt>Reviewed</dt><dd>1,785</dd></div>
-        <div><dt>Accepted</dt><dd>128</dd></div>
-        <div><dt>Expert FP</dt><dd>1,657</dd></div>
-        <div><dt>Human-reviewed precision</dt><dd>7.17%</dd></div>
-      </dl>
-    </section>
-
-    <section class="section instructions" aria-labelledby="instructions-title">
-      <p class="section-kicker">Review Instructions</p>
-      <h2 id="instructions-title">วิธีทำเครื่องหมายบนภาพ</h2>
-      <div class="instruction-list">
-        <div><strong>ไม่มีเครื่องหมาย</strong><span>ผู้เชี่ยวชาญเห็นว่าโมเดลตรวจถูก</span></div>
-        <div><strong>F</strong><span>False Positive - โมเดลระบุว่าสกปรก แต่ผู้เชี่ยวชาญเห็นว่าไม่สกปรก</span></div>
-        <div><strong>P</strong><span>Pairing Error - ภาพคู่เปรียบเทียบไม่ตรงกัน</span></div>
-        <div><strong>U</strong><span>ไม่แน่ใจ / อ่านไม่ได้</span></div>
-      </div>
-      <p class="plain-note">กรุณาอย่าเปลี่ยนชื่อไฟล์หน้า PNG ตอนส่งผลตรวจกลับ</p>
     </section>
 
     <section class="section gallery-section" id="gallery" aria-labelledby="gallery-title">
       <div class="section-heading">
         <div>
           <p class="section-kicker">Review Gallery</p>
-          <h2 id="gallery-title">ชุดภาพสำหรับตรวจ 70 หน้า</h2>
+          <h2 id="gallery-title">คู่ภาพสำหรับตรวจ 70 หน้า / 1,400 cards</h2>
         </div>
-        <div class="package-badge" id="packageBadge">Threshold 0.125</div>
-      </div>
-      <p class="plain-note" id="packageNote">Package A และ Package B มี prediction/card set เดียวกัน และ validation-selected threshold เท่ากับ 0.125 จึงแสดง gallery เดียวเพื่อลดงานตรวจซ้ำ</p>
-
-      <div class="gallery-controls" aria-label="gallery controls">
-        <button type="button" class="nav-button" id="prevPage" aria-label="หน้าก่อนหน้า">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <label>
+        <label class="page-picker">
           หน้า
           <select id="pageSelect" aria-label="เลือกหน้า"></select>
         </label>
+      </div>
+
+      <div class="gallery-controls" aria-label="gallery controls">
+        <button type="button" id="prevPage" aria-label="หน้าก่อนหน้า">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
         <a class="direct-link" id="directLink" href="assets/review-pages/page_001.webp">เปิดภาพหน้านี้</a>
-        <button type="button" class="nav-button" id="nextPage" aria-label="หน้าถัดไป">
+        <button type="button" id="nextPage" aria-label="หน้าถัดไป">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
         </button>
+        <label class="complete-toggle">
+          <input type="checkbox" id="pageComplete">
+          <span>ตรวจครบหน้านี้แล้ว</span>
+        </label>
       </div>
 
       <div class="page-meta" id="pageMeta"></div>
-      <button type="button" class="image-shell" id="openViewer" aria-label="ขยายภาพหน้า review">
-        <img id="reviewImage" src="assets/review-pages/page_001.webp" alt="Review page 1" loading="eager" width="3280" height="2150">
-      </button>
+      <div class="review-frame" id="reviewFrame">
+        <img id="reviewImage" src="assets/review-pages/page_001.webp" alt="Review page 1" loading="eager" width="3508" height="2480">
+        <div class="card-layer" id="cardLayer" aria-label="card review controls"></div>
+      </div>
       <div class="thumb-grid" id="thumbGrid" aria-label="รายการหน้า review"></div>
+    </section>
+
+    <section class="section compact-facts" aria-labelledby="facts-title">
+      <div>
+        <p class="section-kicker">Experiment Facts</p>
+        <h2 id="facts-title">ข้อมูลอ้างอิงที่คงเดิม</h2>
+      </div>
+      <dl class="fact-grid">
+        <div><dt>Baseline anchors</dt><dd>32 / 64 / 128 / 256 / 512</dd></div>
+        <div><dt>Small anchors</dt><dd>16 / 32 / 64 / 128</dd></div>
+        <div><dt>Threshold</dt><dd>0.125</dd></div>
+        <div><dt>Small Anchor recall</dt><dd>0.7322</dd></div>
+        <div><dt>Small Anchor precision proxy</dt><dd>0.3298</dd></div>
+        <div><dt>Unmatched predictions</dt><dd>1,400</dd></div>
+        <div><dt>Previous human baseline</dt><dd>7.17% human-reviewed precision, not overall accuracy</dd></div>
+      </dl>
     </section>
 
     <section class="section" aria-labelledby="provenance-title">
@@ -147,13 +121,30 @@
     </section>
   </main>
 
-  <div class="viewer" id="viewer" aria-hidden="true">
-    <button type="button" class="viewer-close" id="closeViewer" aria-label="ปิดภาพขยาย">×</button>
-    <img id="viewerImage" alt="">
+  <div class="modal" id="cardModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div>
+          <p class="section-kicker">Card Review</p>
+          <h2 id="modalTitle">Card</h2>
+          <p id="modalMeta"></p>
+        </div>
+        <button type="button" class="modal-close" id="closeModal" aria-label="ปิด">×</button>
+      </div>
+      <div class="modal-crop" id="modalCrop" aria-label="ภาพคู่ซ้ายขวาขยาย"></div>
+      <div class="modal-controls">
+        <button type="button" id="modalPrev">ก่อนหน้า</button>
+        <label>
+          Result
+          <select id="modalSelect"></select>
+        </label>
+        <button type="button" id="modalNext">ถัดไป</button>
+      </div>
+    </div>
   </div>
 
   <footer>
-    Pics-BirdNests Prototype - Expert Review. Results are experimental and pending human review.
+    Pics-BirdNests Prototype - Expert Review. GitHub Pages stores progress only in this browser until CSV/JSON export.
   </footer>
 
   <script src="review.js"></script>

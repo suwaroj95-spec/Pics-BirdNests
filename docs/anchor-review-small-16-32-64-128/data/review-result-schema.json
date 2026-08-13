@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://suwaroj95-spec.github.io/Pics-BirdNests/anchor-review-small-16-32-64-128/data/review-result-schema.json",
+  "title": "Pics-BirdNests structured expert review result",
+  "type": "object",
+  "required": [
+    "reviewSchemaVersion",
+    "packageId",
+    "modelProfile",
+    "checkpointSha256",
+    "threshold",
+    "manifestIdentifier",
+    "exportedAt",
+    "results"
+  ],
+  "properties": {
+    "reviewSchemaVersion": {
+      "const": "1.0.0"
+    },
+    "packageId": {
+      "const": "package_a_small_anchor_0125"
+    },
+    "modelProfile": {
+      "const": "small_16_32_64_128"
+    },
+    "checkpointSha256": {
+      "const": "e9f4d2e1b8530662fd3390165419008647c7d9baaf80e8a2d3cc4108b22fa7c0"
+    },
+    "threshold": {
+      "const": "0.125"
+    },
+    "manifestIdentifier": {
+      "const": "card_manifest_sha256:93f1b277fb21f26ada9444a757323f730fbdcae2debd433957a895e80f6d2a83"
+    },
+    "exportedAt": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1400,
+      "maxItems": 1400,
+      "items": {
+        "type": "object",
+        "required": [
+          "cardId",
+          "page",
+          "position",
+          "sourceId",
+          "predictionId",
+          "score",
+          "reviewerSelection",
+          "finalClassification",
+          "pageCompleted",
+          "exportedAt"
+        ],
+        "properties": {
+          "cardId": {
+            "type": "string"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 70
+          },
+          "position": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "sourceId": {
+            "type": "string"
+          },
+          "predictionId": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "reviewerSelection": {
+            "enum": [
+              "",
+              "F",
+              "P",
+              "U"
+            ]
+          },
+          "reviewStatus": {
+            "enum": [
+              "NOT_REVIEWED",
+              "ACCEPTED",
+              "FALSE_POSITIVE",
+              "PAIRING_ERROR",
+              "UNCERTAIN"
+            ]
+          },
+          "finalClassification": {
+            "enum": [
+              "HUMAN_ACCEPTED_TRUE_POSITIVE",
+              "FALSE_POSITIVE_BY_EXPERT",
+              "PAIRING_ERROR",
+              "UNRESOLVED",
+              "NOT_REVIEWED"
+            ]
+          },
+          "pageCompleted": {
+            "type": "boolean"
+          },
+          "bboxX1": {
+            "type": "number"
+          },
+          "bboxY1": {
+            "type": "number"
+          },
+          "bboxX2": {
+            "type": "number"
+          },
+          "bboxY2": {
+            "type": "number"
+          },
+          "exportedAt": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
