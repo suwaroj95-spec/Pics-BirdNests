@@ -1,3 +1,5 @@
+const UI_STORAGE_SUFFIX = ":ui:v1";
+
 const state = {
   page: 1,
   data: null,
@@ -7,12 +9,21 @@ const state = {
     completedPages: {},
     updatedAt: null,
   },
+  ui: {
+    mode: "overview",
+    focusCardId: null,
+    autoAdvance: false,
+  },
   modalCardId: null,
+  toastTimer: null,
 };
 
 const els = {
   identityPanel: document.getElementById("identityPanel"),
+  progressHero: document.getElementById("progressHero"),
+  progressBar: document.getElementById("progressBar"),
   progressStrip: document.getElementById("progressStrip"),
+  completionPanel: document.getElementById("completionPanel"),
   prevIncomplete: document.getElementById("prevIncomplete"),
   nextIncomplete: document.getElementById("nextIncomplete"),
   downloadCsv: document.getElementById("downloadCsv"),
@@ -20,15 +31,30 @@ const els = {
   importJson: document.getElementById("importJson"),
   importFile: document.getElementById("importFile"),
   clearReview: document.getElementById("clearReview"),
+  overviewMode: document.getElementById("overviewMode"),
+  focusMode: document.getElementById("focusMode"),
   pageSelect: document.getElementById("pageSelect"),
   prevPage: document.getElementById("prevPage"),
   nextPage: document.getElementById("nextPage"),
+  currentPageLabel: document.getElementById("currentPageLabel"),
   directLink: document.getElementById("directLink"),
   pageComplete: document.getElementById("pageComplete"),
+  pageCompleteLabel: document.getElementById("pageCompleteLabel"),
+  autoAdvance: document.getElementById("autoAdvance"),
   reviewImage: document.getElementById("reviewImage"),
   pageMeta: document.getElementById("pageMeta"),
   cardLayer: document.getElementById("cardLayer"),
+  overviewPanel: document.getElementById("overviewPanel"),
+  focusPanel: document.getElementById("focusPanel"),
+  focusTitle: document.getElementById("focusTitle"),
+  focusMeta: document.getElementById("focusMeta"),
+  focusCrop: document.getElementById("focusCrop"),
+  focusControls: document.getElementById("focusControls"),
+  focusPrev: document.getElementById("focusPrev"),
+  focusNext: document.getElementById("focusNext"),
+  focusModal: document.getElementById("focusModal"),
   thumbGrid: document.getElementById("thumbGrid"),
+  exportNotice: document.getElementById("exportNotice"),
   provenance: document.getElementById("provenance"),
   cardModal: document.getElementById("cardModal"),
   modalTitle: document.getElementById("modalTitle"),
@@ -38,19 +64,21 @@ const els = {
   modalPrev: document.getElementById("modalPrev"),
   modalNext: document.getElementById("modalNext"),
   modalSelect: document.getElementById("modalSelect"),
+  toast: document.getElementById("toast"),
 };
 
 const selectionOptions = [
-  ["", "ไม่เลือก — ถือว่าถูกต้องเมื่อยืนยันตรวจครบหน้า"],
-  ["F", "F — False Positive"],
-  ["P", "P — Pairing Error"],
-  ["U", "U — ไม่แน่ใจ"],
+  ["", "ถูกต้อง / ไม่เลือก F-P-U"],
+  ["F", "F - False Positive"],
+  ["P", "P - Pairing Error"],
+  ["U", "U - ไม่แน่ใจ"],
 ];
 
 const badgeLabels = {
-  F: "F — False Positive",
-  P: "P — Pairing Error",
-  U: "U — Uncertain",
+  accepted: "✓",
+  F: "F",
+  P: "P",
+  U: "U",
 };
 
 function formatScore(value) {
@@ -59,6 +87,10 @@ function formatScore(value) {
 
 function storageKey() {
   return state.data.reviewUi.localStorageKey;
+}
+
+function uiStorageKey() {
+  return `${storageKey()}${UI_STORAGE_SUFFIX}`;
 }
 
 function loadReviewState() {
@@ -78,6 +110,23 @@ function loadReviewState() {
   }
 }
 
+function loadUiState() {
+  const defaultMode = window.matchMedia("(max-width: 768px)").matches ? "focus" : "overview";
+  state.ui.mode = defaultMode;
+  const raw = localStorage.getItem(uiStorageKey());
+  if (!raw) return;
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.storageKey === uiStorageKey()) {
+      state.ui.mode = parsed.mode === "focus" ? "focus" : "overview";
+      state.ui.focusCardId = parsed.focusCardId || null;
+      state.ui.autoAdvance = Boolean(parsed.autoAdvance);
+    }
+  } catch (_error) {
+    localStorage.removeItem(uiStorageKey());
+  }
+}
+
 function saveReviewState() {
   state.review.updatedAt = new Date().toISOString();
   localStorage.setItem(
@@ -91,16 +140,36 @@ function saveReviewState() {
   );
 }
 
+function saveUiState() {
+  localStorage.setItem(
+    uiStorageKey(),
+    JSON.stringify({
+      storageKey: uiStorageKey(),
+      mode: state.ui.mode,
+      focusCardId: state.ui.focusCardId,
+      autoAdvance: state.ui.autoAdvance,
+      updatedAt: new Date().toISOString(),
+    }),
+  );
+}
+
 function cardsOnPage(pageNumber = state.page) {
   const page = state.data.pages[pageNumber - 1];
   return page.cards.map((cardId) => state.cardsById.get(cardId));
+}
+
+function currentFocusCard() {
+  if (!state.ui.focusCardId || !state.cardsById.has(state.ui.focusCardId)) {
+    state.ui.focusCardId = cardsOnPage()[0].cardId;
+  }
+  return state.cardsById.get(state.ui.focusCardId);
 }
 
 function cardSelection(cardId) {
   return state.review.selections[cardId] || "";
 }
 
-function setCardSelection(cardId, value) {
+function setCardSelection(cardId, value, options = {}) {
   if (value) {
     state.review.selections[cardId] = value;
   } else {
@@ -108,6 +177,12 @@ function setCardSelection(cardId, value) {
   }
   saveReviewState();
   renderAll();
+  if (options.source === "focus") {
+    showToast(`${value || "ถูกต้อง"} บันทึกแล้ว`);
+    if (state.ui.autoAdvance) {
+      moveFocus(1);
+    }
+  }
 }
 
 function isPageComplete(pageNumber) {
@@ -117,8 +192,10 @@ function isPageComplete(pageNumber) {
 function setPageComplete(pageNumber, complete) {
   if (complete) {
     state.review.completedPages[String(pageNumber)] = new Date().toISOString();
+    showToast(`บันทึกหน้า ${pageNumber} แล้ว - ${cardsOnPage(pageNumber).length} Cards`);
   } else {
     delete state.review.completedPages[String(pageNumber)];
+    showToast(`ยกเลิกตรวจครบหน้า ${pageNumber}: blank cards กลับเป็น NOT_REVIEWED`);
   }
   saveReviewState();
   renderAll();
@@ -158,32 +235,73 @@ function calculateProgress() {
     if (status === "NOT_REVIEWED") counts.remaining += 1;
   });
   counts.completedCards = counts.accepted + counts.f + counts.p + counts.u;
+  counts.totalPages = state.data.pages.length;
+  counts.totalCards = state.data.cards.length;
+  counts.percent = counts.totalCards ? Math.round((counts.completedCards / counts.totalCards) * 100) : 0;
   return counts;
+}
+
+function pageHasException(pageNumber) {
+  return cardsOnPage(pageNumber).some((card) => ["F", "P", "U"].includes(cardSelection(card.cardId)));
 }
 
 function renderProgress() {
   const counts = calculateProgress();
-  const totalPages = state.data.pages.length;
-  const totalCards = state.data.cards.length;
+  els.progressHero.innerHTML = [
+    [`${counts.percent}%`, "completion"],
+    [`${counts.pagesDone} / ${counts.totalPages}`, "หน้าที่ตรวจครบ"],
+    [`${counts.completedCards.toLocaleString("th-TH")} / ${counts.totalCards.toLocaleString("th-TH")}`, "cards"],
+  ]
+    .map(([value, label]) => `<div class="progress-big"><strong>${value}</strong><span>${label}</span></div>`)
+    .join("");
+  els.progressBar.style.width = `${counts.percent}%`;
   const items = [
-    [`${counts.pagesDone} / ${totalPages}`, "ตรวจแล้ว"],
-    [counts.completedCards.toLocaleString("th-TH"), "Completed cards"],
-    [counts.accepted.toLocaleString("th-TH"), "Accepted"],
-    [counts.f.toLocaleString("th-TH"), "F"],
-    [counts.p.toLocaleString("th-TH"), "P"],
-    [`${counts.u.toLocaleString("th-TH")} | ${counts.remaining.toLocaleString("th-TH")}`, "U | Remaining"],
+    [counts.accepted.toLocaleString("th-TH"), "Accepted", "accepted"],
+    [counts.f.toLocaleString("th-TH"), "F", "f"],
+    [counts.p.toLocaleString("th-TH"), "P", "p"],
+    [counts.u.toLocaleString("th-TH"), "U", "u"],
+    [counts.remaining.toLocaleString("th-TH"), "Remaining", "remaining"],
   ];
   els.progressStrip.innerHTML = items
-    .map(([value, label]) => `<div class="progress-item"><strong>${value}</strong><span>${label}</span></div>`)
+    .map(([value, label, klass]) => `<div class="progress-count ${klass}"><strong>${value}</strong><span>${label}</span></div>`)
     .join("");
   els.prevIncomplete.disabled = !findIncompletePage(-1);
   els.nextIncomplete.disabled = !findIncompletePage(1);
+  renderExportNotice(counts);
+  renderCompletionPanel(counts);
   els.identityPanel.innerHTML = [
     `<strong>${state.data.canonicalGalleryPackage}</strong>`,
     `Model: ${state.data.experiment.modelProfile}`,
     `Threshold: ${state.data.experiment.threshold}`,
-    `Cards: ${totalCards.toLocaleString("th-TH")} | Pages: ${totalPages}`,
+    `Cards: ${counts.totalCards.toLocaleString("th-TH")} | Pages: ${counts.totalPages}`,
   ].join("<br>");
+}
+
+function renderExportNotice(counts = calculateProgress()) {
+  if (counts.pagesDone === counts.totalPages) {
+    els.exportNotice.classList.add("is-complete");
+    els.exportNotice.textContent = `Review complete - ตรวจครบ ${counts.totalCards.toLocaleString("th-TH")} Cards แล้ว แนะนำดาวน์โหลด JSON สำหรับ Phase 8`;
+    return;
+  }
+  els.exportNotice.classList.remove("is-complete");
+  const missingPages = counts.totalPages - counts.pagesDone;
+  els.exportNotice.textContent = `ยังตรวจไม่ครบ ${missingPages} หน้า - export ได้เพื่อ backup แต่ผลจะมี NOT_REVIEWED`;
+}
+
+function renderCompletionPanel(counts = calculateProgress()) {
+  if (counts.pagesDone !== counts.totalPages) {
+    els.completionPanel.hidden = true;
+    els.completionPanel.innerHTML = "";
+    return;
+  }
+  els.completionPanel.hidden = false;
+  els.completionPanel.innerHTML = `
+    ตรวจครบ ${counts.totalCards.toLocaleString("th-TH")} Cards แล้ว:
+    Accepted ${counts.accepted.toLocaleString("th-TH")} ·
+    F ${counts.f.toLocaleString("th-TH")} ·
+    P ${counts.p.toLocaleString("th-TH")} ·
+    U ${counts.u.toLocaleString("th-TH")}
+  `;
 }
 
 function findIncompletePage(direction) {
@@ -214,17 +332,20 @@ function cardPositionStyle(card) {
 }
 
 function renderCardLayer() {
+  const pageComplete = isPageComplete(state.page);
   els.cardLayer.innerHTML = cardsOnPage()
     .map((card) => {
       const selected = cardSelection(card.cardId);
-      const stateClass = selected ? `state-${selected.toLowerCase()}` : "";
+      const accepted = !selected && pageComplete;
+      const stateClass = selected ? `state-${selected.toLowerCase()}` : accepted ? "state-accepted" : "";
+      const label = selected ? badgeLabels[selected] : accepted ? badgeLabels.accepted : "";
       return `
         <div class="card-control ${stateClass}" style="${cardPositionStyle(card)}" data-card-id="${card.cardId}">
-          <button type="button" class="open-card" data-card-id="${card.cardId}" aria-label="ขยาย ${card.cardId}"></button>
+          <button type="button" class="open-card" data-card-id="${card.cardId}" aria-label="ตรวจ ${card.cardId} แบบ Focus"></button>
           <select data-card-select="${card.cardId}" aria-label="ผลตรวจ ${card.cardId}">
             ${optionHtml(selected)}
           </select>
-          <span class="card-badge ${selected ? "" : "is-empty"}">${badgeLabels[selected] || ""}</span>
+          <span class="card-badge ${label ? "" : "is-empty"}">${label}</span>
         </div>`;
     })
     .join("");
@@ -259,14 +380,16 @@ function setPage(pageNumber) {
   els.reviewImage.src = item.image;
   els.reviewImage.alt = `Review page ${page}`;
   els.directLink.href = item.image;
+  if (!state.ui.focusCardId || state.cardsById.get(state.ui.focusCardId)?.page !== page) {
+    state.ui.focusCardId = item.cards[0];
+  }
   els.pageComplete.checked = isPageComplete(page);
-  els.pageMeta.textContent = `หน้า ${String(page).padStart(3, "0")} / ${state.data.pages.length} - card ${item.cardStart} ถึง ${item.cardEnd}, score ${formatScore(item.scoreMin)}-${formatScore(item.scoreMax)}`;
+  els.currentPageLabel.textContent = `${page} / ${state.data.pages.length}`;
+  els.pageMeta.textContent = `หน้า ${String(page).padStart(3, "0")} · card ${item.cardStart}-${item.cardEnd} · score ${formatScore(item.scoreMin)}-${formatScore(item.scoreMax)}`;
   els.prevPage.disabled = page === 1;
   els.nextPage.disabled = page === state.data.pages.length;
-  renderCardLayer();
-  renderProgress();
-  renderThumbs();
-  if (state.modalCardId) renderModal();
+  renderAll();
+  saveUiState();
 }
 
 function renderThumbs() {
@@ -274,15 +397,98 @@ function renderThumbs() {
     const page = Number(button.dataset.page);
     button.setAttribute("aria-current", page === state.page ? "page" : "false");
     button.dataset.complete = String(isPageComplete(page));
+    button.dataset.exception = String(pageHasException(page));
   });
+}
+
+function renderModes() {
+  const focus = state.ui.mode === "focus";
+  els.focusPanel.hidden = !focus;
+  els.overviewPanel.hidden = focus;
+  els.overviewMode.setAttribute("aria-selected", String(!focus));
+  els.focusMode.setAttribute("aria-selected", String(focus));
+  els.autoAdvance.checked = state.ui.autoAdvance;
+  if (focus) renderFocus();
+}
+
+function renderPageCompletionControl() {
+  const complete = isPageComplete(state.page);
+  els.pageComplete.checked = complete;
+  els.pageCompleteLabel.classList.toggle("is-complete", complete);
+  els.pageCompleteLabel.querySelector("span").textContent = complete ? "✓ ตรวจครบหน้านี้แล้ว" : "ตรวจครบหน้านี้แล้ว";
 }
 
 function renderAll() {
   renderProgress();
   renderThumbs();
-  els.pageComplete.checked = isPageComplete(state.page);
+  renderPageCompletionControl();
   renderCardLayer();
+  renderModes();
   if (state.modalCardId) renderModal();
+}
+
+function setMode(mode) {
+  state.ui.mode = mode === "focus" ? "focus" : "overview";
+  if (state.ui.mode === "focus") {
+    currentFocusCard();
+  }
+  saveUiState();
+  renderModes();
+}
+
+function focusCard(cardId) {
+  if (!state.cardsById.has(cardId)) return;
+  const card = state.cardsById.get(cardId);
+  if (card.page !== state.page) {
+    setPage(card.page);
+  }
+  state.ui.focusCardId = cardId;
+  state.ui.mode = "focus";
+  saveUiState();
+  renderModes();
+  els.focusPanel.scrollIntoView({ block: "start", behavior: "smooth" });
+}
+
+function renderCardCrop(target, card) {
+  const page = state.data.pages[card.page - 1];
+  const geometry = state.data.reviewUi.cardGeometry;
+  const cardX = geometry.x0 + (card.column - 1) * (geometry.cardWidth + geometry.gapX);
+  const cardY = geometry.y0 + (card.row - 1) * (geometry.cardHeight + geometry.gapY);
+  const targetWidth = target.clientWidth || geometry.cardWidth;
+  const targetHeight = target.clientHeight || geometry.cardHeight;
+  const scale = Math.min(targetWidth / geometry.cardWidth, targetHeight / geometry.cardHeight);
+  const offsetX = (targetWidth - geometry.cardWidth * scale) / 2 - cardX * scale;
+  const offsetY = (targetHeight - geometry.cardHeight * scale) / 2 - cardY * scale;
+  target.style.backgroundImage = `url("${page.image}")`;
+  target.style.backgroundSize = `${geometry.pageWidth * scale}px ${geometry.pageHeight * scale}px`;
+  target.style.backgroundPosition = `${offsetX}px ${offsetY}px`;
+}
+
+function renderFocus() {
+  const card = currentFocusCard();
+  if (!card) return;
+  els.focusTitle.textContent = `Card ${card.cardIndex.toLocaleString("th-TH")} / ${state.data.cards.length.toLocaleString("th-TH")}`;
+  els.focusMeta.textContent = `Source ${card.sourceId} · score ${formatScore(card.score)} · page ${card.page} · position ${card.position} · ${card.predictionId}`;
+  renderCardCrop(els.focusCrop, card);
+  const selected = cardSelection(card.cardId);
+  els.focusControls.querySelectorAll("[data-focus-choice]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.focusChoice === selected);
+  });
+  els.focusPrev.disabled = card.cardIndex <= 1;
+  els.focusNext.disabled = card.cardIndex >= state.data.cards.length;
+}
+
+function moveFocus(delta) {
+  const card = currentFocusCard();
+  if (!card) return;
+  const next = state.data.cards[card.cardIndex - 1 + delta];
+  if (!next) return;
+  if (next.page !== state.page) {
+    setPage(next.page);
+  }
+  state.ui.focusCardId = next.cardId;
+  saveUiState();
+  renderModes();
 }
 
 function openModal(cardId) {
@@ -302,17 +508,9 @@ function closeModal() {
 function renderModal() {
   const card = state.cardsById.get(state.modalCardId);
   if (!card) return;
-  const page = state.data.pages[card.page - 1];
-  const geometry = state.data.reviewUi.cardGeometry;
-  const cardX = geometry.x0 + (card.column - 1) * (geometry.cardWidth + geometry.gapX);
-  const cardY = geometry.y0 + (card.row - 1) * (geometry.cardHeight + geometry.gapY);
-  const cropWidth = els.modalCrop.clientWidth || geometry.cardWidth;
-  const scale = cropWidth / geometry.cardWidth;
   els.modalTitle.textContent = `${card.cardId} | Source ${card.sourceId}`;
   els.modalMeta.textContent = `${card.predictionId} | score ${formatScore(card.score)} | page ${card.page} pos ${card.position}`;
-  els.modalCrop.style.backgroundImage = `url("${page.image}")`;
-  els.modalCrop.style.backgroundSize = `${geometry.pageWidth * scale}px ${geometry.pageHeight * scale}px`;
-  els.modalCrop.style.backgroundPosition = `-${cardX * scale}px -${cardY * scale}px`;
+  renderCardCrop(els.modalCrop, card);
   els.modalSelect.innerHTML = optionHtml(cardSelection(card.cardId));
   els.modalPrev.disabled = card.cardIndex <= 1;
   els.modalNext.disabled = card.cardIndex >= state.data.cards.length;
@@ -402,7 +600,17 @@ function csvEscape(value) {
   return text;
 }
 
+function announceExportStatus() {
+  const counts = calculateProgress();
+  if (counts.remaining > 0) {
+    showToast(`ยังตรวจไม่ครบ ${counts.totalPages - counts.pagesDone} หน้า - export จะมี NOT_REVIEWED`);
+  } else {
+    showToast("Review complete - พร้อมส่ง JSON เข้า Phase 8");
+  }
+}
+
 function downloadCsv() {
+  announceExportStatus();
   const rows = buildResultRows();
   const fields = Object.keys(rows[0]);
   const csv = [fields.join(","), ...rows.map((row) => fields.map((field) => csvEscape(row[field])).join(","))].join("\n");
@@ -410,6 +618,7 @@ function downloadCsv() {
 }
 
 function downloadJson() {
+  announceExportStatus();
   download(
     "small_anchor_0125_expert_review_results.json",
     "application/json;charset=utf-8",
@@ -453,11 +662,63 @@ function importJsonFile(file) {
   reader.readAsText(file, "utf-8");
 }
 
+function isTypingTarget(target) {
+  return Boolean(target.closest("input, textarea, select, [contenteditable='true']"));
+}
+
+function handleShortcut(event) {
+  if (isTypingTarget(event.target)) return;
+  const modalOpen = els.cardModal.classList.contains("is-open");
+  const focusMode = state.ui.mode === "focus";
+  if (event.key === "Escape" && modalOpen) {
+    closeModal();
+    return;
+  }
+  if (!modalOpen && !focusMode) {
+    if (event.key === "ArrowLeft") setPage(state.page - 1);
+    if (event.key === "ArrowRight") setPage(state.page + 1);
+    return;
+  }
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    modalOpen ? moveModal(-1) : moveFocus(-1);
+    return;
+  }
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    modalOpen ? moveModal(1) : moveFocus(1);
+    return;
+  }
+  const key = event.key.toUpperCase();
+  const shortcutMap = { F: "F", P: "P", U: "U", C: "", "0": "" };
+  if (Object.prototype.hasOwnProperty.call(shortcutMap, key)) {
+    event.preventDefault();
+    const cardId = modalOpen ? state.modalCardId : currentFocusCard()?.cardId;
+    if (cardId) setCardSelection(cardId, shortcutMap[key], { source: modalOpen ? "modal" : "focus" });
+  }
+}
+
+function showToast(message) {
+  window.clearTimeout(state.toastTimer);
+  els.toast.textContent = message;
+  els.toast.classList.add("is-visible");
+  state.toastTimer = window.setTimeout(() => {
+    els.toast.classList.remove("is-visible");
+  }, 1800);
+}
+
 function initEvents() {
   els.pageSelect.addEventListener("change", (event) => setPage(Number(event.target.value)));
   els.prevPage.addEventListener("click", () => setPage(state.page - 1));
   els.nextPage.addEventListener("click", () => setPage(state.page + 1));
   els.pageComplete.addEventListener("change", (event) => setPageComplete(state.page, event.target.checked));
+  els.overviewMode.addEventListener("click", () => setMode("overview"));
+  els.focusMode.addEventListener("click", () => setMode("focus"));
+  els.autoAdvance.addEventListener("change", (event) => {
+    state.ui.autoAdvance = event.target.checked;
+    saveUiState();
+    showToast(state.ui.autoAdvance ? "Auto-advance เปิดแล้ว" : "Auto-advance ปิดแล้ว");
+  });
   els.prevIncomplete.addEventListener("click", () => {
     const page = findIncompletePage(-1);
     if (page) setPage(page);
@@ -480,10 +741,11 @@ function initEvents() {
     state.review = { selections: {}, completedPages: {}, updatedAt: null };
     localStorage.removeItem(storageKey());
     renderAll();
+    showToast("ล้างผลตรวจแล้ว");
   });
   els.cardLayer.addEventListener("click", (event) => {
     const button = event.target.closest(".open-card");
-    if (button) openModal(button.dataset.cardId);
+    if (button) focusCard(button.dataset.cardId);
   });
   els.cardLayer.addEventListener("change", (event) => {
     const select = event.target.closest("select[data-card-select]");
@@ -492,6 +754,18 @@ function initEvents() {
   els.thumbGrid.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-page]");
     if (button) setPage(Number(button.dataset.page));
+  });
+  els.focusControls.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-focus-choice]");
+    if (!button) return;
+    const card = currentFocusCard();
+    if (card) setCardSelection(card.cardId, button.dataset.focusChoice, { source: "focus" });
+  });
+  els.focusPrev.addEventListener("click", () => moveFocus(-1));
+  els.focusNext.addEventListener("click", () => moveFocus(1));
+  els.focusModal.addEventListener("click", () => {
+    const card = currentFocusCard();
+    if (card) openModal(card.cardId);
   });
   els.closeModal.addEventListener("click", closeModal);
   els.cardModal.addEventListener("click", (event) => {
@@ -503,13 +777,10 @@ function initEvents() {
     if (state.modalCardId) setCardSelection(state.modalCardId, els.modalSelect.value);
   });
   window.addEventListener("resize", () => {
+    if (state.ui.mode === "focus") renderFocus();
     if (state.modalCardId) renderModal();
   });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && els.cardModal.classList.contains("is-open")) closeModal();
-    if (event.key === "ArrowLeft" && !els.cardModal.classList.contains("is-open")) setPage(state.page - 1);
-    if (event.key === "ArrowRight" && !els.cardModal.classList.contains("is-open")) setPage(state.page + 1);
-  });
+  document.addEventListener("keydown", handleShortcut);
 }
 
 async function init() {
@@ -518,10 +789,26 @@ async function init() {
   state.data = await response.json();
   state.data.cards.forEach((card) => state.cardsById.set(card.cardId, card));
   loadReviewState();
+  loadUiState();
   renderSelector();
   renderProvenance();
   initEvents();
   setPage(1);
+  window.reviewApp = {
+    state,
+    storageKey,
+    uiStorageKey,
+    calculateProgress,
+    buildResultRows,
+    exportPayload,
+    finalClassification,
+    reviewStatus,
+    setPage,
+    setCardSelection,
+    setPageComplete,
+    setMode,
+    moveFocus,
+  };
 }
 
 init().catch((error) => {

@@ -7,10 +7,12 @@
   <meta name="description" content="Interactive expert review gallery for the Pics-BirdNests Faster R-CNN small-anchor experiment.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260813-review-ux">
 </head>
 <body>
+  <a class="skip-link" href="#gallery">ข้ามไปยังพื้นที่ตรวจ</a>
+
   <header class="site-header">
     <nav class="topbar" aria-label="หน้าหลัก">
       <a href="../">Pics-BirdNests Docs</a>
@@ -18,99 +20,156 @@
     </nav>
     <div class="header-inner">
       <div>
-        <p class="eyebrow">Expert Review Package</p>
-        <h1>Small Anchor 16/32/64/128 Expert Review</h1>
-        <p class="subtitle">ตรวจคู่ภาพซ้าย/ขวาโดยตรงใน browser และ export ผลเป็น CSV/JSON สำหรับ Phase 8</p>
+        <p class="eyebrow">Pics-BirdNests</p>
+        <h1>Expert Review - Small Anchor 16/32/64/128</h1>
+        <p class="subtitle">70 pages · 1,400 cards · Threshold 0.125</p>
       </div>
       <div class="identity-panel" id="identityPanel">Loading experiment identity...</div>
     </div>
   </header>
 
   <main>
+    <section class="review-dashboard" aria-labelledby="progress-title">
+      <div class="progress-primary">
+        <div>
+          <p class="section-kicker">Overall progress</p>
+          <h2 id="progress-title">สถานะการตรวจ</h2>
+        </div>
+        <div class="progress-hero" id="progressHero" aria-live="polite"></div>
+      </div>
+      <div class="progress-bar" aria-hidden="true"><span id="progressBar"></span></div>
+      <div class="progress-counts" id="progressStrip" aria-live="polite"></div>
+      <div class="completion-panel" id="completionPanel" hidden></div>
+    </section>
+
     <section class="section review-first" aria-labelledby="review-title">
       <div>
-        <p class="section-kicker">Review Instructions</p>
-        <h2 id="review-title">ตรวจคู่ภาพก่อนตัดสินผลโมเดล</h2>
+        <p class="section-kicker">Review first</p>
+        <h2 id="review-title">ตรวจภาพก่อน เลือก F/P/U เฉพาะกรณีมีปัญหา</h2>
       </div>
-      <div class="instruction-grid">
-        <p>ดูภาพซ้ายและขวาว่าเป็นภาพคู่เดียวกันก่อน</p>
-        <p>ถ้าผลตรวจถูก ไม่ต้องเลือกอะไร</p>
-        <p>ถ้าโมเดลบอกว่าสกปรกแต่จริง ๆ ไม่สกปรก ให้เลือก F</p>
-        <p>ถ้าภาพซ้ายและขวาไม่ใช่คู่เดียวกัน ให้เลือก P</p>
-        <p>ถ้าไม่แน่ใจ ให้เลือก U</p>
-        <p>เมื่อตรวจครบทุก Card ในหน้าแล้ว ให้กด “ตรวจครบหน้านี้แล้ว”</p>
+      <div class="review-guide">
+        <ol class="review-steps">
+          <li>ตรวจว่าภาพซ้ายและขวาเป็นคู่เดียวกัน</li>
+          <li>ตรวจตำแหน่งที่โมเดลระบุ</li>
+          <li>เลือก F / P / U เฉพาะกรณีที่มีปัญหา</li>
+        </ol>
+        <div class="legend-grid" aria-label="Review classification legend">
+          <div class="legend-item correct"><span>✓</span><strong>ไม่เลือก</strong><small>ถูกต้องเมื่อยืนยันครบหน้า</small></div>
+          <div class="legend-item f"><span>F</span><strong>False Positive</strong><small>โมเดลชี้ผิด</small></div>
+          <div class="legend-item p"><span>P</span><strong>Pairing Error</strong><small>ภาพซ้าย/ขวาไม่ใช่คู่เดียวกัน</small></div>
+          <div class="legend-item u"><span>U</span><strong>ไม่แน่ใจ</strong><small>ตัดสินไม่ได้อย่างมั่นใจ</small></div>
+        </div>
+        <p class="guide-note">ตรวจครบทุก Card ในหน้าแล้วจึงกด “ตรวจครบหน้านี้แล้ว”</p>
       </div>
     </section>
 
-    <section class="section progress-section" aria-labelledby="progress-title">
-      <div class="progress-main">
-        <div>
-          <p class="section-kicker">Progress</p>
-          <h2 id="progress-title">สถานะการตรวจ</h2>
+    <section class="section sticky-reviewbar" aria-label="Review navigation">
+      <div class="toolbar-row">
+        <div class="mode-switch" role="tablist" aria-label="Review mode">
+          <button type="button" id="overviewMode" class="mode-button" role="tab" aria-selected="true">ดูทั้งหน้า</button>
+          <button type="button" id="focusMode" class="mode-button" role="tab" aria-selected="false">ตรวจทีละ Card</button>
         </div>
-        <div class="progress-actions">
-          <button type="button" id="prevIncomplete">ก่อนหน้า</button>
-          <button type="button" id="nextIncomplete">ถัดไป</button>
+        <div class="page-nav">
+          <button type="button" id="prevPage" aria-label="หน้าก่อนหน้า">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <label class="page-picker">
+            <span>หน้า</span>
+            <select id="pageSelect" aria-label="เลือกหน้า"></select>
+          </label>
+          <button type="button" id="nextPage" aria-label="หน้าถัดไป">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <span class="current-page" id="currentPageLabel">1 / 70</span>
         </div>
+        <label class="complete-toggle" id="pageCompleteLabel">
+          <input type="checkbox" id="pageComplete">
+          <span>ตรวจครบหน้านี้แล้ว</span>
+        </label>
+        <button type="button" id="nextIncomplete">หน้าที่ยังไม่ครบ</button>
       </div>
-      <div class="progress-strip" id="progressStrip" aria-live="polite"></div>
-      <div class="export-actions">
-        <button type="button" id="downloadCsv">ดาวน์โหลดผลตรวจ CSV</button>
-        <button type="button" id="downloadJson">ดาวน์โหลดผลตรวจ JSON</button>
-        <button type="button" id="importJson">นำเข้าผลตรวจ JSON</button>
-        <button type="button" class="danger" id="clearReview">ล้างผลตรวจทั้งหมด</button>
-        <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <div class="toolbar-secondary">
+        <button type="button" id="prevIncomplete">ย้อนหน้าที่ยังไม่ครบ</button>
+        <a class="direct-link" id="directLink" href="assets/review-pages/page_001.webp">เปิดภาพหน้านี้</a>
+        <span class="page-status" id="pageMeta"></span>
       </div>
     </section>
 
     <section class="section gallery-section" id="gallery" aria-labelledby="gallery-title">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">Review Gallery</p>
-          <h2 id="gallery-title">คู่ภาพสำหรับตรวจ 70 หน้า / 1,400 cards</h2>
+          <p class="section-kicker">Review workspace</p>
+          <h2 id="gallery-title">พื้นที่ตรวจ 20 cards ต่อหน้า</h2>
         </div>
-        <label class="page-picker">
-          หน้า
-          <select id="pageSelect" aria-label="เลือกหน้า"></select>
+        <label class="auto-advance">
+          <input type="checkbox" id="autoAdvance">
+          <span>เลื่อนไป Card ถัดไปอัตโนมัติหลังเลือก</span>
         </label>
       </div>
 
-      <div class="gallery-controls" aria-label="gallery controls">
-        <button type="button" id="prevPage" aria-label="หน้าก่อนหน้า">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <a class="direct-link" id="directLink" href="assets/review-pages/page_001.webp">เปิดภาพหน้านี้</a>
-        <button type="button" id="nextPage" aria-label="หน้าถัดไป">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-        <label class="complete-toggle">
-          <input type="checkbox" id="pageComplete">
-          <span>ตรวจครบหน้านี้แล้ว</span>
-        </label>
+      <div class="focus-panel" id="focusPanel" hidden>
+        <div class="focus-head">
+          <div>
+            <p class="section-kicker">Focus Review</p>
+            <h2 id="focusTitle">Card</h2>
+            <p id="focusMeta"></p>
+          </div>
+          <div class="focus-actions">
+            <button type="button" id="focusPrev">Previous Card</button>
+            <button type="button" id="focusNext">Next Card</button>
+            <button type="button" id="focusModal">เปิด Modal</button>
+          </div>
+        </div>
+        <div class="focus-crop" id="focusCrop" aria-label="ภาพคู่ซ้ายขวาขนาดใหญ่"></div>
+        <div class="focus-controls" id="focusControls" aria-label="classification controls">
+          <button type="button" data-focus-choice="" class="choice correct">ถูกต้อง <kbd>C</kbd></button>
+          <button type="button" data-focus-choice="F" class="choice f">F - False Positive <kbd>F</kbd></button>
+          <button type="button" data-focus-choice="P" class="choice p">P - Pairing Error <kbd>P</kbd></button>
+          <button type="button" data-focus-choice="U" class="choice u">U - ไม่แน่ใจ <kbd>U</kbd></button>
+        </div>
+        <p class="shortcut-help">Shortcuts: C/0 = ถูกต้อง, F/P/U = เลือกสถานะ, ←/→ = เปลี่ยน Card</p>
       </div>
 
-      <div class="page-meta" id="pageMeta"></div>
-      <div class="review-frame" id="reviewFrame">
-        <img id="reviewImage" src="assets/review-pages/page_001.webp" alt="Review page 1" loading="eager" width="3508" height="2480">
-        <div class="card-layer" id="cardLayer" aria-label="card review controls"></div>
+      <div class="overview-panel" id="overviewPanel">
+        <div class="review-frame" id="reviewFrame">
+          <img id="reviewImage" src="assets/review-pages/page_001.webp" alt="Review page 1" loading="eager" width="3508" height="2480">
+          <div class="card-layer" id="cardLayer" aria-label="card review controls"></div>
+        </div>
       </div>
+
       <div class="thumb-grid" id="thumbGrid" aria-label="รายการหน้า review"></div>
     </section>
 
+    <section class="section export-section" aria-labelledby="export-title">
+      <details open>
+        <summary id="export-title">ผลตรวจ / Export</summary>
+        <div class="export-panel">
+          <div class="export-status" id="exportNotice" aria-live="polite"></div>
+          <div class="export-actions">
+            <button type="button" class="primary-export" id="downloadJson">ดาวน์โหลดผลตรวจ JSON</button>
+            <button type="button" id="downloadCsv">ดาวน์โหลดผลตรวจ CSV</button>
+            <button type="button" id="importJson">นำเข้าผลตรวจ JSON</button>
+            <button type="button" class="danger" id="clearReview">ล้างผลตรวจทั้งหมด</button>
+            <input type="file" id="importFile" accept="application/json,.json" hidden>
+          </div>
+          <p>แนะนำ JSON สำหรับส่งกลับเข้า Phase 8 ส่วน CSV เหมาะสำหรับตรวจดูในตาราง ระหว่างตรวจยัง export backup ได้ แต่ cards ในหน้าที่ยังไม่ complete จะเป็น NOT_REVIEWED</p>
+        </div>
+      </details>
+    </section>
+
     <section class="section compact-facts" aria-labelledby="facts-title">
-      <div>
-        <p class="section-kicker">Experiment Facts</p>
-        <h2 id="facts-title">ข้อมูลอ้างอิงที่คงเดิม</h2>
-      </div>
-      <dl class="fact-grid">
-        <div><dt>Baseline anchors</dt><dd>32 / 64 / 128 / 256 / 512</dd></div>
-        <div><dt>Small anchors</dt><dd>16 / 32 / 64 / 128</dd></div>
-        <div><dt>Threshold</dt><dd>0.125</dd></div>
-        <div><dt>Small Anchor recall</dt><dd>0.7322</dd></div>
-        <div><dt>Small Anchor precision proxy</dt><dd>0.3298</dd></div>
-        <div><dt>Unmatched predictions</dt><dd>1,400</dd></div>
-        <div><dt>Previous human baseline</dt><dd>7.17% human-reviewed precision, not overall accuracy</dd></div>
-      </dl>
+      <details>
+        <summary id="facts-title">Experiment Facts</summary>
+        <dl class="fact-grid">
+          <div><dt>Baseline anchors</dt><dd>32 / 64 / 128 / 256 / 512</dd></div>
+          <div><dt>Small anchors</dt><dd>16 / 32 / 64 / 128</dd></div>
+          <div><dt>Threshold</dt><dd>0.125</dd></div>
+          <div><dt>Small Anchor recall</dt><dd>0.7322</dd></div>
+          <div><dt>Small Anchor precision proxy</dt><dd>0.3298</dd></div>
+          <div><dt>Unmatched predictions</dt><dd>1,400</dd></div>
+          <div><dt>Previous human baseline</dt><dd>7.17% human-reviewed precision, not overall accuracy</dd></div>
+        </dl>
+      </details>
     </section>
 
     <section class="section" aria-labelledby="provenance-title">
@@ -142,6 +201,8 @@
       </div>
     </div>
   </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <footer>
     Pics-BirdNests Prototype - Expert Review. GitHub Pages stores progress only in this browser until CSV/JSON export.
