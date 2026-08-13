@@ -24,10 +24,10 @@
         <h1 id="page-title">ผลการทดลองปรับ Anchor และสถานะการประเมินโดยผู้เชี่ยวชาญ</h1>
         <p class="subtitle">สรุปความคืบหน้าการทดลองปรับ Faster R-CNN anchors สำหรับต้นแบบตรวจจุดสกปรกในภาพรังนก แยกชัดเจนระหว่างผลอัตโนมัติที่ทำเสร็จแล้วกับข้อสรุปสุดท้ายที่ยังต้องรอผู้เชี่ยวชาญตรวจยืนยัน</p>
       </div>
-      <aside class="status-card" aria-label="Current workflow status">
+      <aside class="status-card" aria-label="Current status">
         <span class="status-label">Current status</span>
-        <strong>Phase 7 completed</strong>
-        <p>เตรียม package สำหรับ expert review แล้ว และกำลังรอผลตรวจ Phase 8 เพื่อใช้ตัดสินขั้นสุดท้าย</p>
+        <strong>เตรียมชุดข้อมูลสำหรับผู้เชี่ยวชาญแล้ว</strong>
+        <p>ผลอัตโนมัติของชุด Anchor ใหม่ทำเสร็จแล้ว และอยู่ระหว่างรอผลตรวจยืนยันจากผู้เชี่ยวชาญก่อนสรุปแนวทางใช้งานจริง</p>
       </aside>
     </section>
   </header>
@@ -36,11 +36,11 @@
     <section class="section why-grid" aria-labelledby="why-title">
       <div>
         <p class="section-kicker">Why this experiment was done</p>
-        <h2 id="why-title">ทดลองตามคำสั่งหัวหน้า เพื่อวัดผล anchor ใหม่แบบควบคุม</h2>
+        <h2 id="why-title">ได้รับมอบหมายให้ทดลองปรับ Anchor เพื่อประเมินผลกับจุดสกปรกขนาดเล็ก</h2>
       </div>
       <div class="plain-panel">
-        <p>หัวหน้าให้ทดลองปรับ anchor ของ Faster R-CNN จากชุดเดิมไปเป็นชุดที่เน้นขนาดเล็กมากขึ้น เพื่อดูว่าสามารถตรวจจุดสกปรกขนาดเล็กได้ดีขึ้นหรือไม่ พร้อมลดภาระจาก extra detections ที่ต้องตรวจภายหลัง</p>
-        <p>หน้านี้เป็นรายงานสถานะระหว่างทาง ไม่ใช่ข้อสรุปสุดท้ายของโมเดล</p>
+        <p>ตามที่ได้รับมอบหมาย จึงทดลองปรับ Anchor ของ Faster R-CNN จากชุดเดิมไปเป็นชุดที่เน้นขนาดเล็กมากขึ้น เพื่อประเมินว่าสามารถตรวจจุดสกปรกขนาดเล็กได้ดีขึ้นหรือไม่ และช่วยลดจำนวนผลตรวจส่วนเกินที่ต้องให้ผู้เชี่ยวชาญพิจารณาภายหลัง</p>
+        <p>หน้านี้เป็นสรุปผลเบื้องต้นสำหรับติดตามความคืบหน้า ยังไม่ใช่ข้อสรุปสุดท้ายของโมเดล</p>
       </div>
     </section>
 
@@ -62,7 +62,7 @@
             <b class="removed">256</b>
             <b class="removed">512</b>
           </div>
-          <p>ชุด anchor เดิมสำหรับ baseline ที่มีผล expert review แล้ว</p>
+          <p>ชุด Anchor เดิมสำหรับ baseline ที่มีผลตรวจจากผู้เชี่ยวชาญแล้ว</p>
         </article>
         <article class="compare-card new">
           <span>New experiment</span>
@@ -72,7 +72,7 @@
             <b>64</b>
             <b>128</b>
           </div>
-          <p>ชุดทดลองใหม่ที่ใช้สำหรับ automatic comparison และกำลังรอ expert review</p>
+          <p>ชุดทดลองใหม่ที่ใช้สำหรับ automatic comparison และกำลังรอการตรวจยืนยันจากผู้เชี่ยวชาญ</p>
         </article>
       </div>
     </section>
@@ -81,7 +81,7 @@
       <div class="section-heading">
         <div>
           <p class="section-kicker">Automatic comparison @ threshold 0.125</p>
-          <h2 id="automatic-title">ผลอัตโนมัติชี้ว่าแนวโน้มดีขึ้น แต่ยังไม่ใช่ผลยืนยันจากผู้เชี่ยวชาญ</h2>
+          <h2 id="automatic-title">ผลเบื้องต้นมีแนวโน้มดีขึ้น แต่ยังต้องยืนยันด้วยการตรวจจากผู้เชี่ยวชาญ</h2>
         </div>
         <p class="warning">ผลส่วนนี้เป็นการประเมินอัตโนมัติ ยังไม่ใช่ข้อสรุปสุดท้ายจากผู้เชี่ยวชาญ</p>
       </div>
@@ -168,7 +168,7 @@
           <span class="mini-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"></path><path d="M14 7h6v6"></path></svg>
           </span>
-          <strong>Automatic trend ดีขึ้น</strong>
+          <strong>แนวโน้มจากผลอัตโนมัติดีขึ้น</strong>
           <p>Recall และ automatic precision proxy เพิ่มขึ้น ขณะที่ unmatched predictions ลดลง</p>
         </article>
         <article>
@@ -176,47 +176,26 @@
             <svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
           </span>
           <strong>อาจลดภาระการตรวจ</strong>
-          <p>จำนวน prediction ที่ต้องพิจารณาลดลง 385 รายการ เมื่อเทียบกับ baseline เดิม</p>
+          <p>จำนวนรายการที่ต้องพิจารณาลดลง 385 รายการ เมื่อเทียบกับ baseline เดิม</p>
         </article>
         <article>
           <span class="mini-icon pending" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>
           </span>
-          <strong>Decision ยังไม่ปิด</strong>
-          <p>ต้องรอ expert review ของ Small Anchor ทั้ง 1,400 predictions เพื่อเทียบ human-reviewed precision กับ baseline 7.17%</p>
+          <strong>ยังไม่ควรสรุปผลก่อนการตรวจยืนยัน</strong>
+          <p>ต้องรอผลตรวจของ Small Anchor ทั้ง 1,400 รายการ เพื่อเทียบ human-reviewed precision กับ baseline 7.17%</p>
         </article>
       </div>
-    </section>
-
-    <section class="section" aria-labelledby="workflow-title">
-      <div class="section-heading">
-        <div>
-          <p class="section-kicker">Current workflow status</p>
-          <h2 id="workflow-title">อยู่ที่ประตูตัดสินใจก่อน Phase 8</h2>
-        </div>
-        <p class="section-note">Phase 7 completed; Phase 8 pending external expert input</p>
-      </div>
-      <ol class="timeline">
-        <li class="done"><span>1</span><strong>Freeze baseline</strong></li>
-        <li class="done"><span>2</span><strong>Implement new anchor</strong></li>
-        <li class="done"><span>3</span><strong>Smoke test</strong></li>
-        <li class="done"><span>4</span><strong>Full training</strong></li>
-        <li class="done"><span>5</span><strong>Automatic evaluation</strong></li>
-        <li class="done"><span>6</span><strong>Threshold analysis</strong></li>
-        <li class="done current"><span>7</span><strong>Prepare expert review package</strong></li>
-        <li class="pending"><span>8</span><strong>Await expert review</strong></li>
-        <li class="pending"><span>9</span><strong>Final comparison and recommendation</strong></li>
-      </ol>
     </section>
 
     <section class="section next-grid" aria-labelledby="next-title">
       <div>
         <p class="section-kicker">What happens next</p>
-        <h2 id="next-title">ขั้นตอนถัดไปเพื่อปิดข้อสรุป</h2>
+        <h2 id="next-title">ตรวจยืนยันและสรุปแนวทางปรับปรุงโมเดล</h2>
       </div>
       <ul class="next-list">
-        <li>ส่ง small-anchor review package ให้ผู้เชี่ยวชาญตรวจ</li>
-        <li>รับ structured expert review results กลับมา</li>
+        <li>ส่งชุดข้อมูล Small Anchor ให้ผู้เชี่ยวชาญตรวจยืนยัน</li>
+        <li>รับผลตรวจจากผู้เชี่ยวชาญในรูปแบบ structured results กลับมา</li>
         <li>เทียบ human-reviewed precision ของ Small Anchor กับ baseline 7.17%</li>
         <li>วิเคราะห์สาเหตุของ false positives / false negatives ที่ยังเหลือ</li>
         <li>ตัดสินว่าจะ adopt anchor ใหม่, ปรับ threshold, เพิ่ม hard negatives, หรือคง default anchor</li>
@@ -226,8 +205,8 @@
     <section class="review-callout" aria-labelledby="review-title">
       <div>
         <p class="section-kicker">Supporting add-on</p>
-        <h2 id="review-title">หน้า expert review สำหรับตรวจรายละเอียด</h2>
-        <p>หน้า management summary นี้ยืนได้ด้วยตัวเอง ส่วนลิงก์ด้านล่างเป็นเครื่องมือ add-on สำหรับผู้เชี่ยวชาญตรวจคู่ภาพและ export ผลเป็น CSV/JSON</p>
+        <h2 id="review-title">หน้า Expert Review สำหรับตรวจผลรายรายการ</h2>
+        <p>ลิงก์ด้านล่างใช้สำหรับตรวจคู่ภาพ บันทึกผลการพิจารณา และส่งผลตรวจกลับเข้าสู่ระบบ โดยข้อมูลในหน้าสรุปนี้ยังคงแยกจากผลตรวจรายรายการอย่างชัดเจน</p>
       </div>
       <a class="review-link" href="https://suwaroj95-spec.github.io/Pics-BirdNests/anchor-review-small-16-32-64-128/">
         เปิดหน้า Expert Review
@@ -237,7 +216,7 @@
   </main>
 
   <footer>
-    Pics-BirdNests Prototype — Interim Anchor Experiment Summary. หน้านี้สรุปสถานะก่อนข้อสรุปสุดท้ายจาก expert review.
+    Pics-BirdNests Prototype — Interim Anchor Experiment Summary. หน้านี้สรุปผลเบื้องต้นก่อนข้อสรุปสุดท้ายจากการตรวจโดยผู้เชี่ยวชาญ.
   </footer>
 </body>
 </html>
