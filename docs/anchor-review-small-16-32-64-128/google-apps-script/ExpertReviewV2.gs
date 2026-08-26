@@ -120,6 +120,166 @@ function handleExpertReviewV2Post(payload, options) {
   }
 }
 
+function reviewerV2Rpc(payload) {
+  return reviewerV2Rpc_(payload, {});
+}
+
+function reviewerV2Rpc_(payload, options) {
+  const safeOptions = Object.assign({}, options || {});
+  safeOptions.allowDryRun = false;
+  delete safeOptions.testReviewerIdentity;
+  return erv2ReviewerFacingPayload_(
+    handleExpertReviewV2Post(erv2ReviewerRpcPayload_(payload), safeOptions)
+  );
+}
+
+function erv2ReviewerRpcPayload_(payload) {
+  if (!payload || typeof payload !== "object") return {};
+  const allowed = [
+    "action", "reviewerToken", "accessToken", "caseId", "case_id",
+    "sessionId", "session_id", "decision", "confidence", "comment",
+    "stateJson", "state_json", "clientVersion", "client_version",
+    "baseStateVersion", "base_state_version",
+    "baseStateUpdatedAt", "base_state_updated_at", "startedAt", "started_at",
+  ];
+  const out = {};
+  allowed.forEach(function(key) {
+    if (Object.prototype.hasOwnProperty.call(payload, key)) out[key] = payload[key];
+  });
+  out.dryRun = false;
+  return out;
+}
+
+function erv2ReviewerFacingPayload_(result) {
+  if (!result || result.ok !== true) return erv2ReviewerFacingError_(result);
+  const action = String(result.action || "");
+  const common = {
+    ok: true,
+    action: action,
+  };
+  if (action === "V2_GET_BOOTSTRAP") {
+    return Object.assign(common, {
+      authenticated: true,
+      reviewer: { authenticated: true },
+      assigned_count: Number(result.assigned_count) || 0,
+      completed_count: Number(result.completed_count) || 0,
+      remaining_count: Number(result.remaining_count) || 0,
+      current_case: erv2ReviewerCasePayload_(result.current_case),
+      allowed_decisions: (result.allowed_decisions || []).slice(),
+      allowed_confidence: (result.allowed_confidence || []).slice(),
+      definition_version: String(result.definition_version || ""),
+      session: erv2ReviewerSessionPayload_(result.session),
+    });
+  }
+  if (action === "V2_LOAD_PROGRESS") {
+    return Object.assign(common, {
+      authenticated: true,
+      reviewer: { authenticated: true },
+      assigned_count: Number(result.assigned_count) || 0,
+      completed_count: Number(result.completed_count) || 0,
+      remaining_count: Math.max(0, (Number(result.assigned_count) || 0) - (Number(result.completed_count) || 0)),
+      assignments: erv2ReviewerAssignmentsPayload_(result.assignments || []),
+      session: erv2ReviewerSessionPayload_(result.session),
+    });
+  }
+  if (action === "V2_GET_CASE_ASSET") {
+    return Object.assign(common, {
+      asset: result.asset ? {
+        case_id: String(result.asset.case_id || ""),
+        mime_type: String(result.asset.mime_type || ""),
+        data_base64: String(result.asset.data_base64 || ""),
+      } : null,
+    });
+  }
+  if (action === "V2_SAVE_DRAFT" || action === "V2_SUBMIT_RESPONSE") {
+    return Object.assign(common, {
+      response_status: String(result.response_status || ""),
+      idempotent: Boolean(result.idempotent),
+      session: erv2ReviewerSessionPayload_(result.session),
+    });
+  }
+  return common;
+}
+
+function erv2ReviewerFacingError_(result) {
+  const code = result && result.error && result.error.code ? String(result.error.code) : "INTERNAL_ERROR";
+  return {
+    ok: false,
+    error: {
+      code: code,
+      message: erv2ReviewerFriendlyErrorMessage_(code),
+    },
+  };
+}
+
+function erv2ReviewerAssignmentsPayload_(assignments) {
+  return assignments.map(function(assignment, index) {
+    return {
+      reviewer_position: index + 1,
+      required: Boolean(assignment.required),
+      assignment_status: String(assignment.assignment_status || ""),
+      case: erv2ReviewerCasePayload_(assignment.case),
+      response: erv2ReviewerResponsePayload_(assignment.response),
+    };
+  });
+}
+
+function erv2ReviewerCasePayload_(caseRow) {
+  if (!caseRow) return null;
+  return {
+    case_id: String(caseRow.case_id || ""),
+    definition_version: String(caseRow.definition_version || ""),
+  };
+}
+
+function erv2ReviewerResponsePayload_(response) {
+  if (!response) return null;
+  return {
+    case_id: String(response.case_id || ""),
+    decision: String(response.decision || ""),
+    confidence: String(response.confidence || ""),
+    comment: String(response.comment || ""),
+    response_status: String(response.response_status || ""),
+    last_saved_at: String(response.last_saved_at || ""),
+    submitted_at: String(response.submitted_at || ""),
+    response_version: Number(response.response_version) || 0,
+  };
+}
+
+function erv2ReviewerSessionPayload_(session) {
+  if (!session) return null;
+  return {
+    session_id: String(session.session_id || ""),
+    session_status: String(session.session_status || ""),
+    current_case_id: String(session.current_case_id || ""),
+    assigned_count: Number(session.assigned_count) || 0,
+    completed_count: Number(session.completed_count) || 0,
+    remaining_count: Number(session.remaining_count) || 0,
+    started_at: String(session.started_at || ""),
+    last_saved_at: String(session.last_saved_at || ""),
+    submitted_at: String(session.submitted_at || ""),
+    state_version: Number(session.state_version) || 0,
+    client_version: String(session.client_version || ""),
+    base_state_updated_at: String(session.base_state_updated_at || ""),
+  };
+}
+
+function erv2ReviewerFriendlyErrorMessage_(code) {
+  const messages = {
+    REVIEW_NOT_LAUNCHED: "ระบบประเมินยังไม่เปิดใช้งาน",
+    UNAUTHORIZED_REVIEWER: "รหัสเข้าใช้งานไม่ถูกต้อง",
+    REVIEWER_INACTIVE: "บัญชีผู้ประเมินยังไม่เปิดใช้งาน",
+    CASE_NOT_ASSIGNED: "ไม่สามารถเปิดรายการนี้ได้",
+    STALE_STATE: "ข้อมูลบนเซิร์ฟเวอร์มีการเปลี่ยนแปลง กรุณาโหลดข้อมูลล่าสุด",
+    ASSET_INTEGRITY_MISMATCH: "ไม่สามารถแสดงภาพนี้ได้เนื่องจากการตรวจสอบความถูกต้องของไฟล์ไม่ผ่าน",
+    LOCK_TIMEOUT: "ระบบกำลังบันทึกข้อมูล กรุณาลองอีกครั้ง",
+    RESPONSE_ALREADY_SUBMITTED: "คำตอบนี้ถูกส่งแล้วและไม่สามารถแก้ไขผ่านหน้าประเมินปกติได้",
+    INVALID_DECISION: "กรุณาเลือกคำตอบที่กำหนด",
+    INVALID_CONFIDENCE: "กรุณาเลือกระดับความมั่นใจ",
+  };
+  return messages[code] || "ระบบไม่สามารถดำเนินการได้ กรุณาลองอีกครั้ง";
+}
+
 function erv2Dispatch_(payload, options) {
   const dryRun = Boolean(payload.dryRun && options.allowDryRun);
   const spreadsheet = options.spreadsheet || SpreadsheetApp.openById(ERV2_BACKEND_CONFIG.spreadsheetId);

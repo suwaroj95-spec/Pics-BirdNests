@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Expert Review</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #1e293b;
+      --muted: #475569;
+      --line: #cbd5e1;
+      --accent: #2563eb;
+      --accent-strong: #1d4ed8;
+      --warn: #b45309;
+      --danger: #b91c1c;
+      --ok: #047857;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Tahoma, sans-serif;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      padding: 10px 16px;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      border-color: var(--accent);
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid rgba(37, 99, 235, 0.35);
+      outline-offset: 3px;
+    }
+
+    button:disabled,
+    input:disabled,
+    textarea:disabled {
+      cursor: not-allowed;
+      opacity: 0.62;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px clamp(16px, 4vw, 40px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 3;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .progress {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .progress strong {
+      color: var(--text);
+    }
+
+    main {
+      padding: clamp(16px, 4vw, 40px);
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .center {
+      max-width: 520px;
+      margin: 9vh auto 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: clamp(20px, 4vw, 32px);
+    }
+
+    .center h2 {
+      margin: 0 0 18px;
+      font-size: 28px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input[type="password"],
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+      padding: 12px;
+    }
+
+    textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .main-action {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .main-action:hover:not(:disabled) {
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+    }
+
+    .danger-action {
+      color: var(--danger);
+    }
+
+    .review-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .image-panel,
+    .controls-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .image-toolbar,
+    .form-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .icon-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .image-stage {
+      min-height: 62vh;
+      max-height: 72vh;
+      overflow: auto;
+      display: grid;
+      place-items: center;
+      background: #e2e8f0;
+      padding: 16px;
+    }
+
+    .image-stage img {
+      max-width: 100%;
+      max-height: 68vh;
+      transform-origin: center;
+      border: 1px solid #94a3b8;
+      background: #fff;
+    }
+
+    .image-placeholder {
+      color: var(--muted);
+      text-align: center;
+      max-width: 420px;
+    }
+
+    .controls-panel {
+      padding: 18px;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      background: #f8fafc;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    details ul {
+      padding-left: 24px;
+      margin-bottom: 4px;
+    }
+
+    fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0 0 18px;
+    }
+
+    legend {
+      font-weight: 800;
+      margin-bottom: 10px;
+      padding: 0;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .option:hover {
+      border-color: var(--accent);
+    }
+
+    .option input {
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+    }
+
+    .status {
+      min-height: 28px;
+      color: var(--muted);
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .status.good {
+      color: var(--ok);
+    }
+
+    .status.bad {
+      color: var(--danger);
+    }
+
+    .status.warn {
+      color: var(--warn);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .nav-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    dialog {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      max-width: 520px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    dialog::backdrop {
+      background: rgba(15, 23, 42, 0.42);
+    }
+
+    .dialog-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .readonly-note {
+      display: none;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: #ecfdf5;
+      color: #065f46;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .readonly-note.visible {
+      display: block;
+    }
+
+    @media (max-width: 920px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .review-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .image-stage {
+        min-height: 48vh;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Expert Review</h1>
+        <span id="connectionLabel">Reviewer UI v2</span>
+      </div>
+      <div class="progress" aria-live="polite">
+        <span>Case <strong id="casePosition">0</strong> of <strong id="caseTotal">0</strong></span>
+        <span>Completed <strong id="completedCount">0</strong></span>
+        <span>Remaining <strong id="remainingCount">0</strong></span>
+      </div>
+      <button id="endSessionBtn" class="danger-action" type="button">ออกจากระบบ / End session</button>
+    </header>
+
+    <main>
+      <section id="accessScreen" class="screen active">
+        <div class="center">
+          <h2>เข้าสู่ระบบผู้ประเมิน</h2>
+          <form id="tokenForm" autocomplete="off">
+            <label for="tokenInput">Access token</label>
+            <input id="tokenInput" name="access-token" type="password" autocomplete="off" required>
+            <div class="actions">
+              <button class="main-action" type="submit">เข้าสู่หน้าประเมิน</button>
+            </div>
+            <p id="accessStatus" class="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="loadingScreen" class="screen">
+        <div class="center">
+          <h2>กำลังโหลดข้อมูล</h2>
+          <p class="status">กรุณารอสักครู่</p>
+        </div>
+      </section>
+
+      <section id="notLaunchedScreen" class="screen">
+        <div class="center">
+          <h2>ระบบประเมินยังไม่เปิดใช้งาน</h2>
+          <p>กรุณากลับมาใหม่เมื่อระบบเปิดใช้งาน</p>
+        </div>
+      </section>
+
+      <section id="completeScreen" class="screen">
+        <div class="center">
+          <h2>ประเมินครบแล้ว</h2>
+          <p>ไม่มีรายการที่เหลือในชุดงานนี้</p>
+        </div>
+      </section>
+
+      <section id="errorScreen" class="screen">
+        <div class="center">
+          <h2>ไม่สามารถดำเนินการได้</h2>
+          <p id="errorText"></p>
+          <div class="actions">
+            <button id="retryBtn" class="main-action" type="button">ลองอีกครั้ง</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="reviewScreen" class="screen">
+        <div class="review-layout">
+          <div class="image-panel">
+            <div class="image-toolbar">
+              <strong id="caseLabel">Case</strong>
+              <div class="icon-actions" aria-label="Zoom controls">
+                <button id="zoomOutBtn" type="button" aria-label="Zoom out">-</button>
+                <button id="zoomResetBtn" type="button" aria-label="Reset zoom">100%</button>
+                <button id="zoomInBtn" type="button" aria-label="Zoom in">+</button>
+              </div>
+            </div>
+            <div class="image-stage">
+              <img id="caseImage" alt="Reviewer case image" hidden>
+              <p id="imagePlaceholder" class="image-placeholder">กำลังโหลดภาพสำหรับรายการนี้</p>
+            </div>
+          </div>
+
+          <form id="reviewForm" class="controls-panel">
+            <div id="readonlyNote" class="readonly-note">คำตอบนี้ส่งแล้วและถูกล็อกไว้</div>
+            <details>
+              <summary>คำแนะนำสำหรับการประเมิน</summary>
+              <ul>
+                <li>จุดสกปรกขนาดเล็กมากยังสามารถนับเป็นจุดที่ต้องประเมินได้</li>
+                <li>ขนาดเพียงอย่างเดียวไม่ใช่เหตุผลในการตัดออก</li>
+                <li>จุดขนาดใหญ่หรือรูปร่างไม่สม่ำเสมอให้ตัดสินจากภาพที่เห็น</li>
+                <li>จุดที่จางหรือคอนทราสต์ต่ำยังสามารถนับเป็นจุดที่ต้องประเมินได้</li>
+                <li>ใช้ ไม่แน่ชัด เมื่อไม่มั่นใจจริงๆ</li>
+                <li>ใช้ ไม่สามารถประเมินจากภาพได้ เมื่อคุณภาพภาพทำให้ตัดสินไม่ได้</li>
+                <li>จุดที่อยู่ติดกันภายในวงเครื่องหมายเดิมหนึ่งวงให้ถือว่าเป็นบริเวณเดียวกันเมื่อมีเครื่องหมายนั้นอยู่</li>
+                <li>สำหรับตำแหน่งตัวเลือกที่ไม่มีเครื่องหมายเดิม การไม่มีเครื่องหมายเดิมไม่ใช่หลักฐานว่าตำแหน่งนั้นเป็นลบ</li>
+                <li>ตำแหน่ง Annotation ไม่ตรงกับจุดสกปรก ใช้เฉพาะเมื่อเครื่องหมาย annotation เดิมเลื่อนจนไม่ครอบคลุมจุดสกปรกที่ตั้งใจไว้</li>
+              </ul>
+            </details>
+
+            <fieldset>
+              <legend>คำตอบ</legend>
+              <div id="decisionOptions" class="option-list"></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>ความมั่นใจ</legend>
+              <div id="confidenceOptions" class="option-list"></div>
+            </fieldset>
+
+            <label for="commentInput">ความคิดเห็นเพิ่มเติม (ไม่บังคับ)</label>
+            <textarea id="commentInput" maxlength="1200"></textarea>
+
+            <p id="formStatus" class="status" aria-live="polite"></p>
+
+            <div class="actions">
+              <button id="saveDraftBtn" type="button">บันทึกร่าง</button>
+              <button id="submitBtn" class="main-action" type="button">ยืนยันคำตอบ</button>
+            </div>
+
+            <div class="nav-actions">
+              <button id="previousBtn" type="button">Previous</button>
+              <button id="nextBtn" type="button">Next</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="submitDialog">
+    <p>เมื่อยืนยันแล้ว คำตอบของรายการนี้จะถือเป็นคำตอบที่ส่งแล้ว<br>และไม่สามารถแก้ไขผ่านหน้าประเมินปกติได้</p>
+    <div class="dialog-actions">
+      <button id="cancelSubmitBtn" type="button">กลับไปตรวจ</button>
+      <button id="confirmSubmitBtn" class="main-action" type="button">ยืนยันและส่ง</button>
+    </div>
+  </dialog>
+
+  <script>
+    (function() {
+      "use strict";
+
+      const CLIENT_VERSION = "reviewer-ui-v2-20260826";
+      const TOKEN_KEY = "erv2_access_token";
+      const DECISIONS = [
+        ["CONFIRMED_DIRTY_SPOT", "ยืนยันว่าเป็นจุดสกปรก"],
+        ["NOT_DIRTY_SPOT", "ไม่ใช่จุดสกปรก"],
+        ["AMBIGUOUS", "ไม่แน่ชัด"],
+        ["UNJUDGEABLE", "ไม่สามารถประเมินจากภาพได้"],
+        ["ANNOTATION_LOCALIZATION_ISSUE", "ตำแหน่ง Annotation ไม่ตรงกับจุดสกปรก"],
+      ];
+      const CONFIDENCE = [
+        ["HIGH", "มั่นใจสูง"],
+        ["MEDIUM", "มั่นใจปานกลาง"],
+        ["LOW", "มั่นใจต่ำ"],
+      ];
+      const FRIENDLY_ERRORS = {
+        REVIEW_NOT_LAUNCHED: "ระบบประเมินยังไม่เปิดใช้งาน",
+        UNAUTHORIZED_REVIEWER: "รหัสเข้าใช้งานไม่ถูกต้อง",
+        REVIEWER_INACTIVE: "บัญชีผู้ประเมินยังไม่เปิดใช้งาน",
+        CASE_NOT_ASSIGNED: "ไม่สามารถเปิดรายการนี้ได้",
+        STALE_STATE: "ข้อมูลบนเซิร์ฟเวอร์มีการเปลี่ยนแปลง กรุณาโหลดข้อมูลล่าสุด",
+        ASSET_INTEGRITY_MISMATCH: "ไม่สามารถแสดงภาพนี้ได้เนื่องจากการตรวจสอบความถูกต้องของไฟล์ไม่ผ่าน",
+        LOCK_TIMEOUT: "ระบบกำลังบันทึกข้อมูล กรุณาลองอีกครั้ง",
+        RESPONSE_ALREADY_SUBMITTED: "คำตอบนี้ถูกส่งแล้วและไม่สามารถแก้ไขผ่านหน้าประเมินปกติได้",
+      };
+
+      const state = {
+        token: "",
+        assignments: [],
+        currentIndex: 0,
+        session: null,
+        dirty: false,
+        zoom: 1,
+        saving: false,
+        lastSaved: new Map(),
+      };
+
+      const screens = {
+        access: document.getElementById("accessScreen"),
+        loading: document.getElementById("loadingScreen"),
+        review: document.getElementById("reviewScreen"),
+        error: document.getElementById("errorScreen"),
+        complete: document.getElementById("completeScreen"),
+        notLaunched: document.getElementById("notLaunchedScreen"),
+      };
+      const tokenForm = document.getElementById("tokenForm");
+      const tokenInput = document.getElementById("tokenInput");
+      const accessStatus = document.getElementById("accessStatus");
+      const connectionLabel = document.getElementById("connectionLabel");
+      const endSessionBtn = document.getElementById("endSessionBtn");
+      const retryBtn = document.getElementById("retryBtn");
+      const errorText = document.getElementById("errorText");
+      const casePosition = document.getElementById("casePosition");
+      const caseTotal = document.getElementById("caseTotal");
+      const completedCount = document.getElementById("completedCount");
+      const remainingCount = document.getElementById("remainingCount");
+      const caseLabel = document.getElementById("caseLabel");
+      const caseImage = document.getElementById("caseImage");
+      const imagePlaceholder = document.getElementById("imagePlaceholder");
+      const reviewForm = document.getElementById("reviewForm");
+      const decisionOptions = document.getElementById("decisionOptions");
+      const confidenceOptions = document.getElementById("confidenceOptions");
+      const commentInput = document.getElementById("commentInput");
+      const formStatus = document.getElementById("formStatus");
+      const readonlyNote = document.getElementById("readonlyNote");
+      const saveDraftBtn = document.getElementById("saveDraftBtn");
+      const submitBtn = document.getElementById("submitBtn");
+      const previousBtn = document.getElementById("previousBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const zoomOutBtn = document.getElementById("zoomOutBtn");
+      const zoomResetBtn = document.getElementById("zoomResetBtn");
+      const zoomInBtn = document.getElementById("zoomInBtn");
+      const submitDialog = document.getElementById("submitDialog");
+      const cancelSubmitBtn = document.getElementById("cancelSubmitBtn");
+      const confirmSubmitBtn = document.getElementById("confirmSubmitBtn");
+
+      buildOptions(decisionOptions, "decision", DECISIONS);
+      buildOptions(confidenceOptions, "confidence", CONFIDENCE);
+      bindEvents();
+      restoreSession();
+
+      function buildOptions(container, name, options) {
+        options.forEach(function(item) {
+          const label = document.createElement("label");
+          label.className = "option";
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = name;
+          input.value = item[0];
+          input.required = true;
+          const span = document.createElement("span");
+          span.textContent = item[1];
+          label.appendChild(input);
+          label.appendChild(span);
+          container.appendChild(label);
+        });
+      }
+
+      function bindEvents() {
+        tokenForm.addEventListener("submit", function(event) {
+          event.preventDefault();
+          login(tokenInput.value);
+        });
+        endSessionBtn.addEventListener("click", endSession);
+        retryBtn.addEventListener("click", function() {
+          if (state.token) loadFromServer();
+        });
+        reviewForm.addEventListener("input", function() {
+          state.dirty = true;
+          setStatus("", "");
+        });
+        saveDraftBtn.addEventListener("click", saveDraft);
+        submitBtn.addEventListener("click", openSubmitDialog);
+        cancelSubmitBtn.addEventListener("click", function() {
+          submitDialog.close();
+        });
+        confirmSubmitBtn.addEventListener("click", submitFinal);
+        previousBtn.addEventListener("click", function() {
+          navigateBy(-1);
+        });
+        nextBtn.addEventListener("click", function() {
+          navigateBy(1);
+        });
+        zoomOutBtn.addEventListener("click", function() {
+          setZoom(Math.max(0.5, state.zoom - 0.25));
+        });
+        zoomResetBtn.addEventListener("click", function() {
+          setZoom(1);
+        });
+        zoomInBtn.addEventListener("click", function() {
+          setZoom(Math.min(3, state.zoom + 0.25));
+        });
+        window.addEventListener("beforeunload", function(event) {
+          if (!state.dirty) return;
+          event.preventDefault();
+          event.returnValue = "";
+        });
+      }
+
+      function restoreSession() {
+        const saved = sessionStorage.getItem(TOKEN_KEY) || "";
+        if (!saved) {
+          showScreen("access");
+          return;
+        }
+        state.token = saved;
+        loadFromServer();
+      }
+
+      function login(token) {
+        const normalized = String(token || "").trim();
+        if (!normalized) {
+          setAccessStatus("กรุณากรอกรหัสเข้าใช้งาน", "bad");
+          return;
+        }
+        state.token = normalized;
+        sessionStorage.setItem(TOKEN_KEY, normalized);
+        tokenInput.value = "";
+        loadFromServer();
+      }
+
+      function endSession() {
+        sessionStorage.removeItem(TOKEN_KEY);
+        state.token = "";
+        state.assignments = [];
+        state.session = null;
+        state.dirty = false;
+        releaseImage();
+        showScreen("access");
+      }
+
+      async function loadFromServer() {
+        showScreen("loading");
+        setAccessStatus("", "");
+        const boot = await callServer({ action: "V2_GET_BOOTSTRAP" });
+        if (!boot.ok) {
+          handleError(boot);
+          return;
+        }
+        const progress = await callServer({ action: "V2_LOAD_PROGRESS" });
+        if (!progress.ok) {
+          handleError(progress);
+          return;
+        }
+        state.session = progress.session || boot.session || state.session || makeClientSession();
+        state.assignments = Array.isArray(progress.assignments) ? progress.assignments : [];
+        state.currentIndex = indexForCase((boot.current_case && boot.current_case.case_id) || (state.session && state.session.current_case_id));
+        if (state.currentIndex < 0) state.currentIndex = firstOpenIndex();
+        if (state.currentIndex < 0) {
+          updateProgress();
+          showScreen("complete");
+          return;
+        }
+        connectionLabel.textContent = isPreviewMode() ? "Local preview" : "Reviewer UI v2";
+        renderCurrentCase();
+      }
+
+      function makeClientSession() {
+        return {
+          session_id: "ERV2_BROWSER_" + String(Date.now()),
+          state_version: 0,
+          started_at: new Date().toISOString(),
+        };
+      }
+
+      function indexForCase(caseId) {
+        if (!caseId) return -1;
+        for (let index = 0; index < state.assignments.length; index += 1) {
+          const item = state.assignments[index];
+          if (item.case && item.case.case_id === caseId) return index;
+        }
+        return -1;
+      }
+
+      function firstOpenIndex() {
+        for (let index = 0; index < state.assignments.length; index += 1) {
+          const item = state.assignments[index];
+          if (!isSubmitted(item)) return index;
+        }
+        return state.assignments.length ? 0 : -1;
+      }
+
+      function renderCurrentCase() {
+        const item = currentAssignment();
+        if (!item) {
+          showScreen("complete");
+          return;
+        }
+        showScreen("review");
+        state.dirty = false;
+        state.zoom = 1;
+        updateProgress();
+        caseLabel.textContent = "Case " + String(item.reviewer_position || state.currentIndex + 1);
+        renderResponse(item.response);
+        setFormLocked(isSubmitted(item));
+        loadCurrentAsset(item.case.case_id);
+      }
+
+      function renderResponse(response) {
+        setRadioValue("decision", response && response.decision);
+        setRadioValue("confidence", response && response.confidence);
+        commentInput.value = response && response.comment ? response.comment : "";
+        state.lastSaved.set(currentCaseId(), JSON.stringify(formPayload()));
+        setStatus("", "");
+      }
+
+      async function loadCurrentAsset(caseId) {
+        releaseImage();
+        imagePlaceholder.textContent = "กำลังโหลดภาพสำหรับรายการนี้";
+        const result = await callServer({ action: "V2_GET_CASE_ASSET", caseId: caseId });
+        if (!result.ok) {
+          imagePlaceholder.textContent = friendlyError(result);
+          return;
+        }
+        caseImage.src = "data:" + result.asset.mime_type + ";base64," + result.asset.data_base64;
+        caseImage.hidden = false;
+        imagePlaceholder.textContent = "";
+        setZoom(1);
+      }
+
+      function releaseImage() {
+        caseImage.removeAttribute("src");
+        caseImage.hidden = true;
+        imagePlaceholder.textContent = "";
+      }
+
+      function setZoom(value) {
+        state.zoom = value;
+        caseImage.style.transform = "scale(" + String(value) + ")";
+        zoomResetBtn.textContent = String(Math.round(value * 100)) + "%";
+      }
+
+      function currentAssignment() {
+        return state.assignments[state.currentIndex] || null;
+      }
+
+      function currentCaseId() {
+        const item = currentAssignment();
+        return item && item.case ? item.case.case_id : "";
+      }
+
+      function updateProgress() {
+        const total = state.assignments.length;
+        const completed = state.assignments.filter(isSubmitted).length;
+        casePosition.textContent = total ? String(state.currentIndex + 1) : "0";
+        caseTotal.textContent = String(total);
+        completedCount.textContent = String(completed);
+        remainingCount.textContent = String(Math.max(0, total - completed));
+        previousBtn.disabled = state.currentIndex <= 0;
+        nextBtn.disabled = state.currentIndex >= total - 1;
+      }
+
+      function isSubmitted(item) {
+        return Boolean(item && item.response && item.response.response_status === "SUBMITTED");
+      }
+
+      function setFormLocked(locked) {
+        readonlyNote.classList.toggle("visible", locked);
+        reviewForm.querySelectorAll("input, textarea").forEach(function(control) {
+          control.disabled = locked;
+        });
+        saveDraftBtn.disabled = locked || state.saving;
+        submitBtn.disabled = locked || state.saving;
+      }
+
+      function setRadioValue(name, value) {
+        reviewForm.querySelectorAll("input[name='" + name + "']").forEach(function(input) {
+          input.checked = input.value === value;
+        });
+      }
+
+      function getRadioValue(name) {
+        const selected = reviewForm.querySelector("input[name='" + name + "']:checked");
+        return selected ? selected.value : "";
+      }
+
+      function formPayload() {
+        return {
+          caseId: currentCaseId(),
+          decision: getRadioValue("decision"),
+          confidence: getRadioValue("confidence"),
+          comment: commentInput.value,
+        };
+      }
+
+      function validateRequired() {
+        if (!getRadioValue("decision")) {
+          setStatus("กรุณาเลือกคำตอบ", "bad");
+          return false;
+        }
+        if (!getRadioValue("confidence")) {
+          setStatus("กรุณาเลือกระดับความมั่นใจ", "bad");
+          return false;
+        }
+        return true;
+      }
+
+      async function saveDraft() {
+        if (!validateRequired() || state.saving) return;
+        await persistResponse("V2_SAVE_DRAFT", "บันทึกร่างเรียบร้อยแล้ว");
+      }
+
+      function openSubmitDialog() {
+        if (!validateRequired()) return;
+        submitDialog.showModal();
+      }
+
+      async function submitFinal() {
+        submitDialog.close();
+        if (!validateRequired() || state.saving) return;
+        await persistResponse("V2_SUBMIT_RESPONSE", "ส่งคำตอบเรียบร้อยแล้ว");
+      }
+
+      async function persistResponse(action, successText) {
+        state.saving = true;
+        setFormLocked(isSubmitted(currentAssignment()));
+        setStatus(action === "V2_SAVE_DRAFT" ? "กำลังบันทึกร่าง" : "กำลังส่งคำตอบ", "warn");
+        const payload = Object.assign({
+          action: action,
+          sessionId: state.session && state.session.session_id,
+          clientVersion: CLIENT_VERSION,
+          startedAt: state.session && state.session.started_at,
+          stateJson: { current_case_id: currentCaseId() },
+        }, formPayload());
+        if (state.session && Number(state.session.state_version) > 0) {
+          payload.baseStateVersion = state.session.state_version;
+          payload.baseStateUpdatedAt = state.session.last_saved_at || "";
+        }
+        const result = await callServer(payload);
+        state.saving = false;
+        if (!result.ok) {
+          setFormLocked(isSubmitted(currentAssignment()));
+          setStatus(friendlyError(result), "bad");
+          return;
+        }
+        state.session = result.session || state.session;
+        const item = currentAssignment();
+        item.response = {
+          case_id: currentCaseId(),
+          decision: payload.decision,
+          confidence: payload.confidence,
+          comment: payload.comment,
+          response_status: result.response_status,
+          last_saved_at: state.session && state.session.last_saved_at,
+          submitted_at: state.session && state.session.submitted_at,
+        };
+        state.lastSaved.set(currentCaseId(), JSON.stringify(formPayload()));
+        state.dirty = false;
+        setFormLocked(isSubmitted(item));
+        updateProgress();
+        setStatus(successText, "good");
+      }
+
+      function navigateBy(delta) {
+        if (!canLeaveCase()) return;
+        const next = state.currentIndex + delta;
+        if (next < 0 || next >= state.assignments.length) return;
+        state.currentIndex = next;
+        renderCurrentCase();
+      }
+
+      function canLeaveCase() {
+        if (!state.dirty) return true;
+        const saved = state.lastSaved.get(currentCaseId()) || "";
+        if (saved === JSON.stringify(formPayload())) {
+          state.dirty = false;
+          return true;
+        }
+        return window.confirm("มีการแก้ไขที่ยังไม่ได้บันทึก ต้องการออกจากรายการนี้หรือไม่");
+      }
+
+      async function callServer(payload) {
+        const outbound = Object.assign({}, payload, {
+          reviewerToken: state.token,
+        });
+        if (isPreviewMode()) return mockRpc(outbound);
+        return new Promise(function(resolve) {
+          google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(function() {
+              resolve({ ok: false, error: { code: "INTERNAL_ERROR" } });
+            })
+            .reviewerV2Rpc(outbound);
+        });
+      }
+
+      function handleError(result) {
+        const code = result && result.error && result.error.code;
+        if (code === "REVIEW_NOT_LAUNCHED") {
+          showScreen("notLaunched");
+          return;
+        }
+        if (code === "UNAUTHORIZED_REVIEWER") {
+          sessionStorage.removeItem(TOKEN_KEY);
+          state.token = "";
+          showScreen("access");
+          setAccessStatus(friendlyError(result), "bad");
+          return;
+        }
+        errorText.textContent = friendlyError(result);
+        showScreen("error");
+      }
+
+      function friendlyError(result) {
+        const code = result && result.error && result.error.code;
+        return FRIENDLY_ERRORS[code] || "ระบบไม่สามารถดำเนินการได้ กรุณาลองอีกครั้ง";
+      }
+
+      function setAccessStatus(text, tone) {
+        accessStatus.textContent = text;
+        accessStatus.className = "status " + (tone || "");
+      }
+
+      function setStatus(text, tone) {
+        formStatus.textContent = text;
+        formStatus.className = "status " + (tone || "");
+      }
+
+      function showScreen(name) {
+        Object.keys(screens).forEach(function(key) {
+          screens[key].classList.toggle("active", key === name);
+        });
+      }
+
+      function isPreviewMode() {
+        return typeof google === "undefined" || !google.script || !google.script.run;
+      }
+
+      async function mockRpc(payload) {
+        await new Promise(function(resolve) {
+          window.setTimeout(resolve, 120);
+        });
+        if (!payload.reviewerToken || payload.reviewerToken === "closed") {
+          return { ok: false, error: { code: "UNAUTHORIZED_REVIEWER" } };
+        }
+        if (payload.action === "V2_GET_BOOTSTRAP") {
+          return {
+            ok: true,
+            action: "V2_GET_BOOTSTRAP",
+            authenticated: true,
+            assigned_count: 3,
+            completed_count: 1,
+            remaining_count: 2,
+            current_case: { case_id: "DEMO_CASE_002", definition_version: "v1.0" },
+            allowed_decisions: DECISIONS.map(function(item) { return item[0]; }),
+            allowed_confidence: CONFIDENCE.map(function(item) { return item[0]; }),
+            definition_version: "v1.0",
+            session: { session_id: "DEMO_SESSION", state_version: 1, current_case_id: "DEMO_CASE_002", started_at: "2026-08-26T00:00:00.000Z" },
+          };
+        }
+        if (payload.action === "V2_LOAD_PROGRESS") {
+          return {
+            ok: true,
+            action: "V2_LOAD_PROGRESS",
+            assigned_count: 3,
+            completed_count: 1,
+            remaining_count: 2,
+            assignments: [
+              demoAssignment(1, "DEMO_CASE_001", "SUBMITTED"),
+              demoAssignment(2, "DEMO_CASE_002", "DRAFT"),
+              demoAssignment(3, "DEMO_CASE_003", ""),
+            ],
+            session: { session_id: "DEMO_SESSION", state_version: 1, current_case_id: "DEMO_CASE_002", started_at: "2026-08-26T00:00:00.000Z" },
+          };
+        }
+        if (payload.action === "V2_GET_CASE_ASSET") {
+          return { ok: true, action: "V2_GET_CASE_ASSET", asset: { case_id: payload.caseId, mime_type: "image/svg+xml", data_base64: demoImageBase64(payload.caseId) } };
+        }
+        if (payload.action === "V2_SAVE_DRAFT" || payload.action === "V2_SUBMIT_RESPONSE") {
+          return {
+            ok: true,
+            action: payload.action,
+            response_status: payload.action === "V2_SUBMIT_RESPONSE" ? "SUBMITTED" : "DRAFT",
+            idempotent: false,
+            session: { session_id: "DEMO_SESSION", state_version: 2, current_case_id: payload.caseId, started_at: "2026-08-26T00:00:00.000Z", last_saved_at: new Date().toISOString() },
+          };
+        }
+        return { ok: false, error: { code: "INTERNAL_ERROR" } };
+      }
+
+      function demoAssignment(position, caseId, status) {
+        return {
+          reviewer_position: position,
+          required: true,
+          assignment_status: status || "PENDING",
+          case: { case_id: caseId, definition_version: "v1.0" },
+          response: status ? {
+            case_id: caseId,
+            decision: status === "SUBMITTED" ? "CONFIRMED_DIRTY_SPOT" : "AMBIGUOUS",
+            confidence: status === "SUBMITTED" ? "HIGH" : "LOW",
+            comment: "",
+            response_status: status,
+          } : null,
+        };
+      }
+
+      function demoImageBase64(caseId) {
+        const text = String(caseId || "DEMO");
+        const svg = [
+          "<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='720' viewBox='0 0 1000 720'>",
+          "<rect width='1000' height='720' fill='#f8fafc'/>",
+          "<rect x='110' y='80' width='780' height='560' fill='#fff' stroke='#94a3b8' stroke-width='4'/>",
+          "<circle cx='505' cy='365' r='54' fill='none' stroke='#2563eb' stroke-width='8'/>",
+          "<text x='500' y='680' text-anchor='middle' font-family='Arial' font-size='34' fill='#475569'>",
+          escapeSvg(text),
+          "</text></svg>",
+        ].join("");
+        return btoa(unescape(encodeURIComponent(svg)));
+      }
+
+      function escapeSvg(value) {
+        return String(value).replace(/[&<>"']/g, function(char) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "\"": "&quot;",
+            "'": "&apos;",
+          }[char];
+        });
+      }
+    }());
+  </script>
+</body>
+</html>

@@ -256,6 +256,7 @@ this.__erv2 = {
   ERV2_HEADERS,
   ERV2_FORBIDDEN_REVIEWER_FIELDS,
   handleExpertReviewV2Post,
+  reviewerV2Rpc_,
   erv2VerifyDriveAssetInventory_,
   erv2VerifyDriveAssetHashesBatch_,
   resetExpertReviewV2DriveAssetVerification,
@@ -271,7 +272,7 @@ function row(header, values) {
   return Object.assign(Object.fromEntries(header.map((key) => [key, ""])), values);
 }
 
-function buildSpreadsheet(active = true) {
+function buildSpreadsheet(active = true, launched = false) {
   const c = loadBackend();
   const casesHeader = c.ERV2_HEADERS.ReviewCases;
   const assignmentsHeader = c.ERV2_HEADERS.ReviewAssignments;
@@ -347,8 +348,8 @@ function buildSpreadsheet(active = true) {
     ["reviewer_setup_status", "REVIEWER_SETUP_FROZEN_NOT_LAUNCHED"],
     ["review_mode", "PRIMARY_PLUS_RELIABILITY_SUBSET"],
     ["reviewer_setup_freeze_sha256", "eaf492d93f0fea9f67de884bf646af5db08e6fb4ee13fc9018757c191f494dbf"],
-    ["review_start_enabled", "FALSE"],
-    ["launch_gate_status", "BLOCKED"],
+    ["review_start_enabled", launched ? "TRUE" : "FALSE"],
+    ["launch_gate_status", launched ? "REVIEW_LAUNCHED" : "BLOCKED"],
   ];
 
   const spreadsheet = new FakeSpreadsheet({
@@ -391,6 +392,14 @@ function call(env, reviewerId, payload, extraOptions = {}) {
       spreadsheet: env.spreadsheet,
       testReviewerIdentity: { reviewer_id: reviewerId },
     }, extraOptions),
+  );
+}
+
+function setReviewerToken(env, token, reviewerId) {
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+  env.c.__scriptProperties.setProperty(
+    "ERV2_REVIEWER_TOKEN_MAP_JSON",
+    JSON.stringify(Object.fromEntries([[tokenHash, { reviewer_id: reviewerId }]])),
   );
 }
 
@@ -517,6 +526,58 @@ function main() {
   );
   assertError(productionBlocked, "REVIEW_NOT_LAUNCHED");
 
+  env = buildSpreadsheet(true, false);
+  setReviewerToken(env, "review-token-a", "REV_A");
+  const rpcDryRunBlocked = env.c.reviewerV2Rpc_(
+    { action: "V2_GET_BOOTSTRAP", reviewerToken: "review-token-a", dryRun: true },
+    { spreadsheet: env.spreadsheet },
+  );
+  assertError(rpcDryRunBlocked, "REVIEW_NOT_LAUNCHED");
+
+  env = buildSpreadsheet(true, true);
+  setReviewerToken(env, "review-token-a", "REV_A");
+  const rpcBoot = assertOk(env.c.reviewerV2Rpc_(
+    {
+      action: "V2_GET_BOOTSTRAP",
+      reviewerToken: "review-token-a",
+      reviewer_id: "REV_B",
+      reviewer_role: "RELIABILITY",
+      assignment_group: "REV_B",
+    },
+    { spreadsheet: env.spreadsheet },
+  ));
+  assert.strictEqual(rpcBoot.assigned_count, 1169, "reviewerV2Rpc ignores browser-provided reviewer identity");
+  assert.strictEqual(rpcBoot.reviewer.authenticated, true, "reviewerV2Rpc exposes neutral reviewer identity");
+  const rpcLoad = assertOk(env.c.reviewerV2Rpc_(
+    { action: "V2_LOAD_PROGRESS", reviewerToken: "review-token-a" },
+    { spreadsheet: env.spreadsheet },
+  ));
+  assert.strictEqual(rpcLoad.assignments[0].reviewer_position, 1, "reviewerV2Rpc exposes reviewer-local position 1");
+  assert.strictEqual(rpcLoad.assignments[1].reviewer_position, 2, "reviewerV2Rpc exposes reviewer-local position 2");
+  assert.strictEqual(rpcLoad.assignments[0].case.case_id, "CASE_0001", "reviewerV2Rpc keeps case_id for asset request");
+  assert.strictEqual(rpcLoad.assignments[0].case.definition_version, "annotation_definition_v1", "reviewerV2Rpc keeps definition version");
+  const rpcJson = JSON.stringify({ boot: rpcBoot, load: rpcLoad });
+  for (const forbidden of [
+    "reviewer_id",
+    "reviewer_role",
+    "assignment_group",
+    "review_order",
+    "batch_id",
+    "case_index",
+    "batch_position",
+    "assigned_reviewer_count",
+    "response_count",
+    "asset_sha256",
+    "review_asset_ref",
+    "ResearcherCaseMeta",
+    "REV_A",
+    "REV_B",
+    "PRIMARY",
+    "RELIABILITY",
+  ]) {
+    assert(!rpcJson.includes(forbidden), `reviewerV2Rpc browser payload does not expose ${forbidden}`);
+  }
+
   env = buildSpreadsheet(true);
   assertError(call(env, "REV_A", {
     action: "V2_GET_CASE_ASSET",
@@ -605,6 +666,23 @@ function main() {
   }));
   assert.strictEqual(bAsset.asset.case_id, "CASE_0002", "L. REV_B can access B-assigned mocked case");
 
+  env = buildSpreadsheet(true, true);
+  setReviewerToken(env, "review-token-a", "REV_A");
+  const rpcAsset = assertOk(env.c.reviewerV2Rpc_(
+    { action: "V2_GET_CASE_ASSET", reviewerToken: "review-token-a", caseId: "CASE_0001" },
+    {
+      spreadsheet: env.spreadsheet,
+      assetFolderId: "test-folder-id",
+      assetFolder: goodFolder,
+    },
+  ));
+  const rpcAssetJson = JSON.stringify(rpcAsset);
+  assert.strictEqual(rpcAsset.asset.data_base64, Buffer.from("asset-1").toString("base64"));
+  for (const forbidden of ["drive_file_id", "drive_folder_id", "drive_url", "webViewLink", "asset_sha256", "review_asset_ref", "file_id"]) {
+    assert(!rpcAssetJson.includes(forbidden), `reviewerV2Rpc asset response does not expose ${forbidden}`);
+  }
+
+  env = buildSpreadsheet(true);
   const productionAssetBlocked = env.c.handleExpertReviewV2Post(
     { action: "V2_GET_CASE_ASSET", caseId: "CASE_0001" },
     {

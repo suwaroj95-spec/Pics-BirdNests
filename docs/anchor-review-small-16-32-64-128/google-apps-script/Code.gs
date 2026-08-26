@@ -74,7 +74,13 @@ const FINAL_CLASSIFICATIONS = {
   NOT_REVIEWED: true,
 };
 
-function doGet() {
+function doGet(event) {
+  const params = event && event.parameter ? event.parameter : {};
+  if (String(params.ui || "") === "v2") {
+    return HtmlService
+      .createHtmlOutputFromFile("ReviewerUIV2")
+      .setTitle("Expert Review");
+  }
   return jsonResponse({
     ok: true,
     service: "Pics-BirdNests Expert Review Google Sheets bridge",
