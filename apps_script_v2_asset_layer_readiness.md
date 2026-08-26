@@ -49,11 +49,27 @@ The batch verifier uses conservative batches of 75 cases per invocation. It pers
 - `ERV2_ASSET_VERIFY_CURSOR`
 - `ERV2_ASSET_VERIFY_PASS_COUNT`
 - `ERV2_ASSET_VERIFY_FAIL_COUNT`
+- `ERV2_ASSET_VERIFY_MISMATCH_COUNT`
+- `ERV2_ASSET_VERIFY_MISSING_COUNT`
+- `ERV2_ASSET_VERIFY_DUPLICATE_COUNT`
+- `ERV2_ASSET_VERIFY_INVALID_MIME_COUNT`
+- `ERV2_ASSET_VERIFY_INTERNAL_ERROR_COUNT`
+- `ERV2_ASSET_VERIFY_FOLDER_ID`
 - `ERV2_ASSET_VERIFY_STARTED_AT`
 
 It does not store a full 1169-file map in Script Properties.
 
 Each checked case derives `case_id + ".jpg"`, requires exactly one Drive match, hashes the blob bytes with SHA-256, and compares against `ReviewCases.asset_sha256`.
+
+The hash batch verifier is protected by Script Lock across cursor/counter reads, batch processing, and cursor/counter writes. Verification progress is bound to the first configured folder ID via `ERV2_ASSET_VERIFY_FOLDER_ID`; a later folder change fails closed with `ASSET_VERIFICATION_STATE_MISMATCH` until the admin reset function clears verifier state.
+
+Final states are explicit:
+
+- `DRIVE_ASSET_FULL_SHA256_VERIFIED` when all 1169 files are processed and cumulative failures are zero.
+- `DRIVE_ASSET_FULL_SHA256_FAILED` when all 1169 files are processed and any cumulative failure exists.
+- `DRIVE_ASSET_SHA256_BATCH_IN_PROGRESS` while cases remain.
+
+Failure category fields are cumulative. Per-invocation diagnostic failures are returned as `batch_failures`.
 
 ## Asset-Serving Flow
 
@@ -132,7 +148,7 @@ python -m unittest tests.test_apps_script_v2_backend tests.test_expert_review_v2
 Result:
 
 ```text
-Ran 14 tests in 0.168s
+Ran 15 tests
 OK
 ```
 
@@ -160,6 +176,11 @@ Covered checks include:
 - blocked launch state prevents production asset action
 - inventory verifier detects missing/extra/duplicate
 - batch hash verification is resumable
+- cumulative hash failure counters survive later batches
+- final success and failure states are unambiguous
+- hash batch progress is Script Lock protected
+- folder identity changes during verification fail closed
+- reset clears cursor, counters, timestamps, and folder identity
 - legacy v1 behavior remains unchanged
 - existing v2 backend tests continue passing
 
@@ -222,7 +243,7 @@ DEPLOYED: NO
 TESTS:
 
 - `python -m unittest tests.test_apps_script_v2_backend tests.test_expert_review_v2_import_script`
-- PASS, 14 tests
+- PASS, 15 tests
 
 REMAINING_BLOCKERS:
 

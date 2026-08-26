@@ -91,6 +91,10 @@ function doPost(event) {
   lock.waitLock(30000);
   try {
     const payload = parsePayload(event);
+    if (isExpertReviewV2Action_(payload.action)) {
+      return jsonResponse(handleExpertReviewV2Post(payload, { lockAlreadyHeld: true }));
+    }
+
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     const config = readConfigMap(spreadsheet);
 

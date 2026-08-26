@@ -22,6 +22,9 @@ class AppsScriptV2BackendTests(unittest.TestCase):
         self.assertIn("function handleExpertReviewV2Post", self.source)
         self.assertIn("function isExpertReviewV2Action_", self.source)
         self.assertIn("handleExpertReviewV2Post(payload, { lockAlreadyHeld: true })", self.legacy)
+        handoff_index = self.legacy.index("handleExpertReviewV2Post(payload, { lockAlreadyHeld: true })")
+        legacy_validation_index = self.legacy.index("validatePayloadShape(payload)")
+        self.assertLess(handoff_index, legacy_validation_index)
         for action in ("LOAD_PROGRESS", "SAVE_PROGRESS", "SUBMIT_FINAL"):
             self.assertIn(f'payload.action === "{action}"', self.legacy)
 
@@ -93,6 +96,25 @@ class AppsScriptV2BackendTests(unittest.TestCase):
         safe_payload_body = self.source.split("function erv2SafeCasePayload_")[1].split("function erv2OwnCaseResponsePayload_")[0]
         self.assertNotIn("asset_sha256:", safe_payload_body)
         self.assertNotIn("review_asset_ref:", safe_payload_body)
+
+    def test_drive_hash_batch_has_unambiguous_final_state_and_locking(self) -> None:
+        batch_body = self.source.split("function erv2VerifyDriveAssetHashesBatch_")[1].split("function erv2GetCaseAsset_")[0]
+        self.assertIn("erv2WithScriptLock_", batch_body)
+        self.assertIn("DRIVE_ASSET_FULL_SHA256_VERIFIED", batch_body)
+        self.assertIn("DRIVE_ASSET_FULL_SHA256_FAILED", batch_body)
+        self.assertIn("DRIVE_ASSET_SHA256_BATCH_IN_PROGRESS", batch_body)
+        self.assertIn("batch_failures", batch_body)
+        self.assertNotIn("failures: failures", batch_body)
+        for value in (
+            "ERV2_ASSET_VERIFY_MISMATCH_COUNT",
+            "ERV2_ASSET_VERIFY_MISSING_COUNT",
+            "ERV2_ASSET_VERIFY_DUPLICATE_COUNT",
+            "ERV2_ASSET_VERIFY_INVALID_MIME_COUNT",
+            "ERV2_ASSET_VERIFY_INTERNAL_ERROR_COUNT",
+            "ERV2_ASSET_VERIFY_FOLDER_ID",
+            "ASSET_VERIFICATION_STATE_MISMATCH",
+        ):
+            self.assertIn(value, self.source)
 
 
 if __name__ == "__main__":

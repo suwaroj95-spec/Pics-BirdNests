@@ -198,6 +198,8 @@ class FakeProperties {
 
 function loadBackend() {
   const code = fs.readFileSync(SCRIPT, "utf8");
+  const lockStats = { waitLock: 0, releaseLock: 0 };
+  const scriptProperties = new FakeProperties();
   const context = {
     console,
     Date,
@@ -208,6 +210,25 @@ function loadBackend() {
     Set,
     String,
     Boolean,
+    __lockStats: lockStats,
+    __scriptProperties: scriptProperties,
+    LockService: {
+      getScriptLock() {
+        return {
+          waitLock() {
+            lockStats.waitLock += 1;
+          },
+          releaseLock() {
+            lockStats.releaseLock += 1;
+          },
+        };
+      },
+    },
+    PropertiesService: {
+      getScriptProperties() {
+        return scriptProperties;
+      },
+    },
     Utilities: {
       DigestAlgorithm: { SHA_256: "SHA_256" },
       computeDigest(_algorithm, value) {
@@ -230,6 +251,8 @@ function loadBackend() {
   vm.createContext(context);
   vm.runInContext(`${code}
 this.__erv2 = {
+  __lockStats,
+  __scriptProperties,
   ERV2_HEADERS,
   ERV2_FORBIDDEN_REVIEWER_FIELDS,
   handleExpertReviewV2Post,
@@ -239,6 +262,8 @@ this.__erv2 = {
   erv2ReadRows_,
   erv2SafeCasePayload_
 };`, context, { filename: SCRIPT });
+  context.__erv2.__lockStats = lockStats;
+  context.__erv2.__scriptProperties = scriptProperties;
   return context.__erv2;
 }
 
@@ -602,6 +627,7 @@ function main() {
   assert.strictEqual(badInventory.duplicates, 1);
 
   const props = new FakeProperties();
+  const lockStart = env.c.__lockStats.waitLock;
   const batch1 = env.c.erv2VerifyDriveAssetHashesBatch_({
     spreadsheet: env.spreadsheet,
     assetFolderId: "test-folder-id",
@@ -610,6 +636,8 @@ function main() {
     batchSize: 10,
   });
   assert.strictEqual(batch1.cursor, 10, "T. first hash batch advances cursor");
+  assert.strictEqual(batch1.status, "DRIVE_ASSET_SHA256_BATCH_IN_PROGRESS");
+  assert(env.c.__lockStats.waitLock > lockStart, "11. hash batch uses Script Lock");
   const batch2 = env.c.erv2VerifyDriveAssetHashesBatch_({
     spreadsheet: env.spreadsheet,
     assetFolderId: "test-folder-id",
@@ -618,6 +646,106 @@ function main() {
     batchSize: 10,
   });
   assert.strictEqual(batch2.cursor, 20, "T. second hash batch resumes cursor");
+
+  const mismatchProps = new FakeProperties();
+  const mismatchBatch1 = env.c.erv2VerifyDriveAssetHashesBatch_({
+    spreadsheet: env.spreadsheet,
+    assetFolderId: "test-folder-id",
+    assetFolder: buildDriveFolder({ hashMismatch: ["CASE_0001"] }),
+    properties: mismatchProps,
+    batchSize: 1,
+  });
+  assert.strictEqual(mismatchBatch1.mismatches, 1, "4/9. first batch records cumulative mismatch");
+  assert.strictEqual(mismatchBatch1.failed, 1);
+  assert.strictEqual(mismatchBatch1.batch_failures.length, 1);
+  const mismatchFinal = env.c.erv2VerifyDriveAssetHashesBatch_({
+    spreadsheet: env.spreadsheet,
+    assetFolderId: "test-folder-id",
+    assetFolder: goodFolder,
+    properties: mismatchProps,
+    batchSize: 2000,
+  });
+  assert.strictEqual(mismatchFinal.status, "DRIVE_ASSET_FULL_SHA256_FAILED", "6. earlier failure survives final status");
+  assert.strictEqual(mismatchFinal.remaining, 0, "8. final remaining is zero");
+  assert.strictEqual(mismatchFinal.mismatches, 1, "5/9. cumulative mismatch count preserved");
+  assert.strictEqual(mismatchFinal.failed, 1);
+  assert.strictEqual(mismatchFinal.batch_failures.length, 0, "batch failures are local to invocation");
+
+  const successFinal = env.c.erv2VerifyDriveAssetHashesBatch_({
+    spreadsheet: env.spreadsheet,
+    assetFolderId: "success-folder-id",
+    assetFolder: goodFolder,
+    properties: new FakeProperties(),
+    batchSize: 2000,
+  });
+  assert.strictEqual(successFinal.status, "DRIVE_ASSET_FULL_SHA256_VERIFIED", "7. successful final completion is verified");
+  assert.strictEqual(successFinal.remaining, 0);
+  assert.strictEqual(successFinal.failed, 0);
+
+  const categoryProps = new FakeProperties();
+  env.c.erv2VerifyDriveAssetHashesBatch_({
+    spreadsheet: env.spreadsheet,
+    assetFolderId: "category-folder-id",
+    assetFolder: buildDriveFolder({
+      hashMismatch: ["CASE_0001"],
+      missing: ["CASE_0002"],
+      duplicates: ["CASE_0003"],
+      invalidMime: ["CASE_0004"],
+    }),
+    properties: categoryProps,
+    batchSize: 4,
+  });
+  const categoryFinal = env.c.erv2VerifyDriveAssetHashesBatch_({
+    spreadsheet: env.spreadsheet,
+    assetFolderId: "category-folder-id",
+    assetFolder: goodFolder,
+    properties: categoryProps,
+    batchSize: 2000,
+  });
+  assert.strictEqual(categoryFinal.mismatches, 1, "9. cumulative mismatch counter");
+  assert.strictEqual(categoryFinal.missing, 1, "9. cumulative missing counter");
+  assert.strictEqual(categoryFinal.duplicates, 1, "9. cumulative duplicate counter");
+  assert.strictEqual(categoryFinal.invalid_mime, 1, "9. cumulative MIME counter");
+
+  const changedFolder = env.c.erv2VerifyDriveAssetHashesBatch_({
+    spreadsheet: env.spreadsheet,
+    assetFolderId: "different-folder-id",
+    assetFolder: goodFolder,
+    properties: props,
+    batchSize: 10,
+  });
+  assertError(changedFolder, "ASSET_VERIFICATION_STATE_MISMATCH");
+
+  const resetProps = env.c.__scriptProperties;
+  for (const key of [
+    "ERV2_ASSET_VERIFY_CURSOR",
+    "ERV2_ASSET_VERIFY_PASS_COUNT",
+    "ERV2_ASSET_VERIFY_FAIL_COUNT",
+    "ERV2_ASSET_VERIFY_MISMATCH_COUNT",
+    "ERV2_ASSET_VERIFY_MISSING_COUNT",
+    "ERV2_ASSET_VERIFY_DUPLICATE_COUNT",
+    "ERV2_ASSET_VERIFY_INVALID_MIME_COUNT",
+    "ERV2_ASSET_VERIFY_INTERNAL_ERROR_COUNT",
+    "ERV2_ASSET_VERIFY_FOLDER_ID",
+    "ERV2_ASSET_VERIFY_STARTED_AT",
+  ]) {
+    resetProps.setProperty(key, "x");
+  }
+  assertOk(env.c.resetExpertReviewV2DriveAssetVerification());
+  for (const key of [
+    "ERV2_ASSET_VERIFY_CURSOR",
+    "ERV2_ASSET_VERIFY_PASS_COUNT",
+    "ERV2_ASSET_VERIFY_FAIL_COUNT",
+    "ERV2_ASSET_VERIFY_MISMATCH_COUNT",
+    "ERV2_ASSET_VERIFY_MISSING_COUNT",
+    "ERV2_ASSET_VERIFY_DUPLICATE_COUNT",
+    "ERV2_ASSET_VERIFY_INVALID_MIME_COUNT",
+    "ERV2_ASSET_VERIFY_INTERNAL_ERROR_COUNT",
+    "ERV2_ASSET_VERIFY_FOLDER_ID",
+    "ERV2_ASSET_VERIFY_STARTED_AT",
+  ]) {
+    assert.strictEqual(resetProps.getProperty(key), "", `10. reset clears ${key}`);
+  }
 
   const legacyCode = fs.readFileSync(path.join(ROOT, "docs", "anchor-review-small-16-32-64-128", "google-apps-script", "Code.gs"), "utf8");
   assert(legacyCode.includes('payload.action === "LOAD_PROGRESS"'), "O. legacy LOAD_PROGRESS route remains");

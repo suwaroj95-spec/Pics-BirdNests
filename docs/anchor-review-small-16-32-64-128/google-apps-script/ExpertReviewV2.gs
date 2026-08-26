@@ -90,6 +90,12 @@ const ERV2_ASSET_VERIFY_PROPERTIES = Object.freeze({
   cursor: "ERV2_ASSET_VERIFY_CURSOR",
   passCount: "ERV2_ASSET_VERIFY_PASS_COUNT",
   failCount: "ERV2_ASSET_VERIFY_FAIL_COUNT",
+  mismatchCount: "ERV2_ASSET_VERIFY_MISMATCH_COUNT",
+  missingCount: "ERV2_ASSET_VERIFY_MISSING_COUNT",
+  duplicateCount: "ERV2_ASSET_VERIFY_DUPLICATE_COUNT",
+  invalidMimeCount: "ERV2_ASSET_VERIFY_INVALID_MIME_COUNT",
+  internalErrorCount: "ERV2_ASSET_VERIFY_INTERNAL_ERROR_COUNT",
+  folderId: "ERV2_ASSET_VERIFY_FOLDER_ID",
   startedAt: "ERV2_ASSET_VERIFY_STARTED_AT",
 });
 
@@ -214,54 +220,65 @@ function erv2VerifyDriveAssetInventory_(options) {
 
 function erv2VerifyDriveAssetHashesBatch_(options) {
   try {
-    const spreadsheet = (options && options.spreadsheet) || SpreadsheetApp.openById(ERV2_BACKEND_CONFIG.spreadsheetId);
-    const sheets = erv2ReadRequiredSheets_(spreadsheet);
-    const cases = erv2ExpectedCaseRows_(sheets.cases.sheet);
-    const folder = erv2OpenAssetFolder_(options || {});
-    const props = (options && options.properties) || erv2ScriptProperties_();
-    const cursor = Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.cursor) || 0);
-    const startedAt = props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.startedAt) || erv2NowIso_();
-    if (!props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.startedAt)) {
-      props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.startedAt, startedAt);
-    }
+    return erv2WithScriptLock_(function() {
+      const spreadsheet = (options && options.spreadsheet) || SpreadsheetApp.openById(ERV2_BACKEND_CONFIG.spreadsheetId);
+      const sheets = erv2ReadRequiredSheets_(spreadsheet);
+      const cases = erv2ExpectedCaseRows_(sheets.cases.sheet);
+      const folderId = erv2AssetFolderIdForOptions_(options || {});
+      const folder = erv2OpenAssetFolder_(options || {});
+      const props = (options && options.properties) || erv2ScriptProperties_();
+      erv2GuardAssetVerificationFolder_(props, folderId);
 
-    const batchSize = Number((options && options.batchSize) || ERV2_BACKEND_CONFIG.assetHashBatchSize);
-    const end = Math.min(cases.length, cursor + batchSize);
-    let passCount = Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.passCount) || 0);
-    let failCount = Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.failCount) || 0);
-    const failures = [];
-
-    for (let index = cursor; index < end; index += 1) {
-      const row = cases[index];
-      const result = erv2VerifySingleDriveAssetHash_(folder, row);
-      if (result.ok) {
-        passCount += 1;
-      } else {
-        failCount += 1;
-        failures.push({ case_id: row.case_id, code: result.code });
+      const cursor = Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.cursor) || 0);
+      const startedAt = props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.startedAt) || erv2NowIso_();
+      if (!props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.startedAt)) {
+        props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.startedAt, startedAt);
       }
-    }
 
-    props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.cursor, String(end));
-    props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.passCount, String(passCount));
-    props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.failCount, String(failCount));
+      const batchSize = Number((options && options.batchSize) || ERV2_BACKEND_CONFIG.assetHashBatchSize);
+      const end = Math.min(cases.length, cursor + batchSize);
+      let passCount = Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.passCount) || 0);
+      let failCount = Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.failCount) || 0);
+      const counters = erv2ReadAssetVerificationCounters_(props);
+      const batchFailures = [];
 
-    const done = end >= cases.length;
-    return {
-      ok: done && failCount === 0,
-      status: done && failCount === 0 ? "DRIVE_ASSET_FULL_SHA256_VERIFIED" : "DRIVE_ASSET_SHA256_BATCH_IN_PROGRESS",
-      expected: cases.length,
-      verified: passCount,
-      cursor: end,
-      remaining: Math.max(0, cases.length - end),
-      mismatches: failures.filter(function(item) { return item.code === "ASSET_INTEGRITY_MISMATCH"; }).length,
-      missing: failures.filter(function(item) { return item.code === "ASSET_NOT_FOUND"; }).length,
-      duplicates: failures.filter(function(item) { return item.code === "ASSET_DUPLICATE"; }).length,
-      invalid_mime: failures.filter(function(item) { return item.code === "ASSET_INVALID_MIME"; }).length,
-      failed: failCount,
-      failures: failures,
-      started_at: startedAt,
-    };
+      for (let index = cursor; index < end; index += 1) {
+        const row = cases[index];
+        const result = erv2VerifySingleDriveAssetHash_(folder, row);
+        if (result.ok) {
+          passCount += 1;
+        } else {
+          failCount += 1;
+          erv2IncrementAssetVerificationCounter_(counters, result.code);
+          batchFailures.push({ case_id: row.case_id, code: result.code });
+        }
+      }
+
+      props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.cursor, String(end));
+      props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.passCount, String(passCount));
+      props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.failCount, String(failCount));
+      erv2WriteAssetVerificationCounters_(props, counters);
+
+      const done = end >= cases.length;
+      const status = !done ? "DRIVE_ASSET_SHA256_BATCH_IN_PROGRESS" :
+        (failCount === 0 ? "DRIVE_ASSET_FULL_SHA256_VERIFIED" : "DRIVE_ASSET_FULL_SHA256_FAILED");
+      return {
+        ok: done && failCount === 0,
+        status: status,
+        expected: cases.length,
+        verified: passCount,
+        cursor: end,
+        remaining: Math.max(0, cases.length - end),
+        mismatches: counters.mismatches,
+        missing: counters.missing,
+        duplicates: counters.duplicates,
+        invalid_mime: counters.invalid_mime,
+        internal_errors: counters.internal_errors,
+        failed: failCount,
+        batch_failures: batchFailures,
+        started_at: startedAt,
+      };
+    }, options || {});
   } catch (error) {
     return erv2Failure_(error);
   }
@@ -655,6 +672,52 @@ function erv2ConfiguredAssetFolderId_() {
   return raw;
 }
 
+function erv2AssetFolderIdForOptions_(options) {
+  const folderId = options && options.assetFolderId ? String(options.assetFolderId) : erv2ConfiguredAssetFolderId_();
+  if (!folderId) throw erv2Error_("ASSET_FOLDER_NOT_CONFIGURED", "Reviewer asset folder is not configured.");
+  return folderId;
+}
+
+function erv2GuardAssetVerificationFolder_(props, folderId) {
+  const existing = props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.folderId);
+  if (existing && existing !== folderId) {
+    throw erv2Error_("ASSET_VERIFICATION_STATE_MISMATCH", "Asset verification progress belongs to another folder.");
+  }
+  if (!existing) props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.folderId, folderId);
+}
+
+function erv2ReadAssetVerificationCounters_(props) {
+  return {
+    mismatches: Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.mismatchCount) || 0),
+    missing: Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.missingCount) || 0),
+    duplicates: Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.duplicateCount) || 0),
+    invalid_mime: Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.invalidMimeCount) || 0),
+    internal_errors: Number(props.getProperty(ERV2_ASSET_VERIFY_PROPERTIES.internalErrorCount) || 0),
+  };
+}
+
+function erv2WriteAssetVerificationCounters_(props, counters) {
+  props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.mismatchCount, String(counters.mismatches));
+  props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.missingCount, String(counters.missing));
+  props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.duplicateCount, String(counters.duplicates));
+  props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.invalidMimeCount, String(counters.invalid_mime));
+  props.setProperty(ERV2_ASSET_VERIFY_PROPERTIES.internalErrorCount, String(counters.internal_errors));
+}
+
+function erv2IncrementAssetVerificationCounter_(counters, code) {
+  if (code === "ASSET_INTEGRITY_MISMATCH") {
+    counters.mismatches += 1;
+  } else if (code === "ASSET_NOT_FOUND") {
+    counters.missing += 1;
+  } else if (code === "ASSET_DUPLICATE") {
+    counters.duplicates += 1;
+  } else if (code === "ASSET_INVALID_MIME") {
+    counters.invalid_mime += 1;
+  } else {
+    counters.internal_errors += 1;
+  }
+}
+
 function erv2ScriptProperties_() {
   if (typeof PropertiesService === "undefined") {
     throw erv2Error_("ASSET_FOLDER_NOT_CONFIGURED", "Required server-side configuration is missing.");
@@ -1000,6 +1063,7 @@ function erv2Failure_(error) {
     ASSET_INVALID_MIME: true,
     ASSET_INTEGRITY_MISMATCH: true,
     ASSET_VERIFICATION_INCOMPLETE: true,
+    ASSET_VERIFICATION_STATE_MISMATCH: true,
   };
   return {
     ok: false,
