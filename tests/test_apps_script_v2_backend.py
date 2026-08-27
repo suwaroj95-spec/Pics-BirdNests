@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import subprocess
 import unittest
 from pathlib import Path
@@ -9,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "docs" / "anchor-review-small-16-32-64-128" / "google-apps-script" / "ExpertReviewV2.gs"
 CODE = ROOT / "docs" / "anchor-review-small-16-32-64-128" / "google-apps-script" / "Code.gs"
 HARNESS = ROOT / "tests" / "apps_script_v2_backend_harness.js"
+AUTHORITATIVE_SPREADSHEET_ID = "1c5QYrz8CJymAO3LAu8szYnBoubnoT82dPQkf0UJRGTg"
 
 
 class AppsScriptV2BackendTests(unittest.TestCase):
@@ -27,6 +29,16 @@ class AppsScriptV2BackendTests(unittest.TestCase):
         self.assertLess(handoff_index, legacy_validation_index)
         for action in ("LOAD_PROGRESS", "SAVE_PROGRESS", "SUBMIT_FINAL"):
             self.assertIn(f'payload.action === "{action}"', self.legacy)
+
+    def test_legacy_spreadsheet_binding_matches_expert_review_v2(self) -> None:
+        self.assertNotIn("PASTE_TARGET_SPREADSHEET_ID_HERE", self.legacy)
+        legacy_match = re.search(r'const\s+SPREADSHEET_ID\s*=\s*"([^"]+)";', self.legacy)
+        v2_match = re.search(r'spreadsheetId:\s*"([^"]+)"', self.source)
+        self.assertIsNotNone(legacy_match)
+        self.assertIsNotNone(v2_match)
+        self.assertEqual(legacy_match.group(1), AUTHORITATIVE_SPREADSHEET_ID)
+        self.assertEqual(v2_match.group(1), AUTHORITATIVE_SPREADSHEET_ID)
+        self.assertEqual(legacy_match.group(1), v2_match.group(1))
 
     def test_production_identity_fails_closed_without_script_properties(self) -> None:
         for value in (

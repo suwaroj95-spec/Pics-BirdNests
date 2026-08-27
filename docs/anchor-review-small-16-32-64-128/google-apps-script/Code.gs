@@ -1,4 +1,5 @@
-const SPREADSHEET_ID = "PASTE_TARGET_SPREADSHEET_ID_HERE";
+const SPREADSHEET_ID =
+  "1c5QYrz8CJymAO3LAu8szYnBoubnoT82dPQkf0UJRGTg";
 const REVIEW_SITE_ORIGIN = "https://suwaroj95-spec.github.io";
 
 const EXPECTED_IDENTITY = {
