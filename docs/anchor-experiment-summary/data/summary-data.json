@@ -12,6 +12,7 @@
     "fn": 382,
     "precision_proxy": 0.3424920128,
     "prediction_count": 1565,
+    "project_ap": 0.0590570586,
     "recall": 0.5838779956,
     "schema_version": 1,
     "terminology": "Unmatched predictions are annotation-relative model-only predictions until Expert Review.",
@@ -47,8 +48,8 @@
     "seed": 20260713,
     "threshold": 0.125
   },
-  "purpose": "complete_public_research_summary_through_expert_review_launch",
+  "purpose": "thai_first_research_book_through_expert_review_launch",
   "reviewer_web_app_url": "https://script.google.com/macros/s/AKfycbxr5yysjT4AOmUvy_VX4IfobRHAELHp3ZfklGK5xafB2GErI-hlWnfJ0cGmcF6AA4Ex/exec?ui=v2",
   "route": "anchor-experiment-summary",
-  "schema_version": 3
+  "schema_version": 4
 }

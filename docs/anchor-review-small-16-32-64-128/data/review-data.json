@@ -2,6 +2,6 @@
   "purpose": "retired_public_review_gallery_redirect",
   "redirect_target": "../anchor-experiment-summary/",
   "route": "anchor-review-small-16-32-64-128",
-  "schema_version": 3,
+  "schema_version": 4,
   "status": "RETIRED"
 }

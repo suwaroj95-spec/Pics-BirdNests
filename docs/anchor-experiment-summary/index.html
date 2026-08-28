@@ -3,177 +3,205 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BirdNests Expert Review Launched - Complete Research Narrative</title>
-  <meta name="description" content="Thai-first scientific infographic for the Pics-BirdNests Faster R-CNN research prototype through Expert Review launch and in-progress human review.">
+  <title>BirdNests Faster R-CNN - หนังสือสรุปงานวิจัยและ Expert Review</title>
+  <meta name="description" content="หนังสือสรุปงานวิจัย BirdNests Faster R-CNN ภาษาไทย ตั้งแต่ชุดข้อมูล การทดลอง E00-E22 Model Lock E22 Final Test และ Expert Review ที่เปิดใช้งานแล้ว">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
   <header class="site-header">
-    <nav class="topbar" aria-label="Section navigation">
+    <nav class="topbar" aria-label="ทางลัดบทสำคัญ">
       <a href="../">Docs Home</a>
-      <a href="#overview">ภาพรวม</a>
-      <a href="#data">ข้อมูล</a>
-      <a href="#experiments">การทดลอง</a>
-      <a href="#model-lock">Model Lock</a>
-      <a href="#e22">E22 Final Test</a>
-      <a href="#expert-review">Expert Review</a>
-      <a href="#current-status">สถานะปัจจุบัน</a>
+      <a href="#purpose">01</a>
+<a href="#dataset">02</a>
+<a href="#split-tiling">03</a>
+<a href="#model-metrics">04</a>
+<a href="#experiment-journey">05</a>
+<a href="#multi-seed">06</a>
+<a href="#duration">07</a>
+<a href="#model-lock">08</a>
+<a href="#e22">09</a>
+<a href="#why-review">10</a>
+<a href="#review-package">11</a>
+<a href="#reviewer-design">12</a>
+<a href="#security">13</a>
+<a href="#current-status">14</a>
+<a href="#next">15</a>
     </nav>
-    <section class="hero" id="overview">
+    <section class="cover" id="cover">
       <p class="eyebrow">ENGINEERING / RESEARCH PROTOTYPE</p>
-      <h1>BirdNests Faster R-CNN: จากงานวิจัยสู่ Expert Review ที่เปิดใช้งานแล้ว</h1>
-      <p class="subtitle">สรุปสาธารณะของโครงการตรวจจับ candidate dirty spots ในภาพรังนก ตั้งแต่ Deep Research, dataset, systematic experiments E00-E22, model lock, final untouched test, ไปจนถึงระบบ Expert Review production launch.</p>
+      <h1>BirdNests Faster R-CNN</h1>
+      <p class="subtitle">เส้นทางการพัฒนาต้นแบบตรวจจับจุดสกปรกในภาพรังนก ตั้งแต่การเตรียมข้อมูล การทดลองอย่างเป็นระบบ การล็อกโมเดล การทดสอบชุดข้อมูลที่ไม่เคยใช้มาก่อน จนถึงการเปิด Expert Review</p>
       <div class="status-banner" aria-label="Expert Review current status">
         <span>EXPERT REVIEW: LAUNCHED / IN PROGRESS</span>
-        <strong>LAUNCHED</strong>
-        <em>IN PROGRESS</em>
+        <strong>LAUNCHED / IN PROGRESS</strong>
       </div>
       <div class="hero-actions">
         <a class="cta" href="https://script.google.com/macros/s/AKfycbxr5yysjT4AOmUvy_VX4IfobRHAELHp3ZfklGK5xafB2GErI-hlWnfJ0cGmcF6AA4Ex/exec?ui=v2" target="_blank" rel="noopener noreferrer">เปิดระบบ Expert Review</a>
         <p>สำหรับผู้ประเมินที่ได้รับ Access Token เท่านั้น</p>
       </div>
-      <div class="hero-grid">
-        <article class="metric-card"><span>Raw / marker image pairs</span><strong>240</strong><p>คู่ภาพต้นฉบับและภาพ marker</p></article>
-        <article class="metric-card"><span>Historical marker points</span><strong>7,115</strong><p>positive reference source</p></article>
-        <article class="metric-card"><span>Locked model</span><strong>E00_2_EPOCH</strong><p>seed 20260713 / threshold 0.125</p></article>
-        <article class="metric-card"><span>Expert Review</span><strong>LAUNCHED / IN PROGRESS</strong><p>results are not final yet</p></article>
+      <div class="cover-grid">
+        <article class="metric-card"><span>240</span><strong>คู่ภาพ Raw / Marker</strong><p>ชุดภาพต้นฉบับและภาพ marker ที่ใช้เป็นฐานข้อมูล</p></article>
+        <article class="metric-card"><span>7,115</span><strong>Marker reference points</strong><p>จุดอ้างอิงเชิงบวกจาก marker เดิม</p></article>
+        <article class="metric-card"><span>1,169</span><strong>Expert Review cases</strong><p>เคสสำหรับผู้เชี่ยวชาญตรวจซ้ำ</p></article>
+        <article class="metric-card"><span>58.4%</span><strong>E22 Recall</strong><p>สัดส่วน reference ที่ตรวจพบใน Final Test ไม่ใช่ production accuracy</p></article>
       </div>
     </section>
   </header>
-  <main id="main">
-    <section class="section" id="data">
-      <div class="section-heading"><p class="section-kicker">FACT</p><h2>Dataset และความหมายของ marker</h2></div>
-      <div class="split">
-        <div>
-          <p>โครงการนี้ศึกษาการตรวจจับ <strong>candidate dirty spots</strong> ในภาพรังนกด้วย computer vision โดยรักษา scientific traceability ตลอด workflow.</p>
-          <p>ภาพ marker ในอดีตถูกใช้เป็นแหล่งอ้างอิงเชิงบวก: <strong>marker presence = positive reference</strong>. แต่ <strong>marker absence ไม่เท่ากับ confirmed negative</strong> จึงห้ามสรุปว่า prediction ที่ไม่ตรง marker เป็น false positive โดยอัตโนมัติ.</p>
-        </div>
-        <div class="metric-grid small"><article class="metric-card"><span>Pairs</span><strong>240</strong><p></p></article><article class="metric-card"><span>Markers</span><strong>7,115</strong><p></p></article><article class="metric-card"><span>System label</span><strong>Research prototype</strong><p></p></article></div>
-      </div>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">FACT</p><h2>Source-level split และ tiling</h2></div>
-      <p>ใช้ source-level split เพื่อป้องกัน leakage ระหว่าง train / validation / test. ภาพถูกตัดเป็น tile สำหรับโมเดลด้วย tile size = <strong>512</strong>, overlap = <strong>128</strong>, stride = <strong>384</strong>.</p>
-      <div class="notice strong">ACTUAL MODEL-INPUT VALIDATION TILES = <strong>432</strong>. ค่า historical 468 ไม่ใช่จำนวน tile input สำหรับ inference: 468 = 36 source-image opens + 432 tile inference opens.</div>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">MODEL</p><h2>Faster R-CNN MobileNetV3-Large-FPN</h2></div>
-      <p>โมเดลเป็น Faster R-CNN แบบ 2 classes. อธิบายแบบง่าย: Faster R-CNN จะหา candidate regions ก่อน แล้วประเมินว่าแต่ละตำแหน่งน่าจะเป็นจุดสกปรกหรือไม่ พร้อมกรอบตำแหน่งโดยประมาณ.</p>
-      <details><summary>รายละเอียดทางเทคนิค</summary><p>Backbone คือ MobileNetV3-Large-FPN. การทดลองควบคุม anchor geometry, RPN proposal behavior, ROI score behavior, learning rate, scheduler, backbone unfreeze, augmentation, input resolution, threshold frontier, seeds, และ training duration.</p></details>
-    </section>
-    <section class="section" id="experiments">
-      <div class="section-heading"><p class="section-kicker">INTERPRETATION</p><h2>Systematic experiments E00-E22</h2></div>
-      <ol class="workflow"><li>Deep Research</li>
-<li>Dataset preparation</li>
-<li>Marker-derived Ground Truth</li>
-<li>Source-level split</li>
-<li>Tiling</li>
-<li>Faster R-CNN baseline</li>
-<li>Systematic experiments E00-E21</li>
-<li>Multi-seed confirmation</li>
-<li>Duration / saturation research</li>
-<li>Model Lock</li>
-<li>One-time untouched Final Test E22</li>
-<li>Error interpretation</li>
-<li>Expert Review protocol</li>
-<li>Reviewer setup</li>
-<li>Private asset verification</li>
-<li>Reviewer authentication</li>
-<li>Production Reviewer UI</li>
-<li>EXPERT REVIEW LAUNCHED</li></ol>
-      <div class="timeline-grid"><article class="timeline-card"><div><span>A</span><h3>Anchor geometry</h3><p>E00-E05</p></div><p>E00 baseline established the incumbent. E03 anchors 8/16/32/64 raised recall substantially but unmatched predictions increased greatly, so the result was HOLD. E04 larger anchors regressed.</p></article>
-<article class="timeline-card"><div><span>B</span><h3>RPN / proposals</h3><p>E06-E09</p></div><p>E06 showed proposal recall improved when the RPN budget increased; E02 current-budget proposal recall@0.50 was 0.7565. The final detector still remained budget/score limited.</p></article>
-<article class="timeline-card"><div><span>C</span><h3>ROI / score behavior</h3><p>E10</p></div><p>E10 found POSTPROCESSING_SATURATED and ROI_SCORE_LIMITED: localization was usable, but score discrimination was limited.</p></article>
-<article class="timeline-card"><div><span>D</span><h3>Learning rate and scheduler</h3><p>E12-E14</p></div><p>E12 LR 0.0025 regressed. E13 LR 0.010 improved recall but produced excessive unmatched predictions. E14 scheduler was HOLD.</p></article>
-<article class="timeline-card"><div><span>E</span><h3>Partial backbone unfreeze</h3><p>E15</p></div><p>E15 reached very high single-run recall 0.8927, but score inflation and 2,843 unmatched predictions made it HOLD.</p></article>
-<article class="timeline-card"><div><span>F</span><h3>Augmentation</h3><p>E16-E17</p></div><p>Horizontal flip did not provide meaningful improvement. Brightness/contrast augmentation regressed the operating trade-off.</p></article>
-<article class="timeline-card"><div><span>G</span><h3>Input resolution</h3><p>E19</p></div><p>Higher input resolution was promising, but not stable enough at the operating threshold to replace the incumbent.</p></article>
-<article class="timeline-card"><div><span>H</span><h3>Threshold/frontier analysis</h3><p>E20</p></div><p>E20 compared calibrated frontier finalists: E19 @ 0.15 and E15 @ 0.175 were sent to multi-seed confirmation.</p></article>
-<article class="timeline-card"><div><span>I</span><h3>Multi-seed robustness</h3><p>E21</p></div><p>Five-seed study concluded MULTISEED_LEADER. Single-run improvements were not reliable enough across seeds.</p></article>
-<article class="timeline-card"><div><span>J</span><h3>Training duration</h3><p>DURATION-R1</p></div><p>Four epochs raised mean recall to 0.8984 but unmatched predictions rose to 4985.2. Result: REGRESSION_4_EPOCH.</p></article>
-<article class="timeline-card"><div><span>K</span><h3>Saturation / Model Lock</h3><p>SATURATION-R2</p></div><p>Final saturation was NEAR_SATURATION with MODEL_LOCK_READY.</p></article>
-<article class="timeline-card"><div><span>L</span><h3>Final untouched test</h3><p>E22</p></div><p>One-time test: 36 source images, 432 actual model-input tiles, GT 918, recall 0.5838779956.</p></article></div>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">FACT + LIMITATION</p><h2>Five-seed robustness: E00, E19, E15</h2></div>
-      <p>แม้บาง single-run จะดูดีกว่า แต่ promotion criteria ไม่ผ่านอย่างสม่ำเสมอข้าม random seeds. ดังนั้น E21 สรุปว่า <strong>E00 MULTISEED_LEADER</strong>; single-run improvements ยังไม่ reproducible พอสำหรับ lock.</p>
-      <div class="metric-grid"><article class="metric-card"><span>E00</span><strong>Recall 0.660</strong><p>Precision proxy 0.355 / F2 0.537</p></article>
+  <div class="book-layout">
+    <aside class="toc" aria-label="สารบัญ">
+      <p>สารบัญ</p>
+      <nav><a href="#purpose"><span>01</span>โครงการนี้ทำอะไร</a>
+<a href="#dataset"><span>02</span>ชุดข้อมูลและ Marker</a>
+<a href="#split-tiling"><span>03</span>Split และ Tile</a>
+<a href="#model-metrics"><span>04</span>โมเดลและตัวชี้วัด</a>
+<a href="#experiment-journey"><span>05</span>เส้นทาง E00-E22</a>
+<a href="#multi-seed"><span>06</span>Multi-seed</a>
+<a href="#duration"><span>07</span>Training Duration</a>
+<a href="#model-lock"><span>08</span>Model Lock</a>
+<a href="#e22"><span>09</span>E22 Final Test</a>
+<a href="#why-review"><span>10</span>ทำไมต้อง Expert Review</a>
+<a href="#review-package"><span>11</span>ชุดเคส 1,169</a>
+<a href="#reviewer-design"><span>12</span>Reviewer A/B</a>
+<a href="#security"><span>13</span>ความปลอดภัย</a>
+<a href="#current-status"><span>14</span>สถานะปัจจุบัน</a>
+<a href="#next"><span>15</span>ข้อจำกัดและขั้นต่อไป</a></nav>
+    </aside>
+    <main id="main" class="book">
+      <section class="chapter" id="purpose">
+        <p class="chapter-number">01</p>
+        <h2>โครงการนี้ทำอะไร และทำไมต้องทำ</h2>
+        <p>โครงการนี้ศึกษาการใช้ computer vision ช่วยตรวจจับ <strong>candidate dirty spots</strong> หรือ “ตำแหน่งที่อาจเป็นจุดสกปรก” ในภาพรังนก เป้าหมายไม่ใช่การประกาศระบบตรวจคุณภาพอัตโนมัติสำเร็จรูป แต่คือการสร้างต้นแบบเชิงวิศวกรรมที่ตรวจสอบได้ทุกขั้นตอน</p>
+        <p>ระบบถูกจัดเป็น <strong>ENGINEERING / RESEARCH PROTOTYPE</strong> หมายถึงต้นแบบเพื่อพิสูจน์วิธีการ ทดลองข้อจำกัด และเตรียมข้อมูลสำหรับการประเมินโดยผู้เชี่ยวชาญ ยังไม่ใช่ production quality-control software, commercial automated inspection, หรือเครื่องมือแทนผู้เชี่ยวชาญมนุษย์</p>
+        <div class="callout teal"><strong>แก่นของงานวิจัย</strong><span>จาก marker reference เดิม สู่โมเดล Faster R-CNN ที่ถูกทดลองอย่างเป็นระบบ แล้วส่ง prediction ที่ยังตีความไม่ได้เข้าสู่ Expert Review</span></div>
+      </section>
+      <section class="chapter" id="dataset">
+        <p class="chapter-number">02</p>
+        <h2>ชุดข้อมูล 240 คู่ภาพ และ Marker 7,115 จุด</h2>
+        <p>ชุดข้อมูลตั้งต้นมี <strong>240 คู่ภาพ Raw / Marker</strong> และมี <strong>7,115 Marker reference points</strong> ที่ใช้เป็นหลักฐานเชิงบวกว่าในตำแหน่งนั้นมีสิ่งที่ควรถูกตรวจจับ</p>
+        <p>ประเด็นสำคัญคือ <strong>Marker presence = positive reference</strong> หรือการมี marker คือหลักฐานเชิงบวก แต่ <strong>Marker absence ไม่เท่ากับ confirmed negative</strong> การไม่มี marker จึงไม่ใช่หลักฐานว่าบริเวณนั้นไม่มีจุดสกปรกจริงเสมอไป</p>
+        <div class="metric-grid"><article class="metric-card"><span>240</span><strong>คู่ภาพ Raw / Marker</strong><p>ฐานภาพต้นฉบับและภาพ marker</p></article><article class="metric-card"><span>7,115</span><strong>Marker reference points</strong><p>positive reference source</p></article><article class="metric-card"><span>ข้อควรระวัง</span><strong>absence ≠ negative</strong><p>ห้ามตีความ unmatched เป็น false positive ทันที</p></article></div>
+      </section>
+      <section class="chapter" id="split-tiling">
+        <p class="chapter-number">03</p>
+        <h2>การแบ่งข้อมูลและการตัดภาพเป็น Tile</h2>
+        <p>การแบ่งข้อมูลใช้ <strong>source-level split</strong> คือแยกตามภาพต้นทาง เพื่อป้องกัน leakage ระหว่าง train, validation และ test ถ้า tile จากภาพเดียวกันหลุดไปอยู่คนละชุด ผลประเมินอาจดูดีเกินจริง</p>
+        <div class="definition-grid"><article><strong>Tile size</strong><span>512 pixels</span></article><article><strong>Overlap</strong><span>128 pixels</span></article><article><strong>Stride</strong><span>384 pixels</span></article></div>
+        <div class="callout amber"><strong>ACTUAL MODEL-INPUT VALIDATION TILES = 432</strong><span>ค่า historical 468 ไม่ใช่จำนวน tile input สำหรับ inference; 468 = 36 source-image opens + 432 tile-image inference opens</span></div>
+      </section>
+      <section class="chapter" id="model-metrics">
+        <p class="chapter-number">04</p>
+        <h2>Faster R-CNN คืออะไร และตัวชี้วัดหมายถึงอะไร</h2>
+        <p><strong>Faster R-CNN MobileNetV3-Large-FPN</strong> เป็นโมเดลตรวจจับวัตถุที่หา candidate regions ก่อน แล้วประเมินว่าตำแหน่งนั้นเข้ากับ class ที่สนใจหรือไม่ งานนี้ใช้ <strong>2 classes</strong> และรายงานผลแบบระมัดระวัง เพราะ Ground Truth มาจาก marker reference เดิม ไม่ใช่คำตัดสินสุดท้ายจากผู้เชี่ยวชาญ</p>
+        <div class="glossary-grid"><article class="info-card"><span>Recall</span><h3>สัดส่วนจุดอ้างอิงที่ตรวจพบ</h3><p>ถ้า reference มี 100 จุดและโมเดลจับได้ 60 จุด Recall คือ 60%</p></article><article class="info-card"><span>Precision proxy</span><h3>ค่าประมาณเทียบ marker</h3><p>เป็น annotation-relative ไม่ใช่ expert-confirmed precision</p></article><article class="info-card"><span>Unmatched prediction</span><h3>prediction ที่ยังจับคู่กับ Marker reference ไม่ได้</h3><p>ยังไม่ควรเรียกว่า false positive จนกว่าจะผ่าน Expert Review</p></article><article class="info-card"><span>F1 / F2</span><h3>คะแนนรวมระหว่าง Recall และ Precision proxy</h3><p>F2 ให้น้ำหนัก Recall มากกว่า F1</p></article><article class="info-card"><span>PROJECT_AP</span><h3>metric เฉพาะโครงการ</h3><p>ไม่ใช่ COCO AP, AP50, AP75 หรือ AP-small</p></article></div>
+      </section>
+      <section class="chapter" id="experiment-journey">
+        <p class="chapter-number">05</p>
+        <h2>เส้นทางการทดลองอย่างเป็นระบบ E00-E22</h2>
+        <p>การทดลองไม่ได้เป็นการสุ่มปรับค่าจนได้ตัวเลขที่ดูดี แต่เป็นลำดับคำถามเชิงวิศวกรรม: anchor เหมาะหรือไม่, proposal budget จำกัดหรือไม่, score แยกคุณภาพได้หรือไม่, augmentation ช่วยจริงหรือไม่, และ improvement reproducible ข้าม seed หรือเปล่า</p>
+        <div class="experiment-list"><article class="experiment-card"><div class="experiment-head"><span>05.1</span><div><h3>E00 Baseline</h3><p>PROMOTED AS BASELINE</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>โมเดลตั้งต้นที่เรียบง่ายและควบคุมได้ให้พฤติกรรมพื้นฐานอย่างไร</dd><dt>สิ่งที่เปลี่ยน</dt><dd>ใช้ Faster R-CNN configuration ตั้งต้นเป็นเส้นอ้างอิง</dd><dt>ผลที่พบ</dt><dd>ให้ baseline ที่อธิบายได้และกลายเป็น incumbent สำหรับการเปรียบเทียบรอบต่อไป</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.2</span><div><h3>E03 Anchors 8 / 16 / 32 / 64</h3><p>HOLD</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>anchor ขนาดเล็กช่วยจับจุดเล็กในภาพรังนกได้มากขึ้นหรือไม่</dd><dt>สิ่งที่เปลี่ยน</dt><dd>ปรับ anchor geometry ให้ละเอียดขึ้น</dd><dt>ผลที่พบ</dt><dd>Recall ดีขึ้นชัดเจน แต่ unmatched predictions เพิ่มขึ้นมาก จึงยังไม่ใช่ trade-off ที่พร้อมใช้</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.3</span><div><h3>E04 Larger anchors</h3><p>REGRESSION</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>anchor ใหญ่ขึ้นช่วยให้โมเดลมั่นคงขึ้นหรือไม่</dd><dt>สิ่งที่เปลี่ยน</dt><dd>ขยาย anchor range ไปทางขนาดใหญ่</dd><dt>ผลที่พบ</dt><dd>พฤติกรรมถดถอยเมื่อเทียบกับ baseline และไม่ได้แก้ปัญหาหลัก</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.4</span><div><h3>E06 RPN proposal budget</h3><p>DIAGNOSTIC INSIGHT</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>ขั้นตอนเสนอ candidate region ถูกจำกัดด้วยจำนวน proposal หรือไม่</dd><dt>สิ่งที่เปลี่ยน</dt><dd>เพิ่ม RPN proposal budget ในการวินิจฉัย</dd><dt>ผลที่พบ</dt><dd>Proposal recall ดีขึ้นเมื่อเพิ่ม budget; proposal recall@0.50 ที่ budget 1000 จาก E02 คือ 0.7565</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.5</span><div><h3>E10 ROI / score diagnostic</h3><p>DIAGNOSTIC HOLD</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>ตำแหน่ง prediction ใช้งานได้หรือปัญหาอยู่ที่ score discrimination</dd><dt>สิ่งที่เปลี่ยน</dt><dd>แยกตรวจ post-processing, ROI, และ score behavior</dd><dt>ผลที่พบ</dt><dd>พบ POSTPROCESSING_SATURATED และผลตัดสิน ROI_SCORE_LIMITED: localization พอใช้ได้ แต่ score ยังแยกคุณภาพ prediction ได้จำกัด</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.6</span><div><h3>E12 / E13 / E14 Learning control</h3><p>REGRESSION / HOLD</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>learning rate หรือ scheduler ช่วยยกระดับผลโดยไม่เพิ่ม unmatched มากเกินไปหรือไม่</dd><dt>สิ่งที่เปลี่ยน</dt><dd>ทดสอบ LR 0.0025, LR 0.010 และ scheduler</dd><dt>ผลที่พบ</dt><dd>E12 ถดถอย, E13 เพิ่ม Recall แต่ unmatched สูงเกินควบคุม, E14 ยังเป็น HOLD</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.7</span><div><h3>E15 Partial backbone unfreeze</h3><p>HOLD</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>ปลดล็อก backbone บางส่วนจะช่วยให้โมเดลเรียนรู้ features เฉพาะโดเมนได้ดีขึ้นหรือไม่</dd><dt>สิ่งที่เปลี่ยน</dt><dd>partial backbone unfreeze</dd><dt>ผลที่พบ</dt><dd>single-run recall สูงมาก (0.8927) แต่เกิด score inflation และ unmatched 2,843 รายการ</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.8</span><div><h3>E16 / E17 Augmentation</h3><p>NO IMPROVEMENT / REGRESSION</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>augmentation แบบง่ายช่วย generalization หรือทำให้สัญญาณ marker อ่อนลง</dd><dt>สิ่งที่เปลี่ยน</dt><dd>ทดสอบ horizontal flip และ brightness / contrast</dd><dt>ผลที่พบ</dt><dd>horizontal flip ไม่ให้ improvement ที่มีนัยสำคัญ ส่วน brightness / contrast ทำให้ trade-off ถดถอย</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.9</span><div><h3>E19 Higher input resolution</h3><p>PROMISING BUT NOT LOCKED</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>ภาพ input ที่ละเอียดขึ้นช่วยจับจุดเล็กได้ดีขึ้นหรือไม่</dd><dt>สิ่งที่เปลี่ยน</dt><dd>เพิ่ม input resolution</dd><dt>ผลที่พบ</dt><dd>ผลดูมีศักยภาพ แต่ยังไม่มั่นคงพอที่ operating threshold จะชนะ baseline อย่างปลอดภัย</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.10</span><div><h3>E20 Frontier finalist selection</h3><p>FINALISTS SELECTED</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>configuration ใดควรเข้าสู่การพิสูจน์แบบ multi-seed</dd><dt>สิ่งที่เปลี่ยน</dt><dd>เปรียบเทียบ frontier finalists และ threshold candidates</dd><dt>ผลที่พบ</dt><dd>E19 @ 0.15 และ E15 @ 0.175 ถูกส่งต่อไปตรวจสอบความแข็งแรงกับหลาย seed</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>05.11</span><div><h3>E21 Five-seed robustness</h3><p>E00 MULTISEED_LEADER</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>ผลที่ดูดีในรอบเดียว reproducible ข้าม random seeds หรือไม่</dd><dt>สิ่งที่เปลี่ยน</dt><dd>รัน E00, E19, E15 แบบ five-seed</dd><dt>ผลที่พบ</dt><dd>สรุปการจัดอันดับคือ MULTISEED_LEADER เพราะ improvement ของคู่แข่งยังไม่สม่ำเสมอพอเมื่อเทียบกับความเสี่ยง unmatched</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>07</span><div><h3>DURATION-R1 Training duration</h3><p>REGRESSION_4_EPOCH</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>ฝึก 4 epochs ดีกว่า 2 epochs จริงหรือไม่</dd><dt>สิ่งที่เปลี่ยน</dt><dd>เปรียบเทียบ 2 epochs กับ 4 epochs แบบ controlled</dd><dt>ผลที่พบ</dt><dd>4 epochs เพิ่ม mean Recall เป็น 0.8984 แต่ unmatched เพิ่มเป็น 4985.2 ทำให้ operating trade-off แย่ลง</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>08</span><div><h3>SATURATION-R2 / Model Lock</h3><p>MODEL LOCK READY</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>โมเดลพร้อมถูกล็อกก่อน Final Test หรือยัง</dd><dt>สิ่งที่เปลี่ยน</dt><dd>ประเมิน saturation และ readiness ก่อนแตะ untouched test</dd><dt>ผลที่พบ</dt><dd>Final saturation = NEAR_SATURATION และ readiness = MODEL_LOCK_READY</dd></dl></article>
+<article class="experiment-card"><div class="experiment-head"><span>09</span><div><h3>E22 Untouched Final Test</h3><p>GENERALIZATION_CONSISTENT</p></div></div><dl><dt>คำถามที่ทดสอบ</dt><dd>เมื่อล็อกโมเดลแล้ว ผลบนชุดข้อมูลที่ไม่เคยใช้มาก่อนเป็นอย่างไร</dd><dt>สิ่งที่เปลี่ยน</dt><dd>รัน one-time final test หลัง Model Lock</dd><dt>ผลที่พบ</dt><dd>36 source images, 432 actual model-input tiles, GT 918, Recall 0.5838779956</dd></dl></article></div>
+      </section>
+      <section class="chapter" id="multi-seed">
+        <p class="chapter-number">06</p>
+        <h2>Multi-seed: ทำไม E00 จึงยังเป็นโมเดลที่เลือก</h2>
+        <p>ผลเฉลี่ยที่สูงกว่าไม่ได้แปลว่าควรแทน baseline โดยอัตโนมัติ การ promote configuration ต้องเห็น improvement ที่สม่ำเสมอข้าม seed และต้องควบคุม trade-off ของ unmatched predictions ได้</p>
+        <div class="metric-grid"><article class="metric-card"><span>E00</span><strong>Recall 0.660</strong><p>Precision proxy 0.355 / F2 0.537</p></article>
 <article class="metric-card"><span>E19</span><strong>Recall 0.703</strong><p>Precision proxy 0.369 / F2 0.567</p></article>
 <article class="metric-card"><span>E15</span><strong>Recall 0.657</strong><p>Precision proxy 0.417 / F2 0.579</p></article></div>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">INTERPRETATION</p><h2>Training duration: ฝึกนานขึ้นไม่ได้แปลว่าดีขึ้นเสมอไป</h2></div>
-      <div class="metric-grid"><article class="metric-card"><span>2 epochs recall mean</span><strong>0.6604</strong><p>unmatched 1395.8</p></article><article class="metric-card"><span>4 epochs recall mean</span><strong>0.8984</strong><p>unmatched 4985.2</p></article><article class="metric-card"><span>Conclusion</span><strong>4 epochs = REGRESSION</strong><p>2 epochs retained</p></article></div>
-    </section>
-    <section class="section lock" id="model-lock">
-      <div class="section-heading"><p class="section-kicker">MODEL LOCK</p><h2>Frozen before final test access</h2></div>
-      <div class="metric-grid"><article class="metric-card"><span>Configuration</span><strong>E00_2_EPOCH</strong><p></p></article><article class="metric-card"><span>Seed</span><strong>20260713</strong><p></p></article><article class="metric-card"><span>Threshold</span><strong>0.125</strong><p></p></article><article class="metric-card"><span>Checkpoint SHA256</span><strong>54eb334d15a2...d05bdd</strong><p>full hash below</p></article></div>
-      <details><summary>Full checkpoint SHA256</summary><code>54eb334d15a2e07ac715782bc6aa66a2d7d5921d13ddb3fac25c7bf853d05bdd</code></details>
-      <p class="notice">After Model Lock: NO further model tuning, NO threshold retuning, and NO test-set-driven changes.</p>
-    </section>
-    <section class="section" id="e22">
-      <div class="section-heading"><p class="section-kicker">FACT</p><h2>E22 one-time untouched Final Test</h2></div>
-      <div class="metric-grid"><article class="metric-card"><span>Source images</span><strong>36</strong><p></p></article><article class="metric-card"><span>Actual model-input tiles</span><strong>432</strong><p></p></article><article class="metric-card"><span>GT</span><strong>918</strong><p></p></article><article class="metric-card"><span>TP / FN</span><strong>536 / 382</strong><p></p></article><article class="metric-card"><span>Predictions</span><strong>1,565</strong><p></p></article><article class="metric-card"><span>Recall</span><strong>0.583878 / 58.4%</strong><p></p></article><article class="metric-card"><span>Precision proxy</span><strong>0.342492 / 34.2%</strong><p>annotation-relative</p></article><article class="metric-card"><span>Unmatched</span><strong>1,029</strong><p></p></article><article class="metric-card"><span>F1</span><strong>0.431736</strong><p></p></article><article class="metric-card"><span>F2</span><strong>0.511743</strong><p></p></article><article class="metric-card"><span>PROJECT_AP</span><strong>0.059057</strong><p>annotation-relative project metric</p></article><article class="metric-card"><span>Assessment</span><strong>GENERALIZATION_CONSISTENT</strong><p></p></article></div>
-      <div class="notice">PROJECT_AP is an annotation-relative project metric. It is not COCO AP and is NOT full COCO AP / AP50 / AP75 / AP-small. Precision proxy is annotation-relative and is NOT expert-confirmed precision.</div>
-      <p>Selected validation seed recall ≈ 0.5792 and final test recall ≈ 0.5839, so the locked model generalized consistently relative to validation behavior. This does not mean 58.4% recall is production-grade.</p>
-    </section>
-    <section class="section" id="expert-review">
-      <div class="section-heading"><p class="section-kicker">WHY EXPERT REVIEW</p><h2>Unmatched/model-only predictions are scientifically unresolved</h2></div>
-      <p>E22 produced <strong>1,029 unmatched/model-only predictions</strong>. Because marker absence is not confirmed negative evidence, these cases must be reviewed by humans before being interpreted.</p>
-      <div class="info-grid"><article class="info-card"><span>possible outcome</span><h3>real dirty spot</h3><p>จุดสกปรกจริงที่ marker เดิมอาจไม่ได้ระบุ</p></article><article class="info-card"><span>possible outcome</span><h3>real false positive</h3><p>โมเดลเสนอ candidate ที่ไม่ใช่จุดสกปรก</p></article><article class="info-card"><span>possible outcome</span><h3>ambiguous / unjudgeable</h3><p>ภาพไม่ชัดหรือประเมินไม่ได้</p></article><article class="info-card"><span>possible outcome</span><h3>localization issue</h3><p>candidate กับ marker มีปัญหาตำแหน่ง</p></article></div>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">FACT</p><h2>EXPERT-REVIEW-R1 case package</h2></div>
-      <div class="metric-grid"><article class="metric-card"><span>Total Expert Review cases</span><strong>1,169</strong><p></p></article><article class="metric-card"><span>Unmatched/model-only</span><strong>1,029</strong><p></p></article><article class="metric-card"><span>TP QC</span><strong>60</strong><p></p></article><article class="metric-card"><span>FN controls</span><strong>80</strong><p>Q1-Q4, 20 cases each</p></article><article class="metric-card"><span>Batches</span><strong>16 batches</strong><p>nominal 75 / final 44</p></article></div>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">HUMAN DECISION DEFINITIONS</p><h2>Allowed decisions and confidence</h2></div>
-      <ul class="decision-list"><li><code>CONFIRMED_DIRTY_SPOT</code><span>ยืนยันว่าเป็นจุดสกปรก</span></li>
+        <div class="callout teal"><strong>ข้อสรุป E21</strong><span>E00 MULTISEED_LEADER เพราะคู่แข่งยังไม่ชนะอย่างมั่นคงพอ แม้บาง metric เฉลี่ยจะสูงกว่าในบางมุม</span></div>
+      </section>
+      <section class="chapter" id="duration">
+        <p class="chapter-number">07</p>
+        <h2>Training Duration: ทำไมฝึกนานขึ้นไม่ได้แปลว่าดีขึ้น</h2>
+        <p>การเปรียบเทียบ 2 epochs กับ 4 epochs เป็น controlled duration study. 4 epochs เพิ่ม Recall ได้ แต่เพิ่ม unmatched count มากกว่าอย่างมีนัยสำคัญ ทำให้ trade-off ของระบบแย่ลงสำหรับ workflow นี้</p>
+        <div class="metric-grid"><article class="metric-card"><span>2 epochs</span><strong>Recall 0.6604</strong><p>unmatched 1395.8</p></article><article class="metric-card"><span>4 epochs</span><strong>Recall 0.8984</strong><p>unmatched 4985.2</p></article><article class="metric-card"><span>Conclusion</span><strong>4 epochs = REGRESSION</strong><p>2 epochs retained</p></article></div>
+        <div class="callout amber"><strong>ฝึกนานขึ้นไม่ได้แปลว่าโมเดลดีขึ้นเสมอไป</strong><span>เมื่อตัวเลข Recall ดีขึ้นพร้อมกับ unmatched ที่เพิ่มมากเกินไป ระบบอาจสร้างภาระ review และความเสี่ยงการตีความมากกว่าเดิม</span></div>
+      </section>
+      <section class="chapter" id="model-lock">
+        <p class="chapter-number">08</p>
+        <h2>Model Lock: ล็อกโมเดลก่อนเปิด Final Test</h2>
+        <p>ก่อนแตะชุด Final Test โครงการล็อก configuration เพื่อป้องกัน test-set-driven modifications. หลังจุดนี้ไม่มีการ tuning โมเดล ไม่มีการ retune threshold และไม่มีการใช้ผล test เพื่อย้อนกลับไปปรับระบบ</p>
+        <div class="metric-grid"><article class="metric-card"><span>Configuration</span><strong>E00_2_EPOCH</strong><p></p></article><article class="metric-card"><span>Seed</span><strong>20260713</strong><p></p></article><article class="metric-card"><span>Threshold</span><strong>0.125</strong><p></p></article><article class="metric-card"><span>One-time test</span><strong>TRUE</strong><p></p></article></div>
+        <details><summary>Checkpoint SHA-256 สำหรับตรวจสอบความคงเดิมของโมเดล</summary><p><code>54eb334d15a2e07ac715782bc6aa66a2d7d5921d13ddb3fac25c7bf853d05bdd</code></p></details>
+      </section>
+      <section class="chapter emphasis" id="e22">
+        <p class="chapter-number">09</p>
+        <h2>E22: Untouched Final Test ที่ใช้เพียงครั้งเดียว</h2>
+        <p>E22 คือการทดสอบหลัง Model Lock บนข้อมูลที่ไม่เคยใช้ในการเลือกโมเดลหรือปรับ threshold มาก่อน จึงเป็นหลักฐานสำคัญที่สุดของพฤติกรรมโมเดลก่อนเข้าสู่ Expert Review</p>
+        <div class="metric-grid e22-grid"><article class="metric-card"><span>Source images</span><strong>36</strong><p></p></article><article class="metric-card"><span>Actual model-input tiles</span><strong>432</strong><p></p></article><article class="metric-card"><span>GT</span><strong>918</strong><p></p></article><article class="metric-card"><span>TP</span><strong>536</strong><p></p></article><article class="metric-card"><span>FN</span><strong>382</strong><p></p></article><article class="metric-card"><span>Predictions</span><strong>1,565</strong><p></p></article><article class="metric-card"><span>Recall</span><strong>0.5838779956 ≈ 58.4%</strong><p></p></article><article class="metric-card"><span>Precision proxy</span><strong>0.3424920128 ≈ 34.2%</strong><p></p></article><article class="metric-card"><span>Unmatched/model-only</span><strong>1,029</strong><p></p></article><article class="metric-card"><span>F1</span><strong>0.4317358035</strong><p></p></article><article class="metric-card"><span>F2</span><strong>0.5117433645</strong><p></p></article><article class="metric-card"><span>PROJECT_AP</span><strong>0.0590570586</strong><p></p></article></div>
+        <div class="callout teal"><strong>Assessment: GENERALIZATION_CONSISTENT</strong><span>selected validation seed recall ≈ 0.5792 และ final test recall ≈ 0.5839 จึงสอดคล้องกันในเชิงพฤติกรรม แต่ยังไม่ใช่หลักฐานว่าเป็น production-ready หรือ high-accuracy automated QC</span></div>
+        <div class="callout amber"><strong>ข้อจำกัดของ PROJECT_AP</strong><span>PROJECT_AP เป็น metric เฉพาะโครงการเทียบกับ annotation เดิม ไม่ใช่ COCO AP, AP50, AP75 หรือ AP-small</span></div>
+      </section>
+      <section class="chapter" id="why-review">
+        <p class="chapter-number">10</p>
+        <h2>ทำไม 1,029 Unmatched จึงยังไม่ควรถูกเรียกว่า False Positive</h2>
+        <p>โมเดลสร้าง <strong>1,029 unmatched/model-only predictions</strong> บน E22. คำว่า unmatched แปลเพียงว่ายังจับคู่กับ Marker reference เดิมไม่ได้ ไม่ได้แปลว่าผิดแน่นอน</p>
+        <div class="interpretation-grid"><article class="info-card"><span>ความเป็นไปได้</span><h3>จุดสกปรกจริงที่ marker เดิมพลาด</h3><p>ต้องให้ผู้เชี่ยวชาญยืนยัน</p></article><article class="info-card"><span>ความเป็นไปได้</span><h3>False positive จริง</h3><p>prediction ไม่ใช่จุดสกปรก</p></article><article class="info-card"><span>ความเป็นไปได้</span><h3>Ambiguous</h3><p>ภาพหรือบริบทไม่ชัดพอ</p></article><article class="info-card"><span>ความเป็นไปได้</span><h3>Unjudgeable</h3><p>ไม่สามารถประเมินจากภาพที่มี</p></article><article class="info-card"><span>ความเป็นไปได้</span><h3>Annotation localization issue</h3><p>ตำแหน่ง reference กับ candidate ไม่ตรงกัน</p></article></div>
+      </section>
+      <section class="chapter" id="review-package">
+        <p class="chapter-number">11</p>
+        <h2>การออกแบบ Expert Review จำนวน 1,169 เคส</h2>
+        <p>ชุด Expert Review ถูกสร้างเพื่อแยกความหมายของ unmatched predictions และมี control cases เพื่อวัดคุณภาพการประเมิน ไม่ใช่เป็นเพียง gallery ภาพสาธารณะ</p>
+        <div class="metric-grid"><article class="metric-card"><span>Total</span><strong>1,169</strong><p>Expert Review cases</p></article><article class="metric-card"><span>Unmatched/model-only</span><strong>1,029</strong><p></p></article><article class="metric-card"><span>TP quality-control</span><strong>60</strong><p></p></article><article class="metric-card"><span>FN controls</span><strong>80</strong><p>Q1-Q4, 20 each</p></article><article class="metric-card"><span>Batches</span><strong>16</strong><p>nominal 75 / final 44</p></article></div>
+        <h3>Allowed decisions</h3>
+        <ul class="decision-list"><li><code>CONFIRMED_DIRTY_SPOT</code><span>ยืนยันว่าเป็นจุดสกปรก</span></li>
 <li><code>NOT_DIRTY_SPOT</code><span>ไม่ใช่จุดสกปรก</span></li>
 <li><code>AMBIGUOUS</code><span>ไม่แน่ชัด</span></li>
 <li><code>UNJUDGEABLE</code><span>ไม่สามารถประเมินจากภาพได้</span></li>
 <li><code>ANNOTATION_LOCALIZATION_ISSUE</code><span>ตำแหน่ง Annotation ไม่ตรงกับจุดสกปรก</span></li></ul>
-      <p class="confidence-row"><strong>Confidence:</strong> <span>HIGH</span><span>MEDIUM</span><span>LOW</span></p>
-      <p>Model score is intentionally hidden from reviewers.</p>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">REVIEWER DESIGN</p><h2>PRIMARY_PLUS_RELIABILITY_SUBSET</h2></div>
-      <div class="metric-grid"><article class="metric-card"><span>REV_A workload</span><strong>1,169</strong><p>all review cases</p></article><article class="metric-card"><span>REV_B workload</span><strong>292</strong><p>deterministic reliability subset</p></article><article class="metric-card"><span>REV_B unmatched</span><strong>257</strong><p></p></article><article class="metric-card"><span>REV_B TP QC</span><strong>15</strong><p></p></article><article class="metric-card"><span>REV_B FN controls</span><strong>20</strong><p>Q1-Q4, 5 each</p></article></div>
-      <p>The second reviewer evaluates a deterministic reliability subset to estimate inter-rater agreement while reducing total expert workload. Reviewer identities and operational tokens are not public.</p>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">AGREEMENT PLAN</p><h2>Agreement analysis is not yet calculated</h2></div>
-      <p>On the 292 shared cases, the project will calculate raw agreement and Cohen's kappa before adjudication. Status: <strong>NOT YET CALCULATED</strong> because Expert Review is still in progress.</p>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">SECURITY / INTEGRITY</p><h2>Private asset verification and reviewer system</h2></div>
-      <div class="metric-grid"><article class="metric-card"><span>Expected review assets</span><strong>1,169</strong><p></p></article><article class="metric-card"><span>Inventory matched</span><strong>1,169 / 1,169</strong><p></p></article><article class="metric-card"><span>SHA-256 verified</span><strong>1,169 / 1,169</strong><p></p></article><article class="metric-card"><span>Missing / mismatch / duplicate</span><strong>0 / 0 / 0</strong><p></p></article><article class="metric-card"><span>Invalid MIME / internal errors</span><strong>0 / 0</strong><p></p></article></div>
-      <p>Private review images are served only after server-side authorization. The system flow is: public Web App login page → Access Token → server-side SHA-256 token mapping → reviewer authorization → assignment validation → private image retrieval → review decision.</p>
-      <p>No raw reviewer token is stored in GitHub, Google Sheet, URL, or localStorage.</p>
-    </section>
-    <section class="section">
-      <div class="section-heading"><p class="section-kicker">PRODUCTION AUTHENTICATION TEST</p><h2>Authentication verified before launch</h2></div>
-      <div class="metric-grid"><article class="metric-card"><span>Invalid token</span><strong>UNAUTHORIZED_REVIEWER</strong><p>correctly rejected</p></article><article class="metric-card"><span>Valid REV_A token while inactive</span><strong>REVIEWER_INACTIVE</strong><p>recognized but blocked</p></article><article class="metric-card"><span>Valid REV_B token while inactive</span><strong>REVIEWER_INACTIVE</strong><p>recognized but blocked</p></article><article class="metric-card"><span>Responses / sessions created</span><strong>0 / 0</strong><p></p></article></div>
-      <p><strong>PRODUCTION AUTHENTICATION VERIFIED.</strong> No raw tokens or secret digest values are published.</p>
-    </section>
-    <section class="section launched">
-      <div class="section-heading"><p class="section-kicker">CURRENT STATUS</p><h2>EXPERT REVIEW LAUNCHED</h2></div>
-      <div class="metric-grid"><article class="metric-card"><span>REV_A active</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>REV_B active</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>launch_gate_status</span><strong>REVIEW_LAUNCHED</strong><p></p></article><article class="metric-card"><span>review_start_enabled</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>REV_A smoke test</span><strong>Case 1 of 1,169 loaded successfully</strong><p></p></article><article class="metric-card"><span>REV_B smoke test</span><strong>Case 1 of 292 loaded successfully</strong><p></p></article><article class="metric-card"><span>At production launch verification</span><strong>ReviewResponses = 0</strong><p></p></article><article class="metric-card"><span>At production launch verification</span><strong>ReviewSessionsV2 = 0</strong><p></p></article></div>
-      <p>Private images loaded successfully in the no-submit production smoke test. Status after this milestone: <strong>EXPERT REVIEW IN PROGRESS</strong>.</p>
-    </section>
-    <section class="section" id="current-status">
-      <div class="section-heading"><p class="section-kicker">CURRENT PROJECT STATUS</p><h2>Completed now, final scientific conclusion later</h2></div>
-      <div class="status-columns">
-        <article><h3>Completed</h3><ul><li>Dataset preparation</li><li>Ground-truth pipeline</li><li>Source-level split</li><li>Faster R-CNN systematic experiments</li><li>Multi-seed validation</li><li>Duration research</li><li>Model lock</li><li>One-time untouched test E22</li><li>Expert Review protocol</li><li>Reviewer assignment freeze</li><li>Private asset integrity verification</li><li>Production reviewer authentication</li><li>Reviewer UI deployment</li><li>Expert Review production launch</li></ul></article>
-        <article><h3>Current</h3><p><strong>Expert Review - IN PROGRESS</strong></p></article>
-        <article><h3>Next</h3><p>Expert Review completion → agreement analysis → Cohen's kappa → adjudication where required → annotation-corrected interpretation → final scientific conclusion.</p></article>
-      </div>
-    </section>
-  </main>
-  <footer>Public scientific summary. Expert Review results are not final. No private review assets, raw tokens, secret digest values, Drive private folder IDs, or researcher-only metadata are published.</footer>
+        <p class="confidence-row"><strong>Confidence</strong><span>HIGH</span><span>MEDIUM</span><span>LOW</span></p>
+        <p>Model scores are intentionally hidden from reviewers เพื่อไม่ให้คะแนนของโมเดลชี้นำการตัดสินใจของมนุษย์</p>
+      </section>
+      <section class="chapter" id="reviewer-design">
+        <p class="chapter-number">12</p>
+        <h2>Reviewer A/B และแผนวิเคราะห์ Agreement</h2>
+        <p>โหมด review คือ <strong>PRIMARY_PLUS_RELIABILITY_SUBSET</strong>. Reviewer หลักตรวจครบทุกเคส ส่วน reviewer ที่สองตรวจ subset แบบ deterministic เพื่อประเมินความสอดคล้องโดยไม่เพิ่มภาระงานจนเกินจำเป็น</p>
+        <div class="metric-grid"><article class="metric-card"><span>REV_A</span><strong>1,169 cases</strong><p>primary full review</p></article><article class="metric-card"><span>REV_B</span><strong>292 cases</strong><p>reliability subset</p></article><article class="metric-card"><span>REV_B unmatched</span><strong>257</strong><p></p></article><article class="metric-card"><span>REV_B TP QC</span><strong>15</strong><p></p></article><article class="metric-card"><span>REV_B FN controls</span><strong>20</strong><p>Q1-Q4: 5 each</p></article></div>
+        <div class="callout teal"><strong>แผนวิเคราะห์ความสอดคล้อง</strong><span>จะคำนวณ Raw Agreement และ Cohen's kappa บน shared subset หลัง review เสร็จ สถานะตอนนี้คือ NOT YET CALCULATED</span></div>
+      </section>
+      <section class="chapter" id="security">
+        <p class="chapter-number">13</p>
+        <h2>ความปลอดภัยและความถูกต้องของระบบ Expert Review</h2>
+        <p>ก่อน launch มีการตรวจสอบ private asset inventory และ integrity ครบทุกเคส เพื่อให้แน่ใจว่าภาพที่ reviewer เห็นตรงกับ package ที่ freeze ไว้</p>
+        <div class="metric-grid"><article class="metric-card"><span>Expected assets</span><strong>1,169</strong><p></p></article><article class="metric-card"><span>Inventory matched</span><strong>1,169 / 1,169</strong><p></p></article><article class="metric-card"><span>SHA-256 verified</span><strong>1,169 / 1,169</strong><p></p></article><article class="metric-card"><span>Missing</span><strong>0</strong><p></p></article><article class="metric-card"><span>Mismatch</span><strong>0</strong><p></p></article><article class="metric-card"><span>Duplicates</span><strong>0</strong><p></p></article><article class="metric-card"><span>Invalid MIME</span><strong>0</strong><p></p></article><article class="metric-card"><span>Internal errors</span><strong>0</strong><p></p></article></div>
+        <div class="flow" aria-label="reviewer access architecture"><span>Web App</span><span>Access Token</span><span>server-side authorization</span><span>reviewer assignment check</span><span>private asset delivery</span><span>review decision</span></div>
+        <p class="privacy-note">หน้า public นี้ไม่เผยแพร่ access token ดิบ, ค่าลับสำหรับยืนยันสิทธิ์, private asset identifiers หรือ researcher-only metadata</p>
+      </section>
+      <section class="chapter launched" id="current-status">
+        <p class="chapter-number">14</p>
+        <h2>สถานะปัจจุบัน: EXPERT REVIEW — LAUNCHED / IN PROGRESS</h2>
+        <p>ระบบ Expert Review เปิดใช้งานแล้ว และผล review ยังไม่ final. หน้า public จึงต้องสื่อสารสถานะเป็น launched / in progress เท่านั้น ไม่สรุปผลทางวิทยาศาสตร์แทนผู้เชี่ยวชาญ</p>
+        <div class="metric-grid"><article class="metric-card"><span>REV_A active</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>REV_B active</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>launch_gate_status</span><strong>REVIEW_LAUNCHED</strong><p></p></article><article class="metric-card"><span>review_start_enabled</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>REV_A smoke test</span><strong>Case 1 of 1,169 loaded</strong><p></p></article><article class="metric-card"><span>REV_B smoke test</span><strong>Case 1 of 292 loaded</strong><p></p></article><article class="metric-card"><span>ReviewResponses</span><strong>0</strong><p>ณ เวลาตรวจสอบก่อนเริ่มการประเมินจริง</p></article><article class="metric-card"><span>ReviewSessionsV2</span><strong>0</strong><p>ณ เวลาตรวจสอบก่อนเริ่มการประเมินจริง</p></article></div>
+        <p>Production no-submit smoke test ยืนยันว่า private assets loaded สำหรับ reviewer flow แล้ว</p>
+      </section>
+      <section class="chapter" id="next">
+        <p class="chapter-number">15</p>
+        <h2>อภิธานศัพท์ ข้อจำกัด และสิ่งที่จะทำต่อ</h2>
+        <div class="status-columns">
+          <article><h3>เสร็จแล้ว</h3><ul><li>dataset preparation</li><li>marker reference pipeline</li><li>source-level split</li><li>systematic Faster R-CNN experiments</li><li>multi-seed testing</li><li>duration research</li><li>Model Lock</li><li>one-time E22 final test</li><li>Expert Review protocol</li><li>reviewer assignment freeze</li><li>asset SHA verification</li><li>authentication verification</li><li>production Reviewer UI deployment</li><li>Expert Review launch</li></ul></article>
+          <article><h3>กำลังดำเนินการ</h3><p><strong>Expert Review — IN PROGRESS</strong></p></article>
+          <article><h3>ขั้นต่อไป</h3><p>Expert Review completion → Raw Agreement → Cohen's kappa → adjudication → annotation-corrected interpretation → final scientific conclusions</p></article>
+        </div>
+        <div class="callout amber"><strong>ข้อจำกัดสำคัญ</strong><span>Expert-adjusted Recall ยังไม่สามารถ claim ได้ เว้นแต่มี denominator ที่ valid หลังการตรวจของผู้เชี่ยวชาญ</span></div>
+      </section>
+    </main>
+  </div>
+  <footer>Public scientific summary. Expert Review results are not final. No private review assets, raw tokens, secret authorization values, private asset identifiers, or researcher-only metadata are published.</footer>
 </body>
 </html>
