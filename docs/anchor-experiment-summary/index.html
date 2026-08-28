@@ -3,220 +3,177 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>สรุปผลทดลอง Anchor - Pics-BirdNests</title>
-  <meta name="description" content="Interim management summary for the Pics-BirdNests Faster R-CNN anchor experiment.">
+  <title>BirdNests Expert Review Launched - Complete Research Narrative</title>
+  <meta name="description" content="Thai-first scientific infographic for the Pics-BirdNests Faster R-CNN research prototype through Expert Review launch and in-progress human review.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">ข้ามไปยังเนื้อหา</a>
-
+  <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
   <header class="site-header">
-    <nav class="topbar" aria-label="ทางลัด">
+    <nav class="topbar" aria-label="Section navigation">
       <a href="../">Docs Home</a>
-      <a href="../anchor-review-small-16-32-64-128/">Expert Review Add-on</a>
+      <a href="#overview">ภาพรวม</a>
+      <a href="#data">ข้อมูล</a>
+      <a href="#experiments">การทดลอง</a>
+      <a href="#model-lock">Model Lock</a>
+      <a href="#e22">E22 Final Test</a>
+      <a href="#expert-review">Expert Review</a>
+      <a href="#current-status">สถานะปัจจุบัน</a>
     </nav>
-    <section class="hero" aria-labelledby="page-title">
-      <div class="hero-copy">
-        <p class="eyebrow">Interim management summary</p>
-        <h1 id="page-title">ผลการทดลองปรับ Anchor และสถานะการประเมินโดยผู้เชี่ยวชาญ</h1>
-        <p class="subtitle">สรุปความคืบหน้าการทดลองปรับ Faster R-CNN anchors สำหรับต้นแบบตรวจจุดสกปรกในภาพรังนก แยกชัดเจนระหว่างผลอัตโนมัติที่ทำเสร็จแล้วกับข้อสรุปสุดท้ายที่ยังต้องรอผู้เชี่ยวชาญตรวจยืนยัน</p>
+    <section class="hero" id="overview">
+      <p class="eyebrow">ENGINEERING / RESEARCH PROTOTYPE</p>
+      <h1>BirdNests Faster R-CNN: จากงานวิจัยสู่ Expert Review ที่เปิดใช้งานแล้ว</h1>
+      <p class="subtitle">สรุปสาธารณะของโครงการตรวจจับ candidate dirty spots ในภาพรังนก ตั้งแต่ Deep Research, dataset, systematic experiments E00-E22, model lock, final untouched test, ไปจนถึงระบบ Expert Review production launch.</p>
+      <div class="status-banner" aria-label="Expert Review current status">
+        <span>EXPERT REVIEW: LAUNCHED / IN PROGRESS</span>
+        <strong>LAUNCHED</strong>
+        <em>IN PROGRESS</em>
       </div>
-      <aside class="status-card" aria-label="Current status">
-        <span class="status-label">Current status</span>
-        <strong>เตรียมชุดข้อมูลสำหรับผู้เชี่ยวชาญแล้ว</strong>
-        <p>ผลอัตโนมัติของชุด Anchor ใหม่ทำเสร็จแล้ว และอยู่ระหว่างรอผลตรวจยืนยันจากผู้เชี่ยวชาญก่อนสรุปแนวทางใช้งานจริง</p>
-      </aside>
+      <div class="hero-actions">
+        <a class="cta" href="https://script.google.com/macros/s/AKfycbxr5yysjT4AOmUvy_VX4IfobRHAELHp3ZfklGK5xafB2GErI-hlWnfJ0cGmcF6AA4Ex/exec?ui=v2" target="_blank" rel="noopener noreferrer">เปิดระบบ Expert Review</a>
+        <p>สำหรับผู้ประเมินที่ได้รับ Access Token เท่านั้น</p>
+      </div>
+      <div class="hero-grid">
+        <article class="metric-card"><span>Raw / marker image pairs</span><strong>240</strong><p>คู่ภาพต้นฉบับและภาพ marker</p></article>
+        <article class="metric-card"><span>Historical marker points</span><strong>7,115</strong><p>positive reference source</p></article>
+        <article class="metric-card"><span>Locked model</span><strong>E00_2_EPOCH</strong><p>seed 20260713 / threshold 0.125</p></article>
+        <article class="metric-card"><span>Expert Review</span><strong>LAUNCHED / IN PROGRESS</strong><p>results are not final yet</p></article>
+      </div>
     </section>
   </header>
-
   <main id="main">
-    <section class="section why-grid" aria-labelledby="why-title">
-      <div>
-        <p class="section-kicker">Why this experiment was done</p>
-        <h2 id="why-title">ได้รับมอบหมายให้ทดลองปรับ Anchor เพื่อประเมินผลกับจุดสกปรกขนาดเล็ก</h2>
-      </div>
-      <div class="plain-panel">
-        <p>ตามที่ได้รับมอบหมาย จึงทดลองปรับ Anchor ของ Faster R-CNN จากชุดเดิมไปเป็นชุดที่เน้นขนาดเล็กมากขึ้น เพื่อประเมินว่าสามารถตรวจจุดสกปรกขนาดเล็กได้ดีขึ้นหรือไม่ และช่วยลดจำนวนผลตรวจส่วนเกินที่ต้องให้ผู้เชี่ยวชาญพิจารณาภายหลัง</p>
-        <p>หน้านี้เป็นสรุปผลเบื้องต้นสำหรับติดตามความคืบหน้า ยังไม่ใช่ข้อสรุปสุดท้ายของโมเดล</p>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="change-title">
-      <div class="section-heading">
+    <section class="section" id="data">
+      <div class="section-heading"><p class="section-kicker">FACT</p><h2>Dataset และความหมายของ marker</h2></div>
+      <div class="split">
         <div>
-          <p class="section-kicker">What changed</p>
-          <h2 id="change-title">Old vs New Anchor Configuration</h2>
+          <p>โครงการนี้ศึกษาการตรวจจับ <strong>candidate dirty spots</strong> ในภาพรังนกด้วย computer vision โดยรักษา scientific traceability ตลอด workflow.</p>
+          <p>ภาพ marker ในอดีตถูกใช้เป็นแหล่งอ้างอิงเชิงบวก: <strong>marker presence = positive reference</strong>. แต่ <strong>marker absence ไม่เท่ากับ confirmed negative</strong> จึงห้ามสรุปว่า prediction ที่ไม่ตรง marker เป็น false positive โดยอัตโนมัติ.</p>
         </div>
-        <p class="section-note">เพิ่ม anchor ขนาด 16 pixel และตัด 256 / 512 ออก เพื่อบังคับให้การทดลองโฟกัสวัตถุขนาดเล็กมากขึ้น</p>
-      </div>
-      <div class="anchor-compare">
-        <article class="compare-card baseline">
-          <span>Baseline</span>
-          <div class="anchor-chips" aria-label="Baseline anchors 32 64 128 256 512">
-            <b>32</b>
-            <b>64</b>
-            <b>128</b>
-            <b class="removed">256</b>
-            <b class="removed">512</b>
-          </div>
-          <p>ชุด Anchor เดิมสำหรับ baseline ที่มีผลตรวจจากผู้เชี่ยวชาญแล้ว</p>
-        </article>
-        <article class="compare-card new">
-          <span>New experiment</span>
-          <div class="anchor-chips" aria-label="Small Anchor experiment anchors 16 32 64 128">
-            <b class="added">16</b>
-            <b>32</b>
-            <b>64</b>
-            <b>128</b>
-          </div>
-          <p>ชุดทดลองใหม่ที่ใช้สำหรับ automatic comparison และกำลังรอการตรวจยืนยันจากผู้เชี่ยวชาญ</p>
-        </article>
+        <div class="metric-grid small"><article class="metric-card"><span>Pairs</span><strong>240</strong><p></p></article><article class="metric-card"><span>Markers</span><strong>7,115</strong><p></p></article><article class="metric-card"><span>System label</span><strong>Research prototype</strong><p></p></article></div>
       </div>
     </section>
-
-    <section class="section" aria-labelledby="automatic-title">
-      <div class="section-heading">
-        <div>
-          <p class="section-kicker">Automatic comparison @ threshold 0.125</p>
-          <h2 id="automatic-title">ผลเบื้องต้นมีแนวโน้มดีขึ้น แต่ยังต้องยืนยันด้วยการตรวจจากผู้เชี่ยวชาญ</h2>
-        </div>
-        <p class="warning">ผลส่วนนี้เป็นการประเมินอัตโนมัติ ยังไม่ใช่ข้อสรุปสุดท้ายจากผู้เชี่ยวชาญ</p>
-      </div>
-      <div class="metric-grid">
-        <article class="metric-card">
-          <span class="metric-label">Recall</span>
-          <div class="metric-values">
-            <span>0.7099</span>
-            <strong>0.7322</strong>
-          </div>
-          <p>เพิ่มขึ้นเล็กน้อยเมื่อใช้ Small Anchor</p>
-          <div class="bar-pair" aria-hidden="true"><span style="width: 70.99%"></span><strong style="width: 73.22%"></strong></div>
-        </article>
-        <article class="metric-card">
-          <span class="metric-label">Automatic precision proxy</span>
-          <div class="metric-values">
-            <span>0.2723</span>
-            <strong>0.3298</strong>
-          </div>
-          <p>ดีขึ้นในตัวชี้วัด proxy จากการประเมินอัตโนมัติ</p>
-          <div class="bar-pair" aria-hidden="true"><span style="width: 27.23%"></span><strong style="width: 32.98%"></strong></div>
-        </article>
-        <article class="metric-card positive">
-          <span class="metric-label">Unmatched predictions</span>
-          <div class="metric-values">
-            <span>1,785</span>
-            <strong>1,400</strong>
-          </div>
-          <p>ลดลง 385 รายการ หรือประมาณ 21.6%</p>
-          <div class="bar-pair reverse" aria-hidden="true"><span style="width: 100%"></span><strong style="width: 78.4%"></strong></div>
-        </article>
-      </div>
-      <div class="comparison-table" role="table" aria-label="Automatic comparison table">
-        <div class="table-row table-head" role="row">
-          <span role="columnheader">Metric</span>
-          <span role="columnheader">Baseline</span>
-          <span role="columnheader">Small Anchor</span>
-          <span role="columnheader">Direction</span>
-        </div>
-        <div class="table-row" role="row">
-          <span role="cell">Recall</span>
-          <span role="cell">0.7099</span>
-          <span role="cell">0.7322</span>
-          <span role="cell" class="good">Up</span>
-        </div>
-        <div class="table-row" role="row">
-          <span role="cell">Automatic precision proxy</span>
-          <span role="cell">0.2723</span>
-          <span role="cell">0.3298</span>
-          <span role="cell" class="good">Up</span>
-        </div>
-        <div class="table-row" role="row">
-          <span role="cell">Unmatched predictions</span>
-          <span role="cell">1,785</span>
-          <span role="cell">1,400</span>
-          <span role="cell" class="good">Down 21.6%</span>
-        </div>
-      </div>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">FACT</p><h2>Source-level split และ tiling</h2></div>
+      <p>ใช้ source-level split เพื่อป้องกัน leakage ระหว่าง train / validation / test. ภาพถูกตัดเป็น tile สำหรับโมเดลด้วย tile size = <strong>512</strong>, overlap = <strong>128</strong>, stride = <strong>384</strong>.</p>
+      <div class="notice strong">ACTUAL MODEL-INPUT VALIDATION TILES = <strong>432</strong>. ค่า historical 468 ไม่ใช่จำนวน tile input สำหรับ inference: 468 = 36 source-image opens + 432 tile inference opens.</div>
     </section>
-
-    <section class="section baseline-insight" aria-labelledby="baseline-title">
-      <div>
-        <p class="section-kicker">Verified expert-review baseline insight</p>
-        <h2 id="baseline-title">ผลตรวจ baseline เดิมยืนยันว่าปัญหาหลักคือ false positive burden สูง</h2>
-        <p>นี่คือผล expert-reviewed baseline ของ anchor เดิม ไม่ใช่ accuracy รวมของระบบ</p>
-      </div>
-      <div class="baseline-stats">
-        <div><span>Reviewed predictions</span><strong>1,785</strong></div>
-        <div><span>Accepted by expert</span><strong>128</strong></div>
-        <div><span>Expert-confirmed false positives</span><strong>1,657</strong></div>
-        <div><span>Pairing error</span><strong>0</strong></div>
-        <div><span>Unresolved</span><strong>0</strong></div>
-        <div><span>Human-reviewed precision</span><strong>7.17%</strong></div>
-      </div>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">MODEL</p><h2>Faster R-CNN MobileNetV3-Large-FPN</h2></div>
+      <p>โมเดลเป็น Faster R-CNN แบบ 2 classes. อธิบายแบบง่าย: Faster R-CNN จะหา candidate regions ก่อน แล้วประเมินว่าแต่ละตำแหน่งน่าจะเป็นจุดสกปรกหรือไม่ พร้อมกรอบตำแหน่งโดยประมาณ.</p>
+      <details><summary>รายละเอียดทางเทคนิค</summary><p>Backbone คือ MobileNetV3-Large-FPN. การทดลองควบคุม anchor geometry, RPN proposal behavior, ROI score behavior, learning rate, scheduler, backbone unfreeze, augmentation, input resolution, threshold frontier, seeds, และ training duration.</p></details>
     </section>
-
-    <section class="section interpretation" aria-labelledby="suggests-title">
-      <div>
-        <p class="section-kicker">What it suggests so far</p>
-        <h2 id="suggests-title">แนวโน้มดีขึ้น แต่ยังต้องรอผลตรวจจากผู้เชี่ยวชาญ</h2>
-      </div>
-      <div class="interpretation-grid">
-        <article>
-          <span class="mini-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"></path><path d="M14 7h6v6"></path></svg>
-          </span>
-          <strong>แนวโน้มจากผลอัตโนมัติดีขึ้น</strong>
-          <p>Recall และ automatic precision proxy เพิ่มขึ้น ขณะที่ unmatched predictions ลดลง</p>
-        </article>
-        <article>
-          <span class="mini-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-          </span>
-          <strong>อาจลดภาระการตรวจ</strong>
-          <p>จำนวนรายการที่ต้องพิจารณาลดลง 385 รายการ เมื่อเทียบกับ baseline เดิม</p>
-        </article>
-        <article>
-          <span class="mini-icon pending" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>
-          </span>
-          <strong>ยังไม่ควรสรุปผลก่อนการตรวจยืนยัน</strong>
-          <p>ต้องรอผลตรวจของ Small Anchor ทั้ง 1,400 รายการ เพื่อเทียบ human-reviewed precision กับ baseline 7.17%</p>
-        </article>
-      </div>
+    <section class="section" id="experiments">
+      <div class="section-heading"><p class="section-kicker">INTERPRETATION</p><h2>Systematic experiments E00-E22</h2></div>
+      <ol class="workflow"><li>Deep Research</li>
+<li>Dataset preparation</li>
+<li>Marker-derived Ground Truth</li>
+<li>Source-level split</li>
+<li>Tiling</li>
+<li>Faster R-CNN baseline</li>
+<li>Systematic experiments E00-E21</li>
+<li>Multi-seed confirmation</li>
+<li>Duration / saturation research</li>
+<li>Model Lock</li>
+<li>One-time untouched Final Test E22</li>
+<li>Error interpretation</li>
+<li>Expert Review protocol</li>
+<li>Reviewer setup</li>
+<li>Private asset verification</li>
+<li>Reviewer authentication</li>
+<li>Production Reviewer UI</li>
+<li>EXPERT REVIEW LAUNCHED</li></ol>
+      <div class="timeline-grid"><article class="timeline-card"><div><span>A</span><h3>Anchor geometry</h3><p>E00-E05</p></div><p>E00 baseline established the incumbent. E03 anchors 8/16/32/64 raised recall substantially but unmatched predictions increased greatly, so the result was HOLD. E04 larger anchors regressed.</p></article>
+<article class="timeline-card"><div><span>B</span><h3>RPN / proposals</h3><p>E06-E09</p></div><p>E06 showed proposal recall improved when the RPN budget increased; E02 current-budget proposal recall@0.50 was 0.7565. The final detector still remained budget/score limited.</p></article>
+<article class="timeline-card"><div><span>C</span><h3>ROI / score behavior</h3><p>E10</p></div><p>E10 found POSTPROCESSING_SATURATED and ROI_SCORE_LIMITED: localization was usable, but score discrimination was limited.</p></article>
+<article class="timeline-card"><div><span>D</span><h3>Learning rate and scheduler</h3><p>E12-E14</p></div><p>E12 LR 0.0025 regressed. E13 LR 0.010 improved recall but produced excessive unmatched predictions. E14 scheduler was HOLD.</p></article>
+<article class="timeline-card"><div><span>E</span><h3>Partial backbone unfreeze</h3><p>E15</p></div><p>E15 reached very high single-run recall 0.8927, but score inflation and 2,843 unmatched predictions made it HOLD.</p></article>
+<article class="timeline-card"><div><span>F</span><h3>Augmentation</h3><p>E16-E17</p></div><p>Horizontal flip did not provide meaningful improvement. Brightness/contrast augmentation regressed the operating trade-off.</p></article>
+<article class="timeline-card"><div><span>G</span><h3>Input resolution</h3><p>E19</p></div><p>Higher input resolution was promising, but not stable enough at the operating threshold to replace the incumbent.</p></article>
+<article class="timeline-card"><div><span>H</span><h3>Threshold/frontier analysis</h3><p>E20</p></div><p>E20 compared calibrated frontier finalists: E19 @ 0.15 and E15 @ 0.175 were sent to multi-seed confirmation.</p></article>
+<article class="timeline-card"><div><span>I</span><h3>Multi-seed robustness</h3><p>E21</p></div><p>Five-seed study concluded MULTISEED_LEADER. Single-run improvements were not reliable enough across seeds.</p></article>
+<article class="timeline-card"><div><span>J</span><h3>Training duration</h3><p>DURATION-R1</p></div><p>Four epochs raised mean recall to 0.8984 but unmatched predictions rose to 4985.2. Result: REGRESSION_4_EPOCH.</p></article>
+<article class="timeline-card"><div><span>K</span><h3>Saturation / Model Lock</h3><p>SATURATION-R2</p></div><p>Final saturation was NEAR_SATURATION with MODEL_LOCK_READY.</p></article>
+<article class="timeline-card"><div><span>L</span><h3>Final untouched test</h3><p>E22</p></div><p>One-time test: 36 source images, 432 actual model-input tiles, GT 918, recall 0.5838779956.</p></article></div>
     </section>
-
-    <section class="section next-grid" aria-labelledby="next-title">
-      <div>
-        <p class="section-kicker">What happens next</p>
-        <h2 id="next-title">ตรวจยืนยันและสรุปแนวทางปรับปรุงโมเดล</h2>
-      </div>
-      <ul class="next-list">
-        <li>ส่งชุดข้อมูล Small Anchor ให้ผู้เชี่ยวชาญตรวจยืนยัน</li>
-        <li>รับผลตรวจจากผู้เชี่ยวชาญในรูปแบบ structured results กลับมา</li>
-        <li>เทียบ human-reviewed precision ของ Small Anchor กับ baseline 7.17%</li>
-        <li>วิเคราะห์สาเหตุของ false positives / false negatives ที่ยังเหลือ</li>
-        <li>ตัดสินว่าจะ adopt anchor ใหม่, ปรับ threshold, เพิ่ม hard negatives, หรือคง default anchor</li>
-      </ul>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">FACT + LIMITATION</p><h2>Five-seed robustness: E00, E19, E15</h2></div>
+      <p>แม้บาง single-run จะดูดีกว่า แต่ promotion criteria ไม่ผ่านอย่างสม่ำเสมอข้าม random seeds. ดังนั้น E21 สรุปว่า <strong>E00 MULTISEED_LEADER</strong>; single-run improvements ยังไม่ reproducible พอสำหรับ lock.</p>
+      <div class="metric-grid"><article class="metric-card"><span>E00</span><strong>Recall 0.660</strong><p>Precision proxy 0.355 / F2 0.537</p></article>
+<article class="metric-card"><span>E19</span><strong>Recall 0.703</strong><p>Precision proxy 0.369 / F2 0.567</p></article>
+<article class="metric-card"><span>E15</span><strong>Recall 0.657</strong><p>Precision proxy 0.417 / F2 0.579</p></article></div>
     </section>
-
-    <section class="review-callout" aria-labelledby="review-title">
-      <div>
-        <p class="section-kicker">Supporting add-on</p>
-        <h2 id="review-title">หน้า Expert Review สำหรับตรวจผลรายรายการ</h2>
-        <p>ลิงก์ด้านล่างใช้สำหรับตรวจคู่ภาพ บันทึกผลการพิจารณา และส่งผลตรวจกลับเข้าสู่ระบบ โดยข้อมูลในหน้าสรุปนี้ยังคงแยกจากผลตรวจรายรายการอย่างชัดเจน</p>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">INTERPRETATION</p><h2>Training duration: ฝึกนานขึ้นไม่ได้แปลว่าดีขึ้นเสมอไป</h2></div>
+      <div class="metric-grid"><article class="metric-card"><span>2 epochs recall mean</span><strong>0.6604</strong><p>unmatched 1395.8</p></article><article class="metric-card"><span>4 epochs recall mean</span><strong>0.8984</strong><p>unmatched 4985.2</p></article><article class="metric-card"><span>Conclusion</span><strong>4 epochs = REGRESSION</strong><p>2 epochs retained</p></article></div>
+    </section>
+    <section class="section lock" id="model-lock">
+      <div class="section-heading"><p class="section-kicker">MODEL LOCK</p><h2>Frozen before final test access</h2></div>
+      <div class="metric-grid"><article class="metric-card"><span>Configuration</span><strong>E00_2_EPOCH</strong><p></p></article><article class="metric-card"><span>Seed</span><strong>20260713</strong><p></p></article><article class="metric-card"><span>Threshold</span><strong>0.125</strong><p></p></article><article class="metric-card"><span>Checkpoint SHA256</span><strong>54eb334d15a2...d05bdd</strong><p>full hash below</p></article></div>
+      <details><summary>Full checkpoint SHA256</summary><code>54eb334d15a2e07ac715782bc6aa66a2d7d5921d13ddb3fac25c7bf853d05bdd</code></details>
+      <p class="notice">After Model Lock: NO further model tuning, NO threshold retuning, and NO test-set-driven changes.</p>
+    </section>
+    <section class="section" id="e22">
+      <div class="section-heading"><p class="section-kicker">FACT</p><h2>E22 one-time untouched Final Test</h2></div>
+      <div class="metric-grid"><article class="metric-card"><span>Source images</span><strong>36</strong><p></p></article><article class="metric-card"><span>Actual model-input tiles</span><strong>432</strong><p></p></article><article class="metric-card"><span>GT</span><strong>918</strong><p></p></article><article class="metric-card"><span>TP / FN</span><strong>536 / 382</strong><p></p></article><article class="metric-card"><span>Predictions</span><strong>1,565</strong><p></p></article><article class="metric-card"><span>Recall</span><strong>0.583878 / 58.4%</strong><p></p></article><article class="metric-card"><span>Precision proxy</span><strong>0.342492 / 34.2%</strong><p>annotation-relative</p></article><article class="metric-card"><span>Unmatched</span><strong>1,029</strong><p></p></article><article class="metric-card"><span>F1</span><strong>0.431736</strong><p></p></article><article class="metric-card"><span>F2</span><strong>0.511743</strong><p></p></article><article class="metric-card"><span>PROJECT_AP</span><strong>0.059057</strong><p>annotation-relative project metric</p></article><article class="metric-card"><span>Assessment</span><strong>GENERALIZATION_CONSISTENT</strong><p></p></article></div>
+      <div class="notice">PROJECT_AP is an annotation-relative project metric. It is not COCO AP and is NOT full COCO AP / AP50 / AP75 / AP-small. Precision proxy is annotation-relative and is NOT expert-confirmed precision.</div>
+      <p>Selected validation seed recall ≈ 0.5792 and final test recall ≈ 0.5839, so the locked model generalized consistently relative to validation behavior. This does not mean 58.4% recall is production-grade.</p>
+    </section>
+    <section class="section" id="expert-review">
+      <div class="section-heading"><p class="section-kicker">WHY EXPERT REVIEW</p><h2>Unmatched/model-only predictions are scientifically unresolved</h2></div>
+      <p>E22 produced <strong>1,029 unmatched/model-only predictions</strong>. Because marker absence is not confirmed negative evidence, these cases must be reviewed by humans before being interpreted.</p>
+      <div class="info-grid"><article class="info-card"><span>possible outcome</span><h3>real dirty spot</h3><p>จุดสกปรกจริงที่ marker เดิมอาจไม่ได้ระบุ</p></article><article class="info-card"><span>possible outcome</span><h3>real false positive</h3><p>โมเดลเสนอ candidate ที่ไม่ใช่จุดสกปรก</p></article><article class="info-card"><span>possible outcome</span><h3>ambiguous / unjudgeable</h3><p>ภาพไม่ชัดหรือประเมินไม่ได้</p></article><article class="info-card"><span>possible outcome</span><h3>localization issue</h3><p>candidate กับ marker มีปัญหาตำแหน่ง</p></article></div>
+    </section>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">FACT</p><h2>EXPERT-REVIEW-R1 case package</h2></div>
+      <div class="metric-grid"><article class="metric-card"><span>Total Expert Review cases</span><strong>1,169</strong><p></p></article><article class="metric-card"><span>Unmatched/model-only</span><strong>1,029</strong><p></p></article><article class="metric-card"><span>TP QC</span><strong>60</strong><p></p></article><article class="metric-card"><span>FN controls</span><strong>80</strong><p>Q1-Q4, 20 cases each</p></article><article class="metric-card"><span>Batches</span><strong>16 batches</strong><p>nominal 75 / final 44</p></article></div>
+    </section>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">HUMAN DECISION DEFINITIONS</p><h2>Allowed decisions and confidence</h2></div>
+      <ul class="decision-list"><li><code>CONFIRMED_DIRTY_SPOT</code><span>ยืนยันว่าเป็นจุดสกปรก</span></li>
+<li><code>NOT_DIRTY_SPOT</code><span>ไม่ใช่จุดสกปรก</span></li>
+<li><code>AMBIGUOUS</code><span>ไม่แน่ชัด</span></li>
+<li><code>UNJUDGEABLE</code><span>ไม่สามารถประเมินจากภาพได้</span></li>
+<li><code>ANNOTATION_LOCALIZATION_ISSUE</code><span>ตำแหน่ง Annotation ไม่ตรงกับจุดสกปรก</span></li></ul>
+      <p class="confidence-row"><strong>Confidence:</strong> <span>HIGH</span><span>MEDIUM</span><span>LOW</span></p>
+      <p>Model score is intentionally hidden from reviewers.</p>
+    </section>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">REVIEWER DESIGN</p><h2>PRIMARY_PLUS_RELIABILITY_SUBSET</h2></div>
+      <div class="metric-grid"><article class="metric-card"><span>REV_A workload</span><strong>1,169</strong><p>all review cases</p></article><article class="metric-card"><span>REV_B workload</span><strong>292</strong><p>deterministic reliability subset</p></article><article class="metric-card"><span>REV_B unmatched</span><strong>257</strong><p></p></article><article class="metric-card"><span>REV_B TP QC</span><strong>15</strong><p></p></article><article class="metric-card"><span>REV_B FN controls</span><strong>20</strong><p>Q1-Q4, 5 each</p></article></div>
+      <p>The second reviewer evaluates a deterministic reliability subset to estimate inter-rater agreement while reducing total expert workload. Reviewer identities and operational tokens are not public.</p>
+    </section>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">AGREEMENT PLAN</p><h2>Agreement analysis is not yet calculated</h2></div>
+      <p>On the 292 shared cases, the project will calculate raw agreement and Cohen's kappa before adjudication. Status: <strong>NOT YET CALCULATED</strong> because Expert Review is still in progress.</p>
+    </section>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">SECURITY / INTEGRITY</p><h2>Private asset verification and reviewer system</h2></div>
+      <div class="metric-grid"><article class="metric-card"><span>Expected review assets</span><strong>1,169</strong><p></p></article><article class="metric-card"><span>Inventory matched</span><strong>1,169 / 1,169</strong><p></p></article><article class="metric-card"><span>SHA-256 verified</span><strong>1,169 / 1,169</strong><p></p></article><article class="metric-card"><span>Missing / mismatch / duplicate</span><strong>0 / 0 / 0</strong><p></p></article><article class="metric-card"><span>Invalid MIME / internal errors</span><strong>0 / 0</strong><p></p></article></div>
+      <p>Private review images are served only after server-side authorization. The system flow is: public Web App login page → Access Token → server-side SHA-256 token mapping → reviewer authorization → assignment validation → private image retrieval → review decision.</p>
+      <p>No raw reviewer token is stored in GitHub, Google Sheet, URL, or localStorage.</p>
+    </section>
+    <section class="section">
+      <div class="section-heading"><p class="section-kicker">PRODUCTION AUTHENTICATION TEST</p><h2>Authentication verified before launch</h2></div>
+      <div class="metric-grid"><article class="metric-card"><span>Invalid token</span><strong>UNAUTHORIZED_REVIEWER</strong><p>correctly rejected</p></article><article class="metric-card"><span>Valid REV_A token while inactive</span><strong>REVIEWER_INACTIVE</strong><p>recognized but blocked</p></article><article class="metric-card"><span>Valid REV_B token while inactive</span><strong>REVIEWER_INACTIVE</strong><p>recognized but blocked</p></article><article class="metric-card"><span>Responses / sessions created</span><strong>0 / 0</strong><p></p></article></div>
+      <p><strong>PRODUCTION AUTHENTICATION VERIFIED.</strong> No raw tokens or secret digest values are published.</p>
+    </section>
+    <section class="section launched">
+      <div class="section-heading"><p class="section-kicker">CURRENT STATUS</p><h2>EXPERT REVIEW LAUNCHED</h2></div>
+      <div class="metric-grid"><article class="metric-card"><span>REV_A active</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>REV_B active</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>launch_gate_status</span><strong>REVIEW_LAUNCHED</strong><p></p></article><article class="metric-card"><span>review_start_enabled</span><strong>TRUE</strong><p></p></article><article class="metric-card"><span>REV_A smoke test</span><strong>Case 1 of 1,169 loaded successfully</strong><p></p></article><article class="metric-card"><span>REV_B smoke test</span><strong>Case 1 of 292 loaded successfully</strong><p></p></article><article class="metric-card"><span>At production launch verification</span><strong>ReviewResponses = 0</strong><p></p></article><article class="metric-card"><span>At production launch verification</span><strong>ReviewSessionsV2 = 0</strong><p></p></article></div>
+      <p>Private images loaded successfully in the no-submit production smoke test. Status after this milestone: <strong>EXPERT REVIEW IN PROGRESS</strong>.</p>
+    </section>
+    <section class="section" id="current-status">
+      <div class="section-heading"><p class="section-kicker">CURRENT PROJECT STATUS</p><h2>Completed now, final scientific conclusion later</h2></div>
+      <div class="status-columns">
+        <article><h3>Completed</h3><ul><li>Dataset preparation</li><li>Ground-truth pipeline</li><li>Source-level split</li><li>Faster R-CNN systematic experiments</li><li>Multi-seed validation</li><li>Duration research</li><li>Model lock</li><li>One-time untouched test E22</li><li>Expert Review protocol</li><li>Reviewer assignment freeze</li><li>Private asset integrity verification</li><li>Production reviewer authentication</li><li>Reviewer UI deployment</li><li>Expert Review production launch</li></ul></article>
+        <article><h3>Current</h3><p><strong>Expert Review - IN PROGRESS</strong></p></article>
+        <article><h3>Next</h3><p>Expert Review completion → agreement analysis → Cohen's kappa → adjudication where required → annotation-corrected interpretation → final scientific conclusion.</p></article>
       </div>
-      <a class="review-link" href="https://suwaroj95-spec.github.io/Pics-BirdNests/anchor-review-small-16-32-64-128/">
-        เปิดหน้า Expert Review
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
-      </a>
     </section>
   </main>
-
-  <footer>
-    Pics-BirdNests Prototype — Interim Anchor Experiment Summary. หน้านี้สรุปผลเบื้องต้นก่อนข้อสรุปสุดท้ายจากการตรวจโดยผู้เชี่ยวชาญ.
-  </footer>
+  <footer>Public scientific summary. Expert Review results are not final. No private review assets, raw tokens, secret digest values, Drive private folder IDs, or researcher-only metadata are published.</footer>
 </body>
 </html>

@@ -1,0 +1,54 @@
+{
+  "artifact_sources": [
+    "dataset marker registry and finalization artifacts",
+    "E00-E22 Faster R-CNN experiment artifacts",
+    "DURATION-R1 and SATURATION-R2 artifacts",
+    "EXPERT-REVIEW-R1 manifests and launch-readiness evidence"
+  ],
+  "e22": {
+    "annotation_relative_precision_proxy": 0.3424920128,
+    "f1": 0.4317358035,
+    "f2": 0.5117433645,
+    "fn": 382,
+    "precision_proxy": 0.3424920128,
+    "prediction_count": 1565,
+    "recall": 0.5838779956,
+    "schema_version": 1,
+    "terminology": "Unmatched predictions are annotation-relative model-only predictions until Expert Review.",
+    "test_gt_count": 918,
+    "test_source_image_count": 36,
+    "test_tile_count": 432,
+    "threshold": 0.125,
+    "tp": 536,
+    "unmatched": 1029,
+    "unmatched_model_only_predictions": 1029
+  },
+  "expert_review": {
+    "asset_verification": "1169/1169",
+    "cases": {
+      "background_controls": 0,
+      "fn_controls": 80,
+      "total": 1169,
+      "tp_controls": 60,
+      "unmatched_model_only": 1029
+    },
+    "launch_gate_status": "REVIEW_LAUNCHED",
+    "results_final": false,
+    "rev_a_assignments": 1169,
+    "rev_b_assignments": 292,
+    "review_start_enabled": true,
+    "reviewer_mode": "PRIMARY_PLUS_RELIABILITY_SUBSET"
+  },
+  "expert_review_status": "LAUNCHED_IN_PROGRESS",
+  "lock": {
+    "checkpoint_sha256": "54eb334d15a2e07ac715782bc6aa66a2d7d5921d13ddb3fac25c7bf853d05bdd",
+    "configuration": "E00_2_EPOCH",
+    "one_time_test_completed": true,
+    "seed": 20260713,
+    "threshold": 0.125
+  },
+  "purpose": "complete_public_research_summary_through_expert_review_launch",
+  "reviewer_web_app_url": "https://script.google.com/macros/s/AKfycbxr5yysjT4AOmUvy_VX4IfobRHAELHp3ZfklGK5xafB2GErI-hlWnfJ0cGmcF6AA4Ex/exec?ui=v2",
+  "route": "anchor-experiment-summary",
+  "schema_version": 3
+}
